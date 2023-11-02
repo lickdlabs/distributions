@@ -1,0 +1,31 @@
+{
+  "name": "@lickd/distributions",
+  "version": "0.0.1-beta.11",
+  "description": "Distributions parser",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "npm link && tsc --watch",
+    "lint": "eslint --ext .js,.ts",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lickd Ltd",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/xml2js": "^0.4.13",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
+    "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "xml2js": "^0.6.2"
+  },
+  "files": [
+    "./dist"
+  ]
+}
