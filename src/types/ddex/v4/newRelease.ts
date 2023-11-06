@@ -1,17 +1,15 @@
+import { TFile } from ".";
+
 type TNewRelease = {
   resourceList: {
     soundRecording: {
       technicalDetails: {
-        file: {
-          uri: string;
-        }[];
+        file: TFile[];
       }[];
     }[];
     image: {
       technicalDetails: {
-        file: {
-          uri: string;
-        }[];
+        file: TFile[];
       }[];
     }[];
   };

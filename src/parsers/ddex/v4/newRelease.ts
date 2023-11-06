@@ -8,6 +8,10 @@ export const newRelease = (object: any): TNewRelease => ({
           (technicalDetails: any) => ({
             file: technicalDetails.File.map((file: any) => ({
               uri: file.URI[0],
+              hashSum: {
+                algorithm: file.HashSum[0].Algorithm[0],
+                hashSumValue: file.HashSum[0].HashSumValue[0],
+              },
             })),
           }),
         ),
@@ -17,6 +21,10 @@ export const newRelease = (object: any): TNewRelease => ({
       technicalDetails: image.TechnicalDetails.map((technicalDetails: any) => ({
         file: technicalDetails.File.map((file: any) => ({
           uri: file.URI[0],
+          hashSum: {
+            algorithm: file.HashSum[0].Algorithm[0],
+            hashSumValue: file.HashSum[0].HashSumValue[0],
+          },
         })),
       })),
     })),

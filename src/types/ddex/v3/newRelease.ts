@@ -1,22 +1,18 @@
+import { TFile } from ".";
+
 type TNewRelease = {
   resourceList: {
     soundRecording: {
       soundRecordingDetailsByTerritory: {
         technicalSoundRecordingDetails: {
-          file: {
-            fileName: string;
-            filePath?: string;
-          }[];
+          file: TFile[];
         }[];
       }[];
     }[];
     image: {
       imageDetailsByTerritory: {
         technicalImageDetails: {
-          file: {
-            fileName: string;
-            filePath?: string;
-          }[];
+          file: TFile[];
         }[];
       }[];
     }[];

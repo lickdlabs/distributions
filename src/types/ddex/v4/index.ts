@@ -13,4 +13,12 @@ type TDistributions = {
   [EAction.NEW_RELEASE]: TNewRelease;
 };
 
-export { TDistribution, EAction };
+type TFile = {
+  uri: string;
+  hashSum: {
+    algorithm: string;
+    hashSumValue: string;
+  };
+};
+
+export { EAction, TDistribution, TFile };

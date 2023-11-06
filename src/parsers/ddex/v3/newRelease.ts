@@ -14,6 +14,11 @@ export const newRelease = (object: any): TNewRelease => ({
                       (file: any) => ({
                         fileName: file.FileName[0],
                         filePath: file.FilePath ? file.FilePath[0] : undefined,
+                        hashSum: {
+                          hashSum: file.HashSum[0].HashSum[0],
+                          hashSumAlgorithmType:
+                            file.HashSum[0].HashSumAlgorithmType[0],
+                        },
                       }),
                     ),
                   }),
@@ -31,6 +36,11 @@ export const newRelease = (object: any): TNewRelease => ({
                 file: technicalImageDetails.File.map((file: any) => ({
                   fileName: file.FileName[0],
                   filePath: file.FilePath ? file.FilePath[0] : undefined,
+                  hashSum: {
+                    hashSum: file.HashSum[0].HashSum[0],
+                    hashSumAlgorithmType:
+                      file.HashSum[0].HashSumAlgorithmType[0],
+                  },
                 })),
               }),
             ),
