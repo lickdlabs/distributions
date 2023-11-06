@@ -2,7 +2,7 @@ import { TNewRelease } from "../../../types/ddex/v3/newRelease";
 
 export const newRelease = (object: any): TNewRelease => ({
   resourceList: {
-    soundRecording: object.ResourceList[0].SoundRecording.map(
+    soundRecording: (object.ResourceList[0]?.SoundRecording || []).map(
       (soundRecording: any) => ({
         soundRecordingDetailsByTerritory:
           soundRecording.SoundRecordingDetailsByTerritory.map(
@@ -22,7 +22,7 @@ export const newRelease = (object: any): TNewRelease => ({
           ),
       }),
     ),
-    image: object.ResourceList[0].Image.map((image: any) => ({
+    image: (object.ResourceList[0]?.Image || []).map((image: any) => ({
       imageDetailsByTerritory: image.ImageDetailsByTerritory.map(
         (imageDetailsByTerritory: any) => ({
           technicalImageDetails:
