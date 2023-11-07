@@ -1,19 +1,26 @@
 {
   "name": "@lickd/distributions",
-  "version": "0.0.1-beta.17",
+  "version": "0.0.1-beta.22",
   "description": "Distributions parser",
-  "main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
+  "main": "./dist/main/index.js",
+  "types": "./dist/types/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:clean && npm run build:main",
+    "build:clean": "rm -rf ./dist/*",
+    "build:main": "tsc",
     "watch": "npm link && tsc --watch",
     "lint": "eslint --ext .js,.ts",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "author": "Lickd Ltd",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@tsconfig/node14": "^14.1.0",
+    "@types/node": "^14.18.63",
     "@types/xml2js": "^0.4.13",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
     "@typescript-eslint/parser": "^6.9.1",
@@ -26,6 +33,6 @@
     "xml2js": "^0.6.2"
   },
   "files": [
-    "./dist"
+    "./dist/**"
   ]
 }
