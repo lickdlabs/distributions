@@ -1,6 +1,6 @@
 {
   "name": "@lickd/distributions",
-  "version": "0.0.1-beta.22",
+  "version": "0.0.1-beta.23",
   "description": "Distributions parser",
   "main": "./dist/main/index.js",
   "types": "./dist/types/index.d.ts",

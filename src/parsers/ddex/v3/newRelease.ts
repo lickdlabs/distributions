@@ -4,46 +4,42 @@ export const newRelease = (object: any): TNewRelease => ({
   resourceList: {
     soundRecording: (object.ResourceList[0]?.SoundRecording || []).map(
       (soundRecording: any) => ({
-        soundRecordingDetailsByTerritory:
-          soundRecording.SoundRecordingDetailsByTerritory.map(
-            (soundRecordingDetailsByTerritory: any) => ({
-              technicalSoundRecordingDetails:
-                soundRecordingDetailsByTerritory.TechnicalSoundRecordingDetails.map(
-                  (technicalSoundRecordingDetails: any) => ({
-                    file: technicalSoundRecordingDetails.File.map(
-                      (file: any) => ({
-                        fileName: file.FileName[0],
-                        filePath: file.FilePath ? file.FilePath[0] : undefined,
-                        hashSum: {
-                          hashSum: file.HashSum[0].HashSum[0],
-                          hashSumAlgorithmType:
-                            file.HashSum[0].HashSumAlgorithmType[0],
-                        },
-                      }),
-                    ),
-                  }),
-                ),
-            }),
-          ),
+        soundRecordingDetailsByTerritory: (
+          soundRecording.SoundRecordingDetailsByTerritory || []
+        ).map((soundRecordingDetailsByTerritory: any) => ({
+          technicalSoundRecordingDetails: (
+            soundRecordingDetailsByTerritory.TechnicalSoundRecordingDetails ||
+            []
+          ).map((technicalSoundRecordingDetails: any) => ({
+            file: (technicalSoundRecordingDetails.File || []).map(
+              (file: any) => ({
+                fileName: file.FileName[0],
+                filePath: file.FilePath ? file.FilePath[0] : undefined,
+                hashSum: {
+                  hashSum: file.HashSum[0].HashSum[0],
+                  hashSumAlgorithmType: file.HashSum[0].HashSumAlgorithmType[0],
+                },
+              }),
+            ),
+          })),
+        })),
       }),
     ),
     image: (object.ResourceList[0]?.Image || []).map((image: any) => ({
-      imageDetailsByTerritory: image.ImageDetailsByTerritory.map(
+      imageDetailsByTerritory: (image.ImageDetailsByTerritory || []).map(
         (imageDetailsByTerritory: any) => ({
-          technicalImageDetails:
-            imageDetailsByTerritory.TechnicalImageDetails.map(
-              (technicalImageDetails: any) => ({
-                file: technicalImageDetails.File.map((file: any) => ({
-                  fileName: file.FileName[0],
-                  filePath: file.FilePath ? file.FilePath[0] : undefined,
-                  hashSum: {
-                    hashSum: file.HashSum[0].HashSum[0],
-                    hashSumAlgorithmType:
-                      file.HashSum[0].HashSumAlgorithmType[0],
-                  },
-                })),
-              }),
-            ),
+          technicalImageDetails: (
+            imageDetailsByTerritory.TechnicalImageDetails || []
+          ).map((technicalImageDetails: any) => ({
+            file: (technicalImageDetails.File || []).map((file: any) => ({
+              fileName: file.FileName[0],
+              filePath: file.FilePath ? file.FilePath[0] : undefined,
+              hashSum: {
+                hashSum: file.HashSum[0].HashSum[0],
+                hashSumAlgorithmType: file.HashSum[0].HashSumAlgorithmType[0],
+              },
+            })),
+          })),
         }),
       ),
     })),
