@@ -1,12 +1,12 @@
 import * as xml2js from "xml2js";
 import * as parsers from "./parsers";
-import { EType, TDistribution } from "./types";
+import { EDistroType, TDistro } from "./types";
 
-export const parse = async (body: string): Promise<TDistribution<EType>> => {
+export const parse = async (body: string): Promise<TDistro<EDistroType>> => {
   const object = await convertToObject(body);
 
   switch (detectType(object)) {
-    case EType.DDEX:
+    case EDistroType.DDEX:
       return parsers.ddex(object);
   }
 };
@@ -21,9 +21,9 @@ const convertToObject = async (body: string): Promise<any> => {
   }
 };
 
-const detectType = (object: any): EType => {
+const detectType = (object: any): EDistroType => {
   if (isDdex(object)) {
-    return EType.DDEX;
+    return EDistroType.DDEX;
   }
 
   throw new Error("could not detect distribution type");

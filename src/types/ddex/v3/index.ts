@@ -1,25 +1,14 @@
 import { TNewRelease } from "./newRelease";
 
-enum EAction {
+export enum EDistroDdexV3Action {
   NEW_RELEASE = "newRelease",
 }
 
-type TDistribution<T extends EAction> = {
+export type TDistroDdexV3<T extends EDistroDdexV3Action> = {
   action: T;
-  message: TDistributions[T];
+  message: TDistros[T];
 };
 
-type TDistributions = {
-  [EAction.NEW_RELEASE]: TNewRelease;
+type TDistros = {
+  [EDistroDdexV3Action.NEW_RELEASE]: TNewRelease;
 };
-
-type TFile = {
-  fileName: string;
-  filePath?: string;
-  hashSum: {
-    hashSum: string;
-    hashSumAlgorithmType: string;
-  };
-};
-
-export { EAction, TDistribution, TDistributions, TFile };

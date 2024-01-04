@@ -1,15 +1,15 @@
 import * as ddex from "./ddex";
 
-enum EType {
+export * from "./ddex";
+
+export enum EDistroType {
   DDEX = "ddex",
 }
 
-type TDistribution<T extends EType> = TDistributions[T] & {
+export type TDistro<T extends EDistroType> = TDistros[T] & {
   type: T;
 };
 
-type TDistributions = {
-  [EType.DDEX]: ddex.TDistribution<ddex.EVersion>;
+type TDistros = {
+  [EDistroType.DDEX]: ddex.TDistroDdex<ddex.EDistroDdexVersion>;
 };
-
-export { EType, TDistribution, ddex };

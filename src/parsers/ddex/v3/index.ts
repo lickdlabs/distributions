@@ -1,14 +1,14 @@
-import { EAction, TDistribution } from "../../../types/ddex/v3";
+import { EDistroDdexV3Action, TDistroDdexV3 } from "../../../types/ddex/v3";
 import { newRelease } from "./newRelease";
 
-export const v3 = (object: any): TDistribution<EAction> => {
+export const v3 = (object: any): TDistroDdexV3<EDistroDdexV3Action> => {
   const key = Object.keys(object)[0];
   const action = detectAction(key);
 
   console.log("parsing", action);
 
   switch (action) {
-    case EAction.NEW_RELEASE:
+    case EDistroDdexV3Action.NEW_RELEASE:
       return {
         action,
         message: newRelease(object[key]),
@@ -19,13 +19,13 @@ export const v3 = (object: any): TDistribution<EAction> => {
   }
 };
 
-const detectAction = (key: string): EAction => {
+const detectAction = (key: string): EDistroDdexV3Action => {
   try {
     if (key === "ern:NewReleaseMessage") {
-      return EAction.NEW_RELEASE;
+      return EDistroDdexV3Action.NEW_RELEASE;
     }
 
-    throw new Error("unsupported action");
+    throw new Error("unsupported action: " + key);
   } catch {
     throw new Error("could not detect action");
   }

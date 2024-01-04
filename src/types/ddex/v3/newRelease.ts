@@ -1,6 +1,6 @@
-import { TFile } from ".";
+import { TFile } from "./common";
 
-type TNewRelease = {
+export type TNewRelease = {
   resourceList: {
     soundRecording: {
       soundRecordingDetailsByTerritory: {
@@ -18,5 +18,3 @@ type TNewRelease = {
     }[];
   };
 };
-
-export { TNewRelease };
