@@ -27,20 +27,16 @@ export const ddex = (object: any): TDistro<EDistroType.DDEX> => {
 };
 
 const detectVersion = (object: any): EDistroDdexVersion => {
-  try {
-    const key = Object.keys(object)[0];
-    const ern = object[key].$["xmlns:ern"] as string;
+  const key = Object.keys(object)[0];
+  const ern = object[key].$["xmlns:ern"] as string;
 
-    if (ern.startsWith("http://ddex.net/xml/ern/3")) {
-      return EDistroDdexVersion.V3;
-    }
-
-    if (ern.startsWith("http://ddex.net/xml/ern/4")) {
-      return EDistroDdexVersion.V4;
-    }
-
-    throw new Error("unsupported version: " + ern);
-  } catch {
-    throw new Error("could not detect version");
+  if (ern.startsWith("http://ddex.net/xml/ern/3")) {
+    return EDistroDdexVersion.V3;
   }
+
+  if (ern.startsWith("http://ddex.net/xml/ern/4")) {
+    return EDistroDdexVersion.V4;
+  }
+
+  throw new Error("unsupported/unknown version: " + ern);
 };

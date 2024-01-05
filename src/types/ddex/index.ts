@@ -1,9 +1,6 @@
 import { EDistroDdexV3Action, TDistroDdexV3 } from "./v3";
 import { EDistroDdexV4Action, TDistroDdexV4 } from "./v4";
 
-export * from "./v3";
-export * from "./v4";
-
 export enum EDistroDdexVersion {
   V3 = "v3",
   V4 = "v4",
