@@ -1,5 +1,5 @@
 import { EDistroDdexV4Action, TDistroDdexV4 } from "../../../types/ddex/v4";
-import { newRelease } from "./newRelease";
+import { newReleaseMessage } from "./newReleaseMessage";
 
 export const v4 = (object: any): TDistroDdexV4<EDistroDdexV4Action> => {
   const key = Object.keys(object)[0];
@@ -11,19 +11,25 @@ export const v4 = (object: any): TDistroDdexV4<EDistroDdexV4Action> => {
     case EDistroDdexV4Action.NEW_RELEASE:
       return {
         action,
-        message: newRelease(object[key]),
+        message: newReleaseMessage(object[key]),
+      };
+
+    case EDistroDdexV4Action.PURGE_RELEASE:
+      return {
+        action,
+        message: {},
       };
   }
 };
 
 const detectAction = (key: string): EDistroDdexV4Action => {
-  try {
-    if (key === "ern:NewReleaseMessage") {
-      return EDistroDdexV4Action.NEW_RELEASE;
-    }
-
-    throw new Error("unsupported action: " + key);
-  } catch {
-    throw new Error("could not detect action");
+  if (key === "ern:NewReleaseMessage") {
+    return EDistroDdexV4Action.NEW_RELEASE;
   }
+
+  if (key === "ern:PurgeReleaseMessage") {
+    return EDistroDdexV4Action.PURGE_RELEASE;
+  }
+
+  throw new Error("unsupported/unknown action: " + key);
 };
