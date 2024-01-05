@@ -1,18 +1,16 @@
-import * as v3 from "./v3";
-import * as v4 from "./v4";
+import { EDistroDdexV3Action, TDistroDdexV3 } from "./v3";
+import { EDistroDdexV4Action, TDistroDdexV4 } from "./v4";
 
-enum EVersion {
+export enum EDistroDdexVersion {
   V3 = "v3",
   V4 = "v4",
 }
 
-type TDistribution<T extends EVersion> = TDistributions[T] & {
+export type TDistroDdex<T extends EDistroDdexVersion> = TDistrosDdex[T] & {
   version: T;
 };
 
-type TDistributions = {
-  [EVersion.V3]: v3.TDistribution<v3.EAction>;
-  [EVersion.V4]: v4.TDistribution<v4.EAction>;
+type TDistrosDdex = {
+  [EDistroDdexVersion.V3]: TDistroDdexV3<EDistroDdexV3Action>;
+  [EDistroDdexVersion.V4]: TDistroDdexV4<EDistroDdexV4Action>;
 };
-
-export { EVersion, TDistribution, v3, v4 };

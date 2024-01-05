@@ -1,25 +1,28 @@
-import { EType, TDistribution, ddex } from "./types";
+import { EDistroType, TDistro } from "./types";
+import { EDistroDdexVersion, TDistroDdex } from "./types/ddex";
+import { EDistroDdexV3Action, TDistroDdexV3 } from "./types/ddex/v3";
+import { EDistroDdexV4Action, TDistroDdexV4 } from "./types/ddex/v4";
 
 export const isDdex = (
-  distro: TDistribution<EType>,
-): distro is TDistribution<EType.DDEX> => distro.type === EType.DDEX;
+  distro: TDistro<EDistroType>,
+): distro is TDistro<EDistroType.DDEX> => distro.type === EDistroType.DDEX;
 
 export const isDdexV3 = (
-  details: ddex.TDistribution<ddex.EVersion>,
-): details is ddex.TDistribution<ddex.EVersion.V3> =>
-  details.version === ddex.EVersion.V3;
+  details: TDistroDdex<EDistroDdexVersion>,
+): details is TDistroDdex<EDistroDdexVersion.V3> =>
+  details.version === EDistroDdexVersion.V3;
 
 export const isDdexV3NewRelease = (
-  distro: ddex.v3.TDistribution<ddex.v3.EAction>,
-): distro is ddex.v3.TDistribution<ddex.v3.EAction.NEW_RELEASE> =>
-  distro.action === ddex.v3.EAction.NEW_RELEASE;
+  distro: TDistroDdexV3<EDistroDdexV3Action>,
+): distro is TDistroDdexV3<EDistroDdexV3Action.NEW_RELEASE> =>
+  distro.action === EDistroDdexV3Action.NEW_RELEASE;
 
 export const isDdexV4 = (
-  details: ddex.TDistribution<ddex.EVersion>,
-): details is ddex.TDistribution<ddex.EVersion.V4> =>
-  details.version === ddex.EVersion.V4;
+  details: TDistroDdex<EDistroDdexVersion>,
+): details is TDistroDdex<EDistroDdexVersion.V4> =>
+  details.version === EDistroDdexVersion.V4;
 
 export const isDdexV4NewRelease = (
-  distro: ddex.v4.TDistribution<ddex.v4.EAction>,
-): distro is ddex.v4.TDistribution<ddex.v4.EAction.NEW_RELEASE> =>
-  distro.action === ddex.v4.EAction.NEW_RELEASE;
+  distro: TDistroDdexV4<EDistroDdexV4Action>,
+): distro is TDistroDdexV4<EDistroDdexV4Action.NEW_RELEASE> =>
+  distro.action === EDistroDdexV4Action.NEW_RELEASE;
