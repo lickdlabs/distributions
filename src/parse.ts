@@ -14,7 +14,7 @@ export const parse = async (body: string): Promise<TDistro<EDistroType>> => {
 const convertToObject = async (body: string): Promise<any> => {
   try {
     return await xml2js.parseStringPromise(
-      body.replace(/ernm?:/g, "ern:").replace(/:ernm?/g, ":ern"),
+      body.replace(/ernm?\d*:/g, "ern:").replace(/:ernm?\d*/g, ":ern"),
     );
   } catch {
     throw new Error("could not convert distribution to object");
