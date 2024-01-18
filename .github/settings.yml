@@ -3,7 +3,7 @@
 repository:
   name: distributions
   description: Distributions
-  homepage: https://github.com/lickdltd/distributions
+  homepage: https://github.com/lickdlabs/distributions
   topics: distributions
   private: false
   has_issues: false
@@ -18,7 +18,7 @@ repository:
   enable_automated_security_fixes: true
   enable_vulnerability_alerts: true
 teams:
-  - name: engineering
+  - name: lickd
     permission: admin
 branches:
   - name: main
