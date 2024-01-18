@@ -2,6 +2,14 @@
   "name": "@lickd/distributions",
   "version": "0.0.1-beta.25",
   "description": "Distributions parser",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lickdlabs/distributions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lickdlabs/distributions/issues"
+  },
+  "homepage": "https://github.com/lickdlabs/distributions#readme",
   "main": "./dist/main/index.js",
   "types": "./dist/types/index.d.ts",
   "scripts": {
