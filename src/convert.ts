@@ -14,7 +14,7 @@ export const convertToDdexV4 = (
   if (isDdexV3(distro)) {
     return {
       type: EDistroType.DDEX,
-      version: 411,
+      version: "411",
       ...convertFromDdexV3(distro),
     };
   }

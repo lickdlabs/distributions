@@ -3,9 +3,9 @@
 import { TNewReleaseMessage } from "./newReleaseMessage";
 
 export enum EDistroDdexV3Action {
-  NEW_RELEASE = "NewReleaseMessage",
-  CATALOG_LIST = "CatalogListMessage",
-  PURGE_RELEASE = "PurgeReleaseMessage",
+  NEW_RELEASE = "newReleaseMessage",
+  CATALOG_LIST = "catalogListMessage",
+  PURGE_RELEASE = "purgeReleaseMessage",
 }
 
 export type TDistroDdexV3<T extends EDistroDdexV3Action> = {

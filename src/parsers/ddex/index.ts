@@ -27,24 +27,24 @@ export const ddex = (object: any): TDistro<EDistroType.DDEX> => {
   }
 };
 
-const detectVersion = (object: any): number => {
+const detectVersion = (object: any): string => {
   const key = Object.keys(object)[0];
   const ern = object[key].$["xmlns:ern"] as string;
   const version = parseInt(ern.substring(ern.lastIndexOf("/") + 1));
 
   if (typeof version === "number") {
-    return version;
+    return version.toString();
   }
 
   throw new Error("unsupported/unknown version: " + version);
 };
 
-const detectStructure = (version: number): EDistroDdexVersion => {
-  if (version.toString().startsWith("3")) {
+const detectStructure = (version: string): EDistroDdexVersion => {
+  if (version.startsWith("3")) {
     return EDistroDdexVersion.V3;
   }
 
-  if (version.toString().startsWith("4")) {
+  if (version.startsWith("4")) {
     return EDistroDdexVersion.V4;
   }
 
