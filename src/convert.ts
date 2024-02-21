@@ -14,10 +14,10 @@ export const convertToDdexV4 = (
   if (isDdexV3(distro)) {
     return {
       type: EDistroType.DDEX,
-      version: EDistroDdexVersion.V4,
+      version: 411,
       ...convertFromDdexV3(distro),
     };
   }
 
-  throw new Error("unsupported conversion type: " + distro.type);
+  throw new Error("unsupported conversion type");
 };

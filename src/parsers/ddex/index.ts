@@ -6,10 +6,11 @@ import { v4 } from "./v4";
 export const ddex = (object: any): TDistro<EDistroType.DDEX> => {
   const type = EDistroType.DDEX;
   const version = detectVersion(object);
+  const structure = detectStructure(version);
 
-  console.log("parsing", type, version);
+  console.log("parsing", type, version, structure);
 
-  switch (version) {
+  switch (structure) {
     case EDistroDdexVersion.V3:
       return {
         type,
@@ -26,17 +27,26 @@ export const ddex = (object: any): TDistro<EDistroType.DDEX> => {
   }
 };
 
-const detectVersion = (object: any): EDistroDdexVersion => {
+const detectVersion = (object: any): number => {
   const key = Object.keys(object)[0];
   const ern = object[key].$["xmlns:ern"] as string;
+  const version = parseInt(ern.substring(ern.lastIndexOf("/") + 1));
 
-  if (ern.startsWith("http://ddex.net/xml/ern/3")) {
+  if (typeof version === "number") {
+    return version;
+  }
+
+  throw new Error("unsupported/unknown version: " + version);
+};
+
+const detectStructure = (version: number): EDistroDdexVersion => {
+  if (version.toString().startsWith("3")) {
     return EDistroDdexVersion.V3;
   }
 
-  if (ern.startsWith("http://ddex.net/xml/ern/4")) {
+  if (version.toString().startsWith("4")) {
     return EDistroDdexVersion.V4;
   }
 
-  throw new Error("unsupported/unknown version: " + ern);
+  throw new Error("unsupported/unknown structure: " + version);
 };

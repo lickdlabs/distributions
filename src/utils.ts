@@ -10,7 +10,7 @@ export const isDdex = (
 export const isDdexV3 = (
   details: TDistroDdex<EDistroDdexVersion>,
 ): details is TDistroDdex<EDistroDdexVersion.V3> =>
-  details.version === EDistroDdexVersion.V3;
+  details.version.toString().startsWith("3");
 
 export const isDdexV3NewRelease = (
   distro: TDistroDdexV3<EDistroDdexV3Action>,
@@ -20,7 +20,7 @@ export const isDdexV3NewRelease = (
 export const isDdexV4 = (
   details: TDistroDdex<EDistroDdexVersion>,
 ): details is TDistroDdex<EDistroDdexVersion.V4> =>
-  details.version === EDistroDdexVersion.V4;
+  details.version.toString().startsWith("4");
 
 export const isDdexV4NewRelease = (
   distro: TDistroDdexV4<EDistroDdexV4Action>,

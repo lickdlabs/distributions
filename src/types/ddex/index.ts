@@ -7,7 +7,7 @@ export enum EDistroDdexVersion {
 }
 
 export type TDistroDdex<T extends EDistroDdexVersion> = TDistrosDdex[T] & {
-  version: T;
+  version: number;
 };
 
 type TDistrosDdex = {
