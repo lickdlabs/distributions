@@ -1,6 +1,6 @@
 {
   "name": "@lickd/distributions",
-  "version": "0.0.1-beta.29",
+  "version": "0.0.1-beta.31",
   "description": "Distributions parser",
   "repository": {
     "type": "git",
@@ -13,6 +13,8 @@
   "main": "./dist/main/index.js",
   "types": "./dist/types/index.d.ts",
   "scripts": {
+    "example-parse": "ts-node ./examples/parse",
+    "example-convert": "ts-node ./examples/convert",
     "build": "npm run build:clean && npm run build:main",
     "build:clean": "rm -rf ./dist/*",
     "build:main": "tsc",
