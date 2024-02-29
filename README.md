@@ -1,10 +1,5 @@
 # Distributions
 
-* [Details](#details)
-* [Install](#install)
-* [Usage](#usage)
-* [Copyright info](#copyright-info)
-
 ## Details
 
 > ⚠️ **Warning!**  
