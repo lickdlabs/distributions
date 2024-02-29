@@ -8,7 +8,7 @@ export class Parser implements IParser {
   public constructor(private logger: ILogger) {}
 
   public async parse(body: string): Promise<TDistro<EDistroType>> {
-    const object = await this.convertToObject(body);
+    const object = await this.parseToObject(body);
     const type = this.detectType(object);
 
     this.logger.info("parsing distribution", { type });
@@ -19,13 +19,13 @@ export class Parser implements IParser {
     }
   }
 
-  private async convertToObject(body: string): Promise<any> {
+  private async parseToObject(body: string): Promise<any> {
     try {
       return await xml2js.parseStringPromise(
         body.replace(/ernm?\d*:/g, "ern:").replace(/:ernm?\d*/g, ":ern"),
       );
     } catch {
-      throw new Error("could not convert distribution to object");
+      throw new Error("could not parse distribution to object");
     }
   }
 

@@ -4,6 +4,17 @@ export * from "../0/newReleaseMessage";
 
 export type TNewReleaseMessage = Omit<
   v40.TNewReleaseMessage,
+  "resourceList"
+> & {
+  // <xs:element name='ResourceList' type='ern:ResourceList'></xs:element>
+  resourceList: TResourceList;
+
+  // + <xs:element minOccurs='0' name='SupplementalDocumentList' type='ern:SupplementalDocumentList'></xs:element>
+  // @todo not implemented yet
+};
+
+export type TResourceList = Omit<
+  v40.TResourceList,
   "soundRecording" | "image"
 > & {
   // <xs:element maxOccurs='unbounded' minOccurs='0' name='SoundRecording' type='ern:SoundRecording'></xs:element>
@@ -11,14 +22,11 @@ export type TNewReleaseMessage = Omit<
 
   // <xs:element maxOccurs='unbounded' minOccurs='0' name='Image' type='ern:Image'></xs:element>
   image?: TImage[];
-
-  // + <xs:element minOccurs='0' name='SupplementalDocumentList' type='ern:SupplementalDocumentList'></xs:element>
-  // @todo not implemented yet
 };
 
 export type TSoundRecording = Omit<v40.TSoundRecording, "technicalDetails"> & {
   // <xs:element maxOccurs='unbounded' minOccurs='0' name='TechnicalDetails' type='ern:TechnicalSoundRecordingDetails'></xs:element>
-  technicalDetails: TTechnicalSoundRecordingDetails[];
+  technicalDetails?: TTechnicalSoundRecordingDetails[];
 };
 
 export type TImage = v40.TImage & {
