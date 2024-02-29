@@ -5,8 +5,7 @@
     "declaration": true,
     "declarationDir": "./dist/types",
     "outDir": "./dist/main",
-    "rootDir": "./src",
-    "listFiles": true
+    "rootDir": "./src"
   },
   "include": ["src/**/*"]
 }
