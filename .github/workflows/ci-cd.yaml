@@ -33,6 +33,8 @@ jobs:
               run: npm run lint
             - name: Build
               run: npm run build
+            - name: Pack
+              run: npm pack
             - name: Publish
               if: github.event_name == 'release' && github.event.action == 'created'
               run: npm publish
