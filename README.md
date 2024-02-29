@@ -26,7 +26,7 @@ $ npm install @lickd/distributions @lickd/logger
 
 Examples can be found in the [examples](./examples/) folder.
 
-Parsing
+### Parsing
 
 ```typescript
 import { Distributions } from "@lickd/distributions";
