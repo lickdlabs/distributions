@@ -11,5 +11,5 @@ export type TDistro<T extends EDistroType> = TDistros[T] & {
 };
 
 type TDistros = {
-  [EDistroType.DDEX]: ddex.TDistroDdex<ddex.EDistroDdexVersion>;
+  [EDistroType.DDEX]: ddex.TDistroDdex;
 };
