@@ -22,11 +22,11 @@ A simple library for parsing and converting distribution files.
 $ npm install @lickd/distributions @lickd/logger
 ```
 
-_The Lickd logger is optional._
-
 ## Usage
 
-### Parsing
+Examples can be found in the [examples](./examples/) folder.
+
+Parsing
 
 ```typescript
 import { Distributions } from "@lickd/distributions";
