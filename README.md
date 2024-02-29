@@ -1,18 +1,18 @@
 # Distributions
 
-> ⚠️ **Warning!**  
-> 
-> While in version `0.x` there is a chance of breaking changes between minor/patch version.  
-> Please be cautious when upgrading between versions and check for any upgrade guides.  
-> 
-> Once a major version is released, this will no longer be the case and this library will follow [Semantic Versioning](https://semver.org/).
-
 * [Details](#details)
 * [Install](#install)
 * [Usage](#usage)
 * [Copyright info](#copyright-info)
 
 ## Details
+
+> ⚠️ **Warning!**  
+> 
+> While in version `0.x` there is a chance of breaking changes between minor/patch version.  
+> Please be cautious when upgrading between versions and check for any upgrade guides.  
+> 
+> Once a major version is released, this will no longer be the case and this library will follow [Semantic Versioning](https://semver.org/).
 
 A simple library for parsing and converting distribution files.
 
