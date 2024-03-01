@@ -475,8 +475,18 @@ export type THashSum = {
   hashSum: string;
 
   // <xs:element name='HashSumAlgorithmType' type='ern:HashSumAlgorithmType'></xs:element>
-  hashSumAlgorithmType: string;
+  hashSumAlgorithmType: EHashSumAlgorithmType;
 
   // <xs:element minOccurs='0' name='HashSumDataType' type='avs:BinaryDataType'></xs:element>
-  hashSumDataType?: string;
+  hashSumDataType?: EBinaryDataType;
 };
+
+export enum EHashSumAlgorithmType {
+  MD5 = "MD5",
+  SHA1 = "SHA1",
+}
+
+export enum EBinaryDataType {
+  Binary64 = "Binary64",
+  HexBinary = "HexBinary",
+}

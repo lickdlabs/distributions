@@ -346,7 +346,7 @@ export type TFile = {
 
 export type TDetailedHashSum = {
   // <xs:element name='Algorithm' type='ern:HashSumAlgorithmType'></xs:element>
-  algorithm: string;
+  algorithm: EHashSumAlgorithmType;
 
   // <xs:element minOccurs='0' name='Version' type='xs:string'></xs:element>
   version?: string;
@@ -355,8 +355,18 @@ export type TDetailedHashSum = {
   parameter?: string;
 
   // <xs:element minOccurs='0' name='DataType' type='avs:BinaryDataType'></xs:element>
-  dataType?: string;
+  dataType?: EBinaryDataType;
 
   // <xs:element name='HashSum' type='xs:string'></xs:element>
   hashSum: string;
 };
+
+export enum EHashSumAlgorithmType {
+  MD5 = "MD5",
+  SHA1 = "SHA1",
+}
+
+export enum EBinaryDataType {
+  Binary64 = "Binary64",
+  HexBinary = "HexBinary",
+}
