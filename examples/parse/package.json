@@ -14,7 +14,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@lickd/distributions": "^0.0.4",
+    "@lickd/distributions": "^0.1.0",
     "@lickd/logger": "^0.0.8"
   }
 }
