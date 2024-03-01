@@ -67,7 +67,7 @@ export class Ddex411 {
 
     if (object.HashSum) {
       parsed.hashSum = {
-        algorithm: (object.HashSum[0].Algorithm[0] as string).toLowerCase(),
+        algorithm: object.HashSum[0].Algorithm[0],
         version: object.HashSum[0].Version
           ? object.HashSum[0].Version[0]
           : undefined,
@@ -77,9 +77,7 @@ export class Ddex411 {
         dataType: object.HashSum[0].DataType
           ? object.HashSum[0].DataType[0]
           : undefined,
-        hashSumValue: (
-          object.HashSum[0].HashSumValue[0] as string
-        ).toLowerCase(),
+        hashSumValue: object.HashSum[0].HashSumValue[0],
       };
     }
 

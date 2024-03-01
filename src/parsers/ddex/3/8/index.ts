@@ -107,12 +107,10 @@ export class Ddex38 {
 
     if (object.HashSum) {
       parsed.hashSum = {
-        hashSum: (object.HashSum[0].HashSum[0] as string).toLowerCase(),
-        hashSumAlgorithmType: (
-          object.HashSum[0].HashSumAlgorithmType[0] as string
-        ).toLowerCase(),
+        hashSum: object.HashSum[0].HashSum[0],
+        hashSumAlgorithmType: object.HashSum[0].HashSumAlgorithmType[0],
         hashSumDataType: object.HashSum[0].HashSumDataType
-          ? (object.HashSum[0].HashSumDataType[0] as string).toLowerCase()
+          ? object.HashSum[0].HashSumDataType[0]
           : undefined,
       };
     }
