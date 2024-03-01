@@ -9,7 +9,7 @@
 > 
 > Once a major version is released, this will no longer be the case and this library will follow [Semantic Versioning](https://semver.org/).
 
-A simple library for parsing and converting distribution files.
+A library for parsing and converting distribution files.
 
 ## Install
 
