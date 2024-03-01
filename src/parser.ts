@@ -1,14 +1,20 @@
 import { ILogger } from "@lickd/logger";
 import * as xml2js from "xml2js";
-import { EDistroType, TDistro } from "./types";
 import { IParser } from "./interfaces/parser";
 import { Ddex } from "./parsers";
+import { EDistroType, TDistro } from "./types";
+import { isDdex } from "./utils";
 
 export class Parser implements IParser {
   public constructor(private logger: ILogger) {}
 
   public async parse(body: string): Promise<TDistro<EDistroType>> {
     const object = await this.parseToObject(body);
+
+    if (isDdex(object)) {
+      return object;
+    }
+
     const type = this.detectType(object);
 
     this.logger.info("parsing distribution", { type });
@@ -21,12 +27,20 @@ export class Parser implements IParser {
 
   private async parseToObject(body: string): Promise<any> {
     try {
+      return JSON.parse(body);
+    } catch {
+      this.logger.warn("could not parse from json");
+    }
+
+    try {
       return await xml2js.parseStringPromise(
         body.replace(/ernm?\d*:/g, "ern:").replace(/:ernm?\d*/g, ":ern"),
       );
     } catch {
-      throw new Error("could not parse distribution to object");
+      this.logger.warn("could not parse from xml");
     }
+
+    throw new Error("could not parse distribution to object");
   }
 
   private detectType(object: any): EDistroType {
