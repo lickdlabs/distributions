@@ -24,6 +24,13 @@ export const isDdexV4 = (
 ): details is v4.TDistroDdex<v4.EDistroDdexVersion, v4.EDistroDdexAction> =>
   details.version.toString().startsWith("4");
 
+export const isDdexV411 = (
+  details: TDistroDdex,
+): details is v4.TDistroDdex<
+  v4.EDistroDdexVersion.V411,
+  v4.EDistroDdexAction
+> => details.version === v4.EDistroDdexVersion.V411;
+
 export const isDdexV4NewRelease = (
   distro: v4.TDistroDdex<v4.EDistroDdexVersion, v4.EDistroDdexAction>,
 ): distro is v4.TDistroDdex<
