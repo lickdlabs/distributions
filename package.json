@@ -19,7 +19,7 @@
     "watch": "npm link && tsc --watch",
     "lint": "eslint --ext .js,.ts",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "engines": {
     "node": ">=14.0.0"
@@ -27,13 +27,17 @@
   "author": "Lickd Ltd",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@tsconfig/node14": "^14.1.0",
+    "@tsconfig/recommended": "^1.0.3",
+    "@types/chai": "^4.3.12",
+    "@types/mocha": "^10.0.6",
     "@types/node": "^14.18.63",
     "@types/xml2js": "^0.4.13",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
     "@typescript-eslint/parser": "^6.9.1",
+    "chai": "^4.4.1",
     "eslint": "^8.52.0",
     "eslint-config-prettier": "^9.0.0",
+    "mocha": "^10.3.0",
     "prettier": "^3.0.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2"

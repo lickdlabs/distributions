@@ -1,6 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@tsconfig/node14/tsconfig.json",
+  "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
     "declaration": true,
     "declarationDir": "./dist/types",
