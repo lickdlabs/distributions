@@ -1,6 +1,6 @@
 export type TNewReleaseMessage = {
   // <xs:element name='MessageHeader' type='ern:MessageHeader'></xs:element>
-  // @todo not implemented yet
+  messageHeader: TMessageHeader;
 
   // <xs:element minOccurs='0' name='UpdateIndicator' type='avs:UpdateIndicator'></xs:element>
   // @todo not implemented yet
@@ -29,6 +29,72 @@ export type TNewReleaseMessage = {
   // <xs:element minOccurs='0' name='DealList' type='ern:DealList'></xs:element>
   // @todo not implemented yet
 };
+
+export type TMessageHeader = {
+  // <xs:element minOccurs='0' name='MessageThreadId' type='xs:string'></xs:element>
+  // @todo not implemented yet
+
+  // <xs:element name='MessageId' type='xs:string'></xs:element>
+  messageId: string;
+  
+  // <xs:element minOccurs='0' name='MessageFileName' type='xs:string'></xs:element>
+  // @todo not implemented yet
+
+  // <xs:element name='MessageSender' type='ern:MessagingParty'></xs:element>
+  messageSender: TMessagingParty;
+
+  // <xs:element minOccurs='0' name='SentOnBehalfOf' type='ern:MessagingParty'></xs:element>
+  // @todo not implemented yet
+
+  // <xs:element maxOccurs='unbounded' name='MessageRecipient' type='ern:MessagingParty'></xs:element>
+  messageRecipient: TMessagingParty;
+
+  // <xs:element name='MessageCreatedDateTime' type='xs:dateTime'></xs:element>
+  messageCreatedDateTime: Date;
+
+  // <xs:element minOccurs='0' name='MessageAuditTrail' type='ern:MessageAuditTrail'></xs:element>
+  // @todo not implemented yet
+
+  // <xs:element minOccurs='0' name='Comment' type='ern:Comment'></xs:element>
+  // @todo not implemented yet
+
+  // <xs:element minOccurs='0' name='MessageControlType' type='avs:MessageControlType'></xs:element>
+  // @todo not implemented yet
+}
+
+export type TMessagingParty = {
+  // <xs:element maxOccurs='unbounded' name='PartyId' type='ern:PartyId'></xs:element>
+  partyId: string;
+
+  // <xs:element minOccurs='0' name='PartyName' type='ern:PartyName'></xs:element>
+  partyName?: TPartyName;
+
+  // <xs:element minOccurs='0' name='TradingName' type='ern:Name'></xs:element>
+  // @todo not implemented yet
+}
+
+export type TPartyName = {
+  // <xs:element name='FullName' type='ern:Name'></xs:element>
+  fullName: string;
+
+  // <xs:element minOccurs='0' name='FullNameAsciiTranscribed' type='xs:string'></xs:element>
+  // @todo not implemented yet
+
+  // <xs:element minOccurs='0' name='FullNameIndexed' type='ern:Name'></xs:element>
+  // @todo not implemented yet
+
+  // <xs:element minOccurs='0' name='NamesBeforeKeyName' type='ern:Name'></xs:element>
+  // @todo not implemented yet
+
+  // <xs:element minOccurs='0' name='KeyName' type='ern:Name'></xs:element>
+  // @todo not implemented yet
+
+  // <xs:element minOccurs='0' name='NamesAfterKeyName' type='ern:Name'></xs:element>
+  // @todo not implemented yet
+
+  // <xs:element minOccurs='0' name='AbbreviatedName' type='ern:Name'></xs:element>
+  // @todo not implemented yet
+}
 
 export type TResourceList = {
   // <xs:element maxOccurs='unbounded' minOccurs='0' name='SoundRecording' type='ern:SoundRecording'></xs:element>

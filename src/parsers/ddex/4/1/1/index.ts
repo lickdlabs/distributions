@@ -6,8 +6,28 @@ export class Ddex411 {
 
   public parseNewReleaseMessage(object: any): v411.TNewReleaseMessage {
     return {
+      messageHeader: this.parseMessageHeader(object.MessageHeader[0]),
       resourceList: this.parseResourceList(object.ResourceList[0]),
     };
+  }
+
+  private parseMessageHeader(object: any): v411.TMessageHeader {
+    return {
+      messageId: object.MessageId[0],
+      messageSender: {
+        partyId: object.MessageSender[0].PartyId[0],
+        partyName: object.MessageSender[0].PartyName ? {
+          fullName: object.MessageSender[0].PartyName[0].FullName[0]
+        } : undefined
+      },
+      messageRecipient: {
+        partyId: object.MessageRecipient[0].PartyId[0],
+        partyName: object.MessageRecipient[0].PartyName ? {
+          fullName: object.MessageRecipient[0].PartyName[0].FullName[0]
+        } : undefined
+      },
+      messageCreatedDateTime: new Date(object.MessageCreatedDateTime[0])
+    }
   }
 
   private parseResourceList(object: any): v411.TResourceList {

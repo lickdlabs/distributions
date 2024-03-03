@@ -12,8 +12,18 @@ export class Ddex38 {
       v3.TDistroDdex<v3.EDistroDdexVersion, v3.EDistroDdexAction.NEW_RELEASE>,
   ): v411.TNewReleaseMessage {
     return {
+      messageHeader: this.convertMessageHeader(distro.message.messageHeader),
       resourceList: this.convertResourceList(distro.message.resourceList),
     };
+  }
+
+  private convertMessageHeader(distro: v38.TMessageHeader): v411.TMessageHeader {
+    return {
+      messageId: distro.messageId,
+      messageSender: distro.messageSender as v411.TMessageHeader["messageSender"],
+      messageRecipient: distro.messageRecipient as v411.TMessageHeader["messageRecipient"],
+      messageCreatedDateTime: distro.messageCreatedDateTime,
+    }
   }
 
   private convertResourceList(distro: v38.TResourceList): v411.TResourceList {

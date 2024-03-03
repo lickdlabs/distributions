@@ -6,7 +6,27 @@ export class Ddex38 {
 
   public parseNewReleaseMessage(object: any): v38.TNewReleaseMessage {
     return {
+      messageHeader: this.parseMessageHeader(object.MessageHeader[0]),
       resourceList: this.parseResourceList(object.ResourceList[0]),
+    };
+  }
+
+  private parseMessageHeader(object: any): v38.TMessageHeader {
+    return {
+      messageId: object.MessageId[0],
+      messageSender: {
+        partyId: object.MessageSender[0].PartyId[0],
+        partyName: object.MessageSender[0].PartyName[0] ? {
+          fullName: object.MessageSender[0].PartyName[0].FullName[0]
+        } : undefined
+      },
+      messageRecipient: {
+        partyId: object.MessageRecipient[0].PartyId[0],
+        partyName: object.MessageRecipient[0].PartyName[0] ? {
+          fullName: object.MessageRecipient[0].PartyName[0].FullName[0]
+        } : undefined
+      },
+      messageCreatedDateTime: new Date(object.MessageCreatedDateTime[0]),
     };
   }
 
