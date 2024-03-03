@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ern:NewReleaseMessage xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ern="http://ddex.net/xml/ern/382"
+    xs:schemaLocation="http://ddex.net/xml/ern/382 http://ddex.net/xml/ern/382/release-notification.xsd"
+    MessageSchemaVersionId="ern/382">
+    <MessageHeader>
+        <MessageId>00000000-0000-0000-0000-000000000000</MessageId>
+        <MessageSender>
+            <PartyId>PADPIDA00000000000</PartyId>
+            <PartyName>
+                <FullName>Lickd</FullName>
+            </PartyName>
+        </MessageSender>
+        <MessageRecipient>
+            <PartyId>PADPIDA99999999999</PartyId>
+            <PartyName>
+                <FullName>Lickd Labs</FullName>
+            </PartyName>
+        </MessageRecipient>
+        <MessageCreatedDateTime>2024-01-01T00:00:00+00:00</MessageCreatedDateTime>
+    </MessageHeader>
+    <ResourceList></ResourceList>
+    <ReleaseList></ReleaseList>
+</ern:NewReleaseMessage>
