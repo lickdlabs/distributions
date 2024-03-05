@@ -49,7 +49,7 @@ export class Ddex411 {
   private parseSoundRecording(object: any): v411.TSoundRecording {
     return {
       resourceReference: object.ResourceReference[0],
-      technicalDetails: object.TechnicalDetails.map((technicalDetails: any) =>
+      technicalDetails: (object.TechnicalDetails || []).map((technicalDetails: any) =>
         this.parseTechnicalSoundRecordingDetails(technicalDetails),
       ),
     };
@@ -68,7 +68,7 @@ export class Ddex411 {
   private parseImage(object: any): v411.TImage {
     return {
       resourceReference: object.ResourceReference[0],
-      technicalDetails: object.TechnicalDetails.map((technicalDetails: any) =>
+      technicalDetails: (object.TechnicalDetails || []).map((technicalDetails: any) =>
         this.parseTechnicalImageDetails(technicalDetails),
       ),
     };
