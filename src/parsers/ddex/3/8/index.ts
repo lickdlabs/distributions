@@ -16,15 +16,19 @@ export class Ddex38 {
       messageId: object.MessageId[0],
       messageSender: {
         partyId: object.MessageSender[0].PartyId[0],
-        partyName: object.MessageSender[0].PartyName[0] ? {
-          fullName: object.MessageSender[0].PartyName[0].FullName[0]
-        } : undefined
+        partyName: object.MessageSender[0].PartyName[0]
+          ? {
+              fullName: object.MessageSender[0].PartyName[0].FullName[0],
+            }
+          : undefined,
       },
       messageRecipient: {
         partyId: object.MessageRecipient[0].PartyId[0],
-        partyName: object.MessageRecipient[0].PartyName[0] ? {
-          fullName: object.MessageRecipient[0].PartyName[0].FullName[0]
-        } : undefined
+        partyName: object.MessageRecipient[0].PartyName[0]
+          ? {
+              fullName: object.MessageRecipient[0].PartyName[0].FullName[0],
+            }
+          : undefined,
       },
       messageCreatedDateTime: new Date(object.MessageCreatedDateTime[0]),
     };

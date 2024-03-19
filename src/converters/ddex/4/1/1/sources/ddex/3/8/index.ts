@@ -17,13 +17,17 @@ export class Ddex38 {
     };
   }
 
-  private convertMessageHeader(distro: v38.TMessageHeader): v411.TMessageHeader {
+  private convertMessageHeader(
+    distro: v38.TMessageHeader,
+  ): v411.TMessageHeader {
     return {
       messageId: distro.messageId,
-      messageSender: distro.messageSender as v411.TMessageHeader["messageSender"],
-      messageRecipient: distro.messageRecipient as v411.TMessageHeader["messageRecipient"],
+      messageSender:
+        distro.messageSender as v411.TMessageHeader["messageSender"],
+      messageRecipient:
+        distro.messageRecipient as v411.TMessageHeader["messageRecipient"],
       messageCreatedDateTime: distro.messageCreatedDateTime,
-    }
+    };
   }
 
   private convertResourceList(distro: v38.TResourceList): v411.TResourceList {

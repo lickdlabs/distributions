@@ -53,7 +53,7 @@ export type TMessageHeader = {
 
   // <xs:element minOccurs='0' name='MessageControlType' type='avs:MessageControlType'></xs:element>
   // @todo not implemented yet
-}
+};
 
 export type TMessagingPartyWithoutCode = {
   // <xs:element name='PartyId'>
@@ -70,7 +70,7 @@ export type TMessagingPartyWithoutCode = {
 
   // <xs:element minOccurs='0' name='TradingName' type='xs:string'></xs:element>
   // @todo not implemented yet
-}
+};
 
 export type TPartyNameWithoutCode = {
   // <xs:element name='FullName' type='xs:string'></xs:element>
@@ -93,7 +93,7 @@ export type TPartyNameWithoutCode = {
 
   // <xs:element minOccurs='0' name='AbbreviatedName' type='xs:string'></xs:element>
   // @todo not implemented yet
-}
+};
 
 export type TResourceList = {
   // <xs:element maxOccurs='unbounded' minOccurs='0' name='SoundRecording' type='ern:SoundRecording'></xs:element>

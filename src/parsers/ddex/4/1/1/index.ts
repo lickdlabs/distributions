@@ -16,18 +16,22 @@ export class Ddex411 {
       messageId: object.MessageId[0],
       messageSender: {
         partyId: object.MessageSender[0].PartyId[0],
-        partyName: object.MessageSender[0].PartyName ? {
-          fullName: object.MessageSender[0].PartyName[0].FullName[0]
-        } : undefined
+        partyName: object.MessageSender[0].PartyName
+          ? {
+              fullName: object.MessageSender[0].PartyName[0].FullName[0],
+            }
+          : undefined,
       },
       messageRecipient: {
         partyId: object.MessageRecipient[0].PartyId[0],
-        partyName: object.MessageRecipient[0].PartyName ? {
-          fullName: object.MessageRecipient[0].PartyName[0].FullName[0]
-        } : undefined
+        partyName: object.MessageRecipient[0].PartyName
+          ? {
+              fullName: object.MessageRecipient[0].PartyName[0].FullName[0],
+            }
+          : undefined,
       },
-      messageCreatedDateTime: new Date(object.MessageCreatedDateTime[0])
-    }
+      messageCreatedDateTime: new Date(object.MessageCreatedDateTime[0]),
+    };
   }
 
   private parseResourceList(object: any): v411.TResourceList {
@@ -49,8 +53,9 @@ export class Ddex411 {
   private parseSoundRecording(object: any): v411.TSoundRecording {
     return {
       resourceReference: object.ResourceReference[0],
-      technicalDetails: (object.TechnicalDetails || []).map((technicalDetails: any) =>
-        this.parseTechnicalSoundRecordingDetails(technicalDetails),
+      technicalDetails: (object.TechnicalDetails || []).map(
+        (technicalDetails: any) =>
+          this.parseTechnicalSoundRecordingDetails(technicalDetails),
       ),
     };
   }
@@ -68,8 +73,9 @@ export class Ddex411 {
   private parseImage(object: any): v411.TImage {
     return {
       resourceReference: object.ResourceReference[0],
-      technicalDetails: (object.TechnicalDetails || []).map((technicalDetails: any) =>
-        this.parseTechnicalImageDetails(technicalDetails),
+      technicalDetails: (object.TechnicalDetails || []).map(
+        (technicalDetails: any) =>
+          this.parseTechnicalImageDetails(technicalDetails),
       ),
     };
   }

@@ -23,8 +23,13 @@ describe("Converter", () => {
     const converter = new Converter(logger);
 
     it("should convert 382 new message to 411 new message", async () => {
-      const parsed = await parser.parse(readFileSync("./examples/_ddex/382.xml").toString());
-      const converted = converter.convertToDdex(parsed, v4.EDistroDdexVersion.V411);
+      const parsed = await parser.parse(
+        readFileSync("./examples/_ddex/382.xml").toString(),
+      );
+      const converted = converter.convertToDdex(
+        parsed,
+        v4.EDistroDdexVersion.V411,
+      );
 
       assert.equal(converted.type, EDistroType.DDEX);
       assert.equal(converted.version, v4.EDistroDdexVersion.V411);
@@ -35,8 +40,13 @@ describe("Converter", () => {
     });
 
     it("should convert 411 new message to 411 new message", async () => {
-      const parsed = await parser.parse(readFileSync("./examples/_ddex/411.xml").toString());
-      const converted = converter.convertToDdex(parsed, v4.EDistroDdexVersion.V411);
+      const parsed = await parser.parse(
+        readFileSync("./examples/_ddex/411.xml").toString(),
+      );
+      const converted = converter.convertToDdex(
+        parsed,
+        v4.EDistroDdexVersion.V411,
+      );
 
       assert.equal(converted.type, EDistroType.DDEX);
       assert.equal(converted.version, v4.EDistroDdexVersion.V411);

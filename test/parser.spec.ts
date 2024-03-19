@@ -21,7 +21,9 @@ describe("Parser", () => {
     const parser = new Parser(logger);
 
     it("should parse 382 new message", async () => {
-      const parsed = await parser.parse(readFileSync("./examples/_ddex/382.xml").toString());
+      const parsed = await parser.parse(
+        readFileSync("./examples/_ddex/382.xml").toString(),
+      );
 
       assert.equal(parsed.type, EDistroType.DDEX);
       assert.equal(parsed.version, v3.EDistroDdexVersion.V382);
@@ -32,8 +34,10 @@ describe("Parser", () => {
     });
 
     it("should parse 411 new message", async () => {
-      const parsed = await parser.parse(readFileSync("./examples/_ddex/411.xml").toString());
-      
+      const parsed = await parser.parse(
+        readFileSync("./examples/_ddex/411.xml").toString(),
+      );
+
       assert.equal(parsed.type, EDistroType.DDEX);
       assert.equal(parsed.version, v4.EDistroDdexVersion.V411);
       assert.equal(parsed.action, v4.EDistroDdexAction.NEW_RELEASE);
