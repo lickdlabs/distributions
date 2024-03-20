@@ -13,11 +13,11 @@ export class Parser {
       return object;
     }
 
-    if (!this.isDdex(object)) {
-      throw new Error("can only parse ddex distributions");
+    if (this.isDdex(object)) {
+      return new ErnParser(this.logger).parse(object);
     }
 
-    return new ErnParser(this.logger).parse(object);
+    throw new Error("unknown/unsupported distribution");
   }
 
   private async parseToObject(body: string): Promise<any> {
