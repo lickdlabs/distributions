@@ -1,7 +1,7 @@
 import { ILogger } from "@lickd/logger";
 import * as xml2js from "xml2js";
-import { Ern } from "./types";
-import { ErnParser } from "./parsers";
+import { Ern } from "../types";
+import { ErnParser } from "./ddex";
 
 export class Parser {
   public constructor(private logger: ILogger) {}
