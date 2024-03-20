@@ -1,5 +1,15 @@
 import { MessageHeader } from "../complexTypes";
 
+// <xs:element name="PurgeReleaseMessage">
+//   <xs:complexType>
+//     <xs:sequence>
+//       <xs:element name="MessageHeader" type="ern:MessageHeader" />
+//       <xs:element name="PurgedRelease" type="ern:PurgedRelease" />
+//     </xs:sequence>
+//     <xs:attribute name="MessageSchemaVersionId" type="xs:string" use="required" />
+//     <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+//   </xs:complexType>
+// </xs:element>
 export type PurgeReleaseMessage = {
   _attributes: {
     messageSchemaVersionId: string;
@@ -7,5 +17,5 @@ export type PurgeReleaseMessage = {
   };
 
   messageHeader: MessageHeader;
-  // <xs:element name="PurgedRelease" type="ern:PurgedRelease" />
+  // @todo <xs:element name="PurgedRelease" type="ern:PurgedRelease" />
 };
