@@ -1,28 +1,23 @@
 import { ILogger } from "@lickd/logger";
 import * as xml2js from "xml2js";
-import { IParser } from "./interfaces/parser";
-import { Ddex } from "./parsers";
-import { EDistroType, TDistro } from "./types";
-import { isDdex } from "./utils";
+import { Ern } from "./types";
+import { ErnParser } from "./parsers";
 
-export class Parser implements IParser {
+export class Parser {
   public constructor(private logger: ILogger) {}
 
-  public async parse(body: string): Promise<TDistro<EDistroType>> {
+  public async parse(body: string): Promise<Ern> {
     const object = await this.parseToObject(body);
 
-    if (isDdex(object)) {
+    if (this.isErn(object)) {
       return object;
     }
 
-    const type = this.detectType(object);
-
-    this.logger.info("parsing distribution", { type });
-
-    switch (type) {
-      case EDistroType.DDEX:
-        return new Ddex(this.logger).parse(object);
+    if (!this.isDdex(object)) {
+      throw new Error("can only parse ddex distributions");
     }
+
+    return new ErnParser(this.logger).parse(object);
   }
 
   private async parseToObject(body: string): Promise<any> {
@@ -43,12 +38,8 @@ export class Parser implements IParser {
     throw new Error("could not parse distribution to object");
   }
 
-  private detectType(object: any): EDistroType {
-    if (this.isDdex(object)) {
-      return EDistroType.DDEX;
-    }
-
-    throw new Error("could not detect distribution type");
+  private isErn(object: any): object is Ern {
+    return "version" in object && "action" in object && "element" in object;
   }
 
   private isDdex(object: any): boolean {
