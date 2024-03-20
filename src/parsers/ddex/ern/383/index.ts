@@ -1,6 +1,10 @@
 import { ILogger } from "@lickd/logger";
 import { Ern383 } from "../../../../types";
-import { parseCatalogListMessage, parseNewReleaseMessage } from "./elements";
+import {
+  parseCatalogListMessage,
+  parseNewReleaseMessage,
+  parsePurgeReleaseMessage,
+} from "./elements";
 
 export class Ern383Parser {
   public constructor(private logger: ILogger) {}
@@ -46,7 +50,7 @@ export class Ern383Parser {
     return {
       version: 383,
       action: Ern383.Actions.PURGE_RELEASE_MESSAGE,
-      element: parseCatalogListMessage(object),
+      element: parsePurgeReleaseMessage(object),
     };
   }
 }
