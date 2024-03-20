@@ -2,6 +2,7 @@ import { ILogger } from "@lickd/logger";
 import { Ern } from "../../../types";
 import { Ern382Parser } from "./382";
 import { Ern383Parser } from "./383";
+import { Ern411Parser } from "./411";
 
 export class ErnParser {
   public constructor(private logger: ILogger) {}
@@ -20,6 +21,9 @@ export class ErnParser {
 
       case 383:
         return new Ern383Parser(this.logger).parse(action, object[key]);
+
+      case 411:
+        return new Ern411Parser(this.logger).parse(action, object[key]);
     }
 
     throw new Error("unknown/unsupported version");

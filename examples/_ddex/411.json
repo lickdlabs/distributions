@@ -1,0 +1,27 @@
+{
+  "version": 411,
+  "action": "NewReleaseMessage",
+  "element": {
+    "_attributes": {
+      "languageAndScriptCode": "en"
+    },
+    "messageHeader": {
+      "messageId": "00000000-0000-0000-0000-000000000000",
+      "messageSender": {
+        "partyId": "PADPIDA00000000000",
+        "partyName": {
+          "fullName": "Lickd"
+        }
+      },
+      "messageRecipient": [
+        {
+          "partyId": "PADPIDA99999999999",
+          "partyName": {
+            "fullName": "Lickd Labs"
+          }
+        }
+      ],
+      "messageCreatedDateTime": "2024-01-01T00:00:00.000Z"
+    }
+  }
+}
