@@ -19,7 +19,7 @@ import { MessagingParty } from "./messagingParty";
 //   <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
 // </xs:complexType>
 export type MessageHeader = {
-  _attributes: {
+  _attributes?: {
     languageAndScriptCode?: string;
   };
 

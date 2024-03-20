@@ -7,7 +7,7 @@ import { MessageAuditTrailEvent } from "./messageAuditTrailEvent";
 //   <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
 // </xs:complexType>
 export type MessageAuditTrail = {
-  _attributes: {
+  _attributes?: {
     languageAndScriptCode?: string;
   };
 
