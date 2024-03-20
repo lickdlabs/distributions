@@ -3,9 +3,9 @@ import { MessageHeader } from "../complexTypes";
 // <xs:element name="CatalogListMessage">
 //   <xs:complexType>
 //     <xs:sequence>
-//         <xs:element name="MessageHeader" type="ern:MessageHeader" />
-//         <xs:element name="PublicationDate" type="xs:dateTime" />
-//         <xs:element name="CatalogItem" maxOccurs="unbounded" type="ern:CatalogItem" />
+//       <xs:element name="MessageHeader" type="ern:MessageHeader" />
+//       <xs:element name="PublicationDate" type="xs:dateTime" />
+//       <xs:element name="CatalogItem" maxOccurs="unbounded" type="ern:CatalogItem" />
 //     </xs:sequence>
 //     <xs:attribute name="MessageSchemaVersionId" type="xs:string" use="required" />
 //     <xs:attribute name="BusinessProfileVersionId" type="xs:string" />
