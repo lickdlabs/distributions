@@ -13,7 +13,7 @@ import { Name } from "./name";
 //   <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
 // </xs:complexType>
 export type PartyName = {
-  _attributes: {
+  _attributes?: {
     languageAndScriptCode?: string;
   };
 

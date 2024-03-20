@@ -6,7 +6,7 @@
 //   </xs:simpleContent>
 // </xs:complexType>
 export type Comment = {
-  _attributes: {
+  _attributes?: {
     languageAndScriptCode?: string;
   };
 

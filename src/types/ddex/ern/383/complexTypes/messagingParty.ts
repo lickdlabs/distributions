@@ -11,7 +11,7 @@ import { PartyName } from "./partyName";
 //   <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
 // </xs:complexType>
 export type MessagingParty = {
-  _attributes: {
+  _attributes?: {
     languageAndScriptCode?: string;
   };
 

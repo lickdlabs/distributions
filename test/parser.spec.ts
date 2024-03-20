@@ -2,9 +2,7 @@ import { ConsoleLogger } from "@lickd/logger";
 import { assert } from "chai";
 import { readFileSync } from "fs";
 import { createStubInstance } from "sinon";
-import { EDistroType, Parser } from "../src";
-import * as v3 from "../src/types/ddex/3";
-import * as v4 from "../src/types/ddex/4";
+import { Ern382, Ern383, Ern411, Parser } from "../src";
 
 const logger = createStubInstance(ConsoleLogger);
 
@@ -12,6 +10,7 @@ describe("Parser", () => {
   describe("constructor()", () => {
     it("should build a default parser", () => {
       const parser = new Parser(logger);
+
       assert.instanceOf(parser, Parser);
       assert.isFunction(parser.parse);
     });
@@ -25,12 +24,23 @@ describe("Parser", () => {
         readFileSync("./examples/_ddex/382.xml").toString(),
       );
 
-      assert.equal(parsed.type, EDistroType.DDEX);
-      assert.equal(parsed.version, v3.EDistroDdexVersion.V382);
-      assert.equal(parsed.action, v3.EDistroDdexAction.NEW_RELEASE);
-      assert.exists(parsed.message);
-      assert.isNotEmpty(parsed.message);
-      assert.isObject(parsed.message);
+      assert.equal(parsed.version, 382);
+      assert.equal(parsed.action, Ern382.Actions.NEW_RELEASE_MESSAGE);
+      assert.exists(parsed.element);
+      assert.isNotEmpty(parsed.element);
+      assert.isObject(parsed.element);
+    });
+
+    it("should parse 383 new message", async () => {
+      const parsed = await parser.parse(
+        readFileSync("./examples/_ddex/383.xml").toString(),
+      );
+
+      assert.equal(parsed.version, 383);
+      assert.equal(parsed.action, Ern383.Actions.NEW_RELEASE_MESSAGE);
+      assert.exists(parsed.element);
+      assert.isNotEmpty(parsed.element);
+      assert.isObject(parsed.element);
     });
 
     it("should parse 411 new message", async () => {
@@ -38,12 +48,11 @@ describe("Parser", () => {
         readFileSync("./examples/_ddex/411.xml").toString(),
       );
 
-      assert.equal(parsed.type, EDistroType.DDEX);
-      assert.equal(parsed.version, v4.EDistroDdexVersion.V411);
-      assert.equal(parsed.action, v4.EDistroDdexAction.NEW_RELEASE);
-      assert.exists(parsed.message);
-      assert.isNotEmpty(parsed.message);
-      assert.isObject(parsed.message);
+      assert.equal(parsed.version, 411);
+      assert.equal(parsed.action, Ern411.Actions.NEW_RELEASE_MESSAGE);
+      assert.exists(parsed.element);
+      assert.isNotEmpty(parsed.element);
+      assert.isObject(parsed.element);
     });
   });
 });

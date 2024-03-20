@@ -8,7 +8,7 @@
 //   </xs:simpleContent>
 // </xs:complexType>
 export type PartyId = {
-  _attributes: {
+  _attributes?: {
     namespace?: string;
     isDpid?: boolean;
     isIsni?: boolean;
