@@ -232,6 +232,14 @@ export abstract class AbstractParser {
       "territoryCode" | "excludedTerritoryCode"
     > = {
       _attributes: object.$ ? attributes : undefined,
+      technicalSoundRecordingDetails: object.TechnicalSoundRecordingDetails
+        ? object.TechnicalSoundRecordingDetails.map(
+            (technicalSoundRecordingDetails: any) =>
+              this.parseTechnicalSoundRecordingDetails(
+                technicalSoundRecordingDetails,
+              ),
+          )
+        : undefined,
     };
 
     if (object.TerritoryCode) {
@@ -281,6 +289,20 @@ export abstract class AbstractParser {
     return {
       _attributes: object.$ ? attributes : undefined,
       value: object._ || object,
+    };
+  }
+
+  protected parseTechnicalSoundRecordingDetails(
+    object: any,
+  ): Ern383.TechnicalSoundRecordingDetails {
+    const attributes = {
+      languageAndScriptCode: object.$?.languageAndScriptCode || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      technicalResourceDetailsReference:
+        object.TechnicalResourceDetailsReference[0],
     };
   }
 

@@ -1,4 +1,5 @@
 import { CurrentTerritoryCode } from "./currentTerritoryCode";
+import { TechnicalSoundRecordingDetails } from "./technicalSoundRecordingDetails";
 
 // <xs:complexType name="SoundRecordingDetailsByTerritory">
 //   <xs:sequence>
@@ -58,7 +59,7 @@ export type SoundRecordingDetailsByTerritory = TerritoryCodeChoice & {
   // <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
   // <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded" type="ern:ParentalWarningType" />
   // <xs:element name="AvRating" minOccurs="0" maxOccurs="unbounded" type="ern:AvRating" />
-  // <xs:element name="TechnicalSoundRecordingDetails" minOccurs="0" maxOccurs="unbounded" type="ern:TechnicalSoundRecordingDetails" />
+  technicalSoundRecordingDetails?: TechnicalSoundRecordingDetails[];
   // <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
   // <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
   // <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
