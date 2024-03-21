@@ -3,6 +3,7 @@ import { EDistroType, TDistro } from "../../../../../../../../../types";
 import * as v3 from "../../../../../../../../../types/ddex/3";
 import * as v38 from "../../../../../../../../../types/ddex/3/8";
 import * as v411 from "../../../../../../../../../types/ddex/4/1/1";
+import path from "path";
 
 export class Ddex38 {
   public constructor(private logger: ILogger) {}
@@ -134,7 +135,7 @@ export class Ddex38 {
     const converted: v411.TFile = {
       uri:
         "fileName" in distro
-          ? [distro.filePath, distro.fileName].join("")
+          ? path.join(distro.filePath || "", distro.fileName)
           : distro.url,
     };
 
