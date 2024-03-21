@@ -1,3 +1,5 @@
+import { SoundRecording } from "./soundRecording";
+
 // <xs:complexType name="ResourceList">
 //   <xs:sequence>
 //     <xs:element name="SoundRecording" minOccurs="0" maxOccurs="unbounded" type="ern:SoundRecording" />
@@ -16,7 +18,7 @@ export type ResourceList = {
     languageAndScriptCode?: string;
   };
 
-  // @todo <xs:element name="SoundRecording" minOccurs="0" maxOccurs="unbounded" type="ern:SoundRecording" />
+  soundRecording?: SoundRecording[];
   // @todo <xs:element name="MIDI" minOccurs="0" maxOccurs="unbounded" type="ern:MIDI" />
   // @todo <xs:element name="Video" minOccurs="0" maxOccurs="unbounded" type="ern:Video" />
   // @todo <xs:element name="Image" minOccurs="0" maxOccurs="unbounded" type="ern:Image" />
