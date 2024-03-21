@@ -1,6 +1,7 @@
 import { ILogger } from "@lickd/logger";
 import { Ern411 } from "../../../../types";
-import { parseNewReleaseMessage, parsePurgeReleaseMessage } from "./elements";
+import { NewReleaseMessageParser } from "./newReleaseMessage";
+import { PurgeReleaseMessageParser } from "./purgeReleaseMessage";
 
 export class Ern411Parser {
   public constructor(private logger: ILogger) {}
@@ -8,32 +9,12 @@ export class Ern411Parser {
   public parse(action: string, object: any): Ern411.Ern<Ern411.Actions> {
     switch (action) {
       case Ern411.Actions.NEW_RELEASE_MESSAGE:
-        return this.parseNewReleaseMessage(object);
+        return new NewReleaseMessageParser(this.logger).parse(object);
 
       case Ern411.Actions.PURGE_RELEASE_MESSAGE:
-        return this.parsePurgeReleaseMessage(object);
+        return new PurgeReleaseMessageParser(this.logger).parse(object);
     }
 
     throw new Error("unknown/unsupported action");
-  }
-
-  private parseNewReleaseMessage(
-    object: any,
-  ): Ern411.Ern<Ern411.Actions.NEW_RELEASE_MESSAGE> {
-    return {
-      version: 411,
-      action: Ern411.Actions.NEW_RELEASE_MESSAGE,
-      element: parseNewReleaseMessage(object),
-    };
-  }
-
-  private parsePurgeReleaseMessage(
-    object: any,
-  ): Ern411.Ern<Ern411.Actions.PURGE_RELEASE_MESSAGE> {
-    return {
-      version: 411,
-      action: Ern411.Actions.PURGE_RELEASE_MESSAGE,
-      element: parsePurgeReleaseMessage(object),
-    };
   }
 }
