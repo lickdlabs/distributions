@@ -69,7 +69,7 @@ export abstract class AbstractParser {
         ? this.parseComment(object.Comment[0])
         : undefined,
       messageControlType: object.MessageControlType
-        ? object.MessageControlType
+        ? object.MessageControlType[0]
         : undefined,
     };
   }
