@@ -15,6 +15,28 @@ export abstract class AbstractParser {
     };
   }
 
+  protected parseCatalogNumber(object: any): Ern383.CatalogNumber {
+    return {
+      _attributes: {
+        namespace: object.$.Namespace,
+      },
+      value: object._,
+    };
+  }
+
+  protected parseCurrentTerritoryCode(
+    object: any,
+  ): Ern383.CurrentTerritoryCode {
+    const attributes = {
+      identifierType: object.$?.IdentifierType || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
   protected parseMessageAuditTrail(object: any): Ern383.MessageAuditTrail {
     const attributes = {
       languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
@@ -142,6 +164,29 @@ export abstract class AbstractParser {
     };
   }
 
+  protected parseProprietaryId(object: any): Ern383.ProprietaryId {
+    return {
+      _attributes: {
+        namespace: object.$.Namespace,
+      },
+      value: object._,
+    };
+  }
+
+  protected parseReferenceTitle(object: any): Ern383.ReferenceTitle {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      titleText: this.parseTitleText(object.TitleText[0]),
+      subTitle: object.SubTitle
+        ? this.parseSubTitle(object.SubTitle[0])
+        : undefined,
+    };
+  }
+
   protected parseResourceList(object: any): Ern383.ResourceList {
     const attributes = {
       languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
@@ -149,6 +194,104 @@ export abstract class AbstractParser {
 
     return {
       _attributes: object.$ ? attributes : undefined,
+      soundRecording: object.SoundRecording
+        ? object.SoundRecording.map((soundRecording: any) =>
+            this.parseSoundRecording(soundRecording),
+          )
+        : undefined,
+    };
+  }
+
+  protected parseSoundRecording(object: any): Ern383.SoundRecording {
+    return {
+      soundRecordingId: object.SoundRecordingId.map((soundRecordingId: any) =>
+        this.parseSoundRecordingId(soundRecordingId),
+      ),
+      resourceReference: object.ResourceReference[0],
+      referenceTitle: this.parseReferenceTitle(object.ReferenceTitle[0]),
+      duration: object.Duration[0],
+      soundRecordingDetailsByTerritory:
+        object.SoundRecordingDetailsByTerritory.map(
+          (soundRecordingDetailsByTerritory: any) =>
+            this.parseSoundRecordingDetailsByTerritory(
+              soundRecordingDetailsByTerritory,
+            ),
+        ),
+    };
+  }
+
+  protected parseSoundRecordingDetailsByTerritory(
+    object: any,
+  ): Ern383.SoundRecordingDetailsByTerritory {
+    const attributes = {
+      languageAndScriptCode: object.$?.languageAndScriptCode || undefined,
+    };
+
+    const parsed: Omit<
+      Ern383.SoundRecordingDetailsByTerritory,
+      "territoryCode" | "excludedTerritoryCode"
+    > = {
+      _attributes: object.$ ? attributes : undefined,
+    };
+
+    if (object.TerritoryCode) {
+      return {
+        ...parsed,
+        territoryCode: object.TerritoryCode.map((territoryCode: any) =>
+          this.parseCurrentTerritoryCode(territoryCode),
+        ),
+      };
+    }
+
+    return {
+      ...parsed,
+      excludedTerritoryCode: object.ExcludedTerritoryCode.map(
+        (excludedTerritoryCode: any) =>
+          this.parseCurrentTerritoryCode(excludedTerritoryCode),
+      ),
+    };
+  }
+
+  protected parseSoundRecordingId(object: any): Ern383.SoundRecordingId {
+    const attributes = {
+      isReplaced: object.$?.isReplaced
+        ? object.$?.isReplaced === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      isrc: object.ISRC ? object.ISRC[0] : undefined,
+      catalogNumber: object.CatalogNumber
+        ? this.parseCatalogNumber(object.CatalogNumber[0])
+        : undefined,
+      proprietaryId: object.ProprietaryId
+        ? object.ProprietaryId.map((proprietaryId: any) =>
+            this.parseProprietaryId(proprietaryId),
+          )
+        : undefined,
+    };
+  }
+
+  protected parseSubTitle(object: any): Ern383.SubTitle {
+    const attributes = {
+      languageAndScriptCode: object.$?.languageAndScriptCode || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  protected parseTitleText(object: any): Ern383.TitleText {
+    const attributes = {
+      languageAndScriptCode: object.$?.languageAndScriptCode || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
     };
   }
 }
