@@ -27,7 +27,7 @@ export abstract class AbstractParser {
 
   protected parseDisplayArtist(object: any): Ern411.DisplayArtist {
     const attributes = {
-      sequenceNumber: object.$?.SequenceNumber || undefined,
+      sequenceNumber: object.$?.SequenceNumber ? parseInt(object.$.SequenceNumber) : undefined,
     };
 
     return {
@@ -80,7 +80,7 @@ export abstract class AbstractParser {
 
   protected parseDisplaySubTitle(object: any): Ern411.DisplaySubTitle {
     const attributes = {
-      sequenceNumber: object.$?.SequenceNumber || undefined,
+      sequenceNumber: object.$?.SequenceNumber ? parseInt(object.$.SequenceNumber) : undefined,
       isDisplayedInTitle: object.$.IsDisplayedInTitle
         ? object.$.IsDisplayedInTitle === "true"
         : undefined,
@@ -334,7 +334,7 @@ export abstract class AbstractParser {
   ): Ern411.TitleDisplayInformation {
     const attributes = {
       languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
-      sequenceNumber: object.$?.SequenceNumber || undefined,
+      sequenceNumber: object.$?.SequenceNumber ? parseInt(object.$.SequenceNumber) : undefined,
     };
 
     return {
