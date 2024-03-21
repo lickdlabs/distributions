@@ -297,6 +297,11 @@ export abstract class AbstractParser {
         (parentalWarningType: any) =>
           this.parseParentalWarningTypeWithTerritory(parentalWarningType),
       ),
+      technicalDetails: object.TechnicalDetails
+        ? object.TechnicalDetails.map((technicalDetails: any) =>
+            this.parseTechnicalSoundRecordingDetails(technicalDetails),
+          )
+        : undefined,
     };
   }
 
@@ -330,6 +335,24 @@ export abstract class AbstractParser {
     return {
       _attributes: object.$ ? attributes : undefined,
       value: object._ || object,
+    };
+  }
+
+  protected parseTechnicalSoundRecordingDetails(
+    object: any,
+  ): Ern411.TechnicalSoundRecordingDetails {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      technicalResourceDetailsReference:
+        object.TechnicalResourceDetailsReference[0],
     };
   }
 

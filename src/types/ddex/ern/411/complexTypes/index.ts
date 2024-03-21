@@ -18,4 +18,5 @@ export * from "./resourceList";
 export * from "./soundRecording";
 export * from "./soundRecordingId";
 export * from "./soundRecordingType";
+export * from "./technicalSoundRecordingDetails";
 export * from "./titleDisplayInformation";

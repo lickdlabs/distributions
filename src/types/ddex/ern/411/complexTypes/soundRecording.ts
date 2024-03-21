@@ -6,6 +6,7 @@ import { DisplayTitleText } from "./displayTitleText";
 import { ParentalWarningTypeWithTerritory } from "./parentalWarningTypeWithTerritory";
 import { SoundRecordingId } from "./soundRecordingId";
 import { SoundRecordingType } from "./soundRecordingType";
+import { TechnicalSoundRecordingDetails } from "./technicalSoundRecordingDetails";
 
 // <xs:complexType name="SoundRecording">
 //   <xs:sequence>
@@ -102,7 +103,7 @@ export type SoundRecording = {
   // @todo <xs:element name="DisplayCredits" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayCredits" />
   // @todo <xs:element name="LanguageOfPerformance" minOccurs="0" maxOccurs="unbounded" type="avs:IsoLanguageCode" />
   // @todo <xs:element name="AudioChannelConfiguration" minOccurs="0" type="avs:RecordingMode" />
-  // @todo <xs:element name="TechnicalDetails" minOccurs="0" maxOccurs="unbounded" type="ern:TechnicalSoundRecordingDetails" />
+  technicalDetails?: TechnicalSoundRecordingDetails[];
   // @todo <xs:element name="Raga" minOccurs="0" maxOccurs="unbounded" type="ern:Raga" />
   // @todo <xs:element name="Tala" minOccurs="0" maxOccurs="unbounded" type="ern:Tala" />
   // @todo <xs:element name="Deity" minOccurs="0" maxOccurs="unbounded" type="ern:Deity" />
