@@ -12,5 +12,9 @@ export const parseNewReleaseMessage = (
       languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
     },
     messageHeader: parseMessageHeader(object.MessageHeader[0]),
+    updateIndicator: object.UpdateIndicator
+      ? object.UpdateIndicator[0]
+      : undefined,
+    isBackfill: object.IsBackfill ? object.IsBackfill[0] === "true" : undefined,
   };
 };

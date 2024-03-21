@@ -1,3 +1,4 @@
+import { Avs20161006 } from "../../../avs";
 import { MessageHeader } from "../complexTypes";
 
 // <xs:element name="NewReleaseMessage">
@@ -29,8 +30,8 @@ export type NewReleaseMessage = {
   };
 
   messageHeader: MessageHeader;
-  // @todo <xs:element name="UpdateIndicator" minOccurs="0" type="avs:UpdateIndicator" />
-  // @todo <xs:element name="IsBackfill" minOccurs="0" type="xs:boolean" />
+  updateIndicator?: Avs20161006.UpdateIndicator;
+  isBackfill?: boolean;
   // @todo <xs:element name="CatalogTransfer" minOccurs="0" type="ern:CatalogTransfer" />
   // @todo <xs:element name="WorkList" minOccurs="0" type="ern:WorkList" />
   // @todo <xs:element name="CueSheetList" minOccurs="0" type="ern:CueSheetList" />
