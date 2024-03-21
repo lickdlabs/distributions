@@ -6,3 +6,4 @@ export * from "./messagingParty";
 export * from "./name";
 export * from "./partyId";
 export * from "./partyName";
+export * from "./resourceList";

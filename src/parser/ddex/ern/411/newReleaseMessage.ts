@@ -14,6 +14,7 @@ export class NewReleaseMessageParser extends AbstractParser {
           languageAndScriptCode: object.$.LanguageAndScriptCode,
         },
         messageHeader: this.parseMessageHeader(object.MessageHeader[0]),
+        resourceList: this.parseResourceList(object.ResourceList[0]),
       },
     };
   }

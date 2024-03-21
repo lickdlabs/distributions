@@ -14,6 +14,7 @@ export class NewReleaseMessageConverter extends AbstractConverter {
             ern.element._attributes.languageAndScriptCode || "en",
         },
         messageHeader: this.convertMessageHeader(ern.element.messageHeader),
+        resourceList: this.convertResourceList(ern.element.resourceList),
       },
     };
   }

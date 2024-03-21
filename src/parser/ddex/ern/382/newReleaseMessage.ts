@@ -22,6 +22,7 @@ export class NewReleaseMessageParser extends AbstractParser {
         isBackfill: object.IsBackfill
           ? object.IsBackfill[0] === "true"
           : undefined,
+        resourceList: this.parseResourceList(object.ResourceList[0]),
       },
     };
   }

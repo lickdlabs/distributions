@@ -80,4 +80,8 @@ export abstract class AbstractConverter {
       abbreviatedName: ern.abbreviatedName?.value,
     };
   }
+
+  protected convertResourceList(ern: Ern382.ResourceList): Ern411.ResourceList {
+    return {};
+  }
 }

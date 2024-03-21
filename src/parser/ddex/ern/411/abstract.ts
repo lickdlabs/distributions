@@ -87,4 +87,8 @@ export abstract class AbstractParser {
         : undefined,
     };
   }
+
+  protected parseResourceList(object: any): Ern411.ResourceList {
+    return {};
+  }
 }

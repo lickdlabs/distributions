@@ -3,3 +3,4 @@ export * from "./messageAuditTrailEvent";
 export * from "./messageHeader";
 export * from "./messagingPartyWithoutCode";
 export * from "./partyNameWithoutCode";
+export * from "./resourceList";
