@@ -1,5 +1,5 @@
 import { ILogger } from "@lickd/logger";
-import { Ern382, Ern411 } from "../../../../../types";
+import { Avs411, Ern382, Ern411 } from "../../../../../types";
 
 export abstract class AbstractConverter {
   public constructor(protected logger: ILogger) {}
@@ -82,6 +82,47 @@ export abstract class AbstractConverter {
   }
 
   protected convertResourceList(ern: Ern382.ResourceList): Ern411.ResourceList {
-    return {};
+    return {
+      soundRecording: ern.soundRecording
+        ? ern.soundRecording.map((soundRecording) =>
+            this.convertSoundRecording(soundRecording),
+          )
+        : undefined,
+    };
+  }
+
+  protected convertSoundRecording(
+    ern: Ern382.SoundRecording,
+  ): Ern411.SoundRecording {
+    const attributes = {
+      languageAndScriptCode: ern._attributes?.languageAndScriptCode,
+    };
+
+    return {
+      _attributes: ern._attributes ? attributes : undefined,
+      resourceReference: ern.resourceReference,
+      type: {
+        value: Avs411.SoundRecordingType.UNKNOWN,
+      },
+      resourceId: ern.soundRecordingId,
+      displayTitleText: [
+        {
+          value: ern.referenceTitle.titleText.value,
+        },
+      ],
+      displayTitle: [
+        {
+          titleText: ern.referenceTitle.titleText.value,
+        },
+      ],
+      displayArtistName: [],
+      displayArtist: [],
+      duration: ern.duration,
+      parentalWarningType: [
+        {
+          value: Avs411.ParentalWarningType.UNKNOWN,
+        },
+      ],
+    };
   }
 }
