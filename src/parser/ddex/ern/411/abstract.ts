@@ -4,6 +4,130 @@ import { Ern411 } from "../../../../types";
 export abstract class AbstractParser {
   public constructor(protected logger: ILogger) {}
 
+  protected parseCatalogNumber(object: any): Ern411.CatalogNumber {
+    return {
+      _attributes: {
+        namespace: object.$.Namespace,
+      },
+      value: object._,
+    };
+  }
+
+  protected parseContributorRole(object: any): Ern411.ContributorRole {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  protected parseDisplayArtist(object: any): Ern411.DisplayArtist {
+    const attributes = {
+      sequenceNumber: object.$?.SequenceNumber || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      artistPartyReference: object.ArtistPartyReference[0],
+      displayArtistRole: this.parseDisplayArtistRole(
+        object.DisplayArtistRole[0],
+      ),
+      artisticRole: object.ArtisticRole
+        ? object.ArtisticRole.map((artisticRole: any) =>
+            this.parseContributorRole(artisticRole),
+          )
+        : undefined,
+      titleDisplayInformation: object.TitleDisplayInformation
+        ? object.TitleDisplayInformation.map((titleDisplayInformation: any) =>
+            this.parseTitleDisplayInformation(titleDisplayInformation),
+          )
+        : undefined,
+    };
+  }
+
+  protected parseDisplayArtistNameWithDefault(
+    object: any,
+  ): Ern411.DisplayArtistNameWithDefault {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  protected parseDisplayArtistRole(object: any): Ern411.DisplayArtistRole {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  protected parseDisplaySubTitle(object: any): Ern411.DisplaySubTitle {
+    const attributes = {
+      sequenceNumber: object.$?.SequenceNumber || undefined,
+      isDisplayedInTitle: object.$.IsDisplayedInTitle
+        ? object.$.IsDisplayedInTitle === "true"
+        : undefined,
+      subTitleType: object.$?.SubTitleType || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  protected parseDisplayTitle(object: any): Ern411.DisplayTitle {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      titleText: object.TitleText[0],
+      subTitle: object.SubTitle
+        ? object.SubTitle.map((subTitle: any) =>
+            this.parseDisplaySubTitle(subTitle),
+          )
+        : undefined,
+    };
+  }
+
+  protected parseDisplayTitleText(object: any): Ern411.DisplayTitleText {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
   protected parseMessageAuditTrail(object: any): Ern411.MessageAuditTrail {
     return {
       messageAuditTrailEvent: object.MessageAuditTrailEvent.map(
@@ -64,6 +188,24 @@ export abstract class AbstractParser {
     };
   }
 
+  protected parseParentalWarningTypeWithTerritory(
+    object: any,
+  ): Ern411.ParentalWarningTypeWithTerritory {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
   protected parsePartyNameWithoutCode(
     object: any,
   ): Ern411.PartyNameWithoutCode {
@@ -88,7 +230,119 @@ export abstract class AbstractParser {
     };
   }
 
+  protected parsePrefix(object: any): Ern411.Prefix {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  protected parseProprietaryId(object: any): Ern411.ProprietaryId {
+    return {
+      _attributes: {
+        namespace: object.$.Namespace,
+      },
+      value: object._,
+    };
+  }
+
   protected parseResourceList(object: any): Ern411.ResourceList {
-    return {};
+    return {
+      soundRecording: object.SoundRecording
+        ? object.SoundRecording.map((soundRecording: any) =>
+            this.parseSoundRecording(soundRecording),
+          )
+        : undefined,
+    };
+  }
+
+  protected parseSoundRecording(object: any): Ern411.SoundRecording {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      isSupplemental: object.$?.IsSupplemental
+        ? object.$?.IsSupplemental === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      resourceReference: object.ResourceReference[0],
+      type: this.parseSoundRecordingType(object.Type[0]),
+      resourceId: object.ResourceId.map((resourceId: any) =>
+        this.parseSoundRecordingId(resourceId),
+      ),
+      displayTitleText: object.DisplayTitleText.map((displayTitleText: any) =>
+        this.parseDisplayTitleText(displayTitleText),
+      ),
+      displayTitle: object.DisplayTitle.map((displayTitle: any) =>
+        this.parseDisplayTitle(displayTitle),
+      ),
+      displayArtistName: object.DisplayArtistName.map(
+        (displayArtistName: any) =>
+          this.parseDisplayArtistNameWithDefault(displayArtistName),
+      ),
+      displayArtist: object.DisplayArtist.map((displayArtist: any) =>
+        this.parseDisplayArtist(displayArtist),
+      ),
+      duration: object.Duration[0],
+      parentalWarningType: object.ParentalWarningType.map(
+        (parentalWarningType: any) =>
+          this.parseParentalWarningTypeWithTerritory(parentalWarningType),
+      ),
+    };
+  }
+
+  protected parseSoundRecordingId(object: any): Ern411.SoundRecordingId {
+    const attributes = {
+      isReplaced: object.IsReplaced
+        ? object.IsReplaced[0] === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      isrc: object.ISRC ? object.ISRC[0] : undefined,
+      catalogNumber: object.CatalogNumber
+        ? this.parseCatalogNumber(object.CatalogNumber[0])
+        : undefined,
+      proprietaryId: object.ProprietaryId
+        ? object.ProprietaryId.map((proprietaryId: any) =>
+            this.parseProprietaryId(proprietaryId),
+          )
+        : undefined,
+    };
+  }
+
+  protected parseSoundRecordingType(object: any): Ern411.SoundRecordingType {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  protected parseTitleDisplayInformation(
+    object: any,
+  ): Ern411.TitleDisplayInformation {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      sequenceNumber: object.$?.SequenceNumber || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      isDisplayedInTitle: object.IsDisplayedInTitle[0] === "true",
+      prefix: object.Prefix
+        ? object.Prefix.map((prefix: any) => this.parsePrefix(prefix))
+        : undefined,
+    };
   }
 }
