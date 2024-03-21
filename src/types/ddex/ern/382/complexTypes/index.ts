@@ -15,4 +15,5 @@ export * from "./soundRecording";
 export * from "./soundRecordingId";
 export * from "./soundRecordingDetailsByTerritory";
 export * from "./subTitle";
+export * from "./technicalSoundRecordingDetails";
 export * from "./titleText";
