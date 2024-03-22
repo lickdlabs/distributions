@@ -1,0 +1,39 @@
+{
+  "version": 383,
+  "action": "NewReleaseMessage",
+  "element": {
+    "_attributes": {
+      "messageSchemaVersionId": "ern/383"
+    },
+    "messageHeader": {
+      "messageId": "00000000-0000-0000-0000-000000000000",
+      "messageSender": {
+        "partyId": [
+          {
+            "value": "PADPIDA00000000000"
+          }
+        ],
+        "partyName": {
+          "fullName": {
+            "value": "Lickd"
+          }
+        }
+      },
+      "messageRecipient": [
+        {
+          "partyId": [
+            {
+              "value": "PADPIDA99999999999"
+            }
+          ],
+          "partyName": {
+            "fullName": {
+              "value": "Lickd Labs"
+            }
+          }
+        }
+      ],
+      "messageCreatedDateTime": "2024-01-01T00:00:00.000Z"
+    }
+  }
+}

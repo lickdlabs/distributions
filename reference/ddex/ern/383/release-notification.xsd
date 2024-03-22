@@ -1,0 +1,2880 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ern="http://ddex.net/xml/ern/383" xmlns:avs="http://ddex.net/xml/avs/avs"
+   xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   targetNamespace="http://ddex.net/xml/ern/383" elementFormDefault="unqualified"
+   attributeFormDefault="unqualified">
+   <xs:import namespace="http://ddex.net/xml/avs/avs"
+      schemaLocation="http://ddex.net/xml/avs/avs_20200108.xsd" />
+   <xs:element name="NewReleaseMessage">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="MessageHeader" type="ern:MessageHeader" />
+            <xs:element name="UpdateIndicator" minOccurs="0" type="avs:UpdateIndicator" />
+            <xs:element name="IsBackfill" minOccurs="0" type="xs:boolean" />
+            <xs:element name="CatalogTransfer" minOccurs="0" type="ern:CatalogTransfer" />
+            <xs:element name="WorkList" minOccurs="0" type="ern:WorkList" />
+            <xs:element name="CueSheetList" minOccurs="0" type="ern:CueSheetList" />
+            <xs:element name="ResourceList" type="ern:ResourceList" />
+            <xs:element name="CollectionList" minOccurs="0" type="ern:CollectionList" />
+            <xs:element name="ReleaseList" type="ern:ReleaseList" />
+            <xs:element name="DealList" minOccurs="0" type="ern:DealList" />
+         </xs:sequence>
+         <xs:attribute name="MessageSchemaVersionId" type="xs:string" use="required" />
+         <xs:attribute name="BusinessProfileVersionId" type="xs:string" />
+         <xs:attribute name="ReleaseProfileVersionId" type="xs:string" />
+         <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="CatalogListMessage">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="MessageHeader" type="ern:MessageHeader" />
+            <xs:element name="PublicationDate" type="xs:dateTime" />
+            <xs:element name="CatalogItem" maxOccurs="unbounded" type="ern:CatalogItem" />
+         </xs:sequence>
+         <xs:attribute name="MessageSchemaVersionId" type="xs:string" use="required" />
+         <xs:attribute name="BusinessProfileVersionId" type="xs:string" />
+         <xs:attribute name="ReleaseProfileVersionId" type="xs:string" />
+         <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="PurgeReleaseMessage">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="MessageHeader" type="ern:MessageHeader" />
+            <xs:element name="PurgedRelease" type="ern:PurgedRelease" />
+         </xs:sequence>
+         <xs:attribute name="MessageSchemaVersionId" type="xs:string" use="required" />
+         <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+      </xs:complexType>
+   </xs:element>
+   <xs:complexType name="CatalogItem">
+      <xs:sequence>
+         <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:AllTerritoryCode" />
+         <xs:element name="ReleaseId" maxOccurs="unbounded" type="ern:ReleaseId" />
+         <xs:element name="Title" type="ern:Title" />
+         <xs:element name="DisplayArtistName" type="ern:Name" />
+         <xs:element name="ContributorName" maxOccurs="unbounded" type="ern:Name" />
+         <xs:element name="DisplayTitle" type="ern:ReferenceTitle" />
+         <xs:element name="LabelName" maxOccurs="unbounded" type="ern:LabelName" />
+         <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
+         <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLine" />
+         <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+         <xs:element name="ReleaseDate" type="ern:EventDate" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CatalogReleaseReferenceList">
+      <xs:sequence>
+         <xs:element name="CatalogReleaseReference" maxOccurs="unbounded">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="R[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CatalogTransfer">
+      <xs:sequence>
+         <xs:element name="CatalogTransferCompleted" type="xs:boolean" />
+         <xs:element name="EffectiveTransferDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="CatalogReleaseReferenceList" type="ern:CatalogReleaseReferenceList" />
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:AllTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:AllTerritoryCode" />
+         </xs:choice>
+         <xs:element name="TransferringFrom" type="ern:PartyDescriptor" />
+         <xs:element name="TransferringTo" type="ern:PartyDescriptor" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Collection">
+      <xs:sequence>
+         <xs:element name="CollectionId" maxOccurs="unbounded" type="ern:CollectionId" />
+         <xs:element name="CollectionType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:CollectionType" />
+         <xs:element name="CollectionReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="X[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="EquivalentReleaseReference" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="R[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="SequenceNumber" minOccurs="0" type="xs:integer" />
+         <xs:element name="Contributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DetailedResourceContributor" />
+         <xs:element name="Character" minOccurs="0" maxOccurs="unbounded" type="ern:Character" />
+         <xs:element name="CollectionCollectionReferenceList" minOccurs="0"
+            type="ern:CollectionCollectionReferenceList" />
+         <xs:element name="IsComplete" minOccurs="0" type="xs:boolean" />
+         <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+         <xs:element name="DurationOfMusicalContent" minOccurs="0" type="xs:duration" />
+         <xs:element name="CreationDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="ReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalLanguage" minOccurs="0" type="avs:IsoLanguageCode" />
+         <xs:element name="CollectionDetailsByTerritory" minOccurs="0" maxOccurs="unbounded"
+            type="ern:CollectionDetailsByTerritory" />
+         <xs:element name="CollectionResourceReferenceList" minOccurs="0"
+            type="ern:CollectionResourceReferenceList" />
+         <xs:element name="CollectionWorkReferenceList" minOccurs="0"
+            type="ern:CollectionWorkReferenceList" />
+         <xs:element name="RepresentativeImageReference" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLine" />
+         <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="CollectionDetailsByTerritory">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="Contributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DetailedResourceContributor" />
+         <xs:element name="IsComplete" minOccurs="0" type="xs:boolean" />
+         <xs:element name="Character" minOccurs="0" maxOccurs="unbounded" type="ern:Character" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CollectionList">
+      <xs:sequence>
+         <xs:element name="Collection" maxOccurs="unbounded" type="ern:Collection" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="CollectionResourceReference">
+      <xs:sequence>
+         <xs:element name="SequenceNumber" minOccurs="0" type="xs:integer" />
+         <xs:element name="CollectionResourceReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CollectionResourceReferenceList">
+      <xs:sequence>
+         <xs:element name="CollectionResourceReference" maxOccurs="unbounded"
+            type="ern:CollectionResourceReference" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Cue">
+      <xs:sequence>
+         <xs:element name="CueUseType" minOccurs="0" type="ern:CueUseType" />
+         <xs:element name="CueThemeType" minOccurs="0" type="ern:CueThemeType" />
+         <xs:element name="CueVocalType" minOccurs="0" type="ern:CueVocalType" />
+         <xs:element name="IsDance" minOccurs="0" type="xs:boolean" />
+         <xs:element name="CueVisualPerceptionType" minOccurs="0" type="ern:CueVisualPerceptionType" />
+         <xs:element name="CueOrigin" minOccurs="0" type="ern:CueOrigin" />
+         <xs:choice>
+            <xs:element name="CueCreationReference" maxOccurs="unbounded"
+               type="ern:CueCreationReference" />
+            <xs:sequence>
+               <xs:element name="ReferencedCreationType" minOccurs="0" type="avs:CreationType" />
+               <xs:element name="ReferencedCreationId" minOccurs="0" type="ern:CreationId" />
+               <xs:element name="ReferencedCreationTitle" minOccurs="0" maxOccurs="unbounded"
+                  type="ern:Title" />
+               <xs:element name="ReferencedCreationContributor" minOccurs="0" maxOccurs="unbounded"
+                  type="ern:DetailedResourceContributor" />
+               <xs:element name="ReferencedIndirectCreationContributor" minOccurs="0"
+                  maxOccurs="unbounded" type="ern:MusicalWorkContributor" />
+               <xs:element name="ReferencedCreationCharacter" minOccurs="0" maxOccurs="unbounded"
+                  type="ern:Character" />
+            </xs:sequence>
+         </xs:choice>
+         <xs:element name="HasMusicalContent" minOccurs="0" type="xs:boolean" />
+         <xs:element name="StartTime" minOccurs="0" type="xs:duration" />
+         <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+         <xs:element name="EndTime" minOccurs="0" type="xs:duration" />
+         <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLine" />
+         <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CueSheet">
+      <xs:sequence>
+         <xs:element name="CueSheetId" minOccurs="0" maxOccurs="unbounded" type="ern:ProprietaryId" />
+         <xs:element name="CueSheetReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="Q[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="CueSheetType" type="ern:CueSheetType" />
+         <xs:element name="Cue" maxOccurs="unbounded" type="ern:Cue" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CueSheetList">
+      <xs:sequence>
+         <xs:element name="CueSheet" maxOccurs="unbounded" type="ern:CueSheet" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Deal">
+      <xs:sequence>
+         <xs:element name="DealReference" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DealReference" />
+         <xs:element name="DealTerms" minOccurs="0" type="ern:DealTerms" />
+         <xs:element name="ResourceUsage" minOccurs="0" type="ern:ResourceUsage" />
+         <xs:element name="DealTechnicalResourceDetailsReferenceList" minOccurs="0"
+            type="ern:DealTechnicalResourceDetailsReferenceList" />
+         <xs:element name="DistributionChannelPage" minOccurs="0" maxOccurs="unbounded"
+            type="ern:WebPage" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="DealList">
+      <xs:sequence>
+         <xs:element name="ReleaseDeal" minOccurs="0" maxOccurs="unbounded" type="ern:ReleaseDeal" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="DealResourceReferenceList">
+      <xs:sequence>
+         <xs:element name="DealResourceReference" maxOccurs="unbounded">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="Period" minOccurs="0" type="ern:Period" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="DealTechnicalResourceDetailsReferenceList">
+      <xs:sequence>
+         <xs:element name="DealTechnicalResourceDetailsReference" maxOccurs="unbounded">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="T[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="DealTerms">
+      <xs:sequence>
+         <xs:element name="IsPreOrderDeal" minOccurs="0" type="xs:boolean" />
+         <xs:element name="CommercialModelType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:CommercialModelType" />
+         <xs:choice>
+            <xs:element name="Usage" maxOccurs="unbounded" type="ern:Usage" />
+            <xs:element name="AllDealsCancelled" type="xs:boolean" />
+            <xs:element name="TakeDown" type="xs:boolean" />
+         </xs:choice>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:choice minOccurs="0">
+            <xs:element name="DistributionChannel" maxOccurs="unbounded" type="ern:DSP" />
+            <xs:element name="ExcludedDistributionChannel" maxOccurs="unbounded" type="ern:DSP" />
+         </xs:choice>
+         <xs:element name="PriceInformation" minOccurs="0" maxOccurs="unbounded"
+            type="ern:PriceInformation" />
+         <xs:choice minOccurs="0">
+            <xs:element name="IsPromotional" type="xs:boolean" />
+            <xs:element name="PromotionalCode" type="ern:PromotionalCode" />
+         </xs:choice>
+         <xs:element name="ValidityPeriod" maxOccurs="unbounded" type="ern:Period" />
+         <xs:element name="ConsumerRentalPeriod" minOccurs="0" type="ern:ConsumerRentalPeriod" />
+         <xs:element name="PreOrderReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:choice minOccurs="0">
+            <xs:sequence>
+               <xs:element name="ReleaseDisplayStartDate" type="ern:ddex_IsoDate" />
+               <xs:element name="TrackListingPreviewStartDate" type="ern:ddex_IsoDate" />
+               <xs:element name="CoverArtPreviewStartDate" type="ern:ddex_IsoDate" />
+               <xs:element name="ClipPreviewStartDate" type="ern:ddex_IsoDate" />
+            </xs:sequence>
+            <xs:sequence>
+               <xs:element name="ReleaseDisplayStartDateTime" type="xs:dateTime" />
+               <xs:element name="TrackListingPreviewStartDateTime" type="xs:dateTime" />
+               <xs:element name="CoverArtPreviewStartDateTime" type="xs:dateTime" />
+               <xs:element name="ClipPreviewStartDateTime" type="xs:dateTime" />
+            </xs:sequence>
+            <xs:element name="PreOrderPreviewDate" type="ern:EventDate" />
+            <xs:element name="PreOrderPreviewDateTime" type="xs:dateTime" />
+         </xs:choice>
+         <xs:element name="PreOrderIncentiveResourceList" minOccurs="0"
+            type="ern:DealResourceReferenceList" />
+         <xs:element name="InstantGratificationResourceList" minOccurs="0"
+            type="ern:DealResourceReferenceList" />
+         <xs:element name="IsExclusive" minOccurs="0" type="xs:boolean" />
+         <xs:element name="RelatedReleaseOfferSet" minOccurs="0" maxOccurs="unbounded"
+            type="ern:RelatedReleaseOfferSet" />
+         <xs:element name="PhysicalReturns" minOccurs="0" type="ern:PhysicalReturns" />
+         <xs:element name="NumberOfProductsPerCarton" minOccurs="0" type="xs:integer" />
+         <xs:element name="RightsClaimPolicy" minOccurs="0" maxOccurs="unbounded"
+            type="ern:RightsClaimPolicy" />
+         <xs:element name="WebPolicy" minOccurs="0" maxOccurs="unbounded" type="ern:WebPolicy" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="Fingerprint">
+      <xs:sequence>
+         <xs:element name="Fingerprint" type="xs:string" />
+         <xs:element name="FingerprintAlgorithmType" type="ern:FingerprintAlgorithmType" />
+         <xs:element name="FingerprintAlgorithmVersion" minOccurs="0" type="xs:string" />
+         <xs:element name="FingerprintAlgorithmParameter" minOccurs="0" type="xs:string" />
+         <xs:element name="FingerprintDataType" minOccurs="0" type="avs:BinaryDataType" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Image">
+      <xs:sequence>
+         <xs:element name="ImageType" minOccurs="0" type="ern:ImageType" />
+         <xs:element name="IsArtistRelated" minOccurs="0" type="xs:boolean" />
+         <xs:element name="ImageId" maxOccurs="unbounded" type="ern:ResourceProprietaryId" />
+         <xs:element name="ResourceReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="CreationDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="ImageDetailsByTerritory" maxOccurs="unbounded"
+            type="ern:ImageDetailsByTerritory" />
+      </xs:sequence>
+      <xs:attribute name="IsUpdated" type="xs:boolean" />
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="ImageDetailsByTerritory">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="ResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DetailedResourceContributor" />
+         <xs:element name="IndirectResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:IndirectResourceContributor" />
+         <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
+         <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+         <xs:element name="Description" minOccurs="0" type="ern:Description" />
+         <xs:element name="CourtesyLine" minOccurs="0" type="ern:CourtesyLine" />
+         <xs:element name="ResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
+         <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
+         <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
+         <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ParentalWarningType" />
+         <xs:element name="TechnicalImageDetails" minOccurs="0" maxOccurs="unbounded"
+            type="ern:TechnicalImageDetails" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="MIDI">
+      <xs:sequence>
+         <xs:element name="MidiType" minOccurs="0" type="ern:MidiType" />
+         <xs:element name="IsArtistRelated" minOccurs="0" type="xs:boolean" />
+         <xs:element name="MidiId" maxOccurs="unbounded" type="ern:ResourceProprietaryId" />
+         <xs:element name="IndirectMidiId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:MusicalWorkId" />
+         <xs:element name="ResourceReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="ReferenceTitle" type="ern:ReferenceTitle" />
+         <xs:element name="InstrumentationDescription" minOccurs="0" type="ern:Description" />
+         <xs:element name="IsMedley" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsPotpourri" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsInstrumental" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsBackground" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsHiddenResource" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsBonusResource" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsComputerGenerated" minOccurs="0" type="xs:boolean" />
+         <xs:element name="NoSilenceBefore" minOccurs="0" type="xs:boolean" />
+         <xs:element name="NoSilenceAfter" minOccurs="0" type="xs:boolean" />
+         <xs:element name="PerformerInformationRequired" minOccurs="0" type="xs:boolean" />
+         <xs:element name="LanguageOfPerformance" minOccurs="0" type="avs:IsoLanguageCode" />
+         <xs:element name="Duration" type="xs:duration" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="ResourceMusicalWorkReferenceList" minOccurs="0"
+            type="ern:ResourceMusicalWorkReferenceList" />
+         <xs:element name="ResourceContainedResourceReferenceList" minOccurs="0"
+            type="ern:ResourceContainedResourceReferenceList" />
+         <xs:element name="CreationDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="MasteredDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="RemasteredDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="MidiDetailsByTerritory" maxOccurs="unbounded"
+            type="ern:MidiDetailsByTerritory" />
+      </xs:sequence>
+      <xs:attribute name="IsUpdated" type="xs:boolean" />
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="MidiDetailsByTerritory">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="DisplayArtist" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+         <xs:element name="ResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DetailedResourceContributor" />
+         <xs:element name="IndirectResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:IndirectResourceContributor" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
+         <xs:element name="LabelName" minOccurs="0" maxOccurs="unbounded" type="ern:LabelName" />
+         <xs:element name="RightsController" minOccurs="0" maxOccurs="unbounded"
+            type="ern:TypedRightsController" />
+         <xs:element name="RemasteredDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="ResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+         <xs:element name="CourtesyLine" minOccurs="0" type="ern:CourtesyLine" />
+         <xs:element name="SequenceNumber" minOccurs="0" type="xs:integer" />
+         <xs:element name="HostSoundCarrier" minOccurs="0" maxOccurs="unbounded"
+            type="ern:HostSoundCarrier" />
+         <xs:element name="MarketingComment" minOccurs="0" type="ern:Comment" />
+         <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
+         <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ParentalWarningType" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
+         <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
+         <xs:element name="TechnicalMidiDetails" minOccurs="0" maxOccurs="unbounded"
+            type="ern:TechnicalMidiDetails" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="PhysicalReturns">
+      <xs:sequence>
+         <xs:element name="PhysicalReturnsAllowed" type="xs:boolean" />
+         <xs:element name="LatestDateForPhysicalReturns" minOccurs="0" type="ern:ddex_IsoDate" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="PreviewDetails">
+      <xs:sequence>
+         <xs:element name="PartType" minOccurs="0" type="ern:Description" />
+         <xs:element name="TopLeftCorner" minOccurs="0" type="xs:decimal" />
+         <xs:element name="BottomRightCorner" minOccurs="0" type="xs:decimal" />
+         <xs:element name="ExpressionType" type="avs:ExpressionType" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="PriceInformation">
+      <xs:sequence>
+         <xs:element name="Description" minOccurs="0" type="ern:Description" />
+         <xs:element name="PriceRangeType" minOccurs="0" type="ern:PriceRangeType" />
+         <xs:element name="PriceType" minOccurs="0" type="ern:PriceType" />
+         <xs:element name="WholesalePricePerUnit" minOccurs="0" type="ern:Price" />
+         <xs:element name="BulkOrderWholesalePricePerUnit" minOccurs="0" type="ern:Price" />
+         <xs:element name="SuggestedRetailPrice" minOccurs="0" type="ern:Price" />
+      </xs:sequence>
+      <xs:attribute name="PriceType" type="avs:PriceInformationType" />
+   </xs:complexType>
+   <xs:complexType name="PurgedRelease">
+      <xs:sequence>
+         <xs:element name="ReleaseId" minOccurs="0" type="ern:ReleaseId" />
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="ResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DetailedResourceContributor" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="RelatedReleaseOfferSet">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="ReleaseId" maxOccurs="unbounded" type="ern:ReleaseId" />
+            <xs:element name="ReleaseDescription" type="ern:Description" />
+         </xs:choice>
+         <xs:element name="Deal" minOccurs="0" maxOccurs="unbounded" type="ern:Deal" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="Release">
+      <xs:sequence>
+         <xs:element name="ReleaseId" maxOccurs="unbounded" type="ern:ReleaseId" />
+         <xs:element name="ReleaseReference" minOccurs="0" maxOccurs="unbounded">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="R[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="ExternalResourceLink" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ExternalResourceLink" />
+         <xs:element name="SalesReportingProxyReleaseId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:SalesReportingProxyReleaseId" />
+         <xs:element name="ReferenceTitle" type="ern:ReferenceTitle" />
+         <xs:choice>
+            <xs:element name="ReleaseResourceReferenceList" type="ern:ReleaseResourceReferenceList" />
+            <xs:element name="ResourceOmissionReason" type="ern:ResourceOmissionReason" />
+         </xs:choice>
+         <xs:element name="ReleaseCollectionReferenceList" minOccurs="0"
+            type="ern:ReleaseCollectionReferenceList" />
+         <xs:element name="ReleaseType" minOccurs="0" maxOccurs="unbounded" type="ern:ReleaseType" />
+         <xs:element name="ReleaseDetailsByTerritory" maxOccurs="unbounded"
+            type="ern:ReleaseDetailsByTerritory" />
+         <xs:element name="LanguageOfPerformance" minOccurs="0" maxOccurs="unbounded"
+            type="avs:IsoLanguageCode" />
+         <xs:element name="LanguageOfDubbing" minOccurs="0" maxOccurs="unbounded"
+            type="avs:IsoLanguageCode" />
+         <xs:element name="SubTitleLanguage" minOccurs="0" maxOccurs="unbounded"
+            type="avs:IsoLanguageCode" />
+         <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLine" />
+         <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+         <xs:element name="ArtistProfilePage" minOccurs="0" maxOccurs="unbounded" type="ern:WebPage" />
+         <xs:element name="GlobalReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="GlobalOriginalReleaseDate" minOccurs="0" type="ern:EventDate" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+      <xs:attribute name="IsMainRelease" type="xs:boolean" />
+   </xs:complexType>
+   <xs:complexType name="ReleaseDeal">
+      <xs:sequence>
+         <xs:element name="DealReleaseReference" maxOccurs="unbounded">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="R[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="Deal" maxOccurs="unbounded" type="ern:Deal" />
+         <xs:element name="EffectiveDate" minOccurs="0" type="ern:ddex_IsoDate" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="ReleaseDetailsByTerritory">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
+         <xs:element name="LabelName" minOccurs="0" maxOccurs="unbounded" type="ern:LabelName" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="DisplayArtist" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+         <xs:element name="IsMultiArtistCompilation" minOccurs="0" type="xs:boolean" />
+         <xs:element name="AdministratingRecordCompany" minOccurs="0" maxOccurs="unbounded"
+            type="ern:AdministratingRecordCompany" />
+         <xs:element name="ReleaseType" minOccurs="0" maxOccurs="unbounded" type="ern:ReleaseType" />
+         <xs:element name="RelatedRelease" minOccurs="0" maxOccurs="unbounded"
+            type="ern:RelatedRelease" />
+         <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ParentalWarningType" />
+         <xs:element name="AvRating" minOccurs="0" maxOccurs="unbounded" type="ern:AvRating" />
+         <xs:element name="MarketingComment" minOccurs="0" type="ern:Comment" />
+         <xs:element name="ResourceGroup" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ResourceGroup" />
+         <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
+         <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLine" />
+         <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+         <xs:element name="ReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalDigitalReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:choice minOccurs="0">
+            <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded"
+               type="ern:Description" />
+            <xs:element name="File" maxOccurs="unbounded" type="ern:File" />
+         </xs:choice>
+         <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
+         <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
+         <xs:element name="Character" minOccurs="0" maxOccurs="unbounded" type="ern:Character" />
+         <xs:element name="NumberOfUnitsPerPhysicalRelease" minOccurs="0" type="xs:integer" />
+         <xs:element name="DisplayConductor" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="ReleaseList">
+      <xs:sequence>
+         <xs:element name="Release" minOccurs="0" maxOccurs="unbounded" type="ern:Release" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="ResourceGroup">
+      <xs:sequence>
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="SequenceNumber" minOccurs="0" type="xs:integer" />
+         <xs:element name="DisplayArtist" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+         <xs:element name="DisplayConductor" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+         <xs:element name="DisplayComposer" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+         <xs:element name="ResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DetailedResourceContributor" />
+         <xs:element name="IndirectResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:IndirectResourceContributor" />
+         <xs:element name="CarrierType" minOccurs="0" maxOccurs="unbounded" type="ern:CarrierType" />
+         <xs:element name="ResourceGroup" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ResourceGroup" />
+         <xs:choice minOccurs="0">
+            <xs:element name="ResourceGroupContentItem" maxOccurs="unbounded"
+               type="ern:ExtendedResourceGroupContentItem" />
+            <xs:element name="ResourceGroupResourceReferenceList"
+               type="ern:ResourceGroupResourceReferenceList" />
+         </xs:choice>
+         <xs:choice minOccurs="0">
+            <xs:element name="ResourceGroupReleaseReference">
+               <xs:simpleType>
+                  <xs:restriction base="xs:IDREF">
+                     <xs:pattern value="R[\d\-_a-zA-Z]+" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:element>
+            <xs:element name="ReleaseId" type="ern:ReleaseId" />
+         </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="ResourceList">
+      <xs:sequence>
+         <xs:element name="SoundRecording" minOccurs="0" maxOccurs="unbounded"
+            type="ern:SoundRecording" />
+         <xs:element name="MIDI" minOccurs="0" maxOccurs="unbounded" type="ern:MIDI" />
+         <xs:element name="Video" minOccurs="0" maxOccurs="unbounded" type="ern:Video" />
+         <xs:element name="Image" minOccurs="0" maxOccurs="unbounded" type="ern:Image" />
+         <xs:element name="Text" minOccurs="0" maxOccurs="unbounded" type="ern:Text" />
+         <xs:element name="SheetMusic" minOccurs="0" maxOccurs="unbounded" type="ern:SheetMusic" />
+         <xs:element name="Software" minOccurs="0" maxOccurs="unbounded" type="ern:Software" />
+         <xs:element name="UserDefinedResource" minOccurs="0" maxOccurs="unbounded"
+            type="ern:UserDefinedResource" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="ResourceUsage">
+      <xs:sequence>
+         <xs:element name="DealResourceReference" minOccurs="0" maxOccurs="unbounded">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="Usage" maxOccurs="unbounded" type="ern:Usage" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SheetMusic">
+      <xs:sequence>
+         <xs:element name="SheetMusicType" minOccurs="0" type="ern:SheetMusicType" />
+         <xs:element name="IsArtistRelated" minOccurs="0" type="xs:boolean" />
+         <xs:element name="SheetMusicId" maxOccurs="unbounded" type="ern:SheetMusicId" />
+         <xs:element name="IndirectSheetMusicId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:MusicalWorkId" />
+         <xs:element name="ResourceReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="LanguageOfLyrics" minOccurs="0" type="avs:IsoLanguageCode" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="ResourceMusicalWorkReferenceList" minOccurs="0"
+            type="ern:ResourceMusicalWorkReferenceList" />
+         <xs:element name="ResourceContainedResourceReferenceList" minOccurs="0"
+            type="ern:ResourceContainedResourceReferenceList" />
+         <xs:element name="ReferenceTitle" type="ern:ReferenceTitle" />
+         <xs:element name="CreationDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="SheetMusicDetailsByTerritory" maxOccurs="unbounded"
+            type="ern:SheetMusicDetailsByTerritory" />
+      </xs:sequence>
+      <xs:attribute name="IsUpdated" type="xs:boolean" />
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="SheetMusicDetailsByTerritory">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="ResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DetailedResourceContributor" />
+         <xs:element name="IndirectResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:IndirectResourceContributor" />
+         <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
+         <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+         <xs:element name="CourtesyLine" minOccurs="0" type="ern:CourtesyLine" />
+         <xs:element name="ResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
+         <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ParentalWarningType" />
+         <xs:element name="TechnicalSheetMusicDetails" minOccurs="0" maxOccurs="unbounded"
+            type="ern:TechnicalSheetMusicDetails" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="Software">
+      <xs:sequence>
+         <xs:element name="SoftwareType" minOccurs="0" type="ern:SoftwareType" />
+         <xs:element name="IsArtistRelated" minOccurs="0" type="xs:boolean" />
+         <xs:element name="SoftwareId" maxOccurs="unbounded" type="ern:ResourceProprietaryId" />
+         <xs:element name="IndirectSoftwareId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:MusicalWorkId" />
+         <xs:element name="ResourceReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="ResourceMusicalWorkReferenceList" minOccurs="0"
+            type="ern:ResourceMusicalWorkReferenceList" />
+         <xs:element name="ResourceContainedResourceReferenceList" minOccurs="0"
+            type="ern:ResourceContainedResourceReferenceList" />
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="CreationDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="SoftwareDetailsByTerritory" maxOccurs="unbounded"
+            type="ern:SoftwareDetailsByTerritory" />
+      </xs:sequence>
+      <xs:attribute name="IsUpdated" type="xs:boolean" />
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="SoftwareDetailsByTerritory">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="ResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DetailedResourceContributor" />
+         <xs:element name="IndirectResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:IndirectResourceContributor" />
+         <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
+         <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLine" />
+         <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+         <xs:element name="CourtesyLine" minOccurs="0" type="ern:CourtesyLine" />
+         <xs:element name="ResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
+         <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
+         <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
+         <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ParentalWarningType" />
+         <xs:element name="TechnicalSoftwareDetails" minOccurs="0" maxOccurs="unbounded"
+            type="ern:TechnicalSoftwareDetails" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="SoundRecording">
+      <xs:sequence>
+         <xs:element name="SoundRecordingType" minOccurs="0" type="ern:SoundRecordingType" />
+         <xs:element name="IsArtistRelated" minOccurs="0" type="xs:boolean" />
+         <xs:element name="SoundRecordingId" maxOccurs="unbounded" type="ern:SoundRecordingId" />
+         <xs:element name="IndirectSoundRecordingId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:MusicalWorkId" />
+         <xs:element name="ResourceReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="ReferenceTitle" type="ern:ReferenceTitle" />
+         <xs:element name="InstrumentationDescription" minOccurs="0" type="ern:Description" />
+         <xs:element name="IsMedley" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsPotpourri" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsInstrumental" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsBackground" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsHiddenResource" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsBonusResource" minOccurs="0" type="xs:boolean" />
+         <xs:element name="HasPreOrderFulfillment" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsComputerGenerated" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsRemastered" minOccurs="0" type="xs:boolean" />
+         <xs:element name="NoSilenceBefore" minOccurs="0" type="xs:boolean" />
+         <xs:element name="NoSilenceAfter" minOccurs="0" type="xs:boolean" />
+         <xs:element name="PerformerInformationRequired" minOccurs="0" type="xs:boolean" />
+         <xs:element name="LanguageOfPerformance" minOccurs="0" type="avs:IsoLanguageCode" />
+         <xs:element name="Duration" type="xs:duration" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="SoundRecordingCollectionReferenceList" minOccurs="0"
+            type="ern:SoundRecordingCollectionReferenceList" />
+         <xs:element name="ResourceMusicalWorkReferenceList" minOccurs="0"
+            type="ern:ResourceMusicalWorkReferenceList" />
+         <xs:element name="ResourceContainedResourceReferenceList" minOccurs="0"
+            type="ern:ResourceContainedResourceReferenceList" />
+         <xs:element name="CreationDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="MasteredDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="RemasteredDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="SoundRecordingDetailsByTerritory" maxOccurs="unbounded"
+            type="ern:SoundRecordingDetailsByTerritory" />
+         <xs:element name="TerritoryOfCommissioning" minOccurs="0" type="ern:AllTerritoryCode" />
+         <xs:element name="NumberOfFeaturedArtists" minOccurs="0" type="xs:integer" />
+         <xs:element name="NumberOfNonFeaturedArtists" minOccurs="0" type="xs:integer" />
+         <xs:element name="NumberOfContractedArtists" minOccurs="0" type="xs:integer" />
+         <xs:element name="NumberOfNonContractedArtists" minOccurs="0" type="xs:integer" />
+      </xs:sequence>
+      <xs:attribute name="IsUpdated" type="xs:boolean" />
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="SoundRecordingDetailsByTerritory">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="DisplayArtist" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+         <xs:element name="DisplayConductor" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+         <xs:element name="ResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DetailedResourceContributor" />
+         <xs:element name="IndirectResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:IndirectResourceContributor" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
+         <xs:element name="LabelName" minOccurs="0" maxOccurs="unbounded" type="ern:LabelName" />
+         <xs:element name="RightsController" minOccurs="0" maxOccurs="unbounded"
+            type="ern:TypedRightsController" />
+         <xs:element name="RemasteredDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="ResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLine" />
+         <xs:element name="CourtesyLine" minOccurs="0" type="ern:CourtesyLine" />
+         <xs:element name="SequenceNumber" minOccurs="0" type="xs:integer" />
+         <xs:element name="HostSoundCarrier" minOccurs="0" maxOccurs="unbounded"
+            type="ern:HostSoundCarrier" />
+         <xs:element name="MarketingComment" minOccurs="0" type="ern:Comment" />
+         <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
+         <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ParentalWarningType" />
+         <xs:element name="AvRating" minOccurs="0" maxOccurs="unbounded" type="ern:AvRating" />
+         <xs:element name="TechnicalSoundRecordingDetails" minOccurs="0" maxOccurs="unbounded"
+            type="ern:TechnicalSoundRecordingDetails" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
+         <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="SoundRecordingPreviewDetails">
+      <xs:sequence>
+         <xs:element name="PartType" minOccurs="0" type="ern:Description" />
+         <xs:element name="StartPoint" minOccurs="0" type="xs:decimal" />
+         <xs:element name="EndPoint" minOccurs="0" type="xs:decimal" />
+         <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+         <xs:element name="TopLeftCorner" minOccurs="0" type="xs:decimal" />
+         <xs:element name="BottomRightCorner" minOccurs="0" type="xs:decimal" />
+         <xs:element name="ExpressionType" type="avs:ExpressionType" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="TechnicalImageDetails">
+      <xs:sequence>
+         <xs:element name="TechnicalResourceDetailsReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="T[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="DrmPlatformType" minOccurs="0" type="ern:DrmPlatformType" />
+         <xs:element name="ContainerFormat" minOccurs="0" type="ern:ContainerFormat" />
+         <xs:element name="ImageCodecType" minOccurs="0" type="ern:ImageCodecType" />
+         <xs:element name="ImageHeight" minOccurs="0" type="ern:Extent" />
+         <xs:element name="ImageWidth" minOccurs="0" type="ern:Extent" />
+         <xs:element name="AspectRatio" minOccurs="0" type="ern:AspectRatio" />
+         <xs:element name="ColorDepth" minOccurs="0" type="xs:integer" />
+         <xs:element name="ImageResolution" minOccurs="0" type="xs:integer" />
+         <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
+         <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:choice minOccurs="0">
+            <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded"
+               type="ern:Description" />
+            <xs:element name="File" maxOccurs="unbounded" type="ern:File" />
+         </xs:choice>
+         <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="TechnicalMidiDetails">
+      <xs:sequence>
+         <xs:element name="TechnicalResourceDetailsReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="T[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+         <xs:element name="ResourceProcessingRequired" minOccurs="0" type="xs:boolean" />
+         <xs:element name="UsableResourceDuration" minOccurs="0" type="xs:duration" />
+         <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
+         <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:choice minOccurs="0">
+            <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded"
+               type="ern:Description" />
+            <xs:element name="File" maxOccurs="unbounded" type="ern:File" />
+         </xs:choice>
+         <xs:element name="NumberOfVoices" minOccurs="0" type="xs:integer" />
+         <xs:element name="SoundProcessorType" minOccurs="0" type="ern:SoundProcessorType" />
+         <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="TechnicalSheetMusicDetails">
+      <xs:sequence>
+         <xs:element name="TechnicalResourceDetailsReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="T[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="DrmPlatformType" minOccurs="0" type="ern:DrmPlatformType" />
+         <xs:element name="ContainerFormat" minOccurs="0" type="ern:ContainerFormat" />
+         <xs:element name="SheetMusicCodecType" minOccurs="0" type="ern:SheetMusicCodecType" />
+         <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
+         <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:choice minOccurs="0">
+            <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded"
+               type="ern:Description" />
+            <xs:element name="File" maxOccurs="unbounded" type="ern:File" />
+         </xs:choice>
+         <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="TechnicalSoftwareDetails">
+      <xs:sequence>
+         <xs:element name="TechnicalResourceDetailsReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="T[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="DrmPlatformType" minOccurs="0" type="ern:DrmPlatformType" />
+         <xs:element name="OperatingSystemType" minOccurs="0" type="ern:OperatingSystemType" />
+         <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
+         <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:choice minOccurs="0">
+            <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded"
+               type="ern:Description" />
+            <xs:element name="File" maxOccurs="unbounded" type="ern:File" />
+         </xs:choice>
+         <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="TechnicalSoundRecordingDetails">
+      <xs:sequence>
+         <xs:element name="TechnicalResourceDetailsReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="T[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="DrmPlatformType" minOccurs="0" type="ern:DrmPlatformType" />
+         <xs:element name="ContainerFormat" minOccurs="0" type="ern:ContainerFormat" />
+         <xs:element name="AudioCodecType" minOccurs="0" type="ern:AudioCodecType" />
+         <xs:element name="BitRate" minOccurs="0" type="ern:BitRate" />
+         <xs:element name="NumberOfChannels" minOccurs="0" type="xs:integer" />
+         <xs:element name="SamplingRate" minOccurs="0" type="ern:SamplingRate" />
+         <xs:element name="BitsPerSample" minOccurs="0" type="xs:integer" />
+         <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+         <xs:element name="ResourceProcessingRequired" minOccurs="0" type="xs:boolean" />
+         <xs:element name="UsableResourceDuration" minOccurs="0" type="xs:duration" />
+         <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
+         <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:choice minOccurs="0">
+            <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded"
+               type="ern:Description" />
+            <xs:element name="File" maxOccurs="unbounded" type="ern:File" />
+         </xs:choice>
+         <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="TechnicalTextDetails">
+      <xs:sequence>
+         <xs:element name="TechnicalResourceDetailsReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="T[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="DrmPlatformType" minOccurs="0" type="ern:DrmPlatformType" />
+         <xs:element name="ContainerFormat" minOccurs="0" type="ern:ContainerFormat" />
+         <xs:element name="TextCodecType" minOccurs="0" type="ern:TextCodecType" />
+         <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
+         <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:choice minOccurs="0">
+            <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded"
+               type="ern:Description" />
+            <xs:element name="File" maxOccurs="unbounded" type="ern:File" />
+         </xs:choice>
+         <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="TechnicalUserDefinedResourceDetails">
+      <xs:sequence>
+         <xs:element name="TechnicalResourceDetailsReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="T[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="UserDefinedValue" minOccurs="0" maxOccurs="unbounded"
+            type="ern:UserDefinedValue" />
+         <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
+         <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:choice minOccurs="0">
+            <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded"
+               type="ern:Description" />
+            <xs:element name="File" maxOccurs="unbounded" type="ern:File" />
+         </xs:choice>
+         <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="TechnicalVideoDetails">
+      <xs:sequence>
+         <xs:element name="TechnicalResourceDetailsReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="T[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="DrmPlatformType" minOccurs="0" type="ern:DrmPlatformType" />
+         <xs:element name="OverallBitRate" minOccurs="0" type="ern:BitRate" />
+         <xs:element name="ContainerFormat" minOccurs="0" type="ern:ContainerFormat" />
+         <xs:element name="VideoCodecType" minOccurs="0" type="ern:VideoCodecType" />
+         <xs:element name="VideoBitRate" minOccurs="0" type="ern:BitRate" />
+         <xs:element name="FrameRate" minOccurs="0" type="ern:FrameRate" />
+         <xs:element name="ImageHeight" minOccurs="0" type="ern:Extent" />
+         <xs:element name="ImageWidth" minOccurs="0" type="ern:Extent" />
+         <xs:element name="AspectRatio" minOccurs="0" type="ern:AspectRatio" />
+         <xs:element name="ColorDepth" minOccurs="0" type="xs:integer" />
+         <xs:element name="VideoDefinitionType" minOccurs="0" type="avs:VideoDefinitionType" />
+         <xs:element name="AudioCodecType" minOccurs="0" type="ern:AudioCodecType" />
+         <xs:element name="AudioBitRate" minOccurs="0" type="ern:BitRate" />
+         <xs:element name="NumberOfAudioChannels" minOccurs="0" type="xs:integer" />
+         <xs:element name="AudioSamplingRate" minOccurs="0" type="ern:SamplingRate" />
+         <xs:element name="AudioBitsPerSample" minOccurs="0" type="xs:integer" />
+         <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+         <xs:element name="ResourceProcessingRequired" minOccurs="0" type="xs:boolean" />
+         <xs:element name="UsableResourceDuration" minOccurs="0" type="xs:duration" />
+         <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
+         <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:choice minOccurs="0">
+            <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded"
+               type="ern:Description" />
+            <xs:element name="File" maxOccurs="unbounded" type="ern:File" />
+         </xs:choice>
+         <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="Text">
+      <xs:sequence>
+         <xs:element name="TextType" minOccurs="0" type="ern:TextType" />
+         <xs:element name="IsArtistRelated" minOccurs="0" type="xs:boolean" />
+         <xs:element name="TextId" minOccurs="0" maxOccurs="unbounded" type="ern:TextId" />
+         <xs:element name="IndirectTextId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:MusicalWorkId" />
+         <xs:element name="ResourceReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="ResourceMusicalWorkReferenceList" minOccurs="0"
+            type="ern:ResourceMusicalWorkReferenceList" />
+         <xs:element name="ResourceContainedResourceReferenceList" minOccurs="0"
+            type="ern:ResourceContainedResourceReferenceList" />
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="CreationDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="TextDetailsByTerritory" maxOccurs="unbounded"
+            type="ern:TextDetailsByTerritory" />
+      </xs:sequence>
+      <xs:attribute name="IsUpdated" type="xs:boolean" />
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="TextDetailsByTerritory">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="ResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DetailedResourceContributor" />
+         <xs:element name="IndirectResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:IndirectResourceContributor" />
+         <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
+         <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+         <xs:element name="CourtesyLine" minOccurs="0" type="ern:CourtesyLine" />
+         <xs:element name="ResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
+         <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
+         <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
+         <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ParentalWarningType" />
+         <xs:element name="TechnicalTextDetails" minOccurs="0" maxOccurs="unbounded"
+            type="ern:TechnicalTextDetails" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="TypedRightsController">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="PartyId" maxOccurs="unbounded" type="ern:PartyId" />
+            <xs:sequence>
+               <xs:element name="PartyName" maxOccurs="unbounded" type="ern:PartyName" />
+               <xs:element name="PartyId" minOccurs="0" maxOccurs="unbounded" type="ern:PartyId" />
+            </xs:sequence>
+         </xs:choice>
+         <xs:element name="RightsControllerRole" minOccurs="0" maxOccurs="unbounded"
+            type="avs:RightsControllerRole" />
+         <xs:choice minOccurs="0">
+            <xs:element name="RightShareUnknown" type="xs:boolean" />
+            <xs:element name="RightSharePercentage" type="ern:Percentage" />
+         </xs:choice>
+         <xs:element name="RightsControllerType" minOccurs="0" type="avs:RightsControllerType" />
+         <xs:element name="TerritoryOfRegistration" minOccurs="0" type="ern:AllTerritoryCode" />
+         <xs:element name="StartDate" minOccurs="0" type="ern:ddex_IsoDate" />
+         <xs:element name="EndDate" minOccurs="0" type="ern:ddex_IsoDate" />
+      </xs:sequence>
+      <xs:attribute name="SequenceNumber" type="xs:integer" />
+   </xs:complexType>
+   <xs:complexType name="UserDefinedResource">
+      <xs:sequence>
+         <xs:element name="UserDefinedResourceType" minOccurs="0" type="ern:UserDefinedResourceType" />
+         <xs:element name="IsArtistRelated" minOccurs="0" type="xs:boolean" />
+         <xs:element name="UserDefinedResourceId" maxOccurs="unbounded"
+            type="ern:ResourceProprietaryId" />
+         <xs:element name="IndirectUserDefinedResourceId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:MusicalWorkId" />
+         <xs:element name="ResourceReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="ResourceMusicalWorkReferenceList" minOccurs="0"
+            type="ern:ResourceMusicalWorkReferenceList" />
+         <xs:element name="ResourceContainedResourceReferenceList" minOccurs="0"
+            type="ern:ResourceContainedResourceReferenceList" />
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="UserDefinedValue" minOccurs="0" maxOccurs="unbounded"
+            type="ern:UserDefinedValue" />
+         <xs:element name="CreationDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="UserDefinedResourceDetailsByTerritory" maxOccurs="unbounded"
+            type="ern:UserDefinedResourceDetailsByTerritory" />
+      </xs:sequence>
+      <xs:attribute name="IsUpdated" type="xs:boolean" />
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="UserDefinedResourceDetailsByTerritory">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="ResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DetailedResourceContributor" />
+         <xs:element name="IndirectResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:IndirectResourceContributor" />
+         <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
+         <xs:element name="UserDefinedValue" minOccurs="0" maxOccurs="unbounded"
+            type="ern:UserDefinedValue" />
+         <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLine" />
+         <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+         <xs:element name="ResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
+         <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
+         <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
+         <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ParentalWarningType" />
+         <xs:element name="TechnicalUserDefinedResourceDetails" minOccurs="0" maxOccurs="unbounded"
+            type="ern:TechnicalUserDefinedResourceDetails" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="Video">
+      <xs:sequence>
+         <xs:element name="VideoType" minOccurs="0" type="ern:VideoType" />
+         <xs:element name="IsArtistRelated" minOccurs="0" type="xs:boolean" />
+         <xs:element name="VideoId" minOccurs="0" maxOccurs="unbounded" type="ern:VideoId" />
+         <xs:element name="IndirectVideoId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:MusicalWorkId" />
+         <xs:element name="ResourceReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:choice minOccurs="0">
+            <xs:element name="VideoCueSheetReference" maxOccurs="unbounded"
+               type="ern:VideoCueSheetReference" />
+            <xs:element name="ReasonForCueSheetAbsence" type="ern:Reason" />
+         </xs:choice>
+         <xs:element name="ReferenceTitle" minOccurs="0" type="ern:ReferenceTitle" />
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="InstrumentationDescription" minOccurs="0" type="ern:Description" />
+         <xs:element name="IsMedley" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsPotpourri" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsInstrumental" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsBackground" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsHiddenResource" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsBonusResource" minOccurs="0" type="xs:boolean" />
+         <xs:element name="HasPreOrderFulfillment" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsRemastered" minOccurs="0" type="xs:boolean" />
+         <xs:element name="NoSilenceBefore" minOccurs="0" type="xs:boolean" />
+         <xs:element name="NoSilenceAfter" minOccurs="0" type="xs:boolean" />
+         <xs:element name="PerformerInformationRequired" minOccurs="0" type="xs:boolean" />
+         <xs:element name="LanguageOfPerformance" minOccurs="0" maxOccurs="unbounded"
+            type="avs:IsoLanguageCode" />
+         <xs:element name="LanguageOfDubbing" minOccurs="0" maxOccurs="unbounded"
+            type="avs:IsoLanguageCode" />
+         <xs:element name="SubTitleLanguage" minOccurs="0" maxOccurs="unbounded"
+            type="avs:IsoLanguageCode" />
+         <xs:element name="Duration" type="xs:duration" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="VideoCollectionReferenceList" minOccurs="0"
+            type="ern:SoundRecordingCollectionReferenceList" />
+         <xs:element name="ResourceMusicalWorkReferenceList" minOccurs="0"
+            type="ern:ResourceMusicalWorkReferenceList" />
+         <xs:element name="ResourceContainedResourceReferenceList" minOccurs="0"
+            type="ern:ResourceContainedResourceReferenceList" />
+         <xs:element name="CreationDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="MasteredDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="RemasteredDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="VideoDetailsByTerritory" maxOccurs="unbounded"
+            type="ern:VideoDetailsByTerritory" />
+         <xs:element name="TerritoryOfCommissioning" minOccurs="0" type="ern:AllTerritoryCode" />
+         <xs:element name="NumberOfFeaturedArtists" minOccurs="0" type="xs:integer" />
+         <xs:element name="NumberOfNonFeaturedArtists" minOccurs="0" type="xs:integer" />
+         <xs:element name="NumberOfContractedArtists" minOccurs="0" type="xs:integer" />
+         <xs:element name="NumberOfNonContractedArtists" minOccurs="0" type="xs:integer" />
+      </xs:sequence>
+      <xs:attribute name="IsUpdated" type="xs:boolean" />
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="VideoDetailsByTerritory">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="DisplayArtist" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+         <xs:element name="DisplayConductor" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+         <xs:element name="ResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DetailedResourceContributor" />
+         <xs:element name="IndirectResourceContributor" minOccurs="0" maxOccurs="unbounded"
+            type="ern:IndirectResourceContributor" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
+         <xs:element name="LabelName" minOccurs="0" maxOccurs="unbounded" type="ern:LabelName" />
+         <xs:element name="RightsController" minOccurs="0" maxOccurs="unbounded"
+            type="ern:TypedRightsController" />
+         <xs:element name="RemasteredDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="ResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLine" />
+         <xs:element name="CourtesyLine" minOccurs="0" type="ern:CourtesyLine" />
+         <xs:element name="SequenceNumber" minOccurs="0" type="xs:integer" />
+         <xs:element name="HostSoundCarrier" minOccurs="0" maxOccurs="unbounded"
+            type="ern:HostSoundCarrier" />
+         <xs:element name="MarketingComment" minOccurs="0" type="ern:Comment" />
+         <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
+         <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ParentalWarningType" />
+         <xs:element name="AvRating" minOccurs="0" maxOccurs="unbounded" type="ern:AvRating" />
+         <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+         <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
+         <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
+         <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+         <xs:element name="TechnicalVideoDetails" minOccurs="0" maxOccurs="unbounded"
+            type="ern:TechnicalVideoDetails" />
+         <xs:element name="Character" minOccurs="0" maxOccurs="unbounded" type="ern:Character" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="WebPolicy">
+      <xs:sequence>
+         <xs:element name="Condition" type="ern:Condition" />
+         <xs:choice>
+            <xs:element name="AccessBlockingRequested" type="xs:boolean" />
+            <xs:sequence>
+               <xs:element name="AccessLimitation" minOccurs="0" type="avs:AccessLimitation" />
+               <xs:element name="EmbeddingAllowed" minOccurs="0" type="xs:boolean" />
+               <xs:element name="UserRatingAllowed" minOccurs="0" type="xs:boolean" />
+               <xs:element name="UserCommentAllowed" minOccurs="0" type="xs:boolean" />
+               <xs:element name="UserResponsesAllowed" minOccurs="0" type="xs:boolean" />
+               <xs:element name="SyndicationAllowed" minOccurs="0" type="xs:boolean" />
+            </xs:sequence>
+         </xs:choice>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="AdministratingRecordCompany">
+      <xs:choice>
+         <xs:element name="PartyId" maxOccurs="unbounded" type="ern:PartyId" />
+         <xs:sequence>
+            <xs:element name="PartyName" maxOccurs="unbounded" type="ern:PartyName" />
+            <xs:element name="PartyId" minOccurs="0" maxOccurs="unbounded" type="ern:PartyId" />
+         </xs:sequence>
+      </xs:choice>
+      <xs:attribute name="Namespace" type="xs:string" />
+      <xs:attribute name="UserDefinedValue" type="xs:string" />
+      <xs:attribute name="Role" type="avs:AdministratingRecordCompanyRole" use="required" />
+   </xs:complexType>
+   <xs:complexType name="AllTerritoryCode">
+      <xs:simpleContent>
+         <xs:extension base="avs:AllTerritoryCode">
+            <xs:attribute name="IdentifierType" type="avs:TerritoryCodeTypeIncludingDeprecatedCodes" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="Artist">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="PartyId" maxOccurs="unbounded" type="ern:PartyId" />
+            <xs:sequence>
+               <xs:element name="PartyName" maxOccurs="unbounded" type="ern:PartyName" />
+               <xs:element name="PartyId" minOccurs="0" maxOccurs="unbounded" type="ern:PartyId" />
+            </xs:sequence>
+         </xs:choice>
+         <xs:element name="ArtistRole" maxOccurs="unbounded" type="ern:ArtistRole" />
+         <xs:element name="Nationality" minOccurs="0" maxOccurs="unbounded"
+            type="ern:AllTerritoryCode" />
+      </xs:sequence>
+      <xs:attribute name="SequenceNumber" type="xs:integer" />
+   </xs:complexType>
+   <xs:complexType name="ArtistDelegatedUsageRights">
+      <xs:sequence>
+         <xs:element name="UseType" maxOccurs="unbounded" type="ern:UseType" />
+         <xs:element name="UserInterfaceType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:UserInterfaceType" />
+         <xs:element name="PeriodOfRightsDelegation" type="ern:Period" />
+         <xs:element name="TerritoryOfRightsDelegation" maxOccurs="unbounded"
+            type="ern:AllTerritoryCode" />
+         <xs:element name="MembershipType" type="avs:MembershipType" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ArtistRole">
+      <xs:simpleContent>
+         <xs:extension base="avs:ArtistRole">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="AspectRatio">
+      <xs:simpleContent>
+         <xs:extension base="xs:decimal">
+            <xs:attribute name="AspectRatioType" type="avs:UnitOfFrameRate" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="AudioCodecType">
+      <xs:simpleContent>
+         <xs:extension base="avs:AudioCodecType">
+            <xs:attribute name="Version" type="xs:string" />
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="AvRating">
+      <xs:sequence>
+         <xs:element name="RatingText" type="xs:string" />
+         <xs:element name="RatingAgency" type="ern:RatingAgency" />
+         <xs:element name="RatingSchemeDescription" minOccurs="0" maxOccurs="unbounded"
+            type="ern:Description" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="BitRate">
+      <xs:simpleContent>
+         <xs:extension base="xs:decimal">
+            <xs:attribute name="UnitOfMeasure" type="avs:UnitOfBitRate" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="CLine">
+      <xs:sequence>
+         <xs:element name="Year" minOccurs="0" type="xs:gYear" />
+         <xs:element name="CLineCompany" minOccurs="0" type="xs:string" />
+         <xs:element name="CLineText" type="xs:string" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="CarrierType">
+      <xs:simpleContent>
+         <xs:extension base="avs:CarrierType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="CatalogNumber">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="Namespace" type="xs:string" use="required" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="Character">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="PartyId" maxOccurs="unbounded" type="ern:PartyId" />
+            <xs:sequence>
+               <xs:element name="PartyName" maxOccurs="unbounded" type="ern:PartyName" />
+               <xs:element name="PartyId" minOccurs="0" maxOccurs="unbounded" type="ern:PartyId" />
+            </xs:sequence>
+         </xs:choice>
+         <xs:element name="ResourceContributor" minOccurs="0" type="ern:DetailedResourceContributor" />
+      </xs:sequence>
+      <xs:attribute name="SequenceNumber" type="xs:integer" />
+   </xs:complexType>
+   <xs:complexType name="CollectionCollectionReference">
+      <xs:sequence>
+         <xs:element name="SequenceNumber" minOccurs="0" type="xs:integer" />
+         <xs:element name="CollectionCollectionReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="X[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="StartTime" minOccurs="0" type="xs:duration" />
+         <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+         <xs:element name="EndTime" minOccurs="0" type="xs:duration" />
+         <xs:element name="InclusionDate" minOccurs="0" type="xs:dateTime" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CollectionCollectionReferenceList">
+      <xs:sequence>
+         <xs:element name="NumberOfCollections" minOccurs="0" type="xs:integer" />
+         <xs:element name="CollectionCollectionReference" maxOccurs="unbounded"
+            type="ern:CollectionCollectionReference" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CollectionId">
+      <xs:sequence>
+         <xs:element name="GRid" minOccurs="0" type="xs:string" />
+         <xs:element name="ISRC" minOccurs="0" type="xs:string" />
+         <xs:element name="ISAN" minOccurs="0" type="xs:string" />
+         <xs:element name="VISAN" minOccurs="0" type="xs:string" />
+         <xs:element name="ICPN" minOccurs="0" type="ern:ICPN" />
+         <xs:element name="CatalogNumber" minOccurs="0" type="ern:CatalogNumber" />
+         <xs:element name="ProprietaryId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ProprietaryId" />
+      </xs:sequence>
+      <xs:attribute name="IsReplaced" type="xs:boolean" />
+   </xs:complexType>
+   <xs:complexType name="CollectionType">
+      <xs:simpleContent>
+         <xs:extension base="avs:CollectionType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="CollectionWorkReference">
+      <xs:sequence>
+         <xs:element name="CollectionWorkReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="W[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CollectionWorkReferenceList">
+      <xs:sequence>
+         <xs:element name="CollectionWorkReference" maxOccurs="unbounded"
+            type="ern:CollectionWorkReference" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Comment">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="CommercialModelType">
+      <xs:simpleContent>
+         <xs:extension base="avs:CommercialModelType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="Condition">
+      <xs:sequence>
+         <xs:element name="Value" type="xs:decimal" />
+         <xs:element name="Unit" type="avs:UnitOfConditionValue" />
+         <xs:element name="ReferenceCreation" type="avs:ReferenceCreation" minOccurs="0" />
+         <xs:element name="RelationalRelator" type="avs:RelationalRelator" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ConsumerRentalPeriod">
+      <xs:simpleContent>
+         <xs:extension base="xs:duration">
+            <xs:attribute name="IsExtensible" type="xs:boolean" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ContactId">
+      <xs:sequence>
+         <xs:element name="EmailAddress" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
+         <xs:element name="PhoneNumber" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
+         <xs:element name="FaxNumber" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ContainerFormat">
+      <xs:simpleContent>
+         <xs:extension base="avs:ContainerFormat">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="CourtesyLine">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="CreationId">
+      <xs:sequence>
+         <xs:element name="ISWC" minOccurs="0" type="xs:string" />
+         <xs:element name="OpusNumber" minOccurs="0" type="xs:string" />
+         <xs:element name="ComposerCatalogNumber" minOccurs="0" maxOccurs="unbounded"
+            type="xs:string" />
+         <xs:element name="ISRC" minOccurs="0" type="xs:string" />
+         <xs:element name="ISMN" minOccurs="0" type="xs:string" />
+         <xs:element name="ISAN" minOccurs="0" type="xs:string" />
+         <xs:element name="VISAN" minOccurs="0" type="xs:string" />
+         <xs:element name="ISBN" minOccurs="0" type="xs:string" />
+         <xs:element name="ISSN" minOccurs="0" type="xs:string" />
+         <xs:element name="SICI" minOccurs="0" type="xs:string" />
+         <xs:element name="CatalogNumber" minOccurs="0" type="ern:CatalogNumber" />
+         <xs:element name="ProprietaryId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ProprietaryId" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CueCreationReference">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="CueWorkReference">
+               <xs:simpleType>
+                  <xs:restriction base="xs:IDREF">
+                     <xs:pattern value="W[\d\-_a-zA-Z]+" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:element>
+            <xs:element name="CueResourceReference">
+               <xs:simpleType>
+                  <xs:restriction base="xs:IDREF">
+                     <xs:pattern value="A[\d\-_a-zA-Z]+" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:element>
+         </xs:choice>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CueOrigin">
+      <xs:simpleContent>
+         <xs:extension base="avs:CueOrigin">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="CueSheetType">
+      <xs:simpleContent>
+         <xs:extension base="avs:CueSheetType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="CueThemeType">
+      <xs:simpleContent>
+         <xs:extension base="avs:ThemeType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="CueUseType">
+      <xs:simpleContent>
+         <xs:extension base="avs:CueUseType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="CueVisualPerceptionType">
+      <xs:simpleContent>
+         <xs:extension base="avs:VisualPerceptionType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="CueVocalType">
+      <xs:simpleContent>
+         <xs:extension base="avs:VocalType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="CurrentTerritoryCode">
+      <xs:simpleContent>
+         <xs:extension base="avs:CurrentTerritoryCode">
+            <xs:attribute name="IdentifierType" type="avs:TerritoryCodeType" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="DSP">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="PartyId" maxOccurs="unbounded" type="ern:PartyId" />
+            <xs:sequence>
+               <xs:element name="PartyName" maxOccurs="unbounded" type="ern:PartyName" />
+               <xs:element name="PartyId" minOccurs="0" maxOccurs="unbounded" type="ern:PartyId" />
+            </xs:sequence>
+         </xs:choice>
+         <xs:element name="TradingName" minOccurs="0" type="ern:Name" />
+         <xs:element name="URL" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
+         <xs:element name="TerritoryCode" minOccurs="0" type="ern:CurrentTerritoryCode" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="DealReference">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="Description">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="DetailedResourceContributor">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="PartyId" maxOccurs="unbounded" type="ern:PartyId" />
+            <xs:sequence>
+               <xs:element name="PartyName" maxOccurs="unbounded" type="ern:PartyName" />
+               <xs:element name="PartyId" minOccurs="0" maxOccurs="unbounded" type="ern:PartyId" />
+            </xs:sequence>
+         </xs:choice>
+         <xs:element name="ResourceContributorRole" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ResourceContributorRole" />
+         <xs:element name="IsFeaturedArtist" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsContractedArtist" minOccurs="0" type="xs:boolean" />
+         <xs:element name="InstrumentType" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
+         <xs:element name="ArtistDelegatedUsageRights" minOccurs="0"
+            type="ern:ArtistDelegatedUsageRights" />
+         <xs:element name="Sex" minOccurs="0" type="avs:Sex" />
+         <xs:element name="Nationality" minOccurs="0" maxOccurs="unbounded"
+            type="ern:AllTerritoryCode" />
+         <xs:element name="DateAndPlaceOfBirth" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="DateAndPlaceOfDeath" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="PrimaryRole" minOccurs="0" type="ern:ArtistRole" />
+         <xs:element name="Performance" minOccurs="0" maxOccurs="unbounded" type="ern:Performance" />
+         <xs:element name="PrimaryInstrumentType" minOccurs="0" type="xs:string" />
+         <xs:element name="GoverningAgreementType" minOccurs="0" type="ern:GoverningAgreementType" />
+         <xs:element name="ContactInformation" minOccurs="0" type="ern:ContactId" />
+         <xs:element name="TerritoryOfResidency" minOccurs="0" type="ern:AllTerritoryCode" />
+         <xs:element name="Citizenship" minOccurs="0" type="ern:AllTerritoryCode" />
+         <xs:element name="AdditionalRoles" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ArtistRole" />
+         <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
+         <xs:element name="Membership" minOccurs="0" maxOccurs="unbounded" type="ern:Membership" />
+      </xs:sequence>
+      <xs:attribute name="SequenceNumber" type="xs:integer" />
+   </xs:complexType>
+   <xs:complexType name="DistributionChannelType">
+      <xs:simpleContent>
+         <xs:extension base="avs:DistributionChannelType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="DrmPlatformType">
+      <xs:simpleContent>
+         <xs:extension base="avs:DrmPlatformType">
+            <xs:attribute name="Version" type="xs:string" />
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="EventDate">
+      <xs:simpleContent>
+         <xs:extension base="ern:ddex_IsoDate">
+            <xs:attribute name="IsApproximate" type="xs:boolean" />
+            <xs:attribute name="IsBefore" type="xs:boolean" />
+            <xs:attribute name="IsAfter" type="xs:boolean" />
+            <xs:attribute name="TerritoryCode" type="avs:AllTerritoryCode" />
+            <xs:attribute name="LocationDescription" type="xs:string" />
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="EventDateTime">
+      <xs:simpleContent>
+         <xs:extension base="xs:dateTime">
+            <xs:attribute name="IsApproximate" type="xs:boolean" />
+            <xs:attribute name="IsBefore" type="xs:boolean" />
+            <xs:attribute name="IsAfter" type="xs:boolean" />
+            <xs:attribute name="TerritoryCode" />
+            <xs:attribute name="LocationDescription" type="xs:string" />
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ExtendedResourceGroupContentItem">
+      <xs:sequence>
+         <xs:element name="SequenceNumber" minOccurs="0" type="xs:integer" />
+         <xs:element name="SequenceSubNumber" minOccurs="0" type="xs:integer" />
+         <xs:element name="ResourceType" minOccurs="0" maxOccurs="unbounded" type="ern:ResourceType" />
+         <xs:element name="ReleaseResourceReference" type="ern:ReleaseResourceReference" />
+         <xs:element name="LinkedReleaseResourceReference" minOccurs="0" maxOccurs="unbounded"
+            type="ern:LinkedReleaseResourceReference" />
+         <xs:choice minOccurs="0">
+            <xs:element name="ResourceGroupContentItemReleaseReference">
+               <xs:simpleType>
+                  <xs:restriction base="xs:IDREF">
+                     <xs:pattern value="R[\d\-_a-zA-Z]+" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:element>
+            <xs:element name="ReleaseId" type="ern:ReleaseId" />
+         </xs:choice>
+         <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+         <xs:element name="IsHiddenResource" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsBonusResource" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsInstantGratificationResource" minOccurs="0" type="xs:boolean" />
+         <xs:element name="IsPreOrderIncentiveResource" minOccurs="0" type="xs:boolean" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Extent">
+      <xs:simpleContent>
+         <xs:extension base="xs:decimal">
+            <xs:attribute name="UnitOfMeasure" type="avs:UnitOfExtent" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ExternalResourceLink">
+      <xs:sequence>
+         <xs:element name="URL" maxOccurs="unbounded" type="xs:string" />
+         <xs:element name="ValidityPeriod" minOccurs="0" type="ern:Period" />
+         <xs:element name="ExternalLink" minOccurs="0" type="xs:string" />
+         <xs:element name="ExternallyLinkedResourceType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ExternallyLinkedResourceType" />
+         <xs:element name="FileFormat" minOccurs="0" type="xs:string" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ExternallyLinkedResourceType">
+      <xs:simpleContent>
+         <xs:extension base="avs:ExternallyLinkedResourceType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="File">
+      <xs:sequence>
+         <xs:choice>
+            <xs:sequence>
+               <xs:element name="FileName" type="xs:string" />
+               <xs:element name="FilePath" minOccurs="0" type="xs:string" />
+            </xs:sequence>
+            <xs:element name="URL" type="xs:string" />
+         </xs:choice>
+         <xs:element name="HashSum" minOccurs="0" type="ern:HashSum" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="FingerprintAlgorithmType">
+      <xs:simpleContent>
+         <xs:extension base="avs:FingerprintAlgorithmType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="FrameRate">
+      <xs:simpleContent>
+         <xs:extension base="xs:decimal">
+            <xs:attribute name="UnitOfMeasure" type="avs:UnitOfFrameRate" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="FulfillmentDate">
+      <xs:sequence>
+         <xs:element name="FulfillmentDate" type="ern:ddex_IsoDate" />
+         <xs:element name="ResourceReleaseReference" minOccurs="0" maxOccurs="unbounded">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="R[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Genre">
+      <xs:sequence>
+         <xs:element name="GenreText" type="ern:Description" />
+         <xs:element name="SubGenre" minOccurs="0" type="ern:Description" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="GoverningAgreementType">
+      <xs:simpleContent>
+         <xs:extension base="avs:GoverningAgreementType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="HashSum">
+      <xs:sequence>
+         <xs:element name="HashSum" type="xs:string" />
+         <xs:element name="HashSumAlgorithmType" type="ern:HashSumAlgorithmType" />
+         <xs:element name="HashSumDataType" minOccurs="0" type="avs:BinaryDataType" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="HashSumAlgorithmType">
+      <xs:simpleContent>
+         <xs:extension base="avs:HashSumAlgorithmType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="HostSoundCarrier">
+      <xs:sequence>
+         <xs:element name="ReleaseId" minOccurs="0" maxOccurs="unbounded" type="ern:ReleaseId" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+         <xs:element name="DisplayArtist" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+         <xs:element name="AdministratingRecordCompany" minOccurs="0" maxOccurs="unbounded"
+            type="ern:AdministratingRecordCompany" />
+         <xs:element name="TrackNumber" minOccurs="0" type="xs:string" />
+         <xs:element name="VolumeNumberInSet" minOccurs="0" type="xs:string" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ICPN">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="IsEan" type="xs:boolean" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ImageCodecType">
+      <xs:simpleContent>
+         <xs:extension base="avs:ImageCodecType">
+            <xs:attribute name="Version" type="xs:string" />
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ImageType">
+      <xs:simpleContent>
+         <xs:extension base="avs:ImageType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="IndirectResourceContributor">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="PartyId" maxOccurs="unbounded" type="ern:PartyId" />
+            <xs:sequence>
+               <xs:element name="PartyName" maxOccurs="unbounded" type="ern:PartyName" />
+               <xs:element name="PartyId" minOccurs="0" maxOccurs="unbounded" type="ern:PartyId" />
+            </xs:sequence>
+         </xs:choice>
+         <xs:element name="IndirectResourceContributorRole" minOccurs="0" maxOccurs="unbounded"
+            type="ern:MusicalWorkContributorRole" />
+         <xs:element name="Nationality" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ddexC_CurrentTerritoryCode" />
+      </xs:sequence>
+      <xs:attribute name="SequenceNumber" type="xs:integer" />
+   </xs:complexType>
+   <xs:complexType name="Keywords">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="LabelName">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+            <xs:attribute name="LabelNameType" type="avs:LabelNameType" />
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="LinkedReleaseResourceReference">
+      <xs:simpleContent>
+         <xs:extension base="ern:ddex_LocalResourceAnchorReference">
+            <xs:attribute name="LinkDescription" type="xs:string" />
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="Membership">
+      <xs:sequence>
+         <xs:element name="Organization" type="ern:PartyDescriptor" />
+         <xs:element name="MembershipType" type="avs:MembershipType" />
+         <xs:element name="StartDate" minOccurs="0" type="ern:ddex_IsoDate" />
+         <xs:element name="EndDate" minOccurs="0" type="ern:ddex_IsoDate" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="MessageAuditTrail">
+      <xs:sequence>
+         <xs:element name="MessageAuditTrailEvent" maxOccurs="unbounded"
+            type="ern:MessageAuditTrailEvent" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="MessageAuditTrailEvent">
+      <xs:sequence>
+         <xs:element name="MessagingPartyDescriptor" type="ern:MessagingParty" />
+         <xs:element name="DateTime" type="xs:dateTime" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="MessageHeader">
+      <xs:sequence>
+         <xs:element name="MessageThreadId" minOccurs="0" type="xs:string" />
+         <xs:element name="MessageId" type="xs:string" />
+         <xs:element name="MessageFileName" minOccurs="0" type="xs:string" />
+         <xs:element name="MessageSender" type="ern:MessagingParty" />
+         <xs:element name="SentOnBehalfOf" minOccurs="0" type="ern:MessagingParty" />
+         <xs:element name="MessageRecipient" maxOccurs="unbounded" type="ern:MessagingParty" />
+         <xs:element name="MessageCreatedDateTime" type="xs:dateTime" />
+         <xs:element name="MessageAuditTrail" minOccurs="0" type="ern:MessageAuditTrail" />
+         <xs:element name="Comment" minOccurs="0" type="ern:Comment" />
+         <xs:element name="MessageControlType" minOccurs="0" type="avs:MessageControlType" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="MessagingParty">
+      <xs:sequence>
+         <xs:element name="PartyId" maxOccurs="unbounded" type="ern:PartyId" />
+         <xs:element name="PartyName" minOccurs="0" type="ern:PartyName" />
+         <xs:element name="TradingName" minOccurs="0" type="ern:Name" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="MidiType">
+      <xs:simpleContent>
+         <xs:extension base="avs:MidiType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="MusicalWork">
+      <xs:sequence>
+         <xs:element name="MusicalWorkId" maxOccurs="unbounded" type="ern:MusicalWorkId" />
+         <xs:element name="MusicalWorkReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="W[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="ReferenceTitle" maxOccurs="unbounded" type="ern:ReferenceTitle" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="MusicalWorkContributor" maxOccurs="unbounded"
+            type="ern:MusicalWorkContributor" />
+         <xs:element name="MusicalWorkType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:MusicalWorkType" />
+         <xs:element name="RightShare" minOccurs="0" maxOccurs="unbounded" type="ern:RightShare" />
+         <xs:element name="MusicalWorkDetailsByTerritory" minOccurs="0" maxOccurs="unbounded"
+            type="ern:MusicalWorkDetailsByTerritory" />
+      </xs:sequence>
+      <xs:attribute name="IsUpdated" type="xs:boolean" />
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="MusicalWorkContributor">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="PartyId" maxOccurs="unbounded" type="ern:PartyId" />
+            <xs:sequence>
+               <xs:element name="PartyName" maxOccurs="unbounded" type="ern:PartyName" />
+               <xs:element name="PartyId" minOccurs="0" maxOccurs="unbounded" type="ern:PartyId" />
+            </xs:sequence>
+         </xs:choice>
+         <xs:element name="MusicalWorkContributorRole" minOccurs="0" maxOccurs="unbounded"
+            type="ern:MusicalWorkContributorRole" />
+         <xs:element name="SocietyAffiliation" minOccurs="0" maxOccurs="unbounded"
+            type="ern:SocietyAffiliation" />
+      </xs:sequence>
+      <xs:attribute name="SequenceNumber" type="xs:integer" />
+   </xs:complexType>
+   <xs:complexType name="MusicalWorkContributorRole">
+      <xs:simpleContent>
+         <xs:extension base="avs:MusicalWorkContributorRole">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="MusicalWorkDetailsByTerritory">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:element name="MusicalWorkContributor" maxOccurs="unbounded"
+            type="ern:MusicalWorkContributor" />
+         <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="MusicalWorkId">
+      <xs:sequence>
+         <xs:element name="ISWC" minOccurs="0" type="xs:string" />
+         <xs:element name="OpusNumber" minOccurs="0" type="xs:string" />
+         <xs:element name="ComposerCatalogNumber" minOccurs="0" maxOccurs="unbounded"
+            type="xs:string" />
+         <xs:element name="ProprietaryId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ProprietaryId" />
+      </xs:sequence>
+      <xs:attribute name="IsReplaced" type="xs:boolean" />
+   </xs:complexType>
+   <xs:complexType name="MusicalWorkType">
+      <xs:simpleContent>
+         <xs:extension base="avs:MusicalWorkType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="Name">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="OperatingSystemType">
+      <xs:simpleContent>
+         <xs:extension base="avs:OperatingSystemType">
+            <xs:attribute name="Version" type="xs:string" />
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="PLine">
+      <xs:sequence>
+         <xs:element name="Year" minOccurs="0" type="xs:gYear" />
+         <xs:element name="PLineCompany" minOccurs="0" type="xs:string" />
+         <xs:element name="PLineText" type="xs:string" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+      <xs:attribute name="PLineType" type="avs:PLineType" />
+   </xs:complexType>
+   <xs:complexType name="ParentalWarningType">
+      <xs:simpleContent>
+         <xs:extension base="avs:ParentalWarningType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="PartyDescriptor">
+      <xs:choice>
+         <xs:element name="PartyId" maxOccurs="unbounded" type="ern:PartyId" />
+         <xs:sequence>
+            <xs:element name="PartyName" maxOccurs="unbounded" type="ern:PartyName" />
+            <xs:element name="PartyId" minOccurs="0" maxOccurs="unbounded" type="ern:PartyId" />
+         </xs:sequence>
+      </xs:choice>
+   </xs:complexType>
+   <xs:complexType name="PartyId">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="IsDPID" type="xs:boolean" />
+            <xs:attribute name="IsISNI" type="xs:boolean" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="PartyName">
+      <xs:sequence>
+         <xs:element name="FullName" type="ern:Name" />
+         <xs:element name="FullNameAsciiTranscribed" minOccurs="0" type="xs:string" />
+         <xs:element name="FullNameIndexed" minOccurs="0" type="ern:Name" />
+         <xs:element name="NamesBeforeKeyName" minOccurs="0" type="ern:Name" />
+         <xs:element name="KeyName" minOccurs="0" type="ern:Name" />
+         <xs:element name="NamesAfterKeyName" minOccurs="0" type="ern:Name" />
+         <xs:element name="AbbreviatedName" minOccurs="0" type="ern:Name" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="Percentage">
+      <xs:simpleContent>
+         <xs:extension base="xs:decimal">
+            <xs:attribute name="HasMaxValueOfOne" type="xs:boolean" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="Performance">
+      <xs:sequence>
+         <xs:element name="Territory" minOccurs="0" type="ern:AllTerritoryCode" />
+         <xs:element name="Date" minOccurs="0" type="ern:EventDate" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Period">
+      <xs:choice>
+         <xs:sequence>
+            <xs:element name="StartDate" minOccurs="0" type="ern:EventDate" />
+            <xs:element name="EndDate" minOccurs="0" type="ern:EventDate" />
+         </xs:sequence>
+         <xs:sequence>
+            <xs:element name="StartDateTime" minOccurs="0" type="ern:EventDateTime" />
+            <xs:element name="EndDateTime" minOccurs="0" type="ern:EventDateTime" />
+         </xs:sequence>
+      </xs:choice>
+   </xs:complexType>
+   <xs:complexType name="Price">
+      <xs:simpleContent>
+         <xs:extension base="xs:decimal">
+            <xs:attribute name="CurrencyCode" type="avs:CurrencyCode" use="required" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="PriceRangeType">
+      <xs:simpleContent>
+         <xs:extension base="avs:PriceRangeType">
+            <xs:attribute name="Namespace" type="xs:string" use="required" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="PriceType">
+      <xs:simpleContent>
+         <xs:extension base="avs:PriceType">
+            <xs:attribute name="Namespace" type="xs:string" use="required" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="PromotionalCode">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="Namespace" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ProprietaryId">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="Namespace" type="xs:string" use="required" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="Purpose">
+      <xs:simpleContent>
+         <xs:extension base="avs:Purpose">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="RatingAgency">
+      <xs:simpleContent>
+         <xs:extension base="avs:RatingAgency">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="Reason">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ReasonType">
+      <xs:simpleContent>
+         <xs:extension base="avs:ReasonType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ReferenceTitle">
+      <xs:sequence>
+         <xs:element name="TitleText" type="ern:TitleText" />
+         <xs:element name="SubTitle" minOccurs="0" type="ern:SubTitle" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="RelatedRelease">
+      <xs:sequence>
+         <xs:element name="ReleaseId" maxOccurs="unbounded" type="ern:ReleaseId" />
+         <xs:element name="ReferenceTitle" minOccurs="0" type="ern:ReferenceTitle" />
+         <xs:element name="ReleaseSummaryDetailsByTerritory" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ReleaseSummaryDetailsByTerritory" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="ReleaseRelationshipType" type="ern:ReleaseRelationshipType" />
+         <xs:element name="ReleaseDate" minOccurs="0" type="ern:EventDate" />
+         <xs:element name="OriginalReleaseDate" minOccurs="0" type="ern:EventDate" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="ReleaseCollectionReference">
+      <xs:simpleContent>
+         <xs:extension base="ern:ddex_LocalCollectionAnchorReference">
+            <xs:attribute name="ReleaseResourceType" type="avs:ReleaseResourceType" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ReleaseCollectionReferenceList">
+      <xs:sequence>
+         <xs:element name="NumberOfCollections" minOccurs="0" type="xs:integer" />
+         <xs:element name="ReleaseCollectionReference" maxOccurs="unbounded"
+            type="ern:ReleaseCollectionReference" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ReleaseId">
+      <xs:sequence>
+         <xs:element name="GRid" minOccurs="0" type="xs:string" />
+         <xs:element name="ISRC" minOccurs="0" type="xs:string" />
+         <xs:element name="ICPN" minOccurs="0" type="ern:ICPN" />
+         <xs:element name="CatalogNumber" minOccurs="0" type="ern:CatalogNumber" />
+         <xs:element name="ProprietaryId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ProprietaryId" />
+      </xs:sequence>
+      <xs:attribute name="IsReplaced" type="xs:boolean" />
+   </xs:complexType>
+   <xs:complexType name="ReleaseRelationshipType">
+      <xs:simpleContent>
+         <xs:extension base="avs:ReleaseRelationshipType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ReleaseResourceReference">
+      <xs:simpleContent>
+         <xs:extension base="ern:ddex_LocalResourceAnchorReference">
+            <xs:attribute name="ReleaseResourceType" type="avs:ReleaseResourceType" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ReleaseResourceReferenceList">
+      <xs:sequence>
+         <xs:element name="ReleaseResourceReference" maxOccurs="unbounded"
+            type="ern:ReleaseResourceReference" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ReleaseSummaryDetailsByTerritory">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:CurrentTerritoryCode" />
+         </xs:choice>
+         <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
+         <xs:element name="LabelName" minOccurs="0" maxOccurs="unbounded" type="ern:LabelName" />
+         <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="ReleaseType">
+      <xs:simpleContent>
+         <xs:extension base="avs:ReleaseType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ResourceContainedResourceReference">
+      <xs:sequence>
+         <xs:element name="ResourceContainedResourceReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="DurationUsed" minOccurs="0" type="xs:duration" />
+         <xs:element name="StartPoint" minOccurs="0" type="xs:decimal" />
+         <xs:element name="Purpose" minOccurs="0" type="ern:Purpose" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ResourceContainedResourceReferenceList">
+      <xs:sequence>
+         <xs:element name="ResourceContainedResourceReference" maxOccurs="unbounded"
+            type="ern:ResourceContainedResourceReference" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ResourceContributor">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="PartyId" maxOccurs="unbounded" type="ern:PartyId" />
+            <xs:sequence>
+               <xs:element name="PartyName" maxOccurs="unbounded" type="ern:PartyName" />
+               <xs:element name="PartyId" minOccurs="0" maxOccurs="unbounded" type="ern:PartyId" />
+            </xs:sequence>
+         </xs:choice>
+         <xs:element name="ResourceContributorRole" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ResourceContributorRole" />
+      </xs:sequence>
+      <xs:attribute name="SequenceNumber" type="xs:integer" />
+   </xs:complexType>
+   <xs:complexType name="ResourceContributorRole">
+      <xs:simpleContent>
+         <xs:extension base="avs:ResourceContributorRole">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ResourceGroupResourceReferenceList">
+      <xs:sequence>
+         <xs:element name="ResourceGroupResourceReference" maxOccurs="unbounded">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ResourceMusicalWorkReference">
+      <xs:sequence>
+         <xs:element name="SequenceNumber" minOccurs="0" type="xs:integer" />
+         <xs:element name="DurationUsed" minOccurs="0" type="xs:duration" />
+         <xs:element name="IsFragment" minOccurs="0" type="xs:boolean" />
+         <xs:element name="ResourceMusicalWorkReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="W[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ResourceMusicalWorkReferenceList">
+      <xs:sequence>
+         <xs:element name="ResourceMusicalWorkReference" maxOccurs="unbounded"
+            type="ern:ResourceMusicalWorkReference" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ResourceOmissionReason">
+      <xs:simpleContent>
+         <xs:extension base="avs:ResourceOmissionReason">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="ResourceProprietaryId">
+      <xs:sequence>
+         <xs:element name="ProprietaryId" maxOccurs="unbounded" type="ern:ProprietaryId" />
+      </xs:sequence>
+      <xs:attribute name="IsReplaced" type="xs:boolean" />
+   </xs:complexType>
+   <xs:complexType name="ResourceType">
+      <xs:simpleContent>
+         <xs:extension base="avs:ResourceType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="RightShare">
+      <xs:sequence>
+         <xs:element name="RightShareId" minOccurs="0" type="ern:RightsAgreementId" />
+         <xs:element name="RightShareReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:ID">
+                  <xs:pattern value="S[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="RightShareCreationReferenceList" minOccurs="0"
+            type="ern:RightShareCreationReferenceList" />
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:AllTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:AllTerritoryCode" />
+         </xs:choice>
+         <xs:element name="RightsType" minOccurs="0" maxOccurs="unbounded" type="ern:RightsType" />
+         <xs:element name="UseType" minOccurs="0" maxOccurs="unbounded" type="ern:UseType" />
+         <xs:element name="UserInterfaceType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:UserInterfaceType" />
+         <xs:element name="DistributionChannelType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DistributionChannelType" />
+         <xs:element name="CarrierType" minOccurs="0" maxOccurs="unbounded" type="ern:CarrierType" />
+         <xs:element name="CommercialModelType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:CommercialModelType" />
+         <xs:element name="MusicalWorkRightsClaimType" minOccurs="0" maxOccurs="unbounded"
+            type="avs:MusicalWorkRightsClaimType" />
+         <xs:element name="RightsController" minOccurs="0" maxOccurs="unbounded"
+            type="ern:RightsController" />
+         <xs:element name="ValidityPeriod" minOccurs="0" type="ern:Period" />
+         <xs:choice>
+            <xs:element name="RightShareUnknown" type="xs:boolean" />
+            <xs:element name="RightSharePercentage" type="ern:Percentage" />
+         </xs:choice>
+         <xs:element name="TariffReference" minOccurs="0" type="ern:TariffReference" />
+         <xs:element name="LicenseStatus" minOccurs="0" type="avs:LicenseStatus" />
+         <xs:element name="HasFirstLicenseRefusal" minOccurs="0" type="xs:boolean" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="RightShareCreationReferenceList">
+      <xs:sequence>
+         <xs:element name="RightShareWorkReference" minOccurs="0" maxOccurs="unbounded">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="W[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="RightShareResourceReference" minOccurs="0" maxOccurs="unbounded">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="A[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="RightShareReleaseReference" minOccurs="0" maxOccurs="unbounded">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="R[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="RightsAgreementId">
+      <xs:sequence>
+         <xs:element name="MWLI" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
+         <xs:element name="ProprietaryId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ProprietaryId" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="RightsClaimPolicy">
+      <xs:sequence>
+         <xs:element name="Condition" type="ern:Condition" maxOccurs="unbounded" minOccurs="0" />
+         <xs:element name="RightsClaimPolicyType" type="avs:RightsClaimPolicyType" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="RightsController">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="PartyId" maxOccurs="unbounded" type="ern:PartyId" />
+            <xs:sequence>
+               <xs:element name="PartyName" maxOccurs="unbounded" type="ern:PartyName" />
+               <xs:element name="PartyId" minOccurs="0" maxOccurs="unbounded" type="ern:PartyId" />
+            </xs:sequence>
+         </xs:choice>
+         <xs:element name="RightsControllerRole" minOccurs="0" maxOccurs="unbounded"
+            type="avs:RightsControllerRole" />
+         <xs:choice minOccurs="0">
+            <xs:element name="RightShareUnknown" type="xs:boolean" />
+            <xs:element name="RightSharePercentage" type="ern:Percentage" />
+         </xs:choice>
+         <xs:element name="RightsControllerType" minOccurs="0" type="avs:RightsControllerType" />
+      </xs:sequence>
+      <xs:attribute name="SequenceNumber" type="xs:integer" />
+   </xs:complexType>
+   <xs:complexType name="RightsType">
+      <xs:simpleContent>
+         <xs:extension base="avs:RightsCoverage">
+            <xs:attribute name="TerritoryCode" use="required" />
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="SalesReportingProxyReleaseId">
+      <xs:sequence>
+         <xs:element name="ReleaseId" type="ern:ReleaseId" />
+         <xs:element name="Reason" minOccurs="0" type="ern:Reason" />
+         <xs:element name="ReasonType" type="ern:ReasonType" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SamplingRate">
+      <xs:simpleContent>
+         <xs:extension base="xs:decimal">
+            <xs:attribute name="UnitOfMeasure" type="avs:UnitOfFrequency" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="SheetMusicCodecType">
+      <xs:simpleContent>
+         <xs:extension base="avs:SheetMusicCodecType">
+            <xs:attribute name="Version" type="xs:string" />
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="SheetMusicId">
+      <xs:sequence>
+         <xs:element name="ISMN" minOccurs="0" type="xs:string" />
+         <xs:element name="ProprietaryId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ProprietaryId" />
+      </xs:sequence>
+      <xs:attribute name="IsReplaced" type="xs:boolean" />
+   </xs:complexType>
+   <xs:complexType name="SheetMusicType">
+      <xs:simpleContent>
+         <xs:extension base="avs:SheetMusicType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="SocietyAffiliation">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:AllTerritoryCode" />
+            <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded"
+               type="ern:AllTerritoryCode" />
+         </xs:choice>
+         <xs:element name="MusicRightsSociety" type="ern:PartyDescriptor" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SoftwareType">
+      <xs:simpleContent>
+         <xs:extension base="avs:SoftwareType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="SoundProcessorType">
+      <xs:simpleContent>
+         <xs:extension base="avs:SoundProcessorType">
+            <xs:attribute name="Version" type="xs:string" />
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="SoundRecordingCollectionReference">
+      <xs:sequence>
+         <xs:element name="SequenceNumber" minOccurs="0" type="xs:integer" />
+         <xs:element name="SoundRecordingCollectionReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="X[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="StartTime" minOccurs="0" type="xs:duration" />
+         <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+         <xs:element name="EndTime" minOccurs="0" type="xs:duration" />
+         <xs:element name="ReleaseResourceType" minOccurs="0" type="avs:ReleaseResourceType" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SoundRecordingCollectionReferenceList">
+      <xs:sequence>
+         <xs:element name="NumberOfCollections" minOccurs="0" type="xs:integer" />
+         <xs:element name="SoundRecordingCollectionReference" maxOccurs="unbounded"
+            type="ern:SoundRecordingCollectionReference" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SoundRecordingId">
+      <xs:sequence>
+         <xs:element name="ISRC" minOccurs="0" type="xs:string" />
+         <xs:element name="CatalogNumber" minOccurs="0" type="ern:CatalogNumber" />
+         <xs:element name="ProprietaryId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ProprietaryId" />
+      </xs:sequence>
+      <xs:attribute name="IsReplaced" type="xs:boolean" />
+   </xs:complexType>
+   <xs:complexType name="SoundRecordingType">
+      <xs:simpleContent>
+         <xs:extension base="avs:SoundRecordingType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="SubTitle">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="Synopsis">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="TariffReference">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+            <xs:attribute name="TariffSubReference" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="TechnicalInstantiation">
+      <xs:sequence>
+         <xs:element name="DrmEnforcementType" minOccurs="0" type="avs:DrmEnforcementType" />
+         <xs:element name="VideoDefinitionType" minOccurs="0" type="avs:VideoDefinitionType" />
+         <xs:element name="CodingType" minOccurs="0" type="avs:CodingType" />
+         <xs:element name="BitRate" minOccurs="0" type="ern:BitRate" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="TextCodecType">
+      <xs:simpleContent>
+         <xs:extension base="avs:TextCodecType">
+            <xs:attribute name="Version" type="xs:string" />
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="TextId">
+      <xs:sequence>
+         <xs:element name="ISBN" minOccurs="0" type="xs:string" />
+         <xs:element name="ISSN" minOccurs="0" type="xs:string" />
+         <xs:element name="SICI" minOccurs="0" type="xs:string" />
+         <xs:element name="ProprietaryId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ProprietaryId" />
+      </xs:sequence>
+      <xs:attribute name="IsReplaced" type="xs:boolean" />
+   </xs:complexType>
+   <xs:complexType name="TextType">
+      <xs:simpleContent>
+         <xs:extension base="avs:TextType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="Title">
+      <xs:sequence>
+         <xs:element name="TitleText" type="ern:TitleText" />
+         <xs:element name="SubTitle" minOccurs="0" maxOccurs="unbounded" type="ern:TypedSubTitle" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+      <xs:attribute name="TitleType" type="avs:TitleType" />
+   </xs:complexType>
+   <xs:complexType name="TitleText">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="TypedSubTitle">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+            <xs:attribute name="SubTitleType" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="Usage">
+      <xs:sequence>
+         <xs:element name="UseType" maxOccurs="unbounded" type="ern:UseType" />
+         <xs:element name="UserInterfaceType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:UserInterfaceType" />
+         <xs:element name="DistributionChannelType" minOccurs="0" maxOccurs="unbounded"
+            type="ern:DistributionChannelType" />
+         <xs:element name="CarrierType" minOccurs="0" maxOccurs="unbounded" type="ern:CarrierType" />
+         <xs:element name="TechnicalInstantiation" minOccurs="0" type="ern:TechnicalInstantiation" />
+         <xs:element name="NumberOfUsages" minOccurs="0" type="xs:integer" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="UseType">
+      <xs:simpleContent>
+         <xs:extension base="avs:UseType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="UserDefinedResourceType">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="Namespace" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="UserDefinedValue">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="Description" type="xs:string" />
+            <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="UserInterfaceType">
+      <xs:simpleContent>
+         <xs:extension base="avs:UserInterfaceType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="VideoCodecType">
+      <xs:simpleContent>
+         <xs:extension base="avs:VideoCodecType">
+            <xs:attribute name="Version" type="xs:string" />
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="VideoCueSheetReference">
+      <xs:sequence>
+         <xs:element name="VideoCueSheetReference">
+            <xs:simpleType>
+               <xs:restriction base="xs:IDREF">
+                  <xs:pattern value="Q[\d\-_a-zA-Z]+" />
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="VideoId">
+      <xs:sequence>
+         <xs:element name="ISRC" minOccurs="0" type="xs:string" />
+         <xs:element name="ISAN" minOccurs="0" type="xs:string" />
+         <xs:element name="VISAN" minOccurs="0" type="xs:string" />
+         <xs:element name="CatalogNumber" minOccurs="0" type="ern:CatalogNumber" />
+         <xs:element name="ProprietaryId" minOccurs="0" maxOccurs="unbounded"
+            type="ern:ProprietaryId" />
+         <xs:element name="EIDR" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
+      </xs:sequence>
+      <xs:attribute name="IsReplaced" type="xs:boolean" />
+   </xs:complexType>
+   <xs:complexType name="VideoType">
+      <xs:simpleContent>
+         <xs:extension base="avs:VideoType">
+            <xs:attribute name="Namespace" type="xs:string" />
+            <xs:attribute name="UserDefinedValue" type="xs:string" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="WebPage">
+      <xs:sequence>
+         <xs:element name="PartyId" minOccurs="0" maxOccurs="unbounded" type="ern:PartyId" />
+         <xs:element name="ReleaseId" minOccurs="0" maxOccurs="unbounded" type="ern:ReleaseId" />
+         <xs:element name="PageName" minOccurs="0" type="ern:Name" />
+         <xs:element name="URL" minOccurs="0" type="xs:string" />
+         <xs:element name="UserName" minOccurs="0" type="xs:string" />
+         <xs:element name="Password" minOccurs="0" type="xs:string" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="WorkList">
+      <xs:sequence>
+         <xs:element name="MusicalWork" maxOccurs="unbounded" type="ern:MusicalWork" />
+      </xs:sequence>
+      <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
+   </xs:complexType>
+   <xs:simpleType name="ddexC_CurrentTerritoryCode">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="IdentifierType">
+         </xs:enumeration>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ddex_LocalCollectionAnchorReference">
+      <xs:restriction base="xs:IDREF">
+         <xs:pattern value="X[\d\-_a-zA-Z]+" />
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ddex_LocalResourceAnchorReference">
+      <xs:restriction base="xs:IDREF">
+         <xs:pattern value="A[\d\-_a-zA-Z]+" />
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ddex_IsoDate">
+      <xs:restriction base="xs:string">
+         <xs:pattern value="[0-9]{4}(-[0-9]{2}){0,1}(-[0-9]{2}){0,1}" />
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>

@@ -1,7 +1,7 @@
 import { ConsoleLogger, ILogger } from "@lickd/logger";
-import { Parser } from "./parser";
-import { EDistroType, TDistro, TDistroDdexVersion } from "./types";
 import { Converter } from "./converter";
+import { Parser } from "./parser";
+import { Ern, Ern411 } from "./types";
 
 export class Distributions {
   private logger: ILogger;
@@ -16,14 +16,11 @@ export class Distributions {
     this.converter = converter ?? new Converter(this.logger);
   }
 
-  public async parse(body: string): Promise<TDistro<EDistroType>> {
+  public async parse(body: string): Promise<Ern> {
     return this.parser.parse(body);
   }
 
-  public convertToDdex(
-    distro: TDistro<EDistroType>,
-    version: TDistroDdexVersion,
-  ): TDistro<EDistroType.DDEX> {
-    return this.converter.convertToDdex(distro, version);
+  public convertToErn411(ern: Ern): Ern411.Ern<Ern411.Actions> {
+    return this.converter.convertToErn411(ern);
   }
 }

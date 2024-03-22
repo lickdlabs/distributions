@@ -22,7 +22,7 @@
     "test": "mocha"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=16.0.0"
   },
   "author": "Lickd Ltd",
   "license": "Apache-2.0",
