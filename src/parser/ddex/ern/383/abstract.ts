@@ -77,6 +77,56 @@ export abstract class AbstractParser {
     };
   }
 
+  protected parseImage(object: any): Ern383.Image {
+    return {
+      imageId: object.ImageId.map((imageId: any) =>
+        this.parseResourceProprietaryId(imageId),
+      ),
+      resourceReference: object.ResourceReference[0],
+      imageDetailsByTerritory: object.ImageDetailsByTerritory.map(
+        (imageDetailsByTerritory: any) =>
+          this.parseImageDetailsByTerritory(imageDetailsByTerritory),
+      ),
+    };
+  }
+
+  protected parseImageDetailsByTerritory(
+    object: any,
+  ): Ern383.ImageDetailsByTerritory {
+    const attributes = {
+      languageAndScriptCode: object.$?.languageAndScriptCode || undefined,
+    };
+
+    const parsed: Omit<
+      Ern383.ImageDetailsByTerritory,
+      "territoryCode" | "excludedTerritoryCode"
+    > = {
+      _attributes: object.$ ? attributes : undefined,
+      technicalImageDetails: object.TechnicalImageDetails
+        ? object.TechnicalImageDetails.map((technicalImageDetails: any) =>
+            this.parseTechnicalImageDetails(technicalImageDetails),
+          )
+        : undefined,
+    };
+
+    if (object.TerritoryCode) {
+      return {
+        ...parsed,
+        territoryCode: object.TerritoryCode.map((territoryCode: any) =>
+          this.parseCurrentTerritoryCode(territoryCode),
+        ),
+      };
+    }
+
+    return {
+      ...parsed,
+      excludedTerritoryCode: object.ExcludedTerritoryCode.map(
+        (excludedTerritoryCode: any) =>
+          this.parseCurrentTerritoryCode(excludedTerritoryCode),
+      ),
+    };
+  }
+
   protected parseMessageAuditTrail(object: any): Ern383.MessageAuditTrail {
     const attributes = {
       languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
@@ -239,6 +289,26 @@ export abstract class AbstractParser {
             this.parseSoundRecording(soundRecording),
           )
         : undefined,
+      image: object.Image
+        ? object.Image.map((image: any) => this.parseImage(image))
+        : undefined,
+    };
+  }
+
+  protected parseResourceProprietaryId(
+    object: any,
+  ): Ern383.ResourceProprietaryId {
+    const attributes = {
+      isReplaced: object.$?.IsReplaced
+        ? object.$.IsReplaced === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      proprietaryId: object.ProprietaryId.map((proprietaryId: any) =>
+        this.parseProprietaryId(proprietaryId),
+      ),
     };
   }
 
@@ -330,6 +400,32 @@ export abstract class AbstractParser {
       _attributes: object.$ ? attributes : undefined,
       value: object._ || object,
     };
+  }
+
+  protected parseTechnicalImageDetails(
+    object: any,
+  ): Ern383.TechnicalImageDetails {
+    const attributes = {
+      languageAndScriptCode: object.$?.languageAndScriptCode || undefined,
+    };
+
+    const parsed: Ern383.TechnicalImageDetails = {
+      _attributes: object.$ ? attributes : undefined,
+      technicalResourceDetailsReference:
+        object.TechnicalResourceDetailsReference[0],
+    };
+
+    if (object.File) {
+      parsed.file = object.File.map((file: any) => this.parseFile(file));
+    } else if (object.FileAvailabilityDescription) {
+      parsed.fileAvailabilityDescription =
+        object.FileAvailabilityDescription.map(
+          (fileAvailabilityDescription: any) =>
+            this.parseDescription(fileAvailabilityDescription),
+        );
+    }
+
+    return parsed;
   }
 
   protected parseTechnicalSoundRecordingDetails(
