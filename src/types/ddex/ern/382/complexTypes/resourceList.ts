@@ -1,3 +1,4 @@
+import { Image } from "./image";
 import { SoundRecording } from "./soundRecording";
 
 // <xs:complexType name="ResourceList">
@@ -21,7 +22,7 @@ export type ResourceList = {
   soundRecording?: SoundRecording[];
   // @todo <xs:element name="MIDI" minOccurs="0" maxOccurs="unbounded" type="ern:MIDI" />
   // @todo <xs:element name="Video" minOccurs="0" maxOccurs="unbounded" type="ern:Video" />
-  // @todo <xs:element name="Image" minOccurs="0" maxOccurs="unbounded" type="ern:Image" />
+  image?: Image[];
   // @todo <xs:element name="Text" minOccurs="0" maxOccurs="unbounded" type="ern:Text" />
   // @todo <xs:element name="SheetMusic" minOccurs="0" maxOccurs="unbounded" type="ern:SheetMusic" />
   // @todo <xs:element name="Software" minOccurs="0" maxOccurs="unbounded" type="ern:Software" />
