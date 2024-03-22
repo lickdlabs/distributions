@@ -25,6 +25,16 @@ export abstract class AbstractParser {
     };
   }
 
+  protected parseDetailedHashSum(object: any): Ern411.DetailedHashSum {
+    return {
+      algorithm: object.Algorithm[0],
+      version: object.Version ? object.Version[0] : undefined,
+      parameter: object.Parameter ? object.Parameter[0] : undefined,
+      dataType: object.DataType ? object.DataType[0] : undefined,
+      hashSumValue: object.HashSumValue[0],
+    };
+  }
+
   protected parseDisplayArtist(object: any): Ern411.DisplayArtist {
     const attributes = {
       sequenceNumber: object.$?.SequenceNumber
@@ -129,6 +139,16 @@ export abstract class AbstractParser {
     return {
       _attributes: object.$ ? attributes : undefined,
       value: object._ || object,
+    };
+  }
+
+  protected parseFile(object: any): Ern411.File {
+    return {
+      uri: object.URI[0],
+      hashSum: object.HashSum
+        ? this.parseDetailedHashSum(object.HashSum[0])
+        : undefined,
+      fileSize: object.FileSize ? parseFloat(object.FileSize[0]) : undefined,
     };
   }
 
@@ -353,6 +373,7 @@ export abstract class AbstractParser {
       _attributes: object.$ ? attributes : undefined,
       technicalResourceDetailsReference:
         object.TechnicalResourceDetailsReference[0],
+      file: object.File ? this.parseFile(object.File[0]) : undefined,
     };
   }
 

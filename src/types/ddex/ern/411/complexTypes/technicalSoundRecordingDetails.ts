@@ -1,4 +1,5 @@
 import { Avs411 } from "../../../avs";
+import { File } from "./file";
 
 // <xs:complexType name="TechnicalSoundRecordingDetails">
 //   <xs:sequence>
@@ -48,6 +49,6 @@ export type TechnicalSoundRecordingDetails = {
   // @todo <xs:element name="BitDepth" minOccurs="0" type="xs:integer" />
   // @todo <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
   // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
-  // @todo <xs:element name="File" minOccurs="0" type="ern:File" />
+  file?: File;
   // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
 };
