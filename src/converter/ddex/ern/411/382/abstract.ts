@@ -1,8 +1,39 @@
 import { ILogger } from "@lickd/logger";
+import path from "path";
 import { Avs411, Ern382, Ern411 } from "../../../../../types";
 
 export abstract class AbstractConverter {
   public constructor(protected logger: ILogger) {}
+
+  protected convertDetailedHashSum(
+    ern: Ern382.HashSum,
+  ): Ern411.DetailedHashSum {
+    return {
+      algorithm: {
+        value: ern.hashSumAlgorithmType,
+      },
+      dataType: ern.hashSumDataType as Avs411.BinaryDataType,
+      hashSumValue: ern.hashSum,
+    };
+  }
+
+  protected convertFile(ern: Ern382.File): Ern411.File {
+    if (ern.url) {
+      return {
+        uri: ern.url,
+        hashSum: ern.hashSum
+          ? this.convertDetailedHashSum(ern.hashSum)
+          : undefined,
+      };
+    }
+
+    return {
+      uri: path.join(ern.filePath || "", ern.fileName || ""),
+      hashSum: ern.hashSum
+        ? this.convertDetailedHashSum(ern.hashSum)
+        : undefined,
+    };
+  }
 
   protected convertMessageAuditTrail(
     ern: Ern382.MessageAuditTrail,
@@ -94,6 +125,13 @@ export abstract class AbstractConverter {
   protected convertSoundRecording(
     ern: Ern382.SoundRecording,
   ): Ern411.SoundRecording {
+    if (ern.soundRecordingDetailsByTerritory.length > 1) {
+      this.logger.warn(
+        "sound recording has more than one territory entry, only first entry is used",
+      );
+    }
+
+    const territory = ern.soundRecordingDetailsByTerritory[0];
     const attributes = {
       languageAndScriptCode: ern._attributes?.languageAndScriptCode,
     };
@@ -123,6 +161,34 @@ export abstract class AbstractConverter {
           value: Avs411.ParentalWarningType.UNKNOWN,
         },
       ],
+      technicalDetails: territory.technicalSoundRecordingDetails
+        ? territory.technicalSoundRecordingDetails.map(
+            (technicalSoundRecordingDetails) =>
+              this.convertTechnicalSoundRecordingDetails(
+                technicalSoundRecordingDetails,
+              ),
+          )
+        : undefined,
+    };
+  }
+
+  protected convertTechnicalSoundRecordingDetails(
+    ern: Ern382.TechnicalSoundRecordingDetails,
+  ): Ern411.TechnicalSoundRecordingDetails {
+    if ((ern.file?.length || 0) > 1) {
+      this.logger.warn(
+        "technical sound recording details has more than one file entry, only first entry is used",
+      );
+    }
+
+    const attributes = {
+      languageAndScriptCode: ern._attributes?.languageAndScriptCode,
+    };
+
+    return {
+      _attributes: ern._attributes ? attributes : undefined,
+      technicalResourceDetailsReference: ern.technicalResourceDetailsReference,
+      file: ern.file ? this.convertFile(ern.file[0]) : undefined,
     };
   }
 }

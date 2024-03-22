@@ -27,7 +27,7 @@ export abstract class AbstractParser {
 
   protected parseDetailedHashSum(object: any): Ern411.DetailedHashSum {
     return {
-      algorithm: object.Algorithm[0],
+      algorithm: this.parseHashSumAlgorithmType(object.Algorithm[0]),
       version: object.Version ? object.Version[0] : undefined,
       parameter: object.Parameter ? object.Parameter[0] : undefined,
       dataType: object.DataType ? object.DataType[0] : undefined,
@@ -149,6 +149,20 @@ export abstract class AbstractParser {
         ? this.parseDetailedHashSum(object.HashSum[0])
         : undefined,
       fileSize: object.FileSize ? parseFloat(object.FileSize[0]) : undefined,
+    };
+  }
+
+  protected parseHashSumAlgorithmType(
+    object: any,
+  ): Ern411.HashSumAlgorithmType {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object.Algorithm[0],
     };
   }
 

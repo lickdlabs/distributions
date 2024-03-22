@@ -2,7 +2,7 @@ import { ConsoleLogger } from "@lickd/logger";
 import { assert } from "chai";
 import { readFileSync } from "fs";
 import { createStubInstance } from "sinon";
-import { Converter, Ern383, Parser } from "../src";
+import { Converter, Ern383, Ern411, Parser } from "../src";
 
 const logger = createStubInstance(ConsoleLogger);
 
@@ -58,8 +58,13 @@ describe("Converter", () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/382.xml").toString(),
       );
+      const converted = converter.convertToErn411(parsed);
 
-      assert.throws(() => converter.convertToErn411(parsed));
+      assert.equal(converted.version, 411);
+      assert.equal(converted.action, Ern411.Actions.NEW_RELEASE_MESSAGE);
+      assert.exists(converted.element);
+      assert.isNotEmpty(converted.element);
+      assert.isObject(converted.element);
     });
 
     it("should not convert 383 new message to 411 new message", async () => {
@@ -67,7 +72,13 @@ describe("Converter", () => {
         readFileSync("./examples/_ddex/383.xml").toString(),
       );
 
-      assert.throws(() => converter.convertToErn411(parsed));
+      const converted = converter.convertToErn411(parsed);
+
+      assert.equal(converted.version, 411);
+      assert.equal(converted.action, Ern411.Actions.NEW_RELEASE_MESSAGE);
+      assert.exists(converted.element);
+      assert.isNotEmpty(converted.element);
+      assert.isObject(converted.element);
     });
 
     it("should convert 411 new message to 411 new message", async () => {

@@ -13,10 +13,14 @@ export class Ern411Converter {
     });
 
     switch (ern.version) {
+      case 382:
+        return new Ern382Converter(this.logger).convert(ern);
+
+      case 383:
+        return new Ern383Converter(this.logger).convert(ern);
+
       case 411:
         return ern;
     }
-
-    throw new Error("unknown/unsupported conversion");
   }
 }
