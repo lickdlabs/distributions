@@ -2,11 +2,11 @@ import { Ern383 } from "../../../../types";
 import { AbstractParser } from "./abstract";
 
 export class CatalogListMessageParser extends AbstractParser {
-  public parse(object: any): Ern383.Ern<Ern383.Actions.CATALOG_LIST_MESSAGE> {
+  public parse(object: any): Ern383.ErnCatalogListMessage {
     return {
       type: "ddex",
       version: 383,
-      action: Ern383.Actions.CATALOG_LIST_MESSAGE,
+      action: "CatalogListMessage",
       element: {
         _attributes: {
           messageSchemaVersionId: object.$.MessageSchemaVersionId,

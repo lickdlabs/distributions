@@ -10,7 +10,8 @@ export abstract class AbstractConverter {
   ): Ern411.DetailedHashSum {
     return {
       algorithm: {
-        value: ern.hashSumAlgorithmType as unknown as Avs411.HashSumAlgorithmType,
+        value:
+          ern.hashSumAlgorithmType as unknown as Avs411.HashSumAlgorithmType,
       },
       dataType: ern.hashSumDataType as unknown as Avs411.BinaryDataType,
       hashSumValue: ern.hashSum,

@@ -7,15 +7,15 @@ import { PurgeReleaseMessageParser } from "./purgeReleaseMessage";
 export class Ern382Parser {
   public constructor(private logger: ILogger) {}
 
-  public parse(action: string, object: any): Ern382.Ern<Ern382.Actions> {
+  public parse(action: string, object: any): Ern382.Ern {
     switch (action) {
-      case Ern382.Actions.CATALOG_LIST_MESSAGE:
+      case "CatalogListMessage":
         return new CatalogListMessageParser(this.logger).parse(object);
 
-      case Ern382.Actions.NEW_RELEASE_MESSAGE:
+      case "NewReleaseMessage":
         return new NewReleaseMessageParser(this.logger).parse(object);
 
-      case Ern382.Actions.PURGE_RELEASE_MESSAGE:
+      case "PurgeReleaseMessage":
         return new PurgeReleaseMessageParser(this.logger).parse(object);
     }
 

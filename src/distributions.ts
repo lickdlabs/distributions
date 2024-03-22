@@ -1,7 +1,7 @@
 import { ConsoleLogger, ILogger } from "@lickd/logger";
 import { Converter } from "./converter";
 import { Parser } from "./parser";
-import { Ern, Ern411 } from "./types";
+import { Ern, Ern383, Ern411 } from "./types";
 
 export class Distributions {
   private logger: ILogger;
@@ -20,7 +20,11 @@ export class Distributions {
     return this.parser.parse(body);
   }
 
-  public convertToErn411(ern: Ern): Ern411.Ern<Ern411.Actions> {
+  public convertToErn383(ern: Ern): Ern383.Ern {
+    return this.converter.convertToErn383(ern);
+  }
+
+  public convertToErn411(ern: Ern): Ern411.Ern {
     return this.converter.convertToErn411(ern);
   }
 }

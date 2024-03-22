@@ -2,11 +2,11 @@ import { Ern411 } from "../../../../types";
 import { AbstractParser } from "./abstract";
 
 export class PurgeReleaseMessageParser extends AbstractParser {
-  public parse(object: any): Ern411.Ern<Ern411.Actions.PURGE_RELEASE_MESSAGE> {
+  public parse(object: any): Ern411.ErnPurgeReleaseMessage {
     return {
       type: "ddex",
       version: 411,
-      action: Ern411.Actions.PURGE_RELEASE_MESSAGE,
+      action: "PurgeReleaseMessage",
       element: {
         _attributes: {
           languageAndScriptCode: object.$.LanguageAndScriptCode,

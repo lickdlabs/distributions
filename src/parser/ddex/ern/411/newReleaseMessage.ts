@@ -2,11 +2,11 @@ import { Ern411 } from "../../../../types";
 import { AbstractParser } from "./abstract";
 
 export class NewReleaseMessageParser extends AbstractParser {
-  public parse(object: any): Ern411.Ern<Ern411.Actions.NEW_RELEASE_MESSAGE> {
+  public parse(object: any): Ern411.ErnNewReleaseMessage {
     return {
       type: "ddex",
       version: 411,
-      action: Ern411.Actions.NEW_RELEASE_MESSAGE,
+      action: "NewReleaseMessage",
       element: {
         _attributes: {
           releaseProfileVersionId: object.$.ReleaseProfileVersionId,

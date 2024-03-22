@@ -6,7 +6,7 @@ import { Ern383Converter } from "./383";
 export class Ern411Converter {
   public constructor(private logger: ILogger) {}
 
-  public convert(ern: Ern): Ern411.Ern<Ern411.Actions> {
+  public convert(ern: Ern): Ern411.Ern {
     this.logger.info("converting to ern 411 from", {
       version: ern.version,
       action: ern.action,
@@ -22,5 +22,7 @@ export class Ern411Converter {
       case 411:
         return ern;
     }
+
+    throw new Error("unknown/unsupported conversion");
   }
 }

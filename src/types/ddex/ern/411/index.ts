@@ -3,19 +3,18 @@ import { NewReleaseMessage, PurgeReleaseMessage } from "./elements";
 export * from "./complexTypes";
 export * from "./elements";
 
-export enum Actions {
-  NEW_RELEASE_MESSAGE = "NewReleaseMessage",
-  PURGE_RELEASE_MESSAGE = "PurgeReleaseMessage",
-}
+export type Ern = ErnNewReleaseMessage | ErnPurgeReleaseMessage;
 
-export type Ern<T extends Actions> = {
+export type ErnNewReleaseMessage = {
   type: "ddex";
   version: 411;
-  action: T;
-  element: Elements[T];
+  action: "NewReleaseMessage";
+  element: NewReleaseMessage;
 };
 
-type Elements = {
-  [Actions.NEW_RELEASE_MESSAGE]: NewReleaseMessage;
-  [Actions.PURGE_RELEASE_MESSAGE]: PurgeReleaseMessage;
+export type ErnPurgeReleaseMessage = {
+  type: "ddex";
+  version: 411;
+  action: "PurgeReleaseMessage";
+  element: PurgeReleaseMessage;
 };

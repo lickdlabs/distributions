@@ -2,7 +2,7 @@ import { ConsoleLogger } from "@lickd/logger";
 import { assert } from "chai";
 import { readFileSync } from "fs";
 import { createStubInstance } from "sinon";
-import { Converter, Ern383, Ern411, Parser } from "../src";
+import { Converter, Parser } from "../src";
 
 const logger = createStubInstance(ConsoleLogger);
 
@@ -26,7 +26,7 @@ describe("Converter", () => {
       const converted = converter.convertToErn383(parsed);
 
       assert.equal(converted.version, 383);
-      assert.equal(converted.action, Ern383.Actions.NEW_RELEASE_MESSAGE);
+      assert.equal(converted.action, "NewReleaseMessage");
       assert.exists(converted.element);
       assert.isNotEmpty(converted.element);
       assert.isObject(converted.element);
@@ -61,7 +61,7 @@ describe("Converter", () => {
       const converted = converter.convertToErn411(parsed);
 
       assert.equal(converted.version, 411);
-      assert.equal(converted.action, Ern411.Actions.NEW_RELEASE_MESSAGE);
+      assert.equal(converted.action, "NewReleaseMessage");
       assert.exists(converted.element);
       assert.isNotEmpty(converted.element);
       assert.isObject(converted.element);
@@ -75,7 +75,7 @@ describe("Converter", () => {
       const converted = converter.convertToErn411(parsed);
 
       assert.equal(converted.version, 411);
-      assert.equal(converted.action, Ern411.Actions.NEW_RELEASE_MESSAGE);
+      assert.equal(converted.action, "NewReleaseMessage");
       assert.exists(converted.element);
       assert.isNotEmpty(converted.element);
       assert.isObject(converted.element);

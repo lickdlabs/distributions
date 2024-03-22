@@ -3,12 +3,12 @@ import { AbstractConverter } from "./abstract";
 
 export class NewReleaseMessageConverter extends AbstractConverter {
   public convert(
-    ern: Ern383.Ern<Ern383.Actions.NEW_RELEASE_MESSAGE>,
-  ): Ern411.Ern<Ern411.Actions.NEW_RELEASE_MESSAGE> {
+    ern: Ern383.ErnNewReleaseMessage,
+  ): Ern411.ErnNewReleaseMessage {
     return {
       type: "ddex",
       version: 411,
-      action: Ern411.Actions.NEW_RELEASE_MESSAGE,
+      action: "NewReleaseMessage",
       element: {
         _attributes: {
           languageAndScriptCode:

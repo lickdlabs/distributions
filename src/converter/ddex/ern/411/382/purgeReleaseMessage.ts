@@ -3,12 +3,12 @@ import { AbstractConverter } from "./abstract";
 
 export class PurgeReleaseMessageConverter extends AbstractConverter {
   public convert(
-    ern: Ern382.Ern<Ern382.Actions.PURGE_RELEASE_MESSAGE>,
-  ): Ern411.Ern<Ern411.Actions.PURGE_RELEASE_MESSAGE> {
+    ern: Ern382.ErnPurgeReleaseMessage,
+  ): Ern411.ErnPurgeReleaseMessage {
     return {
       type: "ddex",
       version: 411,
-      action: Ern411.Actions.PURGE_RELEASE_MESSAGE,
+      action: "PurgeReleaseMessage",
       element: {
         _attributes: {
           languageAndScriptCode:
