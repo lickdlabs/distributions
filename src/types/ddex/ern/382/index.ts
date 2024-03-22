@@ -14,6 +14,7 @@ export enum Actions {
 }
 
 export type Ern<T extends Actions> = {
+  type: "ddex";
   version: 382;
   action: T;
   element: Elements[T];
