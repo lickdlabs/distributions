@@ -1,4 +1,4 @@
-import { DdexV4, Distributions } from "@lickd/distributions";
+import { Distributions } from "@lickd/distributions";
 import { ConsoleLogger } from "@lickd/logger";
 import { readFileSync } from "fs";
 
@@ -12,10 +12,7 @@ const file = "../../examples/_ddex/382.xml";
 
   logger.info({ parsed });
 
-  const converted = distributions.convertToDdex(
-    parsed,
-    DdexV4.EDistroDdexVersion.V411,
-  );
+  const converted = distributions.convertToErn411(parsed);
 
   logger.info({ converted });
 })();
