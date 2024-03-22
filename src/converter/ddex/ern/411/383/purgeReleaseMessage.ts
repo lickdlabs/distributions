@@ -6,6 +6,7 @@ export class PurgeReleaseMessageConverter extends AbstractConverter {
     ern: Ern383.Ern<Ern383.Actions.PURGE_RELEASE_MESSAGE>,
   ): Ern411.Ern<Ern411.Actions.PURGE_RELEASE_MESSAGE> {
     return {
+      type: "ddex",
       version: 411,
       action: Ern411.Actions.PURGE_RELEASE_MESSAGE,
       element: {

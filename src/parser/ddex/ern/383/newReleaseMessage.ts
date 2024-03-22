@@ -4,6 +4,7 @@ import { AbstractParser } from "./abstract";
 export class NewReleaseMessageParser extends AbstractParser {
   public parse(object: any): Ern383.Ern<Ern383.Actions.NEW_RELEASE_MESSAGE> {
     return {
+      type: "ddex",
       version: 383,
       action: Ern383.Actions.NEW_RELEASE_MESSAGE,
       element: {
