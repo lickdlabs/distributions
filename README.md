@@ -43,7 +43,7 @@ const file = "path/to/distribution/file";
 ### Converting
 
 ```typescript
-import { Distributions, v4 } from "@lickd/distributions";
+import { Distributions } from "@lickd/distributions";
 import { ConsoleLogger } from "@lickd/logger";
 import { readFileSync } from "fs";
 
@@ -54,7 +54,10 @@ const file = "path/to/distribution/file";
 
 (async () => {
   const parsed = await distributions.parse(readFileSync(file).toString());
-  const converted = distributions.convertToDdex(parsed, v4.EDistroDdexVersion.V411);
+
+  logger.info({ parsed });
+
+  const converted = distributions.convertToErn411(parsed);
 
   logger.info({ converted });
 })();
