@@ -37,6 +37,46 @@ export abstract class AbstractParser {
     };
   }
 
+  protected parseDescription(object: any): Ern383.Description {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  protected parseFile(object: any): Ern383.File {
+    if (object.FileName) {
+      return {
+        fileName: object.FileName[0],
+        filePath: object.FilePath ? object.FilePath[0] : undefined,
+        hashSum: object.HashSum
+          ? this.parseHashSum(object.HashSum[0])
+          : undefined,
+      };
+    }
+
+    return {
+      url: object.URL[0],
+      hashSum: object.HashSum
+        ? this.parseHashSum(object.HashSum[0])
+        : undefined,
+    };
+  }
+
+  protected parseHashSum(object: any): Ern383.HashSum {
+    return {
+      hashSum: object.HashSum[0],
+      hashSumAlgorithmType: object.HashSumAlgorithmType[0],
+      hashSumDataType: object.HashSumDataType
+        ? object.HashSumDataType[0]
+        : undefined,
+    };
+  }
+
   protected parseMessageAuditTrail(object: any): Ern383.MessageAuditTrail {
     const attributes = {
       languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
@@ -299,11 +339,23 @@ export abstract class AbstractParser {
       languageAndScriptCode: object.$?.languageAndScriptCode || undefined,
     };
 
-    return {
+    const parsed: Ern383.TechnicalSoundRecordingDetails = {
       _attributes: object.$ ? attributes : undefined,
       technicalResourceDetailsReference:
         object.TechnicalResourceDetailsReference[0],
     };
+
+    if (object.File) {
+      parsed.file = object.File.map((file: any) => this.parseFile(file));
+    } else if (object.FileAvailabilityDescription) {
+      parsed.fileAvailabilityDescription =
+        object.FileAvailabilityDescription.map(
+          (fileAvailabilityDescription: any) =>
+            this.parseDescription(fileAvailabilityDescription),
+        );
+    }
+
+    return parsed;
   }
 
   protected parseTitleText(object: any): Ern383.TitleText {

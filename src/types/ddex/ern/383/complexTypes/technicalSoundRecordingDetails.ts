@@ -1,3 +1,6 @@
+import { Description } from "./description";
+import { File } from "./file";
+
 // <xs:complexType name="TechnicalSoundRecordingDetails">
 //   <xs:sequence>
 //     <xs:element name="TechnicalResourceDetailsReference">
@@ -29,7 +32,7 @@
 //   </xs:sequence>
 //   <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
 // </xs:complexType>
-export type TechnicalSoundRecordingDetails = {
+export type TechnicalSoundRecordingDetails = Partial<FileChoice> & {
   _attributes?: {
     languageAndScriptCode?: string;
   };
@@ -51,9 +54,9 @@ export type TechnicalSoundRecordingDetails = {
   // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
   // @todo <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
   // @todo <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
-  // @todo <xs:choice minOccurs="0">
-  //     <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded" type="ern:Description" />
-  //     <xs:element name="File" maxOccurs="unbounded" type="ern:File" />
-  // </xs:choice>
   // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
 };
+
+type FileChoice =
+  | { fileAvailabilityDescription: Description[]; file?: never }
+  | { fileAvailabilityDescription?: never; file: File[] };
