@@ -162,7 +162,42 @@ export abstract class AbstractParser {
 
     return {
       _attributes: object.$ ? attributes : undefined,
-      value: object.Algorithm[0],
+      value: object._ || object,
+    };
+  }
+
+  protected parseImage(object: any): Ern411.Image {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      isSupplemental: object.$?.IsSupplemental
+        ? object.$?.IsSupplemental === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      resourceReference: object.ResourceReference[0],
+      type: this.parseImageType(object.Type[0]),
+      resourceId: object.ResourceId.map((resourceId: any) =>
+        this.parseResourceProprietaryId(resourceId),
+      ),
+      technicalDetails: object.TechnicalDetails
+        ? object.TechnicalDetails.map((technicalDetails: any) =>
+            this.parseTechnicalImageDetails(technicalDetails),
+          )
+        : undefined,
+    };
+  }
+
+  protected parseImageType(object: any): Ern411.ImageType {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
     };
   }
 
@@ -295,6 +330,26 @@ export abstract class AbstractParser {
             this.parseSoundRecording(soundRecording),
           )
         : undefined,
+      image: object.Image
+        ? object.Image.map((image: any) => this.parseImage(image))
+        : undefined,
+    };
+  }
+
+  protected parseResourceProprietaryId(
+    object: any,
+  ): Ern411.ResourceProprietaryId {
+    const attributes = {
+      isReplaced: object.IsReplaced
+        ? object.IsReplaced[0] === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      proprietaryId: object.ProprietaryId.map((proprietaryId: any) =>
+        this.parseProprietaryId(proprietaryId),
+      ),
     };
   }
 
@@ -369,6 +424,25 @@ export abstract class AbstractParser {
     return {
       _attributes: object.$ ? attributes : undefined,
       value: object._ || object,
+    };
+  }
+
+  protected parseTechnicalImageDetails(
+    object: any,
+  ): Ern411.TechnicalImageDetails {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      technicalResourceDetailsReference:
+        object.TechnicalResourceDetailsReference[0],
+      file: object.File ? this.parseFile(object.File[0]) : undefined,
     };
   }
 

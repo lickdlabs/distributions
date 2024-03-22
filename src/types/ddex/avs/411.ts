@@ -3,6 +3,7 @@ export enum ContributorRole {}
 export enum CurrentTerritoryCode {}
 export enum DisplayArtistRole {}
 export enum HashSumAlgorithmType {}
+export enum ImageType {}
 export enum MessageControlType {}
 
 export enum ParentalWarningType {
