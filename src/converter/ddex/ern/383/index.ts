@@ -10,15 +10,15 @@ export class Ern383Converter {
       action: ern.action,
     });
 
-    if (ern.version === 383) {
-      return ern;
-    }
+    switch (ern.version) {
+      case 382:
+        return {
+          ...ern,
+          version: 383,
+        };
 
-    if (ern.version === 382) {
-      return {
-        ...ern,
-        version: 383,
-      };
+      case 383:
+        return ern;
     }
 
     throw new Error("unknown/unsupported conversion");

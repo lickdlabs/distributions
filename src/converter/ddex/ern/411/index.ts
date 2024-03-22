@@ -1,5 +1,7 @@
 import { ILogger } from "@lickd/logger";
 import { Ern, Ern411 } from "../../../../types";
+import { Ern382Converter } from "./382";
+import { Ern383Converter } from "./383";
 
 export class Ern411Converter {
   public constructor(private logger: ILogger) {}
@@ -10,8 +12,9 @@ export class Ern411Converter {
       action: ern.action,
     });
 
-    if (ern.version === 411) {
-      return ern;
+    switch (ern.version) {
+      case 411:
+        return ern;
     }
 
     throw new Error("unknown/unsupported conversion");
