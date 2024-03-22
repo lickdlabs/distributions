@@ -1,4 +1,5 @@
 import { Description } from "./description";
+import { File } from "./file";
 
 // <xs:complexType name="TechnicalImageDetails">
 //   <xs:sequence>

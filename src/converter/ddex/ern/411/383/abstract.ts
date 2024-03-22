@@ -35,6 +35,33 @@ export abstract class AbstractConverter {
     };
   }
 
+  protected convertImage(ern: Ern383.Image): Ern411.Image {
+    if (ern.imageDetailsByTerritory.length > 1) {
+      this.logger.warn(
+        "image has more than one territory entry, only first entry is used",
+      );
+    }
+
+    const territory = ern.imageDetailsByTerritory[0];
+    const attributes = {
+      languageAndScriptCode: ern._attributes?.languageAndScriptCode,
+    };
+
+    return {
+      _attributes: ern._attributes ? attributes : undefined,
+      resourceReference: ern.resourceReference,
+      type: {
+        value: Avs411.ImageType.UNKNOWN,
+      },
+      resourceId: ern.imageId,
+      technicalDetails: territory.technicalImageDetails
+        ? territory.technicalImageDetails.map((technicalImageDetails) =>
+            this.convertTechnicalImageDetails(technicalImageDetails),
+          )
+        : undefined,
+    };
+  }
+
   protected convertMessageAuditTrail(
     ern: Ern383.MessageAuditTrail,
   ): Ern411.MessageAuditTrail {
@@ -119,6 +146,9 @@ export abstract class AbstractConverter {
             this.convertSoundRecording(soundRecording),
           )
         : undefined,
+      image: ern.image
+        ? ern.image.map((image) => this.convertImage(image))
+        : undefined,
     };
   }
 
@@ -169,6 +199,26 @@ export abstract class AbstractConverter {
               ),
           )
         : undefined,
+    };
+  }
+
+  protected convertTechnicalImageDetails(
+    ern: Ern383.TechnicalImageDetails,
+  ): Ern411.TechnicalImageDetails {
+    if ((ern.file?.length || 0) > 1) {
+      this.logger.warn(
+        "technical sound recording details has more than one file entry, only first entry is used",
+      );
+    }
+
+    const attributes = {
+      languageAndScriptCode: ern._attributes?.languageAndScriptCode,
+    };
+
+    return {
+      _attributes: ern._attributes ? attributes : undefined,
+      technicalResourceDetailsReference: ern.technicalResourceDetailsReference,
+      file: ern.file ? this.convertFile(ern.file[0]) : undefined,
     };
   }
 

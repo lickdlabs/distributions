@@ -3,7 +3,25 @@ export enum ContributorRole {}
 export enum CurrentTerritoryCode {}
 export enum DisplayArtistRole {}
 export enum HashSumAlgorithmType {}
-export enum ImageType {}
+
+export enum ImageType {
+  BACK_COVER_IMAGE = "BackCoverImage",
+  BOOKLET_BACK_IMAGE = "BookletBackImage",
+  BOOKLET_FRONT_IMAGE = "BookletFrontImage",
+  DOCUMENT_IMAGE = "DocumentImage",
+  FRONT_COVER_IMAGE = "FrontCoverImage",
+  ICON = "Icon",
+  LOGO = "Logo",
+  PHOTOGRAPH = "Photograph",
+  POSTER = "Poster",
+  TRAY_IMAGE = "TrayImage",
+  UNKNOWN = "Unknown",
+  USER_DEFINED = "UserDefined",
+  VIDEO_SCREEN_CAPTURE = "VideoScreenCapture",
+  WALLPAPER = "Wallpaper",
+  PORTRAIT = "Portrait",
+}
+
 export enum MessageControlType {}
 
 export enum ParentalWarningType {
