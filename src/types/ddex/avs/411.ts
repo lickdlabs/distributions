@@ -1,8 +1,30 @@
-export enum BinaryDataType {}
+export enum BinaryDataType {
+  BINARY64 = "Binary64",
+  HEX_BINARY = "HexBinary",
+}
+
 export enum ContributorRole {}
 export enum CurrentTerritoryCode {}
 export enum DisplayArtistRole {}
-export enum HashSumAlgorithmType {}
+
+export enum HashSumAlgorithmType {
+  CRC32 = "CRC32",
+  MD2 = "MD2",
+  MD4 = "MD4",
+  MD4_MLNET = "MD4(MLNET)",
+  MD5 = "MD5",
+  MDC2 = "MDC2",
+  RMD160 = "RMD160",
+  SHA = "SHA",
+  SHA1 = "SHA1",
+  SHA2 = "SHA2",
+  SHA_224 = "SHA-224",
+  SHA_256 = "SHA-256",
+  SHA3 = "SHA3",
+  SHA_384 = "SHA-384",
+  SHA_512 = "SHA-512",
+  UserDefined = "UserDefined",
+}
 
 export enum ImageType {
   BACK_COVER_IMAGE = "BackCoverImage",
