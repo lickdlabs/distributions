@@ -6,7 +6,7 @@ export class PurgeReleaseMessageParser extends AbstractParser {
     return {
       type: "ddex",
       version: 382,
-      action: "PurgeReleaseMessage",
+      action: Ern382.Actions.PURGE_RELEASE_MESSAGE,
       element: {
         _attributes: {
           messageSchemaVersionId: object.$.MessageSchemaVersionId,

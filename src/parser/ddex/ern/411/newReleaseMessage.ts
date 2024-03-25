@@ -6,7 +6,7 @@ export class NewReleaseMessageParser extends AbstractParser {
     return {
       type: "ddex",
       version: 411,
-      action: "NewReleaseMessage",
+      action: Ern411.Actions.NEW_RELEASE_MESSAGE,
       element: {
         _attributes: {
           releaseProfileVersionId: object.$.ReleaseProfileVersionId,

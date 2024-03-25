@@ -8,7 +8,7 @@ export class NewReleaseMessageConverter extends AbstractConverter {
     return {
       type: "ddex",
       version: 411,
-      action: "NewReleaseMessage",
+      action: Ern411.Actions.NEW_RELEASE_MESSAGE,
       element: {
         _attributes: {
           languageAndScriptCode:

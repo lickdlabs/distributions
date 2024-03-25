@@ -8,10 +8,10 @@ export class Ern411Parser {
 
   public parse(action: string, object: any): Ern411.Ern {
     switch (action) {
-      case "NewReleaseMessage":
+      case Ern411.Actions.NEW_RELEASE_MESSAGE:
         return new NewReleaseMessageParser(this.logger).parse(object);
 
-      case "PurgeReleaseMessage":
+      case Ern411.Actions.PURGE_RELEASE_MESSAGE:
         return new PurgeReleaseMessageParser(this.logger).parse(object);
     }
 

@@ -6,7 +6,7 @@ export class CatalogListMessageParser extends AbstractParser {
     return {
       type: "ddex",
       version: 382,
-      action: "CatalogListMessage",
+      action: Ern382.Actions.CATALOG_LIST_MESSAGE,
       element: {
         _attributes: {
           messageSchemaVersionId: object.$.MessageSchemaVersionId,

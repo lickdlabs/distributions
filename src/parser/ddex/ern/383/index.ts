@@ -9,13 +9,13 @@ export class Ern383Parser {
 
   public parse(action: string, object: any): Ern383.Ern {
     switch (action) {
-      case "CatalogListMessage":
+      case Ern383.Actions.CATALOG_LIST_MESSAGE:
         return new CatalogListMessageParser(this.logger).parse(object);
 
-      case "NewReleaseMessage":
+      case Ern383.Actions.NEW_RELEASE_MESSAGE:
         return new NewReleaseMessageParser(this.logger).parse(object);
 
-      case "PurgeReleaseMessage":
+      case Ern383.Actions.PURGE_RELEASE_MESSAGE:
         return new PurgeReleaseMessageParser(this.logger).parse(object);
     }
 

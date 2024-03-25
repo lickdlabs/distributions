@@ -7,11 +7,11 @@ export class Ern383Converter {
   public constructor(private logger: ILogger) {}
 
   public convert(ern: Ern383.Ern): Ern411.Ern {
-    if (ern.action === "NewReleaseMessage") {
+    if (ern.action === Ern383.Actions.NEW_RELEASE_MESSAGE) {
       return new NewReleaseMessageConverter(this.logger).convert(ern);
     }
 
-    if (ern.action === "PurgeReleaseMessage") {
+    if (ern.action === Ern383.Actions.PURGE_RELEASE_MESSAGE) {
       return new PurgeReleaseMessageConverter(this.logger).convert(ern);
     }
 

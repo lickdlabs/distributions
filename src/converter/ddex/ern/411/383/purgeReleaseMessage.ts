@@ -8,7 +8,7 @@ export class PurgeReleaseMessageConverter extends AbstractConverter {
     return {
       type: "ddex",
       version: 411,
-      action: "PurgeReleaseMessage",
+      action: Ern411.Actions.PURGE_RELEASE_MESSAGE,
       element: {
         _attributes: {
           languageAndScriptCode:

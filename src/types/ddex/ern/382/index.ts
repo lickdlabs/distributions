@@ -7,28 +7,33 @@ import {
 export * from "./complexTypes";
 export * from "./elements";
 
+export enum Actions {
+  CATALOG_LIST_MESSAGE = "CatalogListMessage",
+  NEW_RELEASE_MESSAGE = "NewReleaseMessage",
+  PURGE_RELEASE_MESSAGE = "PurgeReleaseMessage",
+}
+
 export type Ern =
   | ErnCatalogListMessage
   | ErnNewReleaseMessage
   | ErnPurgeReleaseMessage;
 
-export type ErnCatalogListMessage = {
-  type: "ddex";
-  version: 382;
-  action: "CatalogListMessage";
-  element: CatalogListMessage;
+type ErnBase = {
+  readonly type: "ddex";
+  readonly version: 382;
 };
 
-export type ErnNewReleaseMessage = {
-  type: "ddex";
-  version: 382;
-  action: "NewReleaseMessage";
-  element: NewReleaseMessage;
+export type ErnCatalogListMessage = ErnBase & {
+  readonly action: Actions.CATALOG_LIST_MESSAGE;
+  readonly element: CatalogListMessage;
 };
 
-export type ErnPurgeReleaseMessage = {
-  type: "ddex";
-  version: 382;
-  action: "PurgeReleaseMessage";
-  element: PurgeReleaseMessage;
+export type ErnNewReleaseMessage = ErnBase & {
+  readonly action: Actions.NEW_RELEASE_MESSAGE;
+  readonly element: NewReleaseMessage;
+};
+
+export type ErnPurgeReleaseMessage = ErnBase & {
+  readonly action: Actions.PURGE_RELEASE_MESSAGE;
+  readonly element: PurgeReleaseMessage;
 };
