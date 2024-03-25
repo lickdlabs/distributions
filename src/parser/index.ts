@@ -24,7 +24,7 @@ export class Parser {
     try {
       return JSON.parse(body);
     } catch {
-      this.logger.warn("could not parse from json");
+      this.logger.debug("could not parse from json");
     }
 
     try {
@@ -32,7 +32,7 @@ export class Parser {
         body.replace(/ernm?\d*:/g, "ern:").replace(/:ernm?\d*/g, ":ern"),
       );
     } catch {
-      this.logger.warn("could not parse from xml");
+      this.logger.debug("could not parse from xml");
     }
 
     throw new Error("could not parse distribution to object");
