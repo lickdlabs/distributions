@@ -2,7 +2,7 @@ import { ConsoleLogger } from "@lickd/logger";
 import { assert } from "chai";
 import { readFileSync } from "fs";
 import { createStubInstance } from "sinon";
-import { Ern382, Ern383, Ern411, Parser } from "../src";
+import { Ern382, Ern411, Parser } from "../src";
 
 const logger = createStubInstance(ConsoleLogger);
 
@@ -25,7 +25,7 @@ describe("Parser", () => {
       );
 
       assert.equal(parsed.version, 382);
-      assert.equal(parsed.action, "NewReleaseMessage");
+      assert.equal(parsed.action, Ern382.Actions.NEW_RELEASE_MESSAGE);
       assert.exists(parsed.element);
       assert.isNotEmpty(parsed.element);
       assert.isObject(parsed.element);
@@ -37,7 +37,7 @@ describe("Parser", () => {
       );
 
       assert.equal(parsed.version, 383);
-      assert.equal(parsed.action, "NewReleaseMessage");
+      assert.equal(parsed.action, Ern382.Actions.NEW_RELEASE_MESSAGE);
       assert.exists(parsed.element);
       assert.isNotEmpty(parsed.element);
       assert.isObject(parsed.element);
@@ -49,7 +49,7 @@ describe("Parser", () => {
       );
 
       assert.equal(parsed.version, 411);
-      assert.equal(parsed.action, "NewReleaseMessage");
+      assert.equal(parsed.action, Ern411.Actions.NEW_RELEASE_MESSAGE);
       assert.exists(parsed.element);
       assert.isNotEmpty(parsed.element);
       assert.isObject(parsed.element);
