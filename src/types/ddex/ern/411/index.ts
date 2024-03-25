@@ -4,8 +4,8 @@ export * from "./complexTypes";
 export * from "./elements";
 
 export enum Actions {
-  NEW_RELEASE_MESSAGE = "NewReleaseMessage",
-  PURGE_RELEASE_MESSAGE = "PurgeReleaseMessage",
+  NEW_RELEASE_MESSAGE = "newReleaseMessage",
+  PURGE_RELEASE_MESSAGE = "purgeReleaseMessage",
 }
 
 export type Ern = ErnNewReleaseMessage | ErnPurgeReleaseMessage;

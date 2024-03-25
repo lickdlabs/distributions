@@ -8,9 +8,9 @@ export * from "./complexTypes";
 export * from "./elements";
 
 export enum Actions {
-  CATALOG_LIST_MESSAGE = "CatalogListMessage",
-  NEW_RELEASE_MESSAGE = "NewReleaseMessage",
-  PURGE_RELEASE_MESSAGE = "PurgeReleaseMessage",
+  CATALOG_LIST_MESSAGE = "catalogListMessage",
+  NEW_RELEASE_MESSAGE = "newReleaseMessage",
+  PURGE_RELEASE_MESSAGE = "purgeReleaseMessage",
 }
 
 export type Ern =
