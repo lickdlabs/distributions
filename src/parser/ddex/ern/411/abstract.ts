@@ -95,7 +95,7 @@ export abstract class AbstractParser {
       sequenceNumber: object.$?.SequenceNumber
         ? parseInt(object.$.SequenceNumber)
         : undefined,
-      isDisplayedInTitle: object.$.IsDisplayedInTitle
+      isDisplayedInTitle: object.$?.IsDisplayedInTitle
         ? object.$.IsDisplayedInTitle === "true"
         : undefined,
       subTitleType: object.$?.SubTitleType || undefined,
