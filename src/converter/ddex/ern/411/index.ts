@@ -7,11 +7,20 @@ export class Ern411Converter {
   public constructor(private logger: ILogger) {}
 
   public convert(ern: Ern): Ern411.Ern {
-    this.logger.info("converting to ern 411 from", {
-      version: ern.version,
+    this.logger.info(`converting ddex ern ${ern.version} to 411`, {
       action: ern.action,
     });
 
+    const converted = this.convertErn(ern);
+
+    this.logger.info(`successfully converted ddex ern ${ern.version} to 411`, {
+      action: ern.action,
+    });
+
+    return converted;
+  }
+
+  private convertErn(ern: Ern): Ern411.Ern {
     switch (ern.version) {
       case 382:
         return new Ern382Converter(this.logger).convert(ern);
@@ -22,7 +31,5 @@ export class Ern411Converter {
       case 411:
         return ern;
     }
-
-    throw new Error("unknown/unsupported conversion");
   }
 }

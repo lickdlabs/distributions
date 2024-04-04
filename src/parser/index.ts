@@ -22,20 +22,36 @@ export class Parser {
 
   private async parseToObject(body: string): Promise<any> {
     try {
-      return JSON.parse(body);
+      this.logger.info("parsing distribution as json to object");
+
+      const result = JSON.parse(body);
+
+      this.logger.info("successfully parsed distribution as json to object");
+
+      return result;
     } catch {
-      this.logger.debug("could not parse from json");
+      this.logger.info("failed parsing distribution as json to object");
     }
 
     try {
-      return await xml2js.parseStringPromise(
+      this.logger.info("parsing distribution as xml to object");
+
+      const result = await xml2js.parseStringPromise(
         body.replace(/ernm?\d*:/g, "ern:").replace(/:ernm?\d*/g, ":ern"),
       );
+
+      if (!result) {
+        throw new Error();
+      }
+
+      this.logger.info("successfully parsed distribution as xml to object");
+
+      return result;
     } catch {
-      this.logger.debug("could not parse from xml");
+      this.logger.info("failed parsing distribution as xml to object");
     }
 
-    throw new Error("could not parse distribution to object");
+    throw new Error("failed parsing distribution to object");
   }
 
   private isErn(object: any): object is Ern {

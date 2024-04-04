@@ -13,17 +13,28 @@ export class ErnParser {
     const version = parseInt(ern.substring(ern.lastIndexOf("/") + 1));
     const action = key.replace(/ern:/, "");
 
-    this.logger.info("parsing", { version, action });
+    this.logger.info("parsing object to ddex ern", { version, action });
 
+    const parsed = this.parseObject(version, action, object[key]);
+
+    this.logger.info("successfully parsed object to ddex ern", {
+      version,
+      action,
+    });
+
+    return parsed;
+  }
+
+  private parseObject(version: number, action: string, object: any): Ern {
     switch (version) {
       case 382:
-        return new Ern382Parser(this.logger).parse(action, object[key]);
+        return new Ern382Parser(this.logger).parse(action, object);
 
       case 383:
-        return new Ern383Parser(this.logger).parse(action, object[key]);
+        return new Ern383Parser(this.logger).parse(action, object);
 
       case 411:
-        return new Ern411Parser(this.logger).parse(action, object[key]);
+        return new Ern411Parser(this.logger).parse(action, object);
     }
 
     throw new Error("unknown/unsupported version");
