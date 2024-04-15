@@ -1,3 +1,4 @@
+import { Duration } from "../../../../xml";
 import { Description } from "./description";
 import { File } from "./file";
 
@@ -44,13 +45,13 @@ export type TechnicalSoundRecordingDetails = Partial<FileChoice> & {
   // @todo <xs:element name="ContainerFormat" minOccurs="0" type="ern:ContainerFormat" />
   // @todo <xs:element name="AudioCodecType" minOccurs="0" type="ern:AudioCodecType" />
   // @todo <xs:element name="BitRate" minOccurs="0" type="ern:BitRate" />
-  // @todo <xs:element name="NumberOfChannels" minOccurs="0" type="xs:integer" />
+  numberOfChannels?: number;
   // @todo <xs:element name="SamplingRate" minOccurs="0" type="ern:SamplingRate" />
-  // @todo <xs:element name="BitsPerSample" minOccurs="0" type="xs:integer" />
-  // @todo <xs:element name="Duration" minOccurs="0" type="xs:duration" />
-  // @todo <xs:element name="ResourceProcessingRequired" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="UsableResourceDuration" minOccurs="0" type="xs:duration" />
-  // @todo <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
+  bitsPerSample?: number;
+  duration?: Duration;
+  resourceProcessingRequired?: boolean;
+  usableResourceDuration?: Duration;
+  isPreview?: boolean;
   // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
   // @todo <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
   // @todo <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
