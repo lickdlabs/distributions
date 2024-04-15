@@ -1,3 +1,4 @@
+import { Duration } from "../../../../xml";
 import { Avs411 } from "../../../avs";
 import { File } from "./file";
 
@@ -41,13 +42,13 @@ export type TechnicalSoundRecordingDetails = {
   // @todo <xs:element name="AudioCodecType" minOccurs="0" type="ern:AudioCodecType" />
   // @todo <xs:element name="BitRate" minOccurs="0" type="ern:BitRate" />
   // @todo <xs:element name="OriginalBitRate" minOccurs="0" type="ern:BitRate" />
-  // @todo <xs:element name="NumberOfChannels" minOccurs="0" type="xs:integer" />
+  numberOfChannels?: number;
   // @todo <xs:element name="SamplingRate" minOccurs="0" type="ern:SamplingRate" />
   // @todo <xs:element name="OriginalSamplingRate" minOccurs="0" type="ern:SamplingRate" />
-  // @todo <xs:element name="BitsPerSample" minOccurs="0" type="xs:integer" />
-  // @todo <xs:element name="Duration" minOccurs="0" type="xs:duration" />
-  // @todo <xs:element name="BitDepth" minOccurs="0" type="xs:integer" />
-  // @todo <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
+  bitsPerSample?: number;
+  duration?: Duration;
+  bitDepth?: number;
+  isPreview?: boolean;
   // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
   file?: File;
   // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
