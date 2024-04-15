@@ -1,4 +1,3 @@
-import { Duration } from "../../../../xml";
 import { DisplayArtist } from "./displayArtist";
 import { DisplayArtistNameWithDefault } from "./displayArtistNameWithDefault";
 import { DisplayTitle } from "./displayTitle";
@@ -86,7 +85,7 @@ export type SoundRecording = {
   // @todo <xs:element name="WorkRightsController" minOccurs="0" maxOccurs="unbounded" type="ern:WorkRightsController" />
   // @todo <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLineWithDefault" />
   // @todo <xs:element name="CourtesyLine" minOccurs="0" maxOccurs="unbounded" type="ern:CourtesyLineWithDefault" />
-  duration: Duration;
+  duration: number;
   // @todo <xs:element name="CreationDate" minOccurs="0" type="ern:EventDateWithoutFlags" />
   // @todo <xs:element name="MasteredDate" minOccurs="0" type="ern:EventDateWithoutFlags" />
   // @todo <xs:element name="RemasteredDate" minOccurs="0" type="ern:EventDateWithoutFlags" />

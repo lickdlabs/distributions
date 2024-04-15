@@ -1,4 +1,3 @@
-import { Duration } from "../../../../xml";
 import { Avs411 } from "../../../avs";
 import { File } from "./file";
 
@@ -46,7 +45,7 @@ export type TechnicalSoundRecordingDetails = {
   // @todo <xs:element name="SamplingRate" minOccurs="0" type="ern:SamplingRate" />
   // @todo <xs:element name="OriginalSamplingRate" minOccurs="0" type="ern:SamplingRate" />
   bitsPerSample?: number;
-  duration?: Duration;
+  duration?: number;
   bitDepth?: number;
   isPreview?: boolean;
   // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />

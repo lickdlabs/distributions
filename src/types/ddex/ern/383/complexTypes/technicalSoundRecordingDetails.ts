@@ -1,4 +1,3 @@
-import { Duration } from "../../../../xml";
 import { Description } from "./description";
 import { File } from "./file";
 
@@ -48,9 +47,9 @@ export type TechnicalSoundRecordingDetails = Partial<FileChoice> & {
   numberOfChannels?: number;
   // @todo <xs:element name="SamplingRate" minOccurs="0" type="ern:SamplingRate" />
   bitsPerSample?: number;
-  duration?: Duration;
+  duration?: number;
   resourceProcessingRequired?: boolean;
-  usableResourceDuration?: Duration;
+  usableResourceDuration?: number;
   isPreview?: boolean;
   // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
   // @todo <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />

@@ -1,4 +1,3 @@
-import { Duration } from "../../../../xml";
 import { ReferenceTitle } from "./referenceTitle";
 import { SoundRecordingDetailsByTerritory } from "./soundRecordingDetailsByTerritory";
 import { SoundRecordingId } from "./soundRecordingId";
@@ -75,7 +74,7 @@ export type SoundRecording = {
   // @todo <xs:element name="NoSilenceAfter" minOccurs="0" type="xs:boolean" />
   // @todo <xs:element name="PerformerInformationRequired" minOccurs="0" type="xs:boolean" />
   // @todo <xs:element name="LanguageOfPerformance" minOccurs="0" type="avs:IsoLanguageCode" />
-  duration: Duration;
+  duration: number;
   // @todo <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
   // @todo <xs:element name="SoundRecordingCollectionReferenceList" minOccurs="0" type="ern:SoundRecordingCollectionReferenceList" />
   // @todo <xs:element name="ResourceMusicalWorkReferenceList" minOccurs="0" type="ern:ResourceMusicalWorkReferenceList" />

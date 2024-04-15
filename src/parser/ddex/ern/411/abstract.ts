@@ -1,5 +1,6 @@
 import { ILogger } from "@lickd/logger";
 import { Ern411 } from "../../../../types";
+import { convertDuration } from "../../../../utils";
 
 export abstract class AbstractParser {
   public constructor(protected logger: ILogger) {}
@@ -381,7 +382,7 @@ export abstract class AbstractParser {
       displayArtist: object.DisplayArtist.map((displayArtist: any) =>
         this.parseDisplayArtist(displayArtist),
       ),
-      duration: object.Duration[0],
+      duration: convertDuration(object.Duration[0]),
       parentalWarningType: object.ParentalWarningType.map(
         (parentalWarningType: any) =>
           this.parseParentalWarningTypeWithTerritory(parentalWarningType),
@@ -487,7 +488,9 @@ export abstract class AbstractParser {
       bitsPerSample: object.BitsPerSample
         ? parseInt(object.BitsPerSample[0])
         : undefined,
-      duration: object.Duration ? object.Duration[0] : undefined,
+      duration: object.Duration
+        ? convertDuration(object.Duration[0])
+        : undefined,
       bitDepth: object.BitDepth ? parseInt(object.BitDepth[0]) : undefined,
       isPreview: object.IsPreview ? object.IsPreview[0] === "true" : undefined,
       // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />

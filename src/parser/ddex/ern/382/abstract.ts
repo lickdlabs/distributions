@@ -1,5 +1,6 @@
 import { ILogger } from "@lickd/logger";
 import { Ern382 } from "../../../../types";
+import { convertDuration } from "../../../../utils";
 
 export abstract class AbstractParser {
   public constructor(protected logger: ILogger) {}
@@ -319,7 +320,7 @@ export abstract class AbstractParser {
       ),
       resourceReference: object.ResourceReference[0],
       referenceTitle: this.parseReferenceTitle(object.ReferenceTitle[0]),
-      duration: object.Duration[0],
+      duration: convertDuration(object.Duration[0]),
       soundRecordingDetailsByTerritory:
         object.SoundRecordingDetailsByTerritory.map(
           (soundRecordingDetailsByTerritory: any) =>
@@ -468,12 +469,14 @@ export abstract class AbstractParser {
       bitsPerSample: object.BitsPerSample
         ? parseInt(object.BitsPerSample[0])
         : undefined,
-      duration: object.Duration ? object.Duration[0] : undefined,
+      duration: object.Duration
+        ? convertDuration(object.Duration[0])
+        : undefined,
       resourceProcessingRequired: object.ResourceProcessingRequired
         ? object.ResourceProcessingRequired[0] === "true"
         : undefined,
       usableResourceDuration: object.UsableResourceDuration
-        ? object.UsableResourceDuration[0]
+        ? convertDuration(object.UsableResourceDuration[0])
         : undefined,
       isPreview: object.IsPreview ? object.IsPreview[0] === "true" : undefined,
       // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
