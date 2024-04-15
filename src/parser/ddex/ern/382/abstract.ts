@@ -372,8 +372,8 @@ export abstract class AbstractParser {
 
   protected parseSoundRecordingId(object: any): Ern382.SoundRecordingId {
     const attributes = {
-      isReplaced: object.$?.isReplaced
-        ? object.$?.isReplaced === "true"
+      isReplaced: object.$?.IsReplaced
+        ? object.$.IsReplaced === "true"
         : undefined,
     };
 
@@ -439,6 +439,30 @@ export abstract class AbstractParser {
       _attributes: object.$ ? attributes : undefined,
       technicalResourceDetailsReference:
         object.TechnicalResourceDetailsReference[0],
+      // @todo <xs:element name="DrmPlatformType" minOccurs="0" type="ern:DrmPlatformType" />
+      // @todo <xs:element name="ContainerFormat" minOccurs="0" type="ern:ContainerFormat" />
+      // @todo <xs:element name="AudioCodecType" minOccurs="0" type="ern:AudioCodecType" />
+      // @todo <xs:element name="BitRate" minOccurs="0" type="ern:BitRate" />
+      numberOfChannels: object.NumberOfChannels
+        ? parseInt(object.NumberOfChannels[0])
+        : undefined,
+      // @todo <xs:element name="SamplingRate" minOccurs="0" type="ern:SamplingRate" />
+      bitsPerSample: object.BitsPerSample
+        ? parseInt(object.BitsPerSample[0])
+        : undefined,
+      duration: object.Duration ? object.Duration[0] : undefined,
+      resourceProcessingRequired: object.ResourceProcessingRequired
+        ? object.ResourceProcessingRequired[0] === "true"
+        : undefined,
+      usableResourceDuration: object.UsableResourceDuration
+        ? object.UsableResourceDuration[0]
+        : undefined,
+      isPreview: object.IsPreview ? object.IsPreview[0] === "true" : undefined,
+      // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
+      // @todo <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+      // @todo <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
+      file: undefined,
+      // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
     };
 
     if (object.File) {
