@@ -40,10 +40,10 @@ export type TechnicalImageDetails = {
   // @todo <xs:element name="ImageHeight" minOccurs="0" type="ern:Extent" />
   // @todo <xs:element name="ImageWidth" minOccurs="0" type="ern:Extent" />
   // @todo <xs:element name="AspectRatio" minOccurs="0" type="ern:AspectRatio" />
-  // @todo <xs:element name="ColorDepth" minOccurs="0" type="xs:integer" />
-  // @todo <xs:element name="ImageResolution" minOccurs="0" type="xs:integer" />
-  // @todo <xs:element name="BitDepth" minOccurs="0" type="xs:integer" />
-  // @todo <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
+  colorDepth?: number;
+  imageResolution?: number;
+  bitDepth?: number;
+  isPreview?: boolean;
   // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
   // @todo <xs:element name="File" minOccurs="0" type="ern:File" />
   file?: File;

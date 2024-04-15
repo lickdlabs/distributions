@@ -44,9 +44,9 @@ export type TechnicalImageDetails = Partial<FileChoice> & {
   // @todo <xs:element name="ImageHeight" minOccurs="0" type="ern:Extent" />
   // @todo <xs:element name="ImageWidth" minOccurs="0" type="ern:Extent" />
   // @todo <xs:element name="AspectRatio" minOccurs="0" type="ern:AspectRatio" />
-  // @todo <xs:element name="ColorDepth" minOccurs="0" type="xs:integer" />
-  // @todo <xs:element name="ImageResolution" minOccurs="0" type="xs:integer" />
-  // @todo <xs:element name="IsPreview" minOccurs="0" type="xs:boolean" />
+  colorDepth?: number;
+  imageResolution?: number;
+  isPreview?: boolean;
   // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
   // @todo <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
   // @todo <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />

@@ -219,7 +219,17 @@ export abstract class AbstractConverter {
     return {
       _attributes: ern._attributes ? attributes : undefined,
       technicalResourceDetailsReference: ern.technicalResourceDetailsReference,
+      // @todo <xs:element name="ImageCodecType" minOccurs="0" type="ern:ImageCodecType" />
+      // @todo <xs:element name="ImageHeight" minOccurs="0" type="ern:Extent" />
+      // @todo <xs:element name="ImageWidth" minOccurs="0" type="ern:Extent" />
+      // @todo <xs:element name="AspectRatio" minOccurs="0" type="ern:AspectRatio" />
+      colorDepth: ern.colorDepth,
+      imageResolution: ern.imageResolution,
+      isPreview: ern.isPreview,
+      // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
+      // @todo <xs:element name="File" minOccurs="0" type="ern:File" />
       file: ern.file ? this.convertFile(ern.file[0]) : undefined,
+      // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
     };
   }
 
