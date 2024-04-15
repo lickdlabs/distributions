@@ -372,8 +372,8 @@ export abstract class AbstractParser {
 
   protected parseSoundRecordingId(object: any): Ern383.SoundRecordingId {
     const attributes = {
-      isReplaced: object.$?.isReplaced
-        ? object.$?.isReplaced === "true"
+      isReplaced: object.$?.IsReplaced
+        ? object.$.IsReplaced === "true"
         : undefined,
     };
 
