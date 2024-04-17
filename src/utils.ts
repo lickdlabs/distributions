@@ -7,9 +7,10 @@ export const convertDurationToMilliseconds = (duration: string): number => {
     throw new Error(`invalid duration '${duration}'`);
   }
 
-  return Math.round((
-    (parseFloat(matches.seconds) || 0) +
-    (parseInt(matches.minutes) || 0) * 60 +
-    (parseInt(matches.hours) || 0) * 60 * 60
-  ) * 1000);
+  return Math.round(
+    ((parseFloat(matches.seconds) || 0) +
+      (parseInt(matches.minutes) || 0) * 60 +
+      (parseInt(matches.hours) || 0) * 60 * 60) *
+      1000,
+  );
 };
