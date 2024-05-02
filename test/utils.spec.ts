@@ -15,6 +15,12 @@ describe("Utils", () => {
       assertConverted(converted, 1000);
     });
 
+    it("should convert valid duration (seconds - no decimal > 60)", () => {
+      const converted = convertDurationToMilliseconds("PT100S");
+
+      assertConverted(converted, 100000);
+    });
+
     it("should convert valid duration (seconds - decimal)", () => {
       const converted = convertDurationToMilliseconds("PT1.999S");
 
@@ -33,10 +39,22 @@ describe("Utils", () => {
       assertConverted(converted, 60000);
     });
 
+    it("should convert valid duration (minutes > 60)", () => {
+      const converted = convertDurationToMilliseconds("PT100M");
+
+      assertConverted(converted, 6000000);
+    });
+
     it("should convert valid duration (hours)", () => {
       const converted = convertDurationToMilliseconds("PT1H");
 
       assertConverted(converted, 3600000);
+    });
+
+    it("should convert valid duration (hours > 24)", () => {
+      const converted = convertDurationToMilliseconds("PT100H");
+
+      assertConverted(converted, 360000000);
     });
 
     it("should convert valid duration (full - no decimal)", () => {

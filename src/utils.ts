@@ -1,6 +1,6 @@
 export const convertDurationToMilliseconds = (duration: string): number => {
   const matches = duration.match(
-    /^PT(?:(?<hours>\d{1,2})H)?(?:(?<minutes>\d{1,2})M)?(?:(?<seconds>\d{1,2}|\d{1,2}\.\d+)S)?$/,
+    /^PT(?:(?<hours>\d+)H)?(?:(?<minutes>\d+)M)?(?:(?<seconds>\d+|\d+\.\d+)S)?$/,
   )?.groups;
 
   if (!matches) {
