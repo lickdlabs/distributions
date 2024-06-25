@@ -70,3 +70,14 @@ export enum SoundRecordingType {
 }
 
 export enum SubTitleType {}
+
+export enum TextType {
+  CAPTION = "Caption",
+  E_BOOK = "EBook",
+  LINER_NOTES = "LinerNotes",
+  LYRIC_TEXT = "LyricText",
+  NON_INTERACTIVE_BOOKLET = "NonInteractiveBooklet",
+  TEXT_DOCUMENT = "TextDocument",
+  UNKNOWN = "Unknown",
+  USER_DEFINED = "UserDefined",
+}

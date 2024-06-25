@@ -265,7 +265,9 @@ export class NewReleaseMessageParser extends AbstractParser {
       image: object.Image
         ? object.Image.map((image: any) => this.parseImage(image))
         : undefined,
-      // @todo <xs:element name="Text" minOccurs="0" maxOccurs="unbounded" type="ern:Text" />
+      text: object.Text
+        ? object.Text.map((text: any) => this.parseText(text))
+        : undefined,
       // @todo <xs:element name="SheetMusic" minOccurs="0" maxOccurs="unbounded" type="ern:SheetMusic" />
       // @todo <xs:element name="Software" minOccurs="0" maxOccurs="unbounded" type="ern:Software" />
     };
@@ -430,6 +432,80 @@ export class NewReleaseMessageParser extends AbstractParser {
       // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
       file: object.File ? this.parseFile(object.File[0]) : undefined,
       // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+    };
+  }
+
+  private parseTechnicalTextDetails(object: any): Ern411.TechnicalTextDetails {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      technicalResourceDetailsReference:
+        object.TechnicalResourceDetailsReference[0],
+      // @todo <xs:element name="TextCodecType" minOccurs="0" type="ern:TextCodecType" />
+      bitDepth: object.BitDepth ? parseInt(object.BitDepth[0]) : undefined,
+      isPreview: object.IsPreview ? object.IsPreview[0] === "true" : undefined,
+      // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
+      file: object.File ? this.parseFile(object.File[0]) : undefined,
+      // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+    };
+  }
+
+  private parseText(object: any): Ern411.Text {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      isSupplemental: object.$?.IsSupplemental
+        ? object.$.IsSupplemental === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      resourceReference: object.ResourceReference[0],
+      type: this.parseTextType(object.TextType[0]),
+      // @todo <xs:element name="ResourceId" minOccurs="0" maxOccurs="unbounded" type="ern:TextId" />
+      // @todo <xs:element name="WorkId" minOccurs="0" maxOccurs="unbounded" type="ern:MusicalWorkId" />
+      // @todo <xs:element name="DisplayTitleText" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayTitleText" />
+      // @todo <xs:element name="DisplayTitle" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayTitle" />
+      // @todo <xs:element name="AdditionalTitle" minOccurs="0" maxOccurs="unbounded" type="ern:AdditionalTitle" />
+      // @todo <xs:element name="VersionType" minOccurs="0" maxOccurs="unbounded" type="ern:VersionType" />
+      // @todo <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayArtistNameWithDefault" />
+      // @todo <xs:element name="DisplayArtist" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayArtist" />
+      // @todo <xs:element name="Contributor" minOccurs="0" maxOccurs="unbounded" type="ern:Contributor" />
+      // @todo <xs:element name="ResourceRightsController" minOccurs="0" maxOccurs="unbounded" type="ern:ResourceRightsController" />
+      // @todo <xs:element name="WorkRightsController" minOccurs="0" maxOccurs="unbounded" type="ern:WorkRightsController" />
+      // @todo <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLineWithDefault" />
+      // @todo <xs:element name="CourtesyLine" minOccurs="0" maxOccurs="unbounded" type="ern:CourtesyLineWithDefault" />
+      // @todo <xs:element name="CreationDate" minOccurs="0" type="ern:EventDateWithoutFlags" />
+      // @todo <xs:element name="FirstPublicationDate" minOccurs="0" maxOccurs="unbounded" type="ern:FulfillmentDateWithTerritory" />
+      // @todo <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded" type="ern:ParentalWarningTypeWithTerritory" />
+      // @todo <xs:element name="RelatedRelease" minOccurs="0" maxOccurs="unbounded" type="ern:RelatedRelease" />
+      // @todo <xs:element name="RelatedResource" minOccurs="0" maxOccurs="unbounded" type="ern:RelatedResource" />
+      // @todo <xs:element name="ContainsHiddenContent" minOccurs="0" type="xs:boolean" />
+      // @todo <xs:element name="ResourceContainedResourceReferenceList" minOccurs="0" type="ern:ResourceContainedResourceReferenceList" />
+      technicalDetails: object.TechnicalDetails
+        ? object.TechnicalDetails.map((technicalDetails: any) =>
+            this.parseTechnicalTextDetails(technicalDetails),
+          )
+        : undefined,
+    };
+  }
+
+  private parseTextType(object: any): Ern411.TextType {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
     };
   }
 

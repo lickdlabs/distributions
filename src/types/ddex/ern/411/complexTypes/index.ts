@@ -26,4 +26,7 @@ export * from "./soundRecordingId";
 export * from "./soundRecordingType";
 export * from "./technicalImageDetails";
 export * from "./technicalSoundRecordingDetails";
+export * from "./technicalTextDetails";
+export * from "./text";
+export * from "./textType";
 export * from "./titleDisplayInformation";
