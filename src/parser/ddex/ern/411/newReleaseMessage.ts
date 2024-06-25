@@ -1,4 +1,5 @@
 import { Ern411 } from "../../../../types";
+import { convertDurationToMilliseconds } from "../../../../utils";
 import { AbstractParser } from "./abstract";
 
 export class NewReleaseMessageParser extends AbstractParser {
@@ -17,6 +18,437 @@ export class NewReleaseMessageParser extends AbstractParser {
         messageHeader: this.parseMessageHeader(object.MessageHeader[0]),
         resourceList: this.parseResourceList(object.ResourceList[0]),
       },
+    };
+  }
+
+  private parseCatalogNumber(object: any): Ern411.CatalogNumber {
+    return {
+      _attributes: {
+        namespace: object.$.Namespace,
+      },
+      value: object._,
+    };
+  }
+
+  private parseContributorRole(object: any): Ern411.ContributorRole {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  private parseDetailedHashSum(object: any): Ern411.DetailedHashSum {
+    return {
+      algorithm: this.parseHashSumAlgorithmType(object.Algorithm[0]),
+      version: object.Version ? object.Version[0] : undefined,
+      parameter: object.Parameter ? object.Parameter[0] : undefined,
+      dataType: object.DataType ? object.DataType[0] : undefined,
+      hashSumValue: object.HashSumValue[0],
+    };
+  }
+
+  private parseDisplayArtist(object: any): Ern411.DisplayArtist {
+    const attributes = {
+      sequenceNumber: object.$?.SequenceNumber
+        ? parseInt(object.$.SequenceNumber)
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      artistPartyReference: object.ArtistPartyReference[0],
+      displayArtistRole: this.parseDisplayArtistRole(
+        object.DisplayArtistRole[0],
+      ),
+      artisticRole: object.ArtisticRole
+        ? object.ArtisticRole.map((artisticRole: any) =>
+            this.parseContributorRole(artisticRole),
+          )
+        : undefined,
+      titleDisplayInformation: object.TitleDisplayInformation
+        ? object.TitleDisplayInformation.map((titleDisplayInformation: any) =>
+            this.parseTitleDisplayInformation(titleDisplayInformation),
+          )
+        : undefined,
+    };
+  }
+
+  private parseDisplayArtistNameWithDefault(
+    object: any,
+  ): Ern411.DisplayArtistNameWithDefault {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  private parseDisplayArtistRole(object: any): Ern411.DisplayArtistRole {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  private parseDisplaySubTitle(object: any): Ern411.DisplaySubTitle {
+    const attributes = {
+      sequenceNumber: object.$?.SequenceNumber
+        ? parseInt(object.$.SequenceNumber)
+        : undefined,
+      isDisplayedInTitle: object.$?.IsDisplayedInTitle
+        ? object.$.IsDisplayedInTitle === "true"
+        : undefined,
+      subTitleType: object.$?.SubTitleType || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  private parseDisplayTitle(object: any): Ern411.DisplayTitle {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      titleText: object.TitleText[0],
+      subTitle: object.SubTitle
+        ? object.SubTitle.map((subTitle: any) =>
+            this.parseDisplaySubTitle(subTitle),
+          )
+        : undefined,
+    };
+  }
+
+  private parseDisplayTitleText(object: any): Ern411.DisplayTitleText {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  private parseFile(object: any): Ern411.File {
+    return {
+      uri: object.URI[0],
+      hashSum: object.HashSum
+        ? this.parseDetailedHashSum(object.HashSum[0])
+        : undefined,
+      fileSize: object.FileSize ? parseFloat(object.FileSize[0]) : undefined,
+    };
+  }
+
+  private parseHashSumAlgorithmType(object: any): Ern411.HashSumAlgorithmType {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  private parseImage(object: any): Ern411.Image {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      isSupplemental: object.$?.IsSupplemental
+        ? object.$?.IsSupplemental === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      resourceReference: object.ResourceReference[0],
+      type: this.parseImageType(object.Type[0]),
+      resourceId: object.ResourceId.map((resourceId: any) =>
+        this.parseResourceProprietaryId(resourceId),
+      ),
+      technicalDetails: object.TechnicalDetails
+        ? object.TechnicalDetails.map((technicalDetails: any) =>
+            this.parseTechnicalImageDetails(technicalDetails),
+          )
+        : undefined,
+    };
+  }
+
+  private parseImageType(object: any): Ern411.ImageType {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  private parseParentalWarningTypeWithTerritory(
+    object: any,
+  ): Ern411.ParentalWarningTypeWithTerritory {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  private parsePrefix(object: any): Ern411.Prefix {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  private parseProprietaryId(object: any): Ern411.ProprietaryId {
+    return {
+      _attributes: {
+        namespace: object.$.Namespace,
+      },
+      value: object._,
+    };
+  }
+
+  private parseResourceList(object: any): Ern411.ResourceList {
+    return {
+      soundRecording: object.SoundRecording
+        ? object.SoundRecording.map((soundRecording: any) =>
+            this.parseSoundRecording(soundRecording),
+          )
+        : undefined,
+      // @todo <xs:element name="Video" minOccurs="0" maxOccurs="unbounded" type="ern:Video" />
+      image: object.Image
+        ? object.Image.map((image: any) => this.parseImage(image))
+        : undefined,
+      // @todo <xs:element name="Text" minOccurs="0" maxOccurs="unbounded" type="ern:Text" />
+      // @todo <xs:element name="SheetMusic" minOccurs="0" maxOccurs="unbounded" type="ern:SheetMusic" />
+      // @todo <xs:element name="Software" minOccurs="0" maxOccurs="unbounded" type="ern:Software" />
+    };
+  }
+
+  private parseResourceProprietaryId(
+    object: any,
+  ): Ern411.ResourceProprietaryId {
+    const attributes = {
+      isReplaced: object.IsReplaced
+        ? object.IsReplaced[0] === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      proprietaryId: object.ProprietaryId.map((proprietaryId: any) =>
+        this.parseProprietaryId(proprietaryId),
+      ),
+    };
+  }
+
+  private parseSoundRecording(object: any): Ern411.SoundRecording {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      isSupplemental: object.$?.IsSupplemental
+        ? object.$?.IsSupplemental === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      resourceReference: object.ResourceReference[0],
+      type: this.parseSoundRecordingType(object.Type[0]),
+      resourceId: object.ResourceId.map((resourceId: any) =>
+        this.parseSoundRecordingId(resourceId),
+      ),
+      displayTitleText: object.DisplayTitleText.map((displayTitleText: any) =>
+        this.parseDisplayTitleText(displayTitleText),
+      ),
+      displayTitle: object.DisplayTitle.map((displayTitle: any) =>
+        this.parseDisplayTitle(displayTitle),
+      ),
+      displayArtistName: object.DisplayArtistName.map(
+        (displayArtistName: any) =>
+          this.parseDisplayArtistNameWithDefault(displayArtistName),
+      ),
+      displayArtist: object.DisplayArtist.map((displayArtist: any) =>
+        this.parseDisplayArtist(displayArtist),
+      ),
+      duration: convertDurationToMilliseconds(object.Duration[0]),
+      parentalWarningType: object.ParentalWarningType.map(
+        (parentalWarningType: any) =>
+          this.parseParentalWarningTypeWithTerritory(parentalWarningType),
+      ),
+      technicalDetails: object.TechnicalDetails
+        ? object.TechnicalDetails.map((technicalDetails: any) =>
+            this.parseTechnicalSoundRecordingDetails(technicalDetails),
+          )
+        : undefined,
+    };
+  }
+
+  private parseSoundRecordingId(object: any): Ern411.SoundRecordingId {
+    const attributes = {
+      isReplaced: object.IsReplaced
+        ? object.IsReplaced[0] === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      isrc: object.ISRC ? object.ISRC[0] : undefined,
+      catalogNumber: object.CatalogNumber
+        ? this.parseCatalogNumber(object.CatalogNumber[0])
+        : undefined,
+      proprietaryId: object.ProprietaryId
+        ? object.ProprietaryId.map((proprietaryId: any) =>
+            this.parseProprietaryId(proprietaryId),
+          )
+        : undefined,
+    };
+  }
+
+  private parseSoundRecordingType(object: any): Ern411.SoundRecordingType {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  private parseTechnicalImageDetails(
+    object: any,
+  ): Ern411.TechnicalImageDetails {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      technicalResourceDetailsReference:
+        object.TechnicalResourceDetailsReference[0],
+      // @todo <xs:element name="ImageCodecType" minOccurs="0" type="ern:ImageCodecType" />
+      // @todo <xs:element name="ImageHeight" minOccurs="0" type="ern:Extent" />
+      // @todo <xs:element name="ImageWidth" minOccurs="0" type="ern:Extent" />
+      // @todo <xs:element name="AspectRatio" minOccurs="0" type="ern:AspectRatio" />
+      colorDepth: object.ColorDepth
+        ? parseInt(object.ColorDepth[0])
+        : undefined,
+      imageResolution: object.ImageResolution
+        ? parseInt(object.ImageResolution[0])
+        : undefined,
+      bitDepth: object.BitDepth ? parseInt(object.BitDepth[0]) : undefined,
+      isPreview: object.IsPreview ? object.IsPreview[0] === "true" : undefined,
+      // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
+      // @todo <xs:element name="File" minOccurs="0" type="ern:File" />
+      file: object.File ? this.parseFile(object.File[0]) : undefined,
+      // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+    };
+  }
+
+  private parseTechnicalSoundRecordingDetails(
+    object: any,
+  ): Ern411.TechnicalSoundRecordingDetails {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+      isDefault: object.$?.IsDefault
+        ? object.$.IsDefault === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      technicalResourceDetailsReference:
+        object.TechnicalResourceDetailsReference[0],
+      // @todo <xs:element name="AudioCodecType" minOccurs="0" type="ern:AudioCodecType" />
+      // @todo <xs:element name="BitRate" minOccurs="0" type="ern:BitRate" />
+      // @todo <xs:element name="OriginalBitRate" minOccurs="0" type="ern:BitRate" />
+      numberOfChannels: object.NumberOfChannels
+        ? parseInt(object.NumberOfChannels[0])
+        : undefined,
+      // @todo <xs:element name="SamplingRate" minOccurs="0" type="ern:SamplingRate" />
+      // @todo <xs:element name="OriginalSamplingRate" minOccurs="0" type="ern:SamplingRate" />
+      bitsPerSample: object.BitsPerSample
+        ? parseInt(object.BitsPerSample[0])
+        : undefined,
+      duration: object.Duration
+        ? convertDurationToMilliseconds(object.Duration[0])
+        : undefined,
+      bitDepth: object.BitDepth ? parseInt(object.BitDepth[0]) : undefined,
+      isPreview: object.IsPreview ? object.IsPreview[0] === "true" : undefined,
+      // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
+      file: object.File ? this.parseFile(object.File[0]) : undefined,
+      // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+    };
+  }
+
+  private parseTitleDisplayInformation(
+    object: any,
+  ): Ern411.TitleDisplayInformation {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      sequenceNumber: object.$?.SequenceNumber
+        ? parseInt(object.$.SequenceNumber)
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      isDisplayedInTitle: object.IsDisplayedInTitle[0] === "true",
+      prefix: object.Prefix
+        ? object.Prefix.map((prefix: any) => this.parsePrefix(prefix))
+        : undefined,
     };
   }
 }
