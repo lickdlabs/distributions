@@ -10,8 +10,8 @@ import { Avs411 } from "../../../avs";
 // </xs:complexType>
 export type TextType = {
   _attributes?: {
-    namespace: string;
-    userDefinedValue: string;
+    namespace?: string;
+    userDefinedValue?: string;
   };
 
   value: Avs411.TextType;
