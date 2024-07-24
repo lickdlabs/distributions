@@ -45,7 +45,6 @@ export type TechnicalImageDetails = {
   bitDepth?: number;
   isPreview?: boolean;
   // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
-  // @todo <xs:element name="File" minOccurs="0" type="ern:File" />
   file?: File;
   // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
 };
