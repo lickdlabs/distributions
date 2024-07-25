@@ -1,5 +1,5 @@
-import { CurrentTerritoryCode } from "./currentTerritoryCode";
 import { TechnicalImageDetails } from "./technicalImageDetails";
+import { TerritoryCodeChoice } from "./territoryCodeChoice";
 
 // <xs:complexType name="ImageDetailsByTerritory">
 //   <xs:sequence>
@@ -46,7 +46,3 @@ export type ImageDetailsByTerritory = TerritoryCodeChoice & {
   // @todo <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded" type="ern:ParentalWarningType" />
   technicalImageDetails?: TechnicalImageDetails[];
 };
-
-type TerritoryCodeChoice =
-  | { territoryCode: CurrentTerritoryCode[]; excludedTerritoryCode?: never }
-  | { territoryCode?: never; excludedTerritoryCode: CurrentTerritoryCode[] };

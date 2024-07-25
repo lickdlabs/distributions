@@ -90,7 +90,7 @@ export class NewReleaseMessageParser extends AbstractParser {
     };
   }
 
-  private parseIcpm(object: any): Ern382.Icpn {
+  private parseIcpn(object: any): Ern382.Icpn {
     const attributes = {
       isEan: object.$?.IsEan ? object.$.IsEan === "true" : undefined,
     };
@@ -212,11 +212,6 @@ export class NewReleaseMessageParser extends AbstractParser {
       // @todo <xs:element name="GlobalOriginalReleaseDate" minOccurs="0" type="ern:EventDate" />
     };
 
-    // <xs:choice>
-    //   <xs:element name="ReleaseResourceReferenceList" type="ern:ReleaseResourceReferenceList" />
-    //   <xs:element name="ResourceOmissionReason" type="ern:ResourceOmissionReason" />
-    // </xs:choice>
-
     if (object.ReleaseResourceReferenceList) {
       return {
         ...parsed,
@@ -309,7 +304,7 @@ export class NewReleaseMessageParser extends AbstractParser {
       _attributes: object.$ ? attributes : undefined,
       grid: object.GRID ? object.GRID[0] : undefined,
       isrc: object.ISRC ? object.ISRC[0] : undefined,
-      icpn: object.ICPN ? this.parseIcpm(object.ICPN[0]) : undefined,
+      icpn: object.ICPN ? this.parseIcpn(object.ICPN[0]) : undefined,
       catalogNumber: object.CatalogNumber
         ? this.parseCatalogNumber(object.CatalogNumber[0])
         : undefined,

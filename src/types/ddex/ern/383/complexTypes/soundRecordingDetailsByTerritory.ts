@@ -1,5 +1,5 @@
-import { CurrentTerritoryCode } from "./currentTerritoryCode";
 import { TechnicalSoundRecordingDetails } from "./technicalSoundRecordingDetails";
+import { TerritoryCodeChoice } from "./territoryCodeChoice";
 
 // <xs:complexType name="SoundRecordingDetailsByTerritory">
 //   <xs:sequence>
@@ -64,7 +64,3 @@ export type SoundRecordingDetailsByTerritory = TerritoryCodeChoice & {
   // @todo <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
   // @todo <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
 };
-
-type TerritoryCodeChoice =
-  | { territoryCode: CurrentTerritoryCode[]; excludedTerritoryCode?: never }
-  | { territoryCode?: never; excludedTerritoryCode: CurrentTerritoryCode[] };

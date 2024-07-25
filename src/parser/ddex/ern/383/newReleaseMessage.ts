@@ -25,6 +25,7 @@ export class NewReleaseMessageParser extends AbstractParser {
           ? object.IsBackfill[0] === "true"
           : undefined,
         resourceList: this.parseResourceList(object.ResourceList[0]),
+        releaseList: this.parseReleaseList(object.ReleaseList[0]),
       },
     };
   }
@@ -86,6 +87,17 @@ export class NewReleaseMessageParser extends AbstractParser {
       hashSumDataType: object.HashSumDataType
         ? object.HashSumDataType[0]
         : undefined,
+    };
+  }
+
+  private parseIcpn(object: any): Ern383.Icpn {
+    const attributes = {
+      isEan: object.$?.IsEan ? object.$.IsEan === "true" : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
     };
   }
 
@@ -162,6 +174,185 @@ export class NewReleaseMessageParser extends AbstractParser {
     };
   }
 
+  private parseRelease(object: any): Ern383.Release {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      isMainRelease: object.$?.IsMainRelease
+        ? object.$.IsMainRelease === "true"
+        : undefined,
+    };
+
+    const parsed: Omit<
+      Ern383.Release,
+      "releaseResourceReferenceList" | "resourceOmissionReason"
+    > = {
+      _attributes: object.$ ? attributes : undefined,
+      releaseId: object.ReleaseId.map((releaseId: any) =>
+        this.parseReleaseId(releaseId),
+      ),
+      // @todo <xs:element name="ReleaseReference" minOccurs="0" maxOccurs="unbounded">
+      // @todo <xs:element name="ExternalResourceLink" minOccurs="0" maxOccurs="unbounded" type="ern:ExternalResourceLink" />
+      // @todo <xs:element name="SalesReportingProxyReleaseId" minOccurs="0" maxOccurs="unbounded" type="ern:SalesReportingProxyReleaseId" />
+      referenceTitle: this.parseReferenceTitle(object.ReferenceTitle[0]),
+      // @todo <xs:element name="ReleaseCollectionReferenceList" minOccurs="0" type="ern:ReleaseCollectionReferenceList" />
+      // @todo <xs:element name="ReleaseType" minOccurs="0" maxOccurs="unbounded" type="ern:ReleaseType" />
+      releaseDetailsByTerritory: object.ReleaseDetailsByTerritory.map(
+        (releaseDetailsByTerritory: any) =>
+          this.parseReleaseDetailsByTerritory(releaseDetailsByTerritory),
+      ),
+      // @todo <xs:element name="LanguageOfPerformance" minOccurs="0" maxOccurs="unbounded" type="avs:IsoLanguageCode" />
+      // @todo <xs:element name="LanguageOfDubbing" minOccurs="0" maxOccurs="unbounded" type="avs:IsoLanguageCode" />
+      // @todo <xs:element name="SubTitleLanguage" minOccurs="0" maxOccurs="unbounded" type="avs:IsoLanguageCode" />
+      // @todo <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+      // @todo <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+      // @todo <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLine" />
+      // @todo <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+      // @todo <xs:element name="ArtistProfilePage" minOccurs="0" maxOccurs="unbounded" type="ern:WebPage" />
+      // @todo <xs:element name="GlobalReleaseDate" minOccurs="0" type="ern:EventDate" />
+      // @todo <xs:element name="GlobalOriginalReleaseDate" minOccurs="0" type="ern:EventDate" />
+    };
+
+    if (object.ReleaseResourceReferenceList) {
+      return {
+        ...parsed,
+        releaseResourceReferenceList: this.parseReleaseResourceReferenceList(
+          object.ReleaseResourceReferenceList[0],
+        ),
+      };
+    }
+
+    return {
+      ...parsed,
+      resourceOmissionReason: this.parseResourceOmissionReason(
+        object.ResourceOmissionReason[0],
+      ),
+    };
+  }
+
+  private parseReleaseDetailsByTerritory(
+    object: any,
+  ): Ern383.ReleaseDetailsByTerritory {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      isMainRelease: object.$?.IsMainRelease
+        ? object.$.IsMainRelease === "true"
+        : undefined,
+    };
+
+    const parsed: Omit<
+      Ern383.ReleaseDetailsByTerritory,
+      "territoryCode" | "excludedTerritoryCode"
+    > = {
+      _attributes: object.$ ? attributes : undefined,
+
+      // @todo <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
+      // @todo <xs:element name="LabelName" minOccurs="0" maxOccurs="unbounded" type="ern:LabelName" />
+      // @todo <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
+      // @todo <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
+      // @todo <xs:element name="DisplayArtist" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+      // @todo <xs:element name="IsMultiArtistCompilation" minOccurs="0" type="xs:boolean" />
+      // @todo <xs:element name="AdministratingRecordCompany" minOccurs="0" maxOccurs="unbounded" type="ern:AdministratingRecordCompany" />
+      // @todo <xs:element name="ReleaseType" minOccurs="0" maxOccurs="unbounded" type="ern:ReleaseType" />
+      // @todo <xs:element name="RelatedRelease" minOccurs="0" maxOccurs="unbounded" type="ern:RelatedRelease" />
+      // @todo <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded" type="ern:ParentalWarningType" />
+      // @todo <xs:element name="AvRating" minOccurs="0" maxOccurs="unbounded" type="ern:AvRating" />
+      // @todo <xs:element name="MarketingComment" minOccurs="0" type="ern:Comment" />
+      // @todo <xs:element name="ResourceGroup" minOccurs="0" maxOccurs="unbounded" type="ern:ResourceGroup" />
+      // @todo <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
+      // @todo <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLine" />
+      // @todo <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+      // @todo <xs:element name="ReleaseDate" minOccurs="0" type="ern:EventDate" />
+      // @todo <xs:element name="OriginalReleaseDate" minOccurs="0" type="ern:EventDate" />
+      // @todo <xs:element name="OriginalDigitalReleaseDate" minOccurs="0" type="ern:EventDate" />
+      // @todo <xs:choice minOccurs="0">
+      //   <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded" type="ern:Description" />
+      //   <xs:element name="File" maxOccurs="unbounded" type="ern:File" />
+      // </xs:choice>
+      // @todo <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
+      // @todo <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
+      // @todo <xs:element name="Character" minOccurs="0" maxOccurs="unbounded" type="ern:Character" />
+      // @todo <xs:element name="NumberOfUnitsPerPhysicalRelease" minOccurs="0" type="xs:integer" />
+      // @todo <xs:element name="DisplayConductor" minOccurs="0" maxOccurs="unbounded" type="ern:Artist" />
+    };
+
+    if (object.TerritoryCode) {
+      return {
+        ...parsed,
+        territoryCode: object.TerritoryCode.map((territoryCode: any) =>
+          this.parseCurrentTerritoryCode(territoryCode),
+        ),
+      };
+    }
+
+    return {
+      ...parsed,
+      excludedTerritoryCode: object.ExcludedTerritoryCode.map(
+        (excludedTerritoryCode: any) =>
+          this.parseCurrentTerritoryCode(excludedTerritoryCode),
+      ),
+    };
+  }
+
+  private parseReleaseId(object: any): Ern383.ReleaseId {
+    const attributes = {
+      isReplaced: object.$?.IsReplaced
+        ? object.$.IsReplaced === "true"
+        : undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      grid: object.GRID ? object.GRID[0] : undefined,
+      isrc: object.ISRC ? object.ISRC[0] : undefined,
+      icpn: object.ICPN ? this.parseIcpn(object.ICPN[0]) : undefined,
+      catalogNumber: object.CatalogNumber
+        ? this.parseCatalogNumber(object.CatalogNumber[0])
+        : undefined,
+      proprietaryId: object.ProprietaryId
+        ? object.ProprietaryId.map((proprietaryId: any) =>
+            this.parseProprietaryId(proprietaryId),
+          )
+        : undefined,
+    };
+  }
+
+  private parseReleaseList(object: any): Ern383.ReleaseList {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      release: object.Release
+        ? object.Release.map((release: any) => this.parseRelease(release))
+        : undefined,
+    };
+  }
+
+  private parseReleaseResourceReference(
+    object: any,
+  ): Ern383.ReleaseResourceReference {
+    const attributes = {
+      releaseResourceType: object.$?.ReleaseResourceType || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  private parseReleaseResourceReferenceList(
+    object: any,
+  ): Ern383.ReleaseResourceReferenceList {
+    return {
+      releaseResourceReference: object.ReleaseResourceReference.map(
+        (releaseResourceReference: any) =>
+          this.parseReleaseResourceReference(releaseResourceReference),
+      ),
+    };
+  }
+
   private parseResourceList(object: any): Ern383.ResourceList {
     const attributes = {
       languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
@@ -177,6 +368,20 @@ export class NewReleaseMessageParser extends AbstractParser {
       image: object.Image
         ? object.Image.map((image: any) => this.parseImage(image))
         : undefined,
+    };
+  }
+
+  private parseResourceOmissionReason(
+    object: any,
+  ): Ern383.ResourceOmissionReason {
+    const attributes = {
+      namespace: object.$?.Namespace || undefined,
+      userDefinedValue: object.$?.UserDefinedValue || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
     };
   }
 
