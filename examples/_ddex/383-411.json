@@ -1,6 +1,6 @@
 {
   "version": 411,
-  "action": "NewReleaseMessage",
+  "action": "newReleaseMessage",
   "element": {
     "_attributes": {
       "languageAndScriptCode": "en"

@@ -16,6 +16,7 @@ export class NewReleaseMessageParser extends AbstractParser {
           languageAndScriptCode: object.$.LanguageAndScriptCode,
         },
         messageHeader: this.parseMessageHeader(object.MessageHeader[0]),
+        partyList: this.parsePartyList(object.PartyList[0]),
         resourceList: this.parseResourceList(object.ResourceList[0]),
       },
     };
@@ -49,6 +50,23 @@ export class NewReleaseMessageParser extends AbstractParser {
       parameter: object.Parameter ? object.Parameter[0] : undefined,
       dataType: object.DataType ? object.DataType[0] : undefined,
       hashSumValue: object.HashSumValue[0],
+    };
+  }
+
+  private parseDetailedPartyId(object: any): Ern411.DetailedPartyId {
+    return {
+      isni: object.ISNI ? object.ISNI[0] : undefined,
+      dpid: object.DPID ? object.DPID[0] : undefined,
+      ipiNameNumber: object.IpiNameNumber ? object.IpiNameNumber[0] : undefined,
+      ipn: object.IPN ? object.IPN[0] : undefined,
+      cisacSocietyId: object.CisacSocietyId
+        ? object.CisacSocietyId[0]
+        : undefined,
+      proprietaryId: object.ProprietaryId
+        ? object.ProprietaryId.map((proprietaryId: any) =>
+            this.parseProprietaryId(proprietaryId),
+          )
+        : undefined,
     };
   }
 
@@ -213,6 +231,89 @@ export class NewReleaseMessageParser extends AbstractParser {
     return {
       _attributes: object.$ ? attributes : undefined,
       value: object._ || object,
+    };
+  }
+
+  private parseName(object: any): Ern411.Name {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      value: object._ || object,
+    };
+  }
+
+  private parseParty(object: any): Ern411.Party {
+    const parsed: Omit<Ern411.Party, "partyId" | "partyName"> = {
+      partyReference: object.PartyReference[0],
+    };
+
+    if (object.PartyName) {
+      return {
+        ...parsed,
+        partyName: object.PartyName.map((partyName: any) =>
+          this.parsePartyNameWithTerritory(partyName),
+        ),
+        partyId: object.PartyId
+          ? object.PartyId.map((partyId: any) =>
+              this.parseDetailedPartyId(partyId),
+            )
+          : undefined,
+      };
+    }
+
+    return {
+      ...parsed,
+      partyId: object.PartyId.map((partyId: any) =>
+        this.parseDetailedPartyId(partyId),
+      ),
+    };
+  }
+
+  private parsePartyList(object: any): Ern411.PartyList {
+    return {
+      party: object.Party.map((party: any) => this.parseParty(party)),
+    };
+  }
+
+  private parsePartyNameWithTerritory(
+    object: any,
+  ): Ern411.PartyNameWithTerritory {
+    const attributes = {
+      languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
+      isNickname: object.$?.IsNickname
+        ? object.$?.IsNickname === "true"
+        : undefined,
+      isStageName: object.$?.IsStageName
+        ? object.$?.IsStageName === "true"
+        : undefined,
+      isLegalName: object.$?.IsLegalName
+        ? object.$?.IsLegalName === "true"
+        : undefined,
+      applicableTerritoryCode: object.$?.ApplicableTerritoryCode || undefined,
+    };
+
+    return {
+      _attributes: object.$ ? attributes : undefined,
+      fullName: this.parseName(object.FullName[0]),
+      fullNameAsciiTranscribed: object.FullNameAsciiTranscribed
+        ? object.FullNameAsciiTranscribed[0]
+        : undefined,
+      fullNameIndexed: object.FullNameIndexed
+        ? this.parseName(object.FullNameIndexed[0])
+        : undefined,
+      namesBeforeKeyName: object.NamesBeforeKeyName
+        ? this.parseName(object.NamesBeforeKeyName[0])
+        : undefined,
+      keyName: object.KeyName ? this.parseName(object.KeyName[0]) : undefined,
+      namesAfterKeyName: object.NamesAfterKeyName
+        ? this.parseName(object.NamesAfterKeyName[0])
+        : undefined,
+      abbreviatedName: object.AbbreviatedName
+        ? this.parseName(object.AbbreviatedName[0])
+        : undefined,
     };
   }
 

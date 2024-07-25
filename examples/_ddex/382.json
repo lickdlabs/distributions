@@ -1,6 +1,7 @@
 {
+  "type": "ddex",
   "version": 382,
-  "action": "NewReleaseMessage",
+  "action": "newReleaseMessage",
   "element": {
     "_attributes": {
       "messageSchemaVersionId": "ern/382"
@@ -34,6 +35,7 @@
         }
       ],
       "messageCreatedDateTime": "2024-01-01T00:00:00.000Z"
-    }
+    },
+    "resourceList": {}
   }
 }

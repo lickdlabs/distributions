@@ -1,6 +1,7 @@
 {
+  "type": "ddex",
   "version": 411,
-  "action": "NewReleaseMessage",
+  "action": "newReleaseMessage",
   "element": {
     "_attributes": {
       "languageAndScriptCode": "en"
@@ -22,6 +23,21 @@
         }
       ],
       "messageCreatedDateTime": "2024-01-01T00:00:00.000Z"
-    }
+    },
+    "partyList": {
+      "party": [
+        {
+          "partyReference": "P1",
+          "partyName": [
+            {
+              "fullName": {
+                "value": "Lickd"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "resourceList": {}
   }
 }

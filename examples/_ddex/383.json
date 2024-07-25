@@ -1,6 +1,6 @@
 {
   "version": 383,
-  "action": "NewReleaseMessage",
+  "action": "newReleaseMessage",
   "element": {
     "_attributes": {
       "messageSchemaVersionId": "ern/383"
