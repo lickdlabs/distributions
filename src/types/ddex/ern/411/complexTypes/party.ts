@@ -30,5 +30,5 @@ export type Party = PartyChoice & {
 };
 
 type PartyChoice =
-  | { partyId: DetailedPartyId[] }
+  | { partyId: DetailedPartyId[]; partyName?: never }
   | { partyName: PartyNameWithTerritory[]; partyId?: DetailedPartyId[] };
