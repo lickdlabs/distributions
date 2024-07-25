@@ -44,6 +44,7 @@ export enum ImageType {
   PORTRAIT = "Portrait",
 }
 
+export enum LabelType {}
 export enum MessageControlType {}
 
 export enum ParentalWarningType {
@@ -57,6 +58,7 @@ export enum ParentalWarningType {
 
 export enum ReleaseProfileVariantVersionId {}
 export enum ReleaseProfileVersionId {}
+export enum ReleaseTypeErn4 {}
 
 export enum SoundRecordingType {
   MUSICAL_WORK_READALONG_SOUND_RECORDING = "MusicalWorkReadalongSoundRecording",

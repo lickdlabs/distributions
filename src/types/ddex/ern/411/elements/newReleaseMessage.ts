@@ -1,5 +1,10 @@
 import { Avs411 } from "../../../avs";
-import { MessageHeader, PartyList, ResourceList } from "../complexTypes";
+import {
+  MessageHeader,
+  PartyList,
+  ReleaseList,
+  ResourceList,
+} from "../complexTypes";
 
 // <xs:element name="NewReleaseMessage">
 //   <xs:complexType>
@@ -30,7 +35,7 @@ export type NewReleaseMessage = {
   // @todo <xs:element name="CueSheetList" minOccurs="0" type="ern:DetailedCueSheetList" />
   resourceList: ResourceList;
   // @todo <xs:element name="ChapterList" minOccurs="0" type="ern:ChapterList" />
-  // @todo <xs:element name="ReleaseList" type="ern:ReleaseList" />
+  releaseList: ReleaseList;
   // @todo <xs:element name="DealList" minOccurs="0" type="ern:DealList" />
   // @todo <xs:element name="SupplementalDocumentList" minOccurs="0" type="ern:SupplementalDocumentList" />
 };

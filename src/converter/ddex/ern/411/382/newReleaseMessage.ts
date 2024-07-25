@@ -20,6 +20,7 @@ export class NewReleaseMessageConverter extends AbstractConverter {
           party: [],
         },
         resourceList: this.convertResourceList(ern.element.resourceList),
+        releaseList: {},
       },
     };
   }
