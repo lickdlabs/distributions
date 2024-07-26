@@ -18,8 +18,8 @@ export class ErnParser {
     const parsed = this.parseObject(version, action, object[key]);
 
     this.logger.info("successfully parsed object to ddex ern", {
-      version,
-      action,
+      version: parsed.version,
+      action: parsed.action,
     });
 
     return parsed;
