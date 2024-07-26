@@ -16,10 +16,10 @@ describe("Parser", () => {
     });
   });
 
-  describe("parse ddex", () => {
+  describe("parse ddex new message", () => {
     const parser = new Parser(logger);
 
-    it("should parse 382 new message", async () => {
+    it("should parse 382", async () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/382.xml").toString(),
       );
@@ -31,7 +31,7 @@ describe("Parser", () => {
       assert.isObject(parsed.element);
     });
 
-    it("should parse 383 new message", async () => {
+    it("should parse 383", async () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/383.xml").toString(),
       );
@@ -43,7 +43,7 @@ describe("Parser", () => {
       assert.isObject(parsed.element);
     });
 
-    it("should parse 411 new message", async () => {
+    it("should parse 411", async () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/411.xml").toString(),
       );
