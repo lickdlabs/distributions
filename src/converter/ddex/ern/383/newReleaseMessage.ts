@@ -1,10 +1,10 @@
 import path from "path";
-import { Avs411, Ern382, Ern411 } from "../../../../../types";
+import { Avs411, Ern383, Ern411 } from "../../../../types";
 import { AbstractConverter } from "./abstract";
 
 export class NewReleaseMessageConverter extends AbstractConverter {
   public convert(
-    ern: Ern382.ErnNewReleaseMessage,
+    ern: Ern383.ErnNewReleaseMessage,
   ): Ern411.ErnNewReleaseMessage {
     return {
       type: "ddex",
@@ -25,7 +25,7 @@ export class NewReleaseMessageConverter extends AbstractConverter {
     };
   }
 
-  private convertDetailedHashSum(ern: Ern382.HashSum): Ern411.DetailedHashSum {
+  private convertDetailedHashSum(ern: Ern383.HashSum): Ern411.DetailedHashSum {
     return {
       algorithm: {
         value:
@@ -36,7 +36,7 @@ export class NewReleaseMessageConverter extends AbstractConverter {
     };
   }
 
-  private convertFile(ern: Ern382.File): Ern411.File {
+  private convertFile(ern: Ern383.File): Ern411.File {
     if (ern.url) {
       return {
         uri: ern.url,
@@ -54,7 +54,7 @@ export class NewReleaseMessageConverter extends AbstractConverter {
     };
   }
 
-  private convertImage(ern: Ern382.Image): Ern411.Image {
+  private convertImage(ern: Ern383.Image): Ern411.Image {
     if (ern.imageDetailsByTerritory.length > 1) {
       this.logger.warn(
         "image has more than one territory entry, only first entry is used",
@@ -81,7 +81,7 @@ export class NewReleaseMessageConverter extends AbstractConverter {
     };
   }
 
-  private convertResourceList(ern: Ern382.ResourceList): Ern411.ResourceList {
+  private convertResourceList(ern: Ern383.ResourceList): Ern411.ResourceList {
     return {
       soundRecording: ern.soundRecording
         ? ern.soundRecording.map((soundRecording) =>
@@ -95,7 +95,7 @@ export class NewReleaseMessageConverter extends AbstractConverter {
   }
 
   private convertSoundRecording(
-    ern: Ern382.SoundRecording,
+    ern: Ern383.SoundRecording,
   ): Ern411.SoundRecording {
     if (ern.soundRecordingDetailsByTerritory.length > 1) {
       this.logger.warn(
@@ -145,7 +145,7 @@ export class NewReleaseMessageConverter extends AbstractConverter {
   }
 
   private convertTechnicalImageDetails(
-    ern: Ern382.TechnicalImageDetails,
+    ern: Ern383.TechnicalImageDetails,
   ): Ern411.TechnicalImageDetails {
     if ((ern.file?.length || 0) > 1) {
       this.logger.warn(
@@ -175,7 +175,7 @@ export class NewReleaseMessageConverter extends AbstractConverter {
   }
 
   private convertTechnicalSoundRecordingDetails(
-    ern: Ern382.TechnicalSoundRecordingDetails,
+    ern: Ern383.TechnicalSoundRecordingDetails,
   ): Ern411.TechnicalSoundRecordingDetails {
     if ((ern.file?.length || 0) > 1) {
       this.logger.warn(
@@ -198,7 +198,6 @@ export class NewReleaseMessageConverter extends AbstractConverter {
       // @todo <xs:element name="OriginalSamplingRate" minOccurs="0" type="ern:SamplingRate" />
       bitsPerSample: ern.bitsPerSample,
       duration: ern.duration,
-      bitDepth: undefined,
       isPreview: ern.isPreview,
       // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
       file: ern.file ? this.convertFile(ern.file[0]) : undefined,

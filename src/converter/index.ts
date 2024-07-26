@@ -1,16 +1,38 @@
 import { ILogger } from "@lickd/logger";
-import { Ern, Ern383, Ern411 } from "../types";
-import { Ern411Converter } from "./ddex";
-import { Ern383Converter } from "./ddex/ern/383";
+import { Ern } from "../types";
+import { Ern382Converter, Ern383Converter } from "./ddex";
 
 export class Converter {
   public constructor(private logger: ILogger) {}
 
-  public convertToErn383(ern: Ern): Ern383.Ern {
-    return new Ern383Converter(this.logger).convert(ern);
+  public convert<TErn extends Ern>(ern: Ern, version: TErn["version"]): TErn {
+    this.logger.info(`converting ddex ern to ${version}`, {
+      version: ern.version,
+      action: ern.action,
+    });
+
+    while (ern.version !== version) {
+      ern = this.step(ern);
+    }
+
+    this.logger.info("successfully converted ddex ern", {
+      version: ern.version,
+      action: ern.action,
+    });
+
+    return ern as TErn;
   }
 
-  public convertToErn411(ern: Ern): Ern411.Ern {
-    return new Ern411Converter(this.logger).convert(ern);
+  private step(ern: Ern): Ern {
+    switch (ern.version) {
+      case 382:
+        return new Ern382Converter(this.logger).convert(ern);
+
+      case 383:
+        return new Ern383Converter(this.logger).convert(ern);
+
+      default:
+        throw new Error("unknown/unsupported conversion");
+    }
   }
 }

@@ -1,33 +1,18 @@
 import { ILogger } from "@lickd/logger";
-import { Ern, Ern383 } from "../../../../types";
+import { Ern383, Ern411 } from "../../../../types";
+import { NewReleaseMessageConverter } from "./newReleaseMessage";
+import { PurgeReleaseMessageConverter } from "./purgeReleaseMessage";
 
 export class Ern383Converter {
   public constructor(private logger: ILogger) {}
 
-  public convert(ern: Ern): Ern383.Ern {
-    this.logger.info(`converting ddex ern ${ern.version} to 383`, {
-      action: ern.action,
-    });
+  public convert(ern: Ern383.Ern): Ern411.Ern {
+    if (ern.action === Ern383.Actions.NEW_RELEASE_MESSAGE) {
+      return new NewReleaseMessageConverter(this.logger).convert(ern);
+    }
 
-    const converted = this.convertErn(ern);
-
-    this.logger.info(`successfully converted ddex ern ${ern.version} to 383`, {
-      action: ern.action,
-    });
-
-    return converted;
-  }
-
-  private convertErn(ern: Ern): Ern383.Ern {
-    switch (ern.version) {
-      case 382:
-        return {
-          ...ern,
-          version: 383,
-        };
-
-      case 383:
-        return ern;
+    if (ern.action === Ern383.Actions.PURGE_RELEASE_MESSAGE) {
+      return new PurgeReleaseMessageConverter(this.logger).convert(ern);
     }
 
     throw new Error("unknown/unsupported conversion");
