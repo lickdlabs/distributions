@@ -6,9 +6,19 @@ export class Converter {
   public constructor(private logger: ILogger) {}
 
   public convert<TErn extends Ern>(ern: Ern, version: TErn["version"]): TErn {
+    this.logger.info(`converting ddex ern to ${version}`, {
+      version: ern.version,
+      action: ern.action,
+    });
+
     while (ern.version !== version) {
       ern = this.step(ern);
     }
+
+    this.logger.info("successfully converted ddex ern", {
+      version: ern.version,
+      action: ern.action,
+    });
 
     return ern as TErn;
   }
