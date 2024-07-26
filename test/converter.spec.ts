@@ -11,7 +11,7 @@ describe("Converter", () => {
     it("should build a default converter", () => {
       const converter = new Converter(logger);
       assert.instanceOf(converter, Converter);
-      assert.isFunction(converter.convertToErn411);
+      assert.isFunction(converter.convert);
     });
   });
 
@@ -23,7 +23,7 @@ describe("Converter", () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/382.xml").toString(),
       );
-      const converted = converter.convertToErn383(parsed);
+      const converted = converter.convert(parsed, 383);
 
       assert.equal(converted.version, 383);
       assert.equal(converted.action, Ern383.Actions.NEW_RELEASE_MESSAGE);
@@ -36,7 +36,7 @@ describe("Converter", () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/383.xml").toString(),
       );
-      const converted = converter.convertToErn383(parsed);
+      const converted = converter.convert(parsed, 383);
 
       assert.equal(parsed, converted);
     });
@@ -46,7 +46,7 @@ describe("Converter", () => {
         readFileSync("./examples/_ddex/411.xml").toString(),
       );
 
-      assert.throws(() => converter.convertToErn383(parsed));
+      assert.throws(() => converter.convert(parsed, 383));
     });
   });
 
@@ -58,7 +58,7 @@ describe("Converter", () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/382.xml").toString(),
       );
-      const converted = converter.convertToErn411(parsed);
+      const converted = converter.convert(parsed, 411);
 
       assert.equal(converted.version, 411);
       assert.equal(converted.action, Ern411.Actions.NEW_RELEASE_MESSAGE);
@@ -72,7 +72,7 @@ describe("Converter", () => {
         readFileSync("./examples/_ddex/383.xml").toString(),
       );
 
-      const converted = converter.convertToErn411(parsed);
+      const converted = converter.convert(parsed, 411);
 
       assert.equal(converted.version, 411);
       assert.equal(converted.action, Ern411.Actions.NEW_RELEASE_MESSAGE);
@@ -85,7 +85,7 @@ describe("Converter", () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/411.xml").toString(),
       );
-      const converted = converter.convertToErn411(parsed);
+      const converted = converter.convert(parsed, 411);
 
       assert.equal(parsed, converted);
     });

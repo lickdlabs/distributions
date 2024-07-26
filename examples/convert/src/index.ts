@@ -1,4 +1,4 @@
-import { Distributions } from "@lickd/distributions";
+import { Distributions, Ern382, Ern383, Ern411 } from "@lickd/distributions";
 import { ConsoleLogger } from "@lickd/logger";
 import { readFileSync } from "fs";
 
@@ -12,7 +12,11 @@ const file = "../../examples/_ddex/382.xml";
 
   logger.info({ parsed });
 
-  const converted = distributions.convertToErn411(parsed);
+  const converted = distributions.convert<Ern411.Ern>(parsed, 411);
+
+  // if (converted.action === Ern411.Actions.NEW_RELEASE_MESSAGE) {
+  //   converted.element._attributes.
+  // }
 
   logger.info({ converted });
 })();
