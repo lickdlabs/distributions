@@ -1,11 +1,11 @@
 import { ILogger } from "@lickd/logger";
-import { Ern382, Ern411 } from "../../../../../types";
+import { Ern383, Ern411 } from "../../../../types";
 
 export abstract class AbstractConverter {
   public constructor(protected logger: ILogger) {}
 
   protected convertMessageAuditTrail(
-    ern: Ern382.MessageAuditTrail,
+    ern: Ern383.MessageAuditTrail,
   ): Ern411.MessageAuditTrail {
     return {
       messageAuditTrailEvent: ern.messageAuditTrailEvent.map(
@@ -16,7 +16,7 @@ export abstract class AbstractConverter {
   }
 
   protected convertMessageAuditTrailEvent(
-    ern: Ern382.MessageAuditTrailEvent,
+    ern: Ern383.MessageAuditTrailEvent,
   ): Ern411.MessageAuditTrailEvent {
     return {
       messagingPartyDescriptor: this.convertMessagingPartyWithoutCode(
@@ -27,7 +27,7 @@ export abstract class AbstractConverter {
   }
 
   protected convertMessageHeader(
-    ern: Ern382.MessageHeader,
+    ern: Ern383.MessageHeader,
   ): Ern411.MessageHeader {
     return {
       messageThreadId: ern.messageThreadId,
@@ -49,7 +49,7 @@ export abstract class AbstractConverter {
   }
 
   protected convertMessagingPartyWithoutCode(
-    ern: Ern382.MessagingParty,
+    ern: Ern383.MessagingParty,
   ): Ern411.MessagingPartyWithoutCode {
     if (ern.partyId.length > 1) {
       this.logger.warn(
@@ -68,7 +68,7 @@ export abstract class AbstractConverter {
   }
 
   protected convertPartyNameWithoutCode(
-    ern: Ern382.PartyName,
+    ern: Ern383.PartyName,
   ): Ern411.PartyNameWithoutCode {
     return {
       fullName: ern.fullName.value,

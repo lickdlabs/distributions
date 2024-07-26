@@ -1,17 +1,16 @@
 import { ILogger } from "@lickd/logger";
 import { Ern } from "../types";
-import { Ern382Converter } from "./ddex/ern/382";
-import { Ern383Converter } from "./ddex/ern/383";
+import { Ern382Converter, Ern383Converter } from "./ddex";
 
 export class Converter {
   public constructor(private logger: ILogger) {}
 
-  public convert<TErn extends Ern>(ern: Ern, version: TErn["version"]): Ern {
+  public convert<TErn extends Ern>(ern: Ern, version: TErn["version"]): TErn {
     while (ern.version !== version) {
       ern = this.step(ern);
     }
 
-    return ern;
+    return ern as TErn;
   }
 
   private step(ern: Ern): Ern {

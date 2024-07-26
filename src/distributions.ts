@@ -20,7 +20,7 @@ export class Distributions {
     return this.parser.parse(body);
   }
 
-  public convert<TErn extends Ern>(ern: Ern, version: TErn["version"]): Ern {
+  public convert<TErn extends Ern>(ern: Ern, version: TErn["version"]): TErn {
     return this.converter.convert<TErn>(ern, version);
   }
 }

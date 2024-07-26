@@ -1,9 +1,9 @@
-import { Ern382, Ern411 } from "../../../../../types";
+import { Ern383, Ern411 } from "../../../../types";
 import { AbstractConverter } from "./abstract";
 
 export class PurgeReleaseMessageConverter extends AbstractConverter {
   public convert(
-    ern: Ern382.ErnPurgeReleaseMessage,
+    ern: Ern383.ErnPurgeReleaseMessage,
   ): Ern411.ErnPurgeReleaseMessage {
     return {
       type: "ddex",
