@@ -1,8 +1,7 @@
 import { Ern382 } from "../../../../../types";
-import { parseArtistRole } from "./artistRole";
 import { parsePartyChoice } from "./partyChoice";
 
-export const parseArtist = (object: any): Ern382.Artist => {
+export const parseCharacter = (object: any): Ern382.Character => {
   const attributes = {
     sequenceNumber: object.$?.SequenceNumber
       ? parseInt(object.$.SequenceNumber)
@@ -12,11 +11,6 @@ export const parseArtist = (object: any): Ern382.Artist => {
   return {
     _attributes: object.$ ? attributes : undefined,
     ...parsePartyChoice(object),
-    artistRole: object.ArtistRole.map((artistRole: any) =>
-      parseArtistRole(artistRole),
-    ),
-    nationality: object.Nationality
-      ? object.Nationality.map((nationality: string) => nationality)
-      : undefined,
+    // @todo <xs:element name="ResourceContributor" minOccurs="0" type="ern:DetailedResourceContributor" />
   };
 };

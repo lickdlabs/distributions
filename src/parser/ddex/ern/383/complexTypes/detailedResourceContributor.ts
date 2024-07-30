@@ -6,7 +6,7 @@ export const parseDetailedResourceContributor = (
   object: any,
 ): Ern383.DetailedResourceContributor => {
   const attributes = {
-    sequenceNumber: object.$.SequenceNumber
+    sequenceNumber: object.$?.SequenceNumber
       ? parseInt(object.$.SequenceNumber)
       : undefined,
   };

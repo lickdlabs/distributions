@@ -9,7 +9,6 @@ import { parseResourceGroupResourceReferenceList } from "./resourceGroupResource
 import { parseTitle } from "./title";
 
 export const parseResourceGroup = (object: any): Ern382.ResourceGroup => {
-  console.log(JSON.stringify({ object }));
   const attributes = {
     languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
   };

@@ -2,17 +2,23 @@ import { Ern383 } from "../../../../../types";
 import { parseAdministratingRecordCompany } from "./administratingRecordCompany";
 import { parseArtist } from "./artist";
 import { parseAvRating } from "./avRating";
+import { parseCharacter } from "./character";
+import { parseCLine } from "./cLine";
 import { parseComment } from "./comment";
 import { parseCurrentTerritoryCode } from "./currentTerritoryCode";
+import { parseEventDate } from "./eventDate";
 import { parsePartialFileChoice } from "./fileChoice";
 import { parseGenre } from "./genre";
+import { parseKeywords } from "./keywords";
 import { parseLabelName } from "./labelName";
 import { parseName } from "./name";
 import { parseParentalWarningType } from "./parentalWarningType";
+import { parsePLine } from "./pLine";
 import { parseRelatedRelease } from "./relatedRelease";
 import { parseReleaseType } from "./releaseType";
 import { parseResourceGroup } from "./resourceGroup";
 import { parseRightsAgreementId } from "./rightsAgreementId";
+import { parseSynopsis } from "./synopsis";
 import { parseTitle } from "./title";
 
 export const parseReleaseDetailsByTerritory = (
@@ -94,15 +100,29 @@ export const parseReleaseDetailsByTerritory = (
     genre: object.Genre
       ? object.Genre.map((genre: any) => parseGenre(genre))
       : undefined,
-    // pLine?: PLine[];
-    // cLine?: CLine[];
-    // releaseDate?: EventDate;
-    // originalReleaseDate?: EventDate;
-    // originalDigitalReleaseDate?: EventDate;
+    pLine: object.PLine
+      ? object.PLine.map((pLine: any) => parsePLine(pLine))
+      : undefined,
+    cLine: object.CLine
+      ? object.CLine.map((cLine: any) => parseCLine(cLine))
+      : undefined,
+    releaseDate: object.ReleaseDate
+      ? parseEventDate(object.ReleaseDate[0])
+      : undefined,
+    originalReleaseDate: object.OriginalReleaseDate
+      ? parseEventDate(object.OriginalReleaseDate[0])
+      : undefined,
+    originalDigitalReleaseDate: object.OriginalDigitalReleaseDate
+      ? parseEventDate(object.OriginalDigitalReleaseDate[0])
+      : undefined,
     ...parsePartialFileChoice(object),
-    // @todo <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
-    // @todo <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
-    // @todo <xs:element name="Character" minOccurs="0" maxOccurs="unbounded" type="ern:Character" />
+    keywords: object.Keywords
+      ? object.Keywords.map((keywords: any) => parseKeywords(keywords))
+      : undefined,
+    synopsis: object.Synopsis ? parseSynopsis(object.Synopsis[0]) : undefined,
+    character: object.Character
+      ? object.Character.map((character: any) => parseCharacter(character))
+      : undefined,
     numberOfUnitsPerPhysicalRelease: object.NumberOfUnitsPerPhysicalRelease
       ? parseInt(object.NumberOfUnitsPerPhysicalRelease)
       : undefined,
