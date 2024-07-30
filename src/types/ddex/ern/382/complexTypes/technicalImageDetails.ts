@@ -1,5 +1,3 @@
-import { Description } from "./description";
-import { File } from "./file";
 import { FileChoice } from "./fileChoice";
 
 // <xs:complexType name="TechnicalImageDetails">

@@ -1,5 +1,4 @@
-import { Description } from "./description";
-import { File } from "./file";
+import { FileChoice } from "./fileChoice";
 
 // <xs:complexType name="TechnicalImageDetails">
 //   <xs:sequence>
@@ -23,8 +22,7 @@ import { File } from "./file";
 //     <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
 //     <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
 //     <xs:choice minOccurs="0">
-//       <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded"
-//         type="ern:Description" />
+//       <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded" type="ern:Description" />
 //       <xs:element name="File" maxOccurs="unbounded" type="ern:File" />
 //     </xs:choice>
 //     <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
@@ -53,7 +51,3 @@ export type TechnicalImageDetails = Partial<FileChoice> & {
   // @todo <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
   // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
 };
-
-type FileChoice =
-  | { fileAvailabilityDescription: Description[]; file?: never }
-  | { fileAvailabilityDescription?: never; file: File[] };

@@ -1,8 +1,14 @@
+import { Avs20200108 } from "../../../avs";
+import { CLine } from "./cLine";
+import { EventDate } from "./eventDate";
+import { PLine } from "./pLine";
 import { ReferenceTitle } from "./referenceTitle";
 import { ReleaseDetailsByTerritory } from "./releaseDetailsByTerritory";
 import { ReleaseId } from "./releaseId";
 import { ReleaseResourceReferenceList } from "./releaseResourceReferenceList";
+import { ReleaseType } from "./releaseType";
 import { ResourceOmissionReason } from "./resourceOmissionReason";
+import { RightsAgreementId } from "./rightsAgreementId";
 
 // <xs:complexType name="Release">
 //   <xs:sequence>
@@ -45,23 +51,25 @@ export type Release = ReleaseChoice & {
   };
 
   releaseId: ReleaseId[];
-  // @todo <xs:element name="ReleaseReference" minOccurs="0" maxOccurs="unbounded">
+  releaseReference?: `${string & {
+    __brand: "R[\\d\\-_a-zA-Z]+";
+  }}`[];
   // @todo <xs:element name="ExternalResourceLink" minOccurs="0" maxOccurs="unbounded" type="ern:ExternalResourceLink" />
   // @todo <xs:element name="SalesReportingProxyReleaseId" minOccurs="0" maxOccurs="unbounded" type="ern:SalesReportingProxyReleaseId" />
   referenceTitle: ReferenceTitle;
   // @todo <xs:element name="ReleaseCollectionReferenceList" minOccurs="0" type="ern:ReleaseCollectionReferenceList" />
-  // @todo <xs:element name="ReleaseType" minOccurs="0" maxOccurs="unbounded" type="ern:ReleaseType" />
+  releaseType?: ReleaseType[];
   releaseDetailsByTerritory: ReleaseDetailsByTerritory[];
-  // @todo <xs:element name="LanguageOfPerformance" minOccurs="0" maxOccurs="unbounded" type="avs:IsoLanguageCode" />
-  // @todo <xs:element name="LanguageOfDubbing" minOccurs="0" maxOccurs="unbounded" type="avs:IsoLanguageCode" />
-  // @todo <xs:element name="SubTitleLanguage" minOccurs="0" maxOccurs="unbounded" type="avs:IsoLanguageCode" />
-  // @todo <xs:element name="Duration" minOccurs="0" type="xs:duration" />
-  // @todo <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
-  // @todo <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLine" />
-  // @todo <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
+  languageOfPerformance?: Avs20200108.IsoLanguageCode[];
+  languageOfDubbing?: Avs20200108.IsoLanguageCode[];
+  subTitleLanguage?: Avs20200108.IsoLanguageCode[];
+  duration?: number;
+  rightsAgreementId?: RightsAgreementId;
+  pLine?: PLine[];
+  cLine?: CLine[];
   // @todo <xs:element name="ArtistProfilePage" minOccurs="0" maxOccurs="unbounded" type="ern:WebPage" />
-  // @todo <xs:element name="GlobalReleaseDate" minOccurs="0" type="ern:EventDate" />
-  // @todo <xs:element name="GlobalOriginalReleaseDate" minOccurs="0" type="ern:EventDate" />
+  globalReleaseDate?: EventDate;
+  globalOriginalReleaseDate?: EventDate;
 };
 
 type ReleaseChoice =

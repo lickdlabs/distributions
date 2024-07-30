@@ -1,7 +1,7 @@
 import { Avs20161006 } from "../../../avs";
 
 // <xs:complexType name="RatingAgency">
-//  <xs:simpleContent>
+//   <xs:simpleContent>
 //     <xs:extension base="avs:RatingAgency">
 //       <xs:attribute name="Namespace" type="xs:string" />
 //       <xs:attribute name="UserDefinedValue" type="xs:string" />

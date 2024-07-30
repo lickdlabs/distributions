@@ -1,3 +1,5 @@
+import { Avs20161006 } from "../../../avs";
+import { ArtistRole } from "./artistRole";
 import { PartyChoice } from "./partyChoice";
 
 // <xs:complexType name="Artist">
@@ -19,6 +21,6 @@ export type Artist = PartyChoice & {
     sequenceNumber?: number;
   };
 
-  // @todo <xs:element name="ArtistRole" maxOccurs="unbounded" type="ern:ArtistRole" />
-  // @todo <xs:element name="Nationality" minOccurs="0" maxOccurs="unbounded" type="ern:ddexC_CurrentTerritoryCode" />
+  artistRole: ArtistRole[];
+  nationality?: Avs20161006.CurrentTerritoryCode[];
 };

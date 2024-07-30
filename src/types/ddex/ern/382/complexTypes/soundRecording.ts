@@ -11,7 +11,7 @@ import { SoundRecordingId } from "./soundRecordingId";
 //     <xs:element name="ResourceReference">
 //       <xs:simpleType>
 //         <xs:restriction base="xs:ID">
-//             <xs:pattern value="A[\d\-_a-zA-Z]+" />
+//           <xs:pattern value="A[\d\-_a-zA-Z]+" />
 //         </xs:restriction>
 //       </xs:simpleType>
 //     </xs:element>
