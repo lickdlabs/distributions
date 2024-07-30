@@ -1,5 +1,7 @@
 export * from "./administratingRecordCompany";
+export * from "./allTerritoryCode";
 export * from "./artist";
+export * from "./artistDelegatedUsageRights";
 export * from "./artistRole";
 export * from "./avRating";
 export * from "./carrierType";

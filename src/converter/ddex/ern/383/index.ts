@@ -7,14 +7,15 @@ export class Ern383Converter {
   public constructor(private logger: ILogger) {}
 
   public convert(ern: Ern383.Ern): Ern411.Ern {
-    if (ern.action === Ern383.Actions.NEW_RELEASE_MESSAGE) {
-      return new NewReleaseMessageConverter(this.logger).convert(ern);
-    }
+    switch (ern.action) {
+      case Ern383.Actions.NEW_RELEASE_MESSAGE:
+        return new NewReleaseMessageConverter(this.logger).convert(ern);
 
-    if (ern.action === Ern383.Actions.PURGE_RELEASE_MESSAGE) {
-      return new PurgeReleaseMessageConverter(this.logger).convert(ern);
-    }
+      case Ern383.Actions.PURGE_RELEASE_MESSAGE:
+        return new PurgeReleaseMessageConverter(this.logger).convert(ern);
 
-    throw new Error("unknown/unsupported conversion");
+      default:
+        throw new Error("unknown/unsupported conversion");
+    }
   }
 }

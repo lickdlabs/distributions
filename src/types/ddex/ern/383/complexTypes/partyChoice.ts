@@ -9,5 +9,5 @@ import { PartyName } from "./partyName";
 //   </xs:sequence>
 // </xs:choice>
 export type PartyChoice =
-  | { partyId: PartyId[] }
+  | { partyId: PartyId[]; partyName?: never }
   | { partyName: PartyName[]; partyId?: PartyId[] };

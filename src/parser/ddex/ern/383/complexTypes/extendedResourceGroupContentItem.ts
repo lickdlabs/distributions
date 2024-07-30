@@ -1,4 +1,4 @@
-import { Ern382 } from "../../../../../types";
+import { Ern383 } from "../../../../../types";
 import { convertDurationToMilliseconds } from "../../../../../utils";
 import { parseLinkedReleaseResourceReference } from "./linkedReleaseResourceReference";
 import { parseReleaseId } from "./releaseId";
@@ -7,7 +7,7 @@ import { parseResourceType } from "./resourceType";
 
 export const parseExtendedResourceGroupContentItem = (
   object: any,
-): Ern382.ExtendedResourceGroupContentItem => ({
+): Ern383.ExtendedResourceGroupContentItem => ({
   sequenceNumber: object.SequenceNumber
     ? parseInt(object.SequenceNumber[0])
     : undefined,
@@ -48,7 +48,7 @@ export const parseExtendedResourceGroupContentItem = (
 
 const parseResourceGroupContentItemIdentifierChoice = (
   object: any,
-): Partial<Ern382.ResourceGroupContentItemIdentifierChoice> => {
+): Partial<Ern383.ResourceGroupContentItemIdentifierChoice> => {
   if (object.ResourceGroupContentItemReleaseReference) {
     return {
       resourceGroupContentItemReleaseReference:

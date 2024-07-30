@@ -233,6 +233,8 @@ export class NewReleaseMessageConverter extends AbstractConverter {
       languageAndScriptCode: ern._attributes?.languageAndScriptCode,
     };
 
+    const file = ern.file?.shift();
+
     return {
       _attributes: ern._attributes ? attributes : undefined,
       technicalResourceDetailsReference: ern.technicalResourceDetailsReference,
@@ -244,8 +246,7 @@ export class NewReleaseMessageConverter extends AbstractConverter {
       imageResolution: ern.imageResolution,
       isPreview: ern.isPreview,
       // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
-      // @todo <xs:element name="File" minOccurs="0" type="ern:File" />
-      file: ern.file ? this.convertFile(ern.file[0]) : undefined,
+      // file: file !== undefined ? this.convertFile(file) : undefined,
       // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
     };
   }
@@ -276,7 +277,7 @@ export class NewReleaseMessageConverter extends AbstractConverter {
       duration: ern.duration,
       isPreview: ern.isPreview,
       // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
-      file: ern.file ? this.convertFile(ern.file[0]) : undefined,
+      // file: ern.file ? this.convertFile(ern.file[0]) : undefined,
       // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
     };
   }

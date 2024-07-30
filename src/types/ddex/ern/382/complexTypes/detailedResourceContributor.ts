@@ -9,6 +9,7 @@ import { Genre } from "./genre";
 import { GoverningAgreementType } from "./governingAgreementType";
 import { Membership } from "./membership";
 import { PartyChoice } from "./partyChoice";
+import { Performance } from "./performance";
 import { ResourceContributorRole } from "./resourceContributorRole";
 
 // <xs:complexType name="DetailedResourceContributor">
