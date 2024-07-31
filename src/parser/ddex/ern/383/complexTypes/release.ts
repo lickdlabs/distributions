@@ -2,14 +2,18 @@ import { Ern383 } from "../../../../../types";
 import { convertDurationToMilliseconds } from "../../../../../utils";
 import { parseCLine } from "./cLine";
 import { parseEventDate } from "./eventDate";
+import { parseExternalResourceLink } from "./externalResourceLink";
 import { parsePLine } from "./pLine";
 import { parseReferenceTitle } from "./referenceTitle";
+import { parseReleaseCollectionReferenceList } from "./releaseCollectionReferenceList";
 import { parseReleaseDetailsByTerritory } from "./releaseDetailsByTerritory";
 import { parseReleaseId } from "./releaseId";
 import { parseReleaseResourceReferenceList } from "./releaseResourceReferenceList";
 import { parseReleaseType } from "./releaseType";
 import { parseResourceOmissionReason } from "./resourceOmissionReason";
 import { parseRightsAgreementId } from "./rightsAgreementId";
+import { parseSalesReportingProxyReleaseId } from "./salesReportingProxyReleaseId";
+import { parseWebPage } from "./webPage";
 
 export const parseRelease = (object: any): Ern383.Release => {
   const attributes = {
@@ -32,10 +36,23 @@ export const parseRelease = (object: any): Ern383.Release => {
           (releaseReference: string) => releaseReference,
         )
       : undefined,
-    // @todo <xs:element name="ExternalResourceLink" minOccurs="0" maxOccurs="unbounded" type="ern:ExternalResourceLink" />
-    // @todo <xs:element name="SalesReportingProxyReleaseId" minOccurs="0" maxOccurs="unbounded" type="ern:SalesReportingProxyReleaseId" />
+    externalResourceLink: object.ExternalResourceLink
+      ? object.ExternalResourceLink.map((externalResourceLink: any) =>
+          parseExternalResourceLink(externalResourceLink),
+        )
+      : undefined,
+    salesReportingProxyReleaseId: object.SalesReportingProxyReleaseId
+      ? object.SalesReportingProxyReleaseId.map(
+          (salesReportingProxyReleaseId: any) =>
+            parseSalesReportingProxyReleaseId(salesReportingProxyReleaseId),
+        )
+      : undefined,
     referenceTitle: parseReferenceTitle(object.ReferenceTitle[0]),
-    // @todo <xs:element name="ReleaseCollectionReferenceList" minOccurs="0" type="ern:ReleaseCollectionReferenceList" />
+    releaseCollectionReferenceList: object.ReleaseCollectionReferenceList
+      ? parseReleaseCollectionReferenceList(
+          object.ReleaseCollectionReferenceList[0],
+        )
+      : undefined,
     releaseType: object.ReleaseType
       ? object.ReleaseType.map((releaseType: any) =>
           parseReleaseType(releaseType),
@@ -72,7 +89,11 @@ export const parseRelease = (object: any): Ern383.Release => {
     cLine: object.CLine
       ? object.CLine.map((cLine: any) => parseCLine(cLine))
       : undefined,
-    // @todo <xs:element name="ArtistProfilePage" minOccurs="0" maxOccurs="unbounded" type="ern:WebPage" />
+    artistProfilePage: object.ArtistProfilePage
+      ? object.ArtistProfilePage.map((artistProfilePage: any) =>
+          parseWebPage(artistProfilePage),
+        )
+      : undefined,
     globalReleaseDate: object.GlobalReleaseDate
       ? parseEventDate(object.GlobalReleaseDate)
       : undefined,

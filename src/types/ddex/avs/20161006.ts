@@ -4,6 +4,7 @@ export enum ArtistRole {}
 export enum BinaryDataType {}
 export enum CarrierType {}
 export enum CurrentTerritoryCode {}
+export enum ExternallyLinkedResourceType {}
 export enum GoverningAgreementType {}
 export enum HashSumAlgorithmType {}
 export enum IsoLanguageCode {}
@@ -14,8 +15,10 @@ export enum MusicalWorkContributorRole {}
 export enum ParentalWarningType {}
 export enum PLineType {}
 export enum RatingAgency {}
+export enum ReleaseRelationshipType {}
 export enum ReleaseResourceType {}
 export enum ReleaseType {}
+export enum ReasonType {}
 export enum ResourceContributorRole {}
 export enum ResourceOmissionReason {}
 export enum ResourceType {}

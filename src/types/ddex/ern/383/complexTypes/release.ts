@@ -1,14 +1,18 @@
 import { Avs20200108 } from "../../../avs";
 import { CLine } from "./cLine";
 import { EventDate } from "./eventDate";
+import { ExternalResourceLink } from "./externalResourceLink";
 import { PLine } from "./pLine";
 import { ReferenceTitle } from "./referenceTitle";
+import { ReleaseCollectionReferenceList } from "./releaseCollectionReferenceList";
 import { ReleaseDetailsByTerritory } from "./releaseDetailsByTerritory";
 import { ReleaseId } from "./releaseId";
 import { ReleaseResourceReferenceList } from "./releaseResourceReferenceList";
 import { ReleaseType } from "./releaseType";
 import { ResourceOmissionReason } from "./resourceOmissionReason";
 import { RightsAgreementId } from "./rightsAgreementId";
+import { SalesReportingProxyReleaseId } from "./salesReportingProxyReleaseId";
+import { WebPage } from "./webPage";
 
 // <xs:complexType name="Release">
 //   <xs:sequence>
@@ -54,10 +58,10 @@ export type Release = ReleaseChoice & {
   releaseReference?: `${string & {
     __brand: "R[\\d\\-_a-zA-Z]+";
   }}`[];
-  // @todo <xs:element name="ExternalResourceLink" minOccurs="0" maxOccurs="unbounded" type="ern:ExternalResourceLink" />
-  // @todo <xs:element name="SalesReportingProxyReleaseId" minOccurs="0" maxOccurs="unbounded" type="ern:SalesReportingProxyReleaseId" />
+  externalResourceLink?: ExternalResourceLink[];
+  salesReportingProxyReleaseId?: SalesReportingProxyReleaseId[];
   referenceTitle: ReferenceTitle;
-  // @todo <xs:element name="ReleaseCollectionReferenceList" minOccurs="0" type="ern:ReleaseCollectionReferenceList" />
+  releaseCollectionReferenceList?: ReleaseCollectionReferenceList;
   releaseType?: ReleaseType[];
   releaseDetailsByTerritory: ReleaseDetailsByTerritory[];
   languageOfPerformance?: Avs20200108.IsoLanguageCode[];
@@ -67,7 +71,7 @@ export type Release = ReleaseChoice & {
   rightsAgreementId?: RightsAgreementId;
   pLine?: PLine[];
   cLine?: CLine[];
-  // @todo <xs:element name="ArtistProfilePage" minOccurs="0" maxOccurs="unbounded" type="ern:WebPage" />
+  artistProfilePage?: WebPage[];
   globalReleaseDate?: EventDate;
   globalOriginalReleaseDate?: EventDate;
 };

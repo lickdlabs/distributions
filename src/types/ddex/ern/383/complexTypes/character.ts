@@ -1,3 +1,4 @@
+import { DetailedResourceContributor } from "./detailedResourceContributor";
 import { PartyChoice } from "./partyChoice";
 
 // <xs:complexType name="Character">
@@ -18,5 +19,5 @@ export type Character = PartyChoice & {
     sequenceNumber?: number;
   };
 
-  // @todo <xs:element name="ResourceContributor" minOccurs="0" type="ern:DetailedResourceContributor" />
+  resourceContributor?: DetailedResourceContributor;
 };

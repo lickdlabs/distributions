@@ -7,4 +7,6 @@ export const convertRelease = (ern: Ern382.Release): Ern383.Release => ({
     (releaseDetailsByTerritory) =>
       convertReleaseDetailsByTerritory(releaseDetailsByTerritory),
   ),
+  externalResourceLink: undefined,
+  releaseCollectionReferenceList: undefined,
 });

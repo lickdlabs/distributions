@@ -1,5 +1,8 @@
+import { EventDate } from "./eventDate";
 import { ReferenceTitle } from "./referenceTitle";
 import { ReleaseId } from "./releaseId";
+import { ReleaseRelationshipType } from "./releaseRelationshipType";
+import { ReleaseSummaryDetailsByTerritory } from "./releaseSummaryDetailsByTerritory";
 import { RightsAgreementId } from "./rightsAgreementId";
 
 // <xs:complexType name="RelatedRelease">
@@ -21,9 +24,9 @@ export type RelatedRelease = {
 
   releaseId: ReleaseId[];
   referenceTitle?: ReferenceTitle;
-  // @todo <xs:element name="ReleaseSummaryDetailsByTerritory" minOccurs="0" maxOccurs="unbounded" type="ern:ReleaseSummaryDetailsByTerritory" />
+  releaseSummaryDetailsByTerritory?: ReleaseSummaryDetailsByTerritory[];
   rightsAgreementId?: RightsAgreementId;
-  // @todo <xs:element name="ReleaseRelationshipType" type="ern:ReleaseRelationshipType" />
-  // @todo <xs:element name="ReleaseDate" minOccurs="0" type="ern:EventDate" />
-  // @todo <xs:element name="OriginalReleaseDate" minOccurs="0" type="ern:EventDate" />
+  releaseRelationshipType: ReleaseRelationshipType;
+  releaseDate?: EventDate;
+  originalReleaseDate?: EventDate;
 };

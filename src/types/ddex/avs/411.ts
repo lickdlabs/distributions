@@ -1,11 +1,18 @@
+export enum AdditionalTitleType {}
+export enum AdministratingRecordCompanyRole {}
+export enum AffiliationType {}
+export enum AllTerritoryCode {}
+
 export enum BinaryDataType {
   BINARY64 = "Binary64",
   HEX_BINARY = "HexBinary",
 }
 
+export enum CarrierType {}
 export enum ContributorRole {}
 export enum CurrentTerritoryCode {}
 export enum DisplayArtistRole {}
+export enum ExternallyLinkedResourceType {}
 
 export enum HashSumAlgorithmType {
   CRC32 = "CRC32",
@@ -45,7 +52,9 @@ export enum ImageType {
 }
 
 export enum LabelType {}
+export enum LinkDescription {}
 export enum MessageControlType {}
+export enum PartyRelationshipType {}
 
 export enum ParentalWarningType {
   EXPLICIT = "Explicit",
@@ -56,9 +65,67 @@ export enum ParentalWarningType {
   USER_DEFINED = "UserDefined",
 }
 
+export enum RatingAgency {}
+export enum RatingReason {}
 export enum ReleaseProfileVariantVersionId {}
 export enum ReleaseProfileVersionId {}
-export enum ReleaseTypeErn4 {}
+export enum ReleaseRelationshipType {}
+
+export enum ReleaseTypeErn4 {
+  ALBUM = "Album",
+  ALERT_TONE_RELEASE = "AlertToneRelease",
+  AS_PER_CONTRACT = "AsPerContract",
+  AUDIO_BOOK_RELEASE = "AudioBookRelease",
+  AUDIO_CLIP_RELEASE = "AudioClipRelease",
+  BACK_COVER_IMAGE_RELEASE = "BackCoverImageRelease",
+  BOOKLET_BACK_IMAGE_RELEASE = "BookletBackImageRelease",
+  BOOKLET_FRONT_IMAGE_RELEASE = "BookletFrontImageRelease",
+  BOOKLET_RELEASE = "BookletRelease",
+  BUNDLE = "Bundle",
+  CLASSICAL_ALBUM = "ClassicalAlbum",
+  CLASSICAL_DIGITAL_BOXED_SET = "ClassicalDigitalBoxedSet",
+  CLASSICAL_MULTIMEDIA_ALBUM = "ClassicalMultimediaAlbum",
+  CONCERT_VIDEO = "ConcertVideo",
+  DIGITAL_BOX_SET_RELEASE = "DigitalBoxSetRelease",
+  DJ_MIX = "DjMix",
+  DOCUMENTARY = "Documentary",
+  DRAMA = "Drama",
+  E_BOOK_RELEASE = "EBookRelease",
+  EP = "EP",
+  EPISODE = "Episode",
+  FEATURE_FILM = "FeatureFilm",
+  KARAOKE_RELEASE = "KaraokeRelease",
+  LIVE_EVENT_VIDEO = "LiveEventVideo",
+  LOGO_RELEASE = "LogoRelease",
+  LONG_FORM_MUSICAL_WORK_VIDEO_RELEASE = "LongFormMusicalWorkVideoRelease",
+  LONG_FORM_NON_MUSICAL_WORK_VIDEO_RELEASE = "LongFormNonMusicalWorkVideoRelease",
+  LYRIC_SHEET_RELEASE = "LyricSheetRelease",
+  MULTIMEDIA_ALBUM = "MultimediaAlbum",
+  MULTIMEDIA_DIGITAL_BOXED_SET = "MultimediaDigitalBoxedSet",
+  MULTIMEDIA_SINGLE = "MultimediaSingle",
+  MUSICAL_WORK_BASED_GAME_RELEASE = "MusicalWorkBasedGameRelease",
+  NON_MUSICAL_WORK_BASED_GAME_RELEASE = "NonMusicalWorkBasedGameRelease",
+  PLAYLIST = "PlayList",
+  RINGBACK_TONE_RELEASE = "RingbackToneRelease",
+  RINGTONE_RELEASE = "RingtoneRelease",
+  SEASON = "Season",
+  SERIES = "Series",
+  SHEET_MUSIC_RELEASE = "SheetMusicRelease",
+  SHORT_FILM = "ShortFilm",
+  SINGLE = "Single",
+  SINGLE_RESOURCE_RELEASE = "SingleResourceRelease",
+  STEM_BUNDLE = "StemBundle",
+  USER_DEFINED = "UserDefined",
+  VIDEO_ALBUM = "VideoAlbum",
+  VIDEO_MASTERTONE_RELEASE = "VideoMastertoneRelease",
+  VIDEO_SINGLE = "VideoSingle",
+  WALLPAPER_RELEASE = "WallpaperRelease",
+  AUDIO_DRAMA_RELEASE = "AudioDramaRelease",
+  DRAMATICO_MUSICAL_VIDEO_RELEASE = "DramaticoMusicalVideoRelease",
+}
+
+export enum ResourceGroupType {}
+export enum RightsCoverage {}
 
 export enum SoundRecordingType {
   MUSICAL_WORK_READALONG_SOUND_RECORDING = "MusicalWorkReadalongSoundRecording",
@@ -72,6 +139,7 @@ export enum SoundRecordingType {
 }
 
 export enum SubTitleType {}
+export enum TerritoryCodeType {}
 
 export enum TextType {
   CAPTION = "Caption",

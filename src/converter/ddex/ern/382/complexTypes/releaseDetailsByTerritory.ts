@@ -8,4 +8,5 @@ export const convertReleaseDetailsByTerritory = (
   resourceGroup: ern.resourceGroup?.map((resourceGroup) =>
     convertResourceGroup(resourceGroup),
   ),
+  character: undefined,
 });

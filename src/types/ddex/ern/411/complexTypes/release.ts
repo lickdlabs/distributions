@@ -1,13 +1,28 @@
+import { AdditionalTitle } from "./additionalTitle";
+import { AdministratingRecordCompanyWithReference } from "./administratingRecordCompanyWithReference";
+import { AvRating } from "./avRating";
+import { CLineWithDefault } from "./cLineWithDefault";
+import { CourtesyLineWithDefault } from "./courtesyLineWithDefault";
+import { Deity } from "./deity";
 import { DisplayArtist } from "./displayArtist";
 import { DisplayArtistNameWithDefault } from "./displayArtistNameWithDefault";
 import { DisplayTitle } from "./displayTitle";
 import { DisplayTitleText } from "./displayTitleText";
+import { EventDateWithDefault } from "./eventDateWithDefault";
+import { ExternalResourceLink } from "./externalResourceLink";
 import { GenreWithTerritory } from "./genreWithTerritory";
+import { KeywordsWithTerritory } from "./keywordsWithTerritory";
+import { MarketingComment } from "./marketingComment";
 import { ParentalWarningTypeWithTerritory } from "./parentalWarningTypeWithTerritory";
+import { PLineWithDefault } from "./pLineWithDefault";
+import { Raga } from "./raga";
+import { RelatedRelease } from "./relatedRelease";
 import { ReleaseId } from "./releaseId";
 import { ReleaseLabelReference } from "./releaseLabelReference";
 import { ReleaseTypeForReleaseNotification } from "./releaseTypeForReleaseNotification";
 import { ResourceGroup } from "./resourceGroup";
+import { SynopsisWithTerritory } from "./synopsisWithTerritory";
+import { Tala } from "./tala";
 
 // <xs:complexType name="Release">
 //   <xs:sequence>
@@ -55,7 +70,7 @@ import { ResourceGroup } from "./resourceGroup";
 //   </xs:sequence>
 //   <xs:attribute name="LanguageAndScriptCode" type="xs:string" />
 // </xs:complexType>
-export type Release = {
+export type Release = Partial<IsCompilationChoice> & {
   _attributes?: {
     languageAndScriptCode?: string;
   };
@@ -65,34 +80,38 @@ export type Release = {
   releaseId: ReleaseId;
   displayTitleText: DisplayTitleText[];
   displayTitle: DisplayTitle[];
-  // @todo <xs:element name="AdditionalTitle" minOccurs="0" maxOccurs="unbounded" type="ern:AdditionalTitle" />
+  additionalTitle?: AdditionalTitle[];
   displayArtistName: DisplayArtistNameWithDefault[];
   displayArtist: DisplayArtist[];
   releaseLabelReference: ReleaseLabelReference[];
-  // @todo <xs:element name="AdministratingRecordCompany" minOccurs="0" maxOccurs="unbounded" type="ern:AdministratingRecordCompanyWithReference" />
-  // @todo <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLineWithDefault" />
-  // @todo <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLineWithDefault" />
-  // @todo <xs:element name="CourtesyLine" minOccurs="0" maxOccurs="unbounded" type="ern:CourtesyLineWithDefault" />
-  // @todo <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+  administratingRecordCompany?: AdministratingRecordCompanyWithReference[];
+  pLine?: PLineWithDefault[];
+  cLine?: CLineWithDefault[];
+  courtesyLine?: CourtesyLineWithDefault[];
+  duration?: number;
   genre: GenreWithTerritory[];
-  // @todo <xs:element name="ReleaseDate" minOccurs="0" maxOccurs="unbounded" type="ern:EventDateWithDefault" />
-  // @todo <xs:element name="OriginalReleaseDate" minOccurs="0" maxOccurs="unbounded" type="ern:EventDateWithDefault" />
+  releaseDate?: EventDateWithDefault[];
+  originalReleaseDate?: EventDateWithDefault[];
   parentalWarningType: ParentalWarningTypeWithTerritory[];
-  // @todo <xs:element name="AvRating" minOccurs="0" maxOccurs="unbounded" type="ern:AvRating" />
-  // @todo <xs:element name="RelatedRelease" minOccurs="0" maxOccurs="unbounded" type="ern:RelatedRelease" />
-  // @todo <xs:choice minOccurs="0">
-  //   <xs:element name="IsCompilation" type="xs:boolean" />
-  //   <xs:element name="IsMultiArtistCompilation" type="xs:boolean" />
-  // </xs:choice>
+  avRating?: AvRating[];
+  relatedRelease?: RelatedRelease[];
   resourceGroup: ResourceGroup;
-  // @todo <xs:element name="ExternalResourceLink" minOccurs="0" maxOccurs="unbounded" type="ern:ExternalResourceLink" />
-  // @todo <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:KeywordsWithTerritory" />
-  // @todo <xs:element name="Synopsis" minOccurs="0" maxOccurs="unbounded" type="ern:SynopsisWithTerritory" />
-  // @todo <xs:element name="Raga" minOccurs="0" maxOccurs="unbounded" type="ern:Raga" />
-  // @todo <xs:element name="Tala" minOccurs="0" maxOccurs="unbounded" type="ern:Tala" />
-  // @todo <xs:element name="Deity" minOccurs="0" maxOccurs="unbounded" type="ern:Deity" />
-  // @todo <xs:element name="HiResMusicDescription" minOccurs="0" type="xs:string" />
-  // @todo <xs:element name="IsSoundtrack" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="IsHiResMusic" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="MarketingComment" minOccurs="0" maxOccurs="unbounded" type="ern:MarketingComment" />
+  externalResourceLink?: ExternalResourceLink[];
+  keywords?: KeywordsWithTerritory[];
+  synopsis?: SynopsisWithTerritory[];
+  raga?: Raga[];
+  tala?: Tala[];
+  deity?: Deity[];
+  hiResMusicDescription?: string;
+  isSoundtrack?: boolean;
+  isHiResMusic?: boolean;
+  marketingComment?: MarketingComment[];
 };
+
+// <xs:choice>
+//   <xs:element name="IsCompilation" type="xs:boolean" />
+//   <xs:element name="IsMultiArtistCompilation" type="xs:boolean" />
+// </xs:choice>
+type IsCompilationChoice =
+  | { isCompilation: boolean; IsMultiArtistCompilation?: never }
+  | { isCompilation?: never; IsMultiArtistCompilation: boolean };

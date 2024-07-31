@@ -1,6 +1,13 @@
+import { AdditionalTitle } from "./additionalTitle";
+import { DisplayTitle } from "./displayTitle";
+import { DisplayTitleText } from "./displayTitleText";
 import { GenreWithTerritory } from "./genreWithTerritory";
+import { KeywordsWithTerritory } from "./keywordsWithTerritory";
+import { LinkedReleaseResourceReference } from "./linkedReleaseResourceReference";
+import { MarketingComment } from "./marketingComment";
 import { ReleaseId } from "./releaseId";
 import { ReleaseLabelReference } from "./releaseLabelReference";
+import { SynopsisWithTerritory } from "./synopsisWithTerritory";
 
 // <xs:complexType name="TrackRelease">
 //   <xs:sequence>
@@ -38,14 +45,14 @@ export type TrackRelease = {
 
   releaseReference: `${string & { __brand: "R[\\d\\-_a-zA-Z]+" }}`;
   releaseId: ReleaseId;
-  // @todo <xs:element name="DisplayTitleText" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayTitleText" />
-  // @todo <xs:element name="DisplayTitle" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayTitle" />
-  // @todo <xs:element name="AdditionalTitle" minOccurs="0" maxOccurs="unbounded" type="ern:AdditionalTitle" />
+  displayTitleText?: DisplayTitleText[];
+  displayTitle?: DisplayTitle[];
+  additionalTitle?: AdditionalTitle[];
   releaseResourceReference: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
-  // @todo <xs:element name="LinkedReleaseResourceReference" minOccurs="0" maxOccurs="unbounded" type="ern:LinkedReleaseResourceReference" />
+  linkedReleaseResourceReference?: LinkedReleaseResourceReference[];
   releaseLabelReference: ReleaseLabelReference[];
   genre: GenreWithTerritory[];
-  // @todo <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:KeywordsWithTerritory" />
-  // @todo <xs:element name="Synopsis" minOccurs="0" maxOccurs="unbounded" type="ern:SynopsisWithTerritory" />
-  // @todo <xs:element name="MarketingComment" minOccurs="0" maxOccurs="unbounded" type="ern:MarketingComment" />
+  keywords?: KeywordsWithTerritory[];
+  synopsis?: SynopsisWithTerritory[];
+  marketingComment?: MarketingComment[];
 };

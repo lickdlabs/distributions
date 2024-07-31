@@ -1,3 +1,14 @@
+import { AdditionalTitle } from "./additionalTitle";
+import { CarrierType } from "./carrierType";
+import { DisplayArtist } from "./displayArtist";
+import { DisplaySequenceChoice } from "./displaySequenceChoice";
+import { DisplayTitle } from "./displayTitle";
+import { DisplayTitleText } from "./displayTitleText";
+import { LinkedReleaseResourceReference } from "./linkedReleaseResourceReference";
+import { ReleaseId } from "./releaseId";
+import { ResourceGroupContentItem } from "./resourceGroupContentItem";
+import { ResourceSubGroup } from "./resourceSubGroup";
+
 // <xs:complexType name="ResourceGroup">
 //   <xs:sequence>
 //     <xs:element name="DisplayTitleText" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayTitleText" />
@@ -26,29 +37,35 @@
 //     <xs:element name="LinkedReleaseResourceReference" minOccurs="0" maxOccurs="unbounded" type="ern:LinkedReleaseResourceReference" />
 //   </xs:sequence>
 // </xs:complexType>
-export type ResourceGroup = {
-  // @todo <xs:element name="DisplayTitleText" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayTitleText" />
-  // @todo <xs:element name="DisplayTitle" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayTitle" />
-  // @todo <xs:element name="AdditionalTitle" minOccurs="0" maxOccurs="unbounded" type="ern:AdditionalTitle" />
-  // @todo <xs:element name="SequenceNumber" minOccurs="0" type="xs:integer" />
-  // @todo <xs:choice minOccurs="0">
-  //   <xs:element name="NoDisplaySequence" type="xs:boolean" />
-  //   <xs:element name="DisplaySequence" type="xs:string" />
-  // </xs:choice>
-  // @todo <xs:element name="DisplayArtist" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayArtist" />
-  // @todo <xs:element name="CarrierType" minOccurs="0" maxOccurs="unbounded" type="ern:CarrierType" />
-  // @todo <xs:element name="Duration" minOccurs="0" type="xs:duration" />
-  // @todo <xs:choice minOccurs="0">
-  //   <xs:element name="ResourceGroupReleaseReference">
-  //     <xs:simpleType>
-  //       <xs:restriction base="xs:IDREF">
-  //         <xs:pattern value="R[\d\-_a-zA-Z]+" />
-  //       </xs:restriction>
-  //     </xs:simpleType>
-  //   </xs:element>
-  //   <xs:element name="ReleaseId" type="ern:ReleaseId" />
-  // </xs:choice>
-  // @todo <xs:element name="ResourceGroup" minOccurs="0" maxOccurs="unbounded" type="ern:ResourceSubGroup" />
-  // @todo <xs:element name="ResourceGroupContentItem" minOccurs="0" maxOccurs="unbounded" type="ern:ResourceGroupContentItem" />
-  // @todo <xs:element name="LinkedReleaseResourceReference" minOccurs="0" maxOccurs="unbounded" type="ern:LinkedReleaseResourceReference" />
-};
+export type ResourceGroup = Partial<DisplaySequenceChoice> &
+  Partial<ResourceGroupIdentifierChoice> & {
+    displayTitleText?: DisplayTitleText[];
+    displayTitle?: DisplayTitle[];
+    additionalTitle?: AdditionalTitle[];
+    sequenceNumber?: number;
+    displayArtist?: DisplayArtist[];
+    carrierType?: CarrierType[];
+    duration?: number;
+    resourceGroup?: ResourceSubGroup[];
+    resourceGroupContentItem?: ResourceGroupContentItem[];
+    linkedReleaseResourceReference?: LinkedReleaseResourceReference[];
+  };
+
+// <xs:choice>
+//   <xs:element name="ResourceGroupReleaseReference">
+//     <xs:simpleType>
+//       <xs:restriction base="xs:IDREF">
+//         <xs:pattern value="R[\d\-_a-zA-Z]+" />
+//       </xs:restriction>
+//     </xs:simpleType>
+//   </xs:element>
+//   <xs:element name="ReleaseId" type="ern:ReleaseId" />
+// </xs:choice>
+type ResourceGroupIdentifierChoice =
+  | {
+      resourceGroupReleaseReference: `${string & {
+        __brand: "[\\d\\-_a-zA-Z]+";
+      }}`;
+      releaseId?: never;
+    }
+  | { resourceGroupReleaseReference?: never; releaseId: ReleaseId };

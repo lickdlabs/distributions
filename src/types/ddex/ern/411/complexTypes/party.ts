@@ -1,5 +1,7 @@
+import { Affiliation } from "./affiliation";
 import { DetailedPartyId } from "./detailedPartyId";
 import { PartyNameWithTerritory } from "./partyNameWithTerritory";
+import { RelatedParty } from "./relatedParty";
 
 // <xs:complexType name="Party">
 //   <xs:sequence>
@@ -24,9 +26,9 @@ import { PartyNameWithTerritory } from "./partyNameWithTerritory";
 // </xs:complexType>
 export type Party = PartyChoice & {
   partyReference: `${string & { __brand: "P[\\d\\-_a-zA-Z]+" }}`;
-  // @todo <xs:element name="Affiliation" minOccurs="0" maxOccurs="unbounded" type="ern:Affiliation" />
-  // @todo <xs:element name="RelatedParty" minOccurs="0" maxOccurs="unbounded" type="ern:RelatedParty" />
-  // @todo <xs:element name="ArtistProfilePage" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
+  affiliation?: Affiliation[];
+  relatedParty?: RelatedParty[];
+  artistProfilePage?: string[];
 };
 
 type PartyChoice =
