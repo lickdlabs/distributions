@@ -1,4 +1,5 @@
 import { Ern382 } from "../../../../../types";
+import { parseDetailedResourceContributor } from "./detailedResourceContributor";
 import { parsePartyChoice } from "./partyChoice";
 
 export const parseCharacter = (object: any): Ern382.Character => {
@@ -11,6 +12,8 @@ export const parseCharacter = (object: any): Ern382.Character => {
   return {
     _attributes: object.$ ? attributes : undefined,
     ...parsePartyChoice(object),
-    // @todo <xs:element name="ResourceContributor" minOccurs="0" type="ern:DetailedResourceContributor" />
+    resourceContributor: object.DetailedResourceContributor
+      ? parseDetailedResourceContributor(object.DetailedResourceContributor[0])
+      : undefined,
   };
 };
