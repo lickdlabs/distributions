@@ -1,12 +1,10 @@
 import { Ern382 } from "../../../../../types";
 
-export const parseDescription = (object: any): Ern382.Description => {
-  const attributes = {
-    languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
-  };
-
-  return {
-    _attributes: object.$ ? attributes : undefined,
-    value: object._ || object,
-  };
-};
+export const parseDescription = (object: any): Ern382.Description => ({
+  _attributes: object.$
+    ? {
+        languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
+      }
+    : undefined,
+  value: object._ || object,
+});

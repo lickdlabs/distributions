@@ -1,6 +1,5 @@
 import { Affiliation } from "./affiliation";
-import { DetailedPartyId } from "./detailedPartyId";
-import { PartyNameWithTerritory } from "./partyNameWithTerritory";
+import { PartyChoice } from "./partyChoice";
 import { RelatedParty } from "./relatedParty";
 
 // <xs:complexType name="Party">
@@ -30,7 +29,3 @@ export type Party = PartyChoice & {
   relatedParty?: RelatedParty[];
   artistProfilePage?: string[];
 };
-
-type PartyChoice =
-  | { partyId: DetailedPartyId[]; partyName?: never }
-  | { partyName: PartyNameWithTerritory[]; partyId?: DetailedPartyId[] };

@@ -1,41 +1,20 @@
 import { Ern383 } from "../../../../../types";
-import { parseCurrentTerritoryCode } from "./currentTerritoryCode";
 import { parseTechnicalSoundRecordingDetails } from "./technicalSoundRecordingDetails";
+import { parseTerritoryCodeChoice } from "./territoryCodeChoice";
 
 export const parseSoundRecordingDetailsByTerritory = (
   object: any,
-): Ern383.SoundRecordingDetailsByTerritory => {
-  const attributes = {
-    languageAndScriptCode: object.$?.LanguageAndScriptCode || undefined,
-  };
-
-  const parsed: Omit<
-    Ern383.SoundRecordingDetailsByTerritory,
-    "territoryCode" | "excludedTerritoryCode"
-  > = {
-    _attributes: object.$ ? attributes : undefined,
-    technicalSoundRecordingDetails: object.TechnicalSoundRecordingDetails
-      ? object.TechnicalSoundRecordingDetails.map(
-          (technicalSoundRecordingDetails: any) =>
-            parseTechnicalSoundRecordingDetails(technicalSoundRecordingDetails),
-        )
-      : undefined,
-  };
-
-  if (object.TerritoryCode) {
-    return {
-      ...parsed,
-      territoryCode: object.TerritoryCode.map((territoryCode: any) =>
-        parseCurrentTerritoryCode(territoryCode),
-      ),
-    };
-  }
-
-  return {
-    ...parsed,
-    excludedTerritoryCode: object.ExcludedTerritoryCode.map(
-      (excludedTerritoryCode: any) =>
-        parseCurrentTerritoryCode(excludedTerritoryCode),
-    ),
-  };
-};
+): Ern383.SoundRecordingDetailsByTerritory => ({
+  _attributes: object.$
+    ? {
+        languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
+      }
+    : undefined,
+  ...parseTerritoryCodeChoice(object),
+  technicalSoundRecordingDetails: object.TechnicalSoundRecordingDetails
+    ? object.TechnicalSoundRecordingDetails.map(
+        (technicalSoundRecordingDetails: any) =>
+          parseTechnicalSoundRecordingDetails(technicalSoundRecordingDetails),
+      )
+    : undefined,
+});

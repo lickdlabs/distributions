@@ -4,24 +4,22 @@ import { parsePartyChoice } from "./partyChoice";
 
 export const parseIndirectResourceContributor = (
   object: any,
-): Ern382.IndirectResourceContributor => {
-  const attributes = {
-    sequenceNumber: object.$?.SequenceNumber
-      ? parseInt(object.$.SequenceNumber)
-      : undefined,
-  };
-
-  return {
-    _attributes: object.$ ? attributes : undefined,
-    ...parsePartyChoice(object),
-    indirectResourceContributorRole: object.IndirectResourceContributorRole
-      ? object.IndirectResourceContributorRole.map(
-          (indirectResourceContributorRole: any) =>
-            parseMusicalWorkContributorRole(indirectResourceContributorRole),
-        )
-      : undefined,
-    nationality: object.Nationality
-      ? object.Nationality.map((nationality: string) => nationality)
-      : undefined,
-  };
-};
+): Ern382.IndirectResourceContributor => ({
+  _attributes: object.$
+    ? {
+        sequenceNumber: object.$.SequenceNumber
+          ? parseInt(object.$.SequenceNumber)
+          : undefined,
+      }
+    : undefined,
+  ...parsePartyChoice(object),
+  indirectResourceContributorRole: object.IndirectResourceContributorRole
+    ? object.IndirectResourceContributorRole.map(
+        (indirectResourceContributorRole: any) =>
+          parseMusicalWorkContributorRole(indirectResourceContributorRole),
+      )
+    : undefined,
+  nationality: object.Nationality
+    ? object.Nationality.map((nationality: string) => nationality)
+    : undefined,
+});

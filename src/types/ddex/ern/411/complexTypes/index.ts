@@ -21,6 +21,7 @@ export * from "./messagingPartyWithoutCode";
 export * from "./name";
 export * from "./parentalWarningTypeWithTerritory";
 export * from "./party";
+export * from "./partyChoice";
 export * from "./partyList";
 export * from "./partyNameWithoutCode";
 export * from "./partyNameWithTerritory";

@@ -76,7 +76,7 @@ export type Release = ReleaseChoice & {
   globalOriginalReleaseDate?: EventDate;
 };
 
-type ReleaseChoice =
+export type ReleaseChoice =
   | {
       releaseResourceReferenceList: ReleaseResourceReferenceList;
       resourceOmissionReason?: never;

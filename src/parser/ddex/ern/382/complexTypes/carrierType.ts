@@ -1,13 +1,11 @@
 import { Ern382 } from "../../../../../types";
 
-export const parseCarrierType = (object: any): Ern382.CarrierType => {
-  const attributes = {
-    namespace: object.$?.Namespace || undefined,
-    userDefinedValue: object.$?.UserDefinedValue || undefined,
-  };
-
-  return {
-    _attributes: object.$ ? attributes : undefined,
-    value: object._ || object,
-  };
-};
+export const parseCarrierType = (object: any): Ern382.CarrierType => ({
+  _attributes: object.$
+    ? {
+        namespace: object.$.Namespace || undefined,
+        userDefinedValue: object.$.UserDefinedValue || undefined,
+      }
+    : undefined,
+  value: object._ || object,
+});
