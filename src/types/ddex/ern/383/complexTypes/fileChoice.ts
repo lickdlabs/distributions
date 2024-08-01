@@ -1,4 +1,5 @@
 import { Description } from "./description";
+import { File } from "./file";
 
 // <xs:choice>
 //   <xs:element name="FileAvailabilityDescription" maxOccurs="unbounded" type="ern:Description" />
