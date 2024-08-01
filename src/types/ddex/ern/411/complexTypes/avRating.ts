@@ -12,8 +12,8 @@ import { RatingAgency } from "./ratingAgency";
 // </xs:complexType>
 export type AvRating = {
   _attributes?: {
-    ApplicableTerritoryCode?: Avs411.CurrentTerritoryCode;
-    IsDefault?: boolean;
+    applicableTerritoryCode?: Avs411.CurrentTerritoryCode;
+    isDefault?: boolean;
   };
 
   rating: string;

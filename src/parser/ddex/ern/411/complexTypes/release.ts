@@ -1,14 +1,30 @@
 import { Ern411 } from "../../../../../types";
+import { convertDurationToMilliseconds } from "../../../../../utils";
+import { parseAvRating } from "./avRating";
+import { parseAdditionalTitle } from "./additionalTitle";
+import { parseAdministratingRecordCompanyWithReference } from "./administratingRecordCompanyWithReference";
+import { parseCLineWithDefault } from "./cLineWithDefault";
+import { parseCourtesyLineWithDefault } from "./courtesyLineWithDefault";
+import { parseDeity } from "./deity";
 import { parseDisplayArtist } from "./displayArtist";
 import { parseDisplayArtistNameWithDefault } from "./displayArtistNameWithDefault";
 import { parseDisplayTitle } from "./displayTitle";
 import { parseDisplayTitleText } from "./displayTitleText";
+import { parseEventDateWithDefault } from "./eventDateWithDefault";
 import { parseGenreWithTerritory } from "./genreWithTerritory";
 import { parseParentalWarningTypeWithTerritory } from "./parentalWarningTypeWithTerritory";
+import { parsePLineWithDefault } from "./pLineWithDefault";
+import { parseRaga } from "./raga";
 import { parseReleaseId } from "./releaseId";
 import { parseReleaseLabelReference } from "./releaseLabelReference";
 import { parseReleaseTypeForReleaseNotification } from "./releaseTypeForReleaseNotification";
 import { parseResourceGroup } from "./resourceGroup";
+import { parseTala } from "./tala";
+import { parseMarketingComment } from "./marketingComment";
+import { parseRelatedRelease } from "./relatedRelease";
+import { parseSynopsisWithTerritory } from "./synopsisWithTerritory";
+import { parseKeywordsWithTerritory } from "./keywordsWithTerritory";
+import { parseExternalResourceLink } from "./externalResourceLink";
 
 export const parseRelease = (object: any): Ern411.Release => ({
   _attributes: object.$
@@ -27,7 +43,11 @@ export const parseRelease = (object: any): Ern411.Release => ({
   displayTitle: object.DisplayTitle.map((displayTitle: any) =>
     parseDisplayTitle(displayTitle),
   ),
-  // @todo <xs:element name="AdditionalTitle" minOccurs="0" maxOccurs="unbounded" type="ern:AdditionalTitle" />
+  additionalTitle: object.AdditionalTitle
+    ? object.AdditionalTitle.map((additionalTitle: any) =>
+        parseAdditionalTitle(additionalTitle),
+      )
+    : undefined,
   displayArtistName: object.DisplayArtistName.map((displayArtistName: any) =>
     parseDisplayArtistNameWithDefault(displayArtistName),
   ),
@@ -38,33 +58,107 @@ export const parseRelease = (object: any): Ern411.Release => ({
     (releaseLabelReference: any) =>
       parseReleaseLabelReference(releaseLabelReference),
   ),
-  // @todo <xs:element name="AdministratingRecordCompany" minOccurs="0" maxOccurs="unbounded" type="ern:AdministratingRecordCompanyWithReference" />
-  // @todo <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLineWithDefault" />
-  // @todo <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLineWithDefault" />
-  // @todo <xs:element name="CourtesyLine" minOccurs="0" maxOccurs="unbounded" type="ern:CourtesyLineWithDefault" />
-  // @todo <xs:element name="Duration" minOccurs="0" type="xs:duration" />
+  administratingRecordCompany: object.AdministratingRecordCompany
+    ? object.AdministratingRecordCompany.map(
+        (administratingRecordCompany: any) =>
+          parseAdministratingRecordCompanyWithReference(
+            administratingRecordCompany,
+          ),
+      )
+    : undefined,
+  pLine: object.PLine
+    ? object.PLine.map((pLine: any) => parsePLineWithDefault(pLine))
+    : undefined,
+  cLine: object.CLine
+    ? object.CLine.map((cLine: any) => parseCLineWithDefault(cLine))
+    : undefined,
+  courtesyLine: object.CourtesyLine
+    ? object.CourtesyLine.map((courtesyLine: any) =>
+        parseCourtesyLineWithDefault(courtesyLine),
+      )
+    : undefined,
+  duration: object.Duration
+    ? convertDurationToMilliseconds(object.Duration[0])
+    : undefined,
   genre: object.Genre.map((genre: any) => parseGenreWithTerritory(genre)),
-  // @todo <xs:element name="ReleaseDate" minOccurs="0" maxOccurs="unbounded" type="ern:EventDateWithDefault" />
-  // @todo <xs:element name="OriginalReleaseDate" minOccurs="0" maxOccurs="unbounded" type="ern:EventDateWithDefault" />
+  releaseDate: object.ReleaseDate
+    ? object.ReleaseDate.map((releaseDate: any) =>
+        parseEventDateWithDefault(releaseDate),
+      )
+    : undefined,
+  originalReleaseDate: object.OriginalReleaseDate
+    ? object.OriginalReleaseDate.map((originalReleaseDate: any) =>
+        parseEventDateWithDefault(originalReleaseDate),
+      )
+    : undefined,
   parentalWarningType: object.ParentalWarningType.map(
     (parentalWarningType: any) =>
       parseParentalWarningTypeWithTerritory(parentalWarningType),
   ),
-  // @todo <xs:element name="AvRating" minOccurs="0" maxOccurs="unbounded" type="ern:AvRating" />
-  // @todo <xs:element name="RelatedRelease" minOccurs="0" maxOccurs="unbounded" type="ern:RelatedRelease" />
-  // @todo <xs:choice minOccurs="0">
-  //   <xs:element name="IsCompilation" type="xs:boolean" />
-  //   <xs:element name="IsMultiArtistCompilation" type="xs:boolean" />
-  // </xs:choice>
+  avRating: object.AvRating
+    ? object.AvRating.map((avRating: any) => parseAvRating(avRating))
+    : undefined,
+  relatedRelease: object.RelatedRelease
+    ? object.RelatedRelease.map((relatedRelease: any) =>
+        parseRelatedRelease(relatedRelease),
+      )
+    : undefined,
+  ...parseIsCompilationChoice(object),
   resourceGroup: parseResourceGroup(object.ResourceGroup[0]),
-  // @todo <xs:element name="ExternalResourceLink" minOccurs="0" maxOccurs="unbounded" type="ern:ExternalResourceLink" />
-  // @todo <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:KeywordsWithTerritory" />
-  // @todo <xs:element name="Synopsis" minOccurs="0" maxOccurs="unbounded" type="ern:SynopsisWithTerritory" />
-  // @todo <xs:element name="Raga" minOccurs="0" maxOccurs="unbounded" type="ern:Raga" />
-  // @todo <xs:element name="Tala" minOccurs="0" maxOccurs="unbounded" type="ern:Tala" />
-  // @todo <xs:element name="Deity" minOccurs="0" maxOccurs="unbounded" type="ern:Deity" />
-  // @todo <xs:element name="HiResMusicDescription" minOccurs="0" type="xs:string" />
-  // @todo <xs:element name="IsSoundtrack" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="IsHiResMusic" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="MarketingComment" minOccurs="0" maxOccurs="unbounded" type="ern:MarketingComment" />
+  externalResourceLink: object.ExternalResourceLink
+    ? object.ExternalResourceLink.map((externalResourceLink: any) =>
+        parseExternalResourceLink(externalResourceLink),
+      )
+    : undefined,
+  keywords: object.Keywords
+    ? object.Keywords.map((keywords: any) =>
+        parseKeywordsWithTerritory(keywords),
+      )
+    : undefined,
+  synopsis: object.Synopsis
+    ? object.Synopsis.map((synopsis: any) =>
+        parseSynopsisWithTerritory(synopsis),
+      )
+    : undefined,
+  raga: object.Raga
+    ? object.Raga.map((raga: any) => parseRaga(raga))
+    : undefined,
+  tala: object.Tala
+    ? object.Tala.map((tala: any) => parseTala(tala))
+    : undefined,
+  deity: object.Deity
+    ? object.Deity.map((deity: any) => parseDeity(deity))
+    : undefined,
+  hiResMusicDescription: object.HiResMusicDescription
+    ? object.HiResMusicDescription[0]
+    : undefined,
+  isSoundtrack: object.IsSoundtrack
+    ? object.IsSoundtrack === "true"
+    : undefined,
+  isHiResMusic: object.IsHiResMusic
+    ? object.IsHiResMusic === "true"
+    : undefined,
+  marketingComment: object.MarketingComment
+    ? object.MarketingComment.map((marketingComment: any) =>
+        parseMarketingComment(marketingComment),
+      )
+    : undefined,
 });
+
+const parseIsCompilationChoice = (
+  object: any,
+): Partial<Ern411.IsCompilationChoice> => {
+  if (object.IsCompilation) {
+    return {
+      isCompilation: object.IsCompilation[0] === "true",
+    };
+  }
+
+  if (object.IsMultiArtistCompilation) {
+    return {
+      isMultiArtistCompilation: object.IsMultiArtistCompilation[0] === "true",
+    };
+  }
+
+  return {};
+};

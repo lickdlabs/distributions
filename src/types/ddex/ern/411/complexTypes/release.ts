@@ -112,6 +112,6 @@ export type Release = Partial<IsCompilationChoice> & {
 //   <xs:element name="IsCompilation" type="xs:boolean" />
 //   <xs:element name="IsMultiArtistCompilation" type="xs:boolean" />
 // </xs:choice>
-type IsCompilationChoice =
-  | { isCompilation: boolean; IsMultiArtistCompilation?: never }
-  | { isCompilation?: never; IsMultiArtistCompilation: boolean };
+export type IsCompilationChoice =
+  | { isCompilation: boolean; isMultiArtistCompilation?: never }
+  | { isCompilation?: never; isMultiArtistCompilation: boolean };

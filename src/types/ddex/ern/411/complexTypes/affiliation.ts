@@ -26,7 +26,7 @@ import { ValidityPeriod } from "./validityPeriod";
 //   </xs:sequence>
 // </xs:complexType>
 export type Affiliation = AffiliationIdentifierChoice &
-  TerritoryChoice & {
+  TerritoryCodeChoice & {
     type: Avs411.AffiliationType;
     validityPeriod?: ValidityPeriod;
     rightsType?: SimpleRightsType[];
@@ -43,7 +43,7 @@ export type Affiliation = AffiliationIdentifierChoice &
 //     </xs:simpleType>
 //   </xs:element>
 // </xs:choice>
-type AffiliationIdentifierChoice =
+export type AffiliationIdentifierChoice =
   | { companyName: string; partyAffiliateReference?: never }
   | {
       companyName?: never;
@@ -54,6 +54,6 @@ type AffiliationIdentifierChoice =
 //   <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
 //   <xs:element name="ExcludedTerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />
 // </xs:choice>
-type TerritoryChoice =
-  | { TerritoryCode: CurrentTerritoryCode; ExcludedTerritoryCode?: never }
-  | { TerritoryCode?: never; ExcludedTerritoryCode: CurrentTerritoryCode };
+export type TerritoryCodeChoice =
+  | { territoryCode: CurrentTerritoryCode; excludedTerritoryCode?: never }
+  | { territoryCode?: never; excludedTerritoryCode: CurrentTerritoryCode };

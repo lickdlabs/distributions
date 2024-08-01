@@ -1,17 +1,21 @@
 import { Ern411 } from "../../../../../types";
+import { convertDurationToMilliseconds } from "../../../../../utils";
 import { parseAdditionalTitle } from "./additionalTitle";
+import { parseCarrierType } from "./carrierType";
+import { parseDisplayArtist } from "./displayArtist";
+import { parseDisplaySequenceChoice } from "./displaySequenceChoice";
 import { parseDisplayTitle } from "./displayTitle";
 import { parseDisplayTitleText } from "./displayTitleText";
-import { parseDisplayArtist } from "./displayArtist";
-import { convertDurationToMilliseconds } from "../../../../../utils";
-import { parseDisplaySequenceChoice } from "./displaySequenceChoice";
-import { parseCarrierType } from "./carrierType";
 import { parseLinkedReleaseResourceReference } from "./linkedReleaseResourceReference";
 import { parseResourceGroupContentItem } from "./resourceGroupContentItem";
-import { parseResourceSubGroup } from "./resourceSubGroup";
 import { parseResourceGroupIdentifierChoice } from "./resourceGroupIdentifierChoice";
 
-export const parseResourceGroup = (object: any): Ern411.ResourceGroup => ({
+export const parseResourceSubGroup = (
+  object: any,
+): Ern411.ResourceSubGroup => ({
+  _attributes: {
+    resourceGroupType: object.$.ResourceGroupType,
+  },
   displayTitleText: object.DisplayTitleText
     ? object.DisplayTitleText.map((displayTitleText: any) =>
         parseDisplayTitleText(displayTitleText),

@@ -5,8 +5,8 @@ import { DisplaySequenceChoice } from "./displaySequenceChoice";
 import { DisplayTitle } from "./displayTitle";
 import { DisplayTitleText } from "./displayTitleText";
 import { LinkedReleaseResourceReference } from "./linkedReleaseResourceReference";
-import { ReleaseId } from "./releaseId";
 import { ResourceGroupContentItem } from "./resourceGroupContentItem";
+import { ResourceGroupIdentifierChoice } from "./resourceGroupIdentifierChoice";
 import { ResourceSubGroup } from "./resourceSubGroup";
 
 // <xs:complexType name="ResourceGroup">
@@ -50,22 +50,3 @@ export type ResourceGroup = Partial<DisplaySequenceChoice> &
     resourceGroupContentItem?: ResourceGroupContentItem[];
     linkedReleaseResourceReference?: LinkedReleaseResourceReference[];
   };
-
-// <xs:choice>
-//   <xs:element name="ResourceGroupReleaseReference">
-//     <xs:simpleType>
-//       <xs:restriction base="xs:IDREF">
-//         <xs:pattern value="R[\d\-_a-zA-Z]+" />
-//       </xs:restriction>
-//     </xs:simpleType>
-//   </xs:element>
-//   <xs:element name="ReleaseId" type="ern:ReleaseId" />
-// </xs:choice>
-type ResourceGroupIdentifierChoice =
-  | {
-      resourceGroupReleaseReference: `${string & {
-        __brand: "[\\d\\-_a-zA-Z]+";
-      }}`;
-      releaseId?: never;
-    }
-  | { resourceGroupReleaseReference?: never; releaseId: ReleaseId };
