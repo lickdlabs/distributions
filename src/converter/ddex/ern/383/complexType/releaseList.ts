@@ -7,11 +7,17 @@ export const convertReleaseList = (
   ern: Ern383.ReleaseList,
 ): Ern411.ReleaseList => {
   const release = ern.release
-    ?.filter((release) => release._attributes?.isMainRelease)
+    ?.filter(
+      (release) =>
+        release._attributes?.isMainRelease ||
+        release.releaseId.some((releaseId) => releaseId.icpn),
+    )
     .shift();
 
   const trackReleases = ern.release?.filter(
-    (release) => !release._attributes?.isMainRelease,
+    (release) =>
+      !release._attributes?.isMainRelease &&
+      !release.releaseId.some((releaseId) => releaseId.icpn),
   );
 
   return {
