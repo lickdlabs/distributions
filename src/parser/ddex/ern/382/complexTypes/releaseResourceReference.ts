@@ -8,5 +8,7 @@ export const parseReleaseResourceReference = (
         releaseResourceType: object.$.ReleaseResourceType || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: (
+    (object._ || object) as string
+  ).trim() as Ern382.ReleaseResourceReference["value"],
 });
