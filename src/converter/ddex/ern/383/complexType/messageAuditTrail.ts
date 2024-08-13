@@ -1,10 +1,10 @@
-import { Ern382, Ern411 } from "../../../../../types";
+import { Ern383, Ern411 } from "../../../../../types";
 import { convertMessageAuditTrailEvent } from "./messageAuditTrailEvent";
 
 export const convertMessageAuditTrail = (
-  ern: Ern382.MessageAuditTrail,
+  messageAuditTrail: Ern383.MessageAuditTrail,
 ): Ern411.MessageAuditTrail => ({
-  messageAuditTrailEvent: ern.messageAuditTrailEvent.map(
+  messageAuditTrailEvent: messageAuditTrail.messageAuditTrailEvent.map(
     (messageAuditTrailEvent) =>
       convertMessageAuditTrailEvent(messageAuditTrailEvent),
   ),

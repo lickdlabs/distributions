@@ -2,16 +2,18 @@ import path from "path";
 import { convertDetailedHashSum } from "./detailedHashSum";
 import { Ern383, Ern411 } from "../../../../../types";
 
-export const convertFile = (ern: Ern383.File): Ern411.File => {
-  if (ern.url) {
+export const convertFile = (file: Ern383.File): Ern411.File => {
+  if (file.url) {
     return {
-      uri: ern.url,
-      hashSum: ern.hashSum ? convertDetailedHashSum(ern.hashSum) : undefined,
+      uri: file.url,
+      hashSum: file.hashSum ? convertDetailedHashSum(file.hashSum) : undefined,
+      fileSize: undefined,
     };
   }
 
   return {
-    uri: path.join(ern.filePath || "", ern.fileName || ""),
-    hashSum: ern.hashSum ? convertDetailedHashSum(ern.hashSum) : undefined,
+    uri: path.join(file.filePath || "", file.fileName || ""),
+    hashSum: file.hashSum ? convertDetailedHashSum(file.hashSum) : undefined,
+    fileSize: undefined,
   };
 };

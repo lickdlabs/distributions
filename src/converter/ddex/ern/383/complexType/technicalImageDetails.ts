@@ -4,12 +4,13 @@ import { convertFile } from "./file";
 export const convertTechnicalImageDetails = (
   ern: Ern383.TechnicalImageDetails,
 ): Ern411.TechnicalImageDetails => ({
-  _attributes:
-    ern._attributes && ern._attributes.languageAndScriptCode
-      ? {
-          languageAndScriptCode: ern._attributes.languageAndScriptCode,
-        }
-      : undefined,
+  _attributes: ern._attributes
+    ? {
+        languageAndScriptCode: ern._attributes.languageAndScriptCode,
+        applicableTerritoryCode: undefined,
+        isDefault: undefined,
+      }
+    : undefined,
   technicalResourceDetailsReference: ern.technicalResourceDetailsReference,
   // @todo <xs:element name="ImageCodecType" minOccurs="0" type="ern:ImageCodecType" />
   // @todo <xs:element name="ImageHeight" minOccurs="0" type="ern:Extent" />

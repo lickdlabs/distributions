@@ -4,12 +4,13 @@ import { convertFile } from "./file";
 export const convertTechnicalSoundRecordingDetails = (
   ern: Ern383.TechnicalSoundRecordingDetails,
 ): Ern411.TechnicalSoundRecordingDetails => ({
-  _attributes:
-    ern._attributes && ern._attributes?.languageAndScriptCode
-      ? {
-          languageAndScriptCode: ern._attributes?.languageAndScriptCode,
-        }
-      : undefined,
+  _attributes: ern._attributes
+    ? {
+        languageAndScriptCode: ern._attributes?.languageAndScriptCode,
+        applicableTerritoryCode: undefined,
+        isDefault: undefined,
+      }
+    : undefined,
   technicalResourceDetailsReference: ern.technicalResourceDetailsReference,
   // @todo <xs:element name="AudioCodecType" minOccurs="0" type="ern:AudioCodecType" />
   // @todo <xs:element name="BitRate" minOccurs="0" type="ern:BitRate" />

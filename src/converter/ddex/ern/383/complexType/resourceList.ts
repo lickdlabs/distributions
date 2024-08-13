@@ -10,5 +10,9 @@ export const convertResourceList = (
         convertSoundRecording(soundRecording),
       )
     : undefined,
+  // @todo <xs:element name="Video" minOccurs="0" maxOccurs="unbounded" type="ern:Video" />
   image: ern.image ? ern.image.map((image) => convertImage(image)) : undefined,
+  text: undefined,
+  // @todo <xs:element name="SheetMusic" minOccurs="0" maxOccurs="unbounded" type="ern:SheetMusic" />
+  // @todo <xs:element name="Software" minOccurs="0" maxOccurs="unbounded" type="ern:Software" />
 });

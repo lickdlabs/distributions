@@ -22,7 +22,7 @@ export type DisplayArtist = {
     sequenceNumber?: number;
   };
 
-  artistPartyReference: `${string & { __brand: "P[\\d-_a-zA-Z]+" }}`;
+  artistPartyReference: `${string & { __brand: "P[\\d\\-_a-zA-Z]+" }}`;
   displayArtistRole: DisplayArtistRole;
   artisticRole?: ContributorRole[];
   titleDisplayInformation?: TitleDisplayInformation[];

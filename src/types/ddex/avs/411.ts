@@ -11,7 +11,13 @@ export enum BinaryDataType {
 export enum CarrierType {}
 export enum ContributorRole {}
 export enum CurrentTerritoryCode {}
-export enum DisplayArtistRole {}
+
+export enum DisplayArtistRole {
+  ARTIST = "Artist",
+  FEATURED_ARTIST = "FeaturedArtist",
+  MAIN_ARTIST = "MainArtist",
+}
+
 export enum ExternallyLinkedResourceType {}
 
 export enum HashSumAlgorithmType {
@@ -69,7 +75,29 @@ export enum RatingAgency {}
 export enum RatingReason {}
 export enum ReleaseProfileVariantVersionId {}
 export enum ReleaseProfileVersionId {}
-export enum ReleaseRelationshipType {}
+
+export enum ReleaseRelationshipType {
+  HAS_ARTIST_FROM_ENSEMBLE = "HasArtistFromEnsemble",
+  HAS_ARTIST_FROM_SAME_ENSEMBLE = "HasArtistFromSameEnsemble",
+  HAS_CONTENT_FROM = "HasContentFrom",
+  HAS_ENSEMBLE_WITH_ARTIST = "HasEnsembleWithArtist",
+  HAS_SAME_ARTIST = "HasSameArtist",
+  HAS_SAME_RECORDING_PROJECT = "HasSameRecordingProject",
+  HAS_SIMILAR_CONTENT = "HasSimilarContent",
+  IS_DIGITAL_EQUIVALENT_TO_PHYSICAL = "IsDigitalEquivalentToPhysical",
+  IS_EQUIVALENT_TO_AUDIO = "IsEquivalentToAudio",
+  IS_EQUIVALENT_TO_VIDEO = "IsEquivalentToVideo",
+  IS_EXTENDED_FROM_ALBUM = "IsExtendedFromAlbum",
+  IS_FROM_AUDIO = "IsFromAudio",
+  IS_FROM_VIDEO = "IsFromVideo",
+  IS_PARENT_RELEASE = "IsParentRelease",
+  IS_PHYSICAL_EQUIVALENT_TO_DIGITAL = "IsPhysicalEquivalentToDigital",
+  IS_RELEASE_FROM_RELEASE = "IsReleaseFromRelease",
+  IS_SHORTENED_FROM_ALBUM = "IsShortenedFromAlbum",
+  UNKNOWN = "Unknown",
+  USER_DEFINED = "UserDefined",
+  IS_DIFFERENT_ENCODING = "IsDifferentEncoding",
+}
 
 export enum ReleaseTypeErn4 {
   ALBUM = "Album",
@@ -124,7 +152,14 @@ export enum ReleaseTypeErn4 {
   DRAMATICO_MUSICAL_VIDEO_RELEASE = "DramaticoMusicalVideoRelease",
 }
 
-export enum ResourceGroupType {}
+export enum ResourceGroupType {
+  COMPONENT = "Component",
+  COMPONENT_RELEASE = "ComponentRelease",
+  MULTI_WORK_PART = "MultiWorkPart",
+  RELEASE_COMPONENT = "ReleaseComponent",
+  SIDE = "Side",
+}
+
 export enum RightsCoverage {}
 
 export enum SoundRecordingType {

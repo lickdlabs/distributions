@@ -3,21 +3,21 @@ import { convertMessageAuditTrail } from "./messageAuditTrail";
 import { convertMessagingPartyWithoutCode } from "./messagingPartyWithoutCode";
 
 export const convertMessageHeader = (
-  ern: Ern383.MessageHeader,
+  messageHeader: Ern383.MessageHeader,
 ): Ern411.MessageHeader => ({
-  messageThreadId: ern.messageThreadId,
-  messageId: ern.messageId,
-  messageFileName: ern.messageFileName,
-  messageSender: convertMessagingPartyWithoutCode(ern.messageSender),
-  sentOnBehalfOf: ern.sentOnBehalfOf
-    ? convertMessagingPartyWithoutCode(ern.sentOnBehalfOf)
+  messageThreadId: messageHeader.messageThreadId,
+  messageId: messageHeader.messageId,
+  messageFileName: messageHeader.messageFileName,
+  messageSender: convertMessagingPartyWithoutCode(messageHeader.messageSender),
+  sentOnBehalfOf: messageHeader.sentOnBehalfOf
+    ? convertMessagingPartyWithoutCode(messageHeader.sentOnBehalfOf)
     : undefined,
-  messageRecipient: ern.messageRecipient.map((messageRecipient) =>
+  messageRecipient: messageHeader.messageRecipient.map((messageRecipient) =>
     convertMessagingPartyWithoutCode(messageRecipient),
   ),
-  messageCreatedDateTime: ern.messageCreatedDateTime,
-  messageAuditTrail: ern.messageAuditTrail
-    ? convertMessageAuditTrail(ern.messageAuditTrail)
+  messageCreatedDateTime: messageHeader.messageCreatedDateTime,
+  messageAuditTrail: messageHeader.messageAuditTrail
+    ? convertMessageAuditTrail(messageHeader.messageAuditTrail)
     : undefined,
-  messageControlType: ern.messageControlType,
+  messageControlType: messageHeader.messageControlType,
 });

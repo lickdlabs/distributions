@@ -1,26 +1,51 @@
 import { Ern383, Ern411 } from "../../../../../types";
+import { convertDisplayTitleFromReferenceTitle } from "./displayTitle";
+import { convertDisplayTitleText } from "./displayTitleText";
+import { convertGenreWithTerritory } from "./genreWithTerritory";
+import { convertKeywords } from "./keywords";
+import { convertReleaseId } from "./releaseId";
+import { convertReleaseLabelReference } from "./releaseLabelReference";
+import { convertReleaseReference } from "./releaseReference";
+import { convertSynopsisWithTerritory } from "./synopsisWithTerritory";
 
 export const convertTrackRelease = (
-  ern: Ern383.Release,
-): Ern411.TrackRelease => ({
-  _attributes:
-    ern._attributes && ern._attributes.isMainRelease
+  parties: Ern411.Party[],
+  release: Ern383.Release,
+  territory?: Ern383.ReleaseDetailsByTerritory,
+): Ern411.TrackRelease => {
+  return {
+    _attributes: release._attributes
       ? {
-          isMainRelease: ern._attributes.isMainRelease,
+          isMainRelease: release._attributes.isMainRelease,
         }
       : undefined,
-  releaseReference: "R0" as Ern411.TrackRelease["releaseReference"],
-  releaseId: ern.releaseId as Ern411.TrackRelease["releaseId"],
-  // @todo <xs:element name="DisplayTitleText" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayTitleText" />
-  // @todo <xs:element name="DisplayTitle" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayTitle" />
-  // @todo <xs:element name="AdditionalTitle" minOccurs="0" maxOccurs="unbounded" type="ern:AdditionalTitle" />
-  releaseResourceReference:
-    ern.releaseResourceReferenceList?.releaseResourceReference.shift()
-      ?.value as Ern411.TrackRelease["releaseResourceReference"],
-  // @todo <xs:element name="LinkedReleaseResourceReference" minOccurs="0" maxOccurs="unbounded" type="ern:LinkedReleaseResourceReference" />
-  releaseLabelReference: [],
-  genre: [],
-  // @todo <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:KeywordsWithTerritory" />
-  // @todo <xs:element name="Synopsis" minOccurs="0" maxOccurs="unbounded" type="ern:SynopsisWithTerritory" />
-  // @todo <xs:element name="MarketingComment" minOccurs="0" maxOccurs="unbounded" type="ern:MarketingComment" />
-});
+    releaseReference: convertReleaseReference(release.releaseReference),
+    releaseId: convertReleaseId(release.releaseId[0]),
+    displayTitleText: [
+      convertDisplayTitleText(release.referenceTitle.titleText),
+    ],
+    displayTitle: [
+      convertDisplayTitleFromReferenceTitle(release.referenceTitle),
+    ],
+    additionalTitle: undefined,
+    releaseResourceReference:
+      release.releaseResourceReferenceList?.releaseResourceReference.shift()
+        ?.value as Ern411.TrackRelease["releaseResourceReference"],
+    linkedReleaseResourceReference: undefined,
+    releaseLabelReference: territory?.labelName
+      ? territory.labelName.map((labelName) =>
+          convertReleaseLabelReference(parties, labelName),
+        )
+      : [],
+    genre: territory?.genre
+      ? territory.genre.map((genre) => convertGenreWithTerritory(genre))
+      : [],
+    keywords: territory?.keywords
+      ? territory?.keywords.map((keywords) => convertKeywords(keywords))
+      : undefined,
+    synopsis: territory?.synopsis
+      ? [convertSynopsisWithTerritory(territory?.synopsis)]
+      : undefined,
+    marketingComment: undefined,
+  };
+};
