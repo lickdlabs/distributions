@@ -1,5 +1,18 @@
+import { CLine } from "./cLine";
+import { CourtesyLine } from "./courtesyLine";
+import { Description } from "./description";
+import { DetailedResourceContributor } from "./detailedResourceContributor";
+import { EventDate } from "./eventDate";
+import { FulfillmentDate } from "./fulfillmentDate";
+import { Genre } from "./genre";
+import { IndirectResourceContributor } from "./indirectResourceContributor";
+import { Keywords } from "./keywords";
+import { Name } from "./name";
+import { ParentalWarningType } from "./parentalWarningType";
+import { Synopsis } from "./synopsis";
 import { TechnicalImageDetails } from "./technicalImageDetails";
 import { TerritoryCodeChoice } from "./territoryCodeChoice";
+import { Title } from "./title";
 
 // <xs:complexType name="ImageDetailsByTerritory">
 //   <xs:sequence>
@@ -30,19 +43,19 @@ export type ImageDetailsByTerritory = TerritoryCodeChoice & {
     languageAndScriptCode?: string;
   };
 
-  // @todo <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
-  // @todo <xs:element name="ResourceContributor" minOccurs="0" maxOccurs="unbounded" type="ern:DetailedResourceContributor" />
-  // @todo <xs:element name="IndirectResourceContributor" minOccurs="0" maxOccurs="unbounded" type="ern:IndirectResourceContributor" />
-  // @todo <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:Name" />
-  // @todo <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLine" />
-  // @todo <xs:element name="Description" minOccurs="0" type="ern:Description" />
-  // @todo <xs:element name="CourtesyLine" minOccurs="0" type="ern:CourtesyLine" />
-  // @todo <xs:element name="ResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
-  // @todo <xs:element name="OriginalResourceReleaseDate" minOccurs="0" type="ern:EventDate" />
-  // @todo <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
-  // @todo <xs:element name="Keywords" minOccurs="0" maxOccurs="unbounded" type="ern:Keywords" />
-  // @todo <xs:element name="Synopsis" minOccurs="0" type="ern:Synopsis" />
-  // @todo <xs:element name="Genre" minOccurs="0" maxOccurs="unbounded" type="ern:Genre" />
-  // @todo <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded" type="ern:ParentalWarningType" />
+  title?: Title[];
+  resourceContributor?: DetailedResourceContributor[];
+  indirectResourceContributor?: IndirectResourceContributor[];
+  displayArtistName?: Name[];
+  cLine?: CLine[];
+  description?: Description;
+  courtesyLine?: CourtesyLine;
+  resourceReleaseDate?: EventDate;
+  originalResourceReleaseDate?: EventDate;
+  fulfillmentDate?: FulfillmentDate;
+  keywords?: Keywords[];
+  synopsis?: Synopsis;
+  genre?: Genre[];
+  parentalWarningType?: ParentalWarningType[];
   technicalImageDetails?: TechnicalImageDetails[];
 };

@@ -1,9 +1,9 @@
 import { Ern382, Ern383 } from "../../../../../types";
 import { convertReleaseDetailsByTerritory } from "./releaseDetailsByTerritory";
 
-export const convertRelease = (ern: Ern382.Release): Ern383.Release => ({
-  ...ern,
-  releaseDetailsByTerritory: ern.releaseDetailsByTerritory.map(
+export const convertRelease = (release: Ern382.Release): Ern383.Release => ({
+  ...release,
+  releaseDetailsByTerritory: release.releaseDetailsByTerritory.map(
     (releaseDetailsByTerritory) =>
       convertReleaseDetailsByTerritory(releaseDetailsByTerritory),
   ),

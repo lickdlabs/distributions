@@ -67,7 +67,5 @@ export const convertPartyList = (
   findUnique(labels).map((labels) => party.push(convertLabelName(labels)));
   findUnique(artists).map((artist) => party.push(convertDisplayArtist(artist)));
 
-  console.log({ party });
-
   return { party };
 };
