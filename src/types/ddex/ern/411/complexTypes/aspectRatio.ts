@@ -8,7 +8,7 @@ import { Avs411 } from "../../../avs";
 //   </xs:simpleContent>
 // </xs:complexType>
 export type AspectRatio = {
-  _attribute?: {
+  _attributes?: {
     aspectRatioType?: Avs411.AspectRatioType;
   };
 
