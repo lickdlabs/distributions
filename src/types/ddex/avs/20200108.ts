@@ -7,6 +7,7 @@ export enum CurrentTerritoryCode {}
 export enum ExternallyLinkedResourceType {}
 export enum GoverningAgreementType {}
 export enum HashSumAlgorithmType {}
+export enum ImageType {}
 export enum IsoLanguageCode {}
 export enum LabelNameType {}
 export enum MembershipType {}

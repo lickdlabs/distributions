@@ -1,5 +1,8 @@
+import { EventDate } from "./eventDate";
 import { ImageDetailsByTerritory } from "./imageDetailsByTerritory";
+import { ImageType } from "./imageType";
 import { ResourceProprietaryId } from "./resourceProprietaryId";
+import { Title } from "./title";
 
 // <xs:complexType name="Image">
 //   <xs:sequence>
@@ -26,11 +29,11 @@ export type Image = {
     languageAndScriptCode?: string;
   };
 
-  // @todo <xs:element name="ImageType" minOccurs="0" type="ern:ImageType" />
-  // @todo <xs:element name="IsArtistRelated" minOccurs="0" type="xs:boolean" />
+  imageType?: ImageType;
+  isArtistRelated?: boolean;
   imageId: ResourceProprietaryId[];
   resourceReference: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
-  // @todo <xs:element name="Title" minOccurs="0" maxOccurs="unbounded" type="ern:Title" />
-  // @todo <xs:element name="CreationDate" minOccurs="0" type="ern:EventDate" />
+  title?: Title[];
+  creationDate?: EventDate;
   imageDetailsByTerritory: ImageDetailsByTerritory[];
 };

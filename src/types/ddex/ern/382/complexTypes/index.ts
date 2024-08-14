@@ -25,6 +25,7 @@ export * from "./hashSum";
 export * from "./icpn";
 export * from "./image";
 export * from "./imageDetailsByTerritory";
+export * from "./imageType";
 export * from "./indirectResourceContributor";
 export * from "./keywords";
 export * from "./labelName";
