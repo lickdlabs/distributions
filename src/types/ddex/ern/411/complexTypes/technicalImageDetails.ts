@@ -1,5 +1,10 @@
 import { Avs411 } from "../../../avs";
+import { AspectRatio } from "./aspectRatio";
+import { Extent } from "./extent";
 import { File } from "./file";
+import { Fingerprint } from "./fingerprint";
+import { ImageCodecType } from "./imageCodecType";
+import { PreviewDetails } from "./previewDetails";
 
 // <xs:complexType name="TechnicalImageDetails">
 //   <xs:sequence>
@@ -36,15 +41,15 @@ export type TechnicalImageDetails = {
   technicalResourceDetailsReference: `${string & {
     __brand: "T[\\d\\-_a-zA-Z]+";
   }}`;
-  // @todo <xs:element name="ImageCodecType" minOccurs="0" type="ern:ImageCodecType" />
-  // @todo <xs:element name="ImageHeight" minOccurs="0" type="ern:Extent" />
-  // @todo <xs:element name="ImageWidth" minOccurs="0" type="ern:Extent" />
-  // @todo <xs:element name="AspectRatio" minOccurs="0" type="ern:AspectRatio" />
+  imageCodecType?: ImageCodecType;
+  imageHeight?: Extent;
+  imageWidth?: Extent;
+  aspectRatio?: AspectRatio;
   colorDepth?: number;
   imageResolution?: number;
   bitDepth?: number;
   isPreview?: boolean;
-  // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
+  previewDetails?: PreviewDetails;
   file?: File;
-  // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+  fingerprint?: Fingerprint[];
 };

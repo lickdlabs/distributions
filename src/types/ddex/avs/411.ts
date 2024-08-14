@@ -2,6 +2,7 @@ export enum AdditionalTitleType {}
 export enum AdministratingRecordCompanyRole {}
 export enum AffiliationType {}
 export enum AllTerritoryCode {}
+export enum AspectRatioType {}
 export enum TerritoryCodeTypeIncludingDeprecatedCodes {}
 
 export enum BinaryDataType {
@@ -19,7 +20,9 @@ export enum DisplayArtistRole {
   MAIN_ARTIST = "MainArtist",
 }
 
+export enum ExpressionType {}
 export enum ExternallyLinkedResourceType {}
+export enum FingerprintAlgorithmType {}
 
 export enum HashSumAlgorithmType {
   CRC32 = "CRC32",
@@ -39,6 +42,8 @@ export enum HashSumAlgorithmType {
   SHA_512 = "SHA-512",
   UserDefined = "UserDefined",
 }
+
+export enum ImageCodecType {}
 
 export enum ImageType {
   BACK_COVER_IMAGE = "BackCoverImage",
@@ -192,5 +197,6 @@ export enum TextType {
   USER_DEFINED = "UserDefined",
 }
 
+export enum UnitOfExtent {}
 export enum UseType {}
 export enum VersionType {}
