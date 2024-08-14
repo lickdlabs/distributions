@@ -13,7 +13,7 @@ import { FingerprintAlgorithmType } from "./fingerprintAlgorithmType";
 export type Fingerprint = {
   fingerprint: string;
   fingerprintAlgorithmType: FingerprintAlgorithmType;
-  FingerprintAlgorithmVersion?: string;
+  fingerprintAlgorithmVersion?: string;
   fingerprintAlgorithmParameter?: string;
   fingerprintDataType?: Avs20200108.BinaryDataType;
 };

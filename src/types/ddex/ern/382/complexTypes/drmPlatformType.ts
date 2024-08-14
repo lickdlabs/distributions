@@ -16,5 +16,5 @@ export type DrmPlatformType = {
     userDefinedValue?: string;
   };
 
-  vaue: Avs20161006.DrmPlatformType;
+  value: Avs20161006.DrmPlatformType;
 };
