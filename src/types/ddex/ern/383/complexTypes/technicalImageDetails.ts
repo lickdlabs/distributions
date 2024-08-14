@@ -1,4 +1,12 @@
+import { AspectRatio } from "./aspectRatio";
+import { ContainerFormat } from "./containerFormat";
+import { DrmPlatformType } from "./drmPlatformType";
+import { Extent } from "./extent";
 import { FileChoice } from "./fileChoice";
+import { Fingerprint } from "./fingerprint";
+import { FulfillmentDate } from "./fulfillmentDate";
+import { ImageCodecType } from "./imageCodecType";
+import { PreviewDetails } from "./previewDetails";
 
 // <xs:complexType name="TechnicalImageDetails">
 //   <xs:sequence>
@@ -37,17 +45,17 @@ export type TechnicalImageDetails = Partial<FileChoice> & {
   technicalResourceDetailsReference: `${string & {
     __brand: "T[\\d\\-_a-zA-Z]+";
   }}`;
-  // @todo <xs:element name="DrmPlatformType" minOccurs="0" type="ern:DrmPlatformType" />
-  // @todo <xs:element name="ContainerFormat" minOccurs="0" type="ern:ContainerFormat" />
-  // @todo <xs:element name="ImageCodecType" minOccurs="0" type="ern:ImageCodecType" />
-  // @todo <xs:element name="ImageHeight" minOccurs="0" type="ern:Extent" />
-  // @todo <xs:element name="ImageWidth" minOccurs="0" type="ern:Extent" />
-  // @todo <xs:element name="AspectRatio" minOccurs="0" type="ern:AspectRatio" />
+  drmPlatformType?: DrmPlatformType;
+  containerFormat?: ContainerFormat;
+  imageCodecType?: ImageCodecType;
+  imageHeight?: Extent;
+  imageWidth?: Extent;
+  aspectRatio?: AspectRatio;
   colorDepth?: number;
   imageResolution?: number;
   isPreview?: boolean;
-  // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
-  // @todo <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
-  // @todo <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
-  // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+  previewDetails?: PreviewDetails;
+  fulfillmentDate?: FulfillmentDate;
+  consumerFulfillmentDate?: FulfillmentDate;
+  fingerprint?: Fingerprint[];
 };

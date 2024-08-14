@@ -3,10 +3,15 @@ export enum AllTerritoryCode {}
 export enum ArtistRole {}
 export enum BinaryDataType {}
 export enum CarrierType {}
+export enum ContainerFormat {}
 export enum CurrentTerritoryCode {}
+export enum DrmPlatformType {}
+export enum ExpressionType {}
 export enum ExternallyLinkedResourceType {}
+export enum FingerprintAlgorithmType {}
 export enum GoverningAgreementType {}
 export enum HashSumAlgorithmType {}
+export enum ImageCodecType {}
 export enum ImageType {}
 export enum IsoLanguageCode {}
 export enum LabelNameType {}
@@ -27,6 +32,8 @@ export enum Sex {}
 export enum TerritoryCodeType {}
 export enum TerritoryCodeTypeIncludingDeprecatedCodes {}
 export enum TitleType {}
+export enum UnitOfExtent {}
+export enum UnitOfFrameRate {}
 export enum UpdateIndicator {}
 export enum UserInterfaceType {}
 export enum UseType {}
