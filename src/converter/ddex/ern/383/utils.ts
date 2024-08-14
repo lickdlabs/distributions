@@ -4,10 +4,29 @@ export const findArtistPartyReference = (
   parties: Ern411.Party[],
   artist: Ern383.Artist,
 ): Ern411.Party["partyReference"] => {
-  const party = parties.find(
-    (party) =>
-      party.partyId === artist.partyId || party.partyName === artist.partyName,
-  );
+  let party: Ern411.Party | undefined;
+
+  if (artist.partyId) {
+    party = parties.find(
+      (party) => party.partyId?.some((partyId) => partyId === artist.partyId),
+    );
+  }
+
+  if (!party && artist.partyName) {
+    for (const artistPartyName of artist.partyName) {
+      party = parties.find(
+        (party) =>
+          party.partyName?.some(
+            (partyName) =>
+              partyName.fullName.value === artistPartyName.fullName.value,
+          ),
+      );
+
+      if (party) {
+        break;
+      }
+    }
+  }
 
   if (!party) {
     throw new Error("could not find artist in parties");
