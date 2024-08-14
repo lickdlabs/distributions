@@ -38,6 +38,10 @@ export class Parser {
 
       const result = await xml2js.parseStringPromise(
         body.replace(/ernm?\d*:/g, "ern:").replace(/:ernm?\d*/g, ":ern"),
+        {
+          preserveChildrenOrder: true,
+          trim: true,
+        },
       );
 
       if (!result) {

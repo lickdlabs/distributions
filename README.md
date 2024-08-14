@@ -1,5 +1,13 @@
 # Distributions
 
+* [Details](#details)
+* [Install](#install)
+* [Usage](#usage)
+  * [Parsing](#parsing)
+  * [Converting](#converting)
+* [Known issues](#known-issues)
+* [Copyright info](#copyright-info)
+
 ## Details
 
 > ⚠️ **Warning!**  
@@ -61,6 +69,62 @@ const file = "path/to/distribution/file";
 
   logger.info({ converted });
 })();
+```
+
+## Known issues
+
+### Parsing
+
+#### DDEX 411+ - DisplayCredits
+
+Due to the definition of [DisplayCredits](https://service.ddex.net/xml/ern/411/release-notification.xsd#folder1890) 
+if the `sequence` for `DisplayCreditParty` and `NameUsedInDisplayCredit` does not have both values then the parsed result
+will not be correct.
+
+```xml
+<DisplayCredits>
+  <DisplayCreditText>Test</DisplayCreditText>
+  <DisplayCreditParty>P1</DisplayCreditParty>
+  <NameUsedInDisplayCredit>Credit1</NameUsedInDisplayCredit>
+  <DisplayCreditParty>P2</DisplayCreditParty>
+  <NameUsedInDisplayCredit>Credit2</NameUsedInDisplayCredit>
+  <DisplayCreditParty>P3</DisplayCreditParty>
+  <!-- <NameUsedInDisplayCredit>P3</NameUsedInDisplayCredit> -->
+  <DisplayCreditParty>P4</DisplayCreditParty>
+  <NameUsedInDisplayCredit>Credit4</NameUsedInDisplayCredit>
+</DisplayCredits>
+```
+
+Notice how `P3` has the `NameUsedInDisplayCredit` commented out, this will result in the following:
+
+```json
+[
+  {
+    "displayCreditPartyList": "P1",
+    "nameUsedInDisplayCredit": "Credit1"
+  },
+  {
+    "displayCreditPartyList": "P2",
+    "nameUsedInDisplayCredit": "Credit2"
+  },
+  {
+    "displayCreditPartyList": "P3",
+    "nameUsedInDisplayCredit": "Credit4"
+  },
+  {
+    "displayCreditPartyList": "P4"
+  }
+]
+```
+
+This is because when we convert the raw XML into raw JSON we get the following:
+
+```json
+{
+  "DisplayCreditText": [ "Test" ],
+  "DisplayCreditParty": [ "P1", "P2", "P3", "P4" ],
+  "NameUsedInDisplayCredit": [ "Credit1", "Credit2", "Credit4" ]
+}
 ```
 
 ## Copyright info

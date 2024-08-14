@@ -2,6 +2,7 @@ export enum AdditionalTitleType {}
 export enum AdministratingRecordCompanyRole {}
 export enum AffiliationType {}
 export enum AllTerritoryCode {}
+export enum TerritoryCodeTypeIncludingDeprecatedCodes {}
 
 export enum BinaryDataType {
   BINARY64 = "Binary64",
@@ -57,6 +58,7 @@ export enum ImageType {
   PORTRAIT = "Portrait",
 }
 
+export enum InstrumentType {}
 export enum LabelType {}
 export enum LinkDescription {}
 export enum MessageControlType {}
@@ -73,6 +75,7 @@ export enum ParentalWarningType {
 
 export enum RatingAgency {}
 export enum RatingReason {}
+export enum ResourceRelationshipType {}
 export enum ReleaseProfileVariantVersionId {}
 export enum ReleaseProfileVersionId {}
 
@@ -160,6 +163,8 @@ export enum ResourceGroupType {
   SIDE = "Side",
 }
 
+export enum RightsControllerRole {}
+export enum RightsControllerType {}
 export enum RightsCoverage {}
 
 export enum SoundRecordingType {
@@ -186,3 +191,6 @@ export enum TextType {
   UNKNOWN = "Unknown",
   USER_DEFINED = "UserDefined",
 }
+
+export enum UseType {}
+export enum VersionType {}

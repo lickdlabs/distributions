@@ -1,7 +1,24 @@
 import { Ern411 } from "../../../../../types";
+import { parseAdditionalTitle } from "./additionalTitle";
+import { parseCLineWithDefault } from "./cLineWithDefault";
+import { parseContributor } from "./contributor";
+import { parseCourtesyLineWithDefault } from "./courtesyLineWithDefault";
+import { parseDescriptionWithTerritory } from "./descriptionWithTerritory";
+import { parseDisplayArtist } from "./displayArtist";
+import { parseDisplayArtistNameWithDefault } from "./displayArtistNameWithDefault";
+import { parseDisplayTitle } from "./displayTitle";
+import { parseDisplayTitleText } from "./displayTitleText";
+import { parseEventDateWithoutFlags } from "./eventDateWithoutFlags";
+import { parseFulfillmentDateWithTerritory } from "./fulfillmentDateWithTerritory";
 import { parseImageType } from "./imageType";
+import { parseParentalWarningTypeWithTerritory } from "./parentalWarningTypeWithTerritory";
+import { parseRelatedRelease } from "./relatedRelease";
+import { parseRelatedResource } from "./relatedResource";
 import { parseResourceProprietaryId } from "./resourceProprietaryId";
+import { parseResourceRightsController } from "./resourceRightsController";
 import { parseTechnicalImageDetails } from "./technicalImageDetails";
+import { parseVersionType } from "./versionType";
+import { parseWorkRightsController } from "./workRightsController";
 
 export const parseImage = (object: any): Ern411.Image => ({
   _attributes: object.$
@@ -17,24 +34,90 @@ export const parseImage = (object: any): Ern411.Image => ({
   resourceId: object.ResourceId.map((resourceId: any) =>
     parseResourceProprietaryId(resourceId),
   ),
-  // @todo <xs:element name="DisplayTitleText" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayTitleText" />
-  // @todo <xs:element name="DisplayTitle" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayTitle" />
-  // @todo <xs:element name="AdditionalTitle" minOccurs="0" maxOccurs="unbounded" type="ern:AdditionalTitle" />
-  // @todo <xs:element name="VersionType" minOccurs="0" maxOccurs="unbounded" type="ern:VersionType" />
-  // @todo <xs:element name="DisplayArtistName" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayArtistNameWithDefault" />
-  // @todo <xs:element name="DisplayArtist" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayArtist" />
-  // @todo <xs:element name="Contributor" minOccurs="0" maxOccurs="unbounded" type="ern:Contributor" />
-  // @todo <xs:element name="ResourceRightsController" minOccurs="0" maxOccurs="unbounded" type="ern:ResourceRightsController" />
-  // @todo <xs:element name="WorkRightsController" minOccurs="0" maxOccurs="unbounded" type="ern:WorkRightsController" />
-  // @todo <xs:element name="CLine" minOccurs="0" maxOccurs="unbounded" type="ern:CLineWithDefault" />
-  // @todo <xs:element name="CourtesyLine" minOccurs="0" maxOccurs="unbounded" type="ern:CourtesyLineWithDefault" />
-  // @todo <xs:element name="CreationDate" minOccurs="0" type="ern:EventDateWithoutFlags" />
-  // @todo <xs:element name="FirstPublicationDate" minOccurs="0" maxOccurs="unbounded" type="ern:FulfillmentDateWithTerritory" />
-  // @todo <xs:element name="ParentalWarningType" minOccurs="0" maxOccurs="unbounded" type="ern:ParentalWarningTypeWithTerritory" />
-  // @todo <xs:element name="RelatedRelease" minOccurs="0" maxOccurs="unbounded" type="ern:RelatedRelease" />
-  // @todo <xs:element name="RelatedResource" minOccurs="0" maxOccurs="unbounded" type="ern:RelatedResource" />
-  // @todo <xs:element name="ContainsHiddenContent" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="Description" minOccurs="0" maxOccurs="unbounded" type="ern:DescriptionWithTerritory" />
+  displayTitleText: object.DisplayTitleText
+    ? object.DisplayTitleText.map((displayTitleText: any) =>
+        parseDisplayTitleText(displayTitleText),
+      )
+    : undefined,
+  displayTitle: object.DisplayTitle
+    ? object.DisplayTitle.map((displayTitle: any) =>
+        parseDisplayTitle(displayTitle),
+      )
+    : undefined,
+  additionalTitle: object.AdditionalTitle
+    ? object.AdditionalTitle.map((additionalTitle: any) =>
+        parseAdditionalTitle(additionalTitle),
+      )
+    : undefined,
+  versionType: object.VersionType
+    ? object.VersionType.map((versionType: any) =>
+        parseVersionType(versionType),
+      )
+    : undefined,
+  displayArtistName: object.DisplayArtistName
+    ? object.DisplayArtistName.map((displayArtistName: any) =>
+        parseDisplayArtistNameWithDefault(displayArtistName),
+      )
+    : undefined,
+  displayArtist: object.DisplayArtist
+    ? object.DisplayArtist.map((displayArtist: any) =>
+        parseDisplayArtist(displayArtist),
+      )
+    : undefined,
+  contributor: object.Contributor
+    ? object.Contributor.map((contributor: any) =>
+        parseContributor(contributor),
+      )
+    : undefined,
+  resourceRightsController: object.ResourceRightsController
+    ? object.ResourceRightsController.map((resourceRightsController: any) =>
+        parseResourceRightsController(resourceRightsController),
+      )
+    : undefined,
+  workRightsController: object.WorkRightsController
+    ? object.WorkRightsController.map((workRightsController: any) =>
+        parseWorkRightsController(workRightsController),
+      )
+    : undefined,
+  cLine: object.CLine
+    ? object.CLine.map((cLine: any) => parseCLineWithDefault(cLine))
+    : undefined,
+  courtesyLine: object.CourtesyLine
+    ? object.CourtesyLine.map((courtesyLine: any) =>
+        parseCourtesyLineWithDefault(courtesyLine),
+      )
+    : undefined,
+  creationDate: object.CreationDate
+    ? parseEventDateWithoutFlags(object.CreationDate[0])
+    : undefined,
+  firstPublicationDate: object.FirstPublicationDate
+    ? object.FirstPublicationDate.map((firstPublicationDate: any) =>
+        parseFulfillmentDateWithTerritory(firstPublicationDate),
+      )
+    : undefined,
+  parentalWarningType: object.ParentalWarningType
+    ? object.ParentalWarningType.map((parentalWarningType: any) =>
+        parseParentalWarningTypeWithTerritory(parentalWarningType),
+      )
+    : undefined,
+  relatedRelease: object.RelatedRelease
+    ? object.RelatedRelease.map((relatedRelease: any) =>
+        parseRelatedRelease(relatedRelease),
+      )
+    : undefined,
+  relatedResource: object.RelatedResource
+    ? object.RelatedResource.map((relatedResource: any) =>
+        parseRelatedResource(relatedResource),
+      )
+    : undefined,
+  containsHiddenContent: object.ContainsHiddenContent
+    ? object.ContainsHiddenContent[0] === "true"
+    : undefined,
+  description: object.Description
+    ? object.Description.map((description: any) =>
+        parseDescriptionWithTerritory(description),
+      )
+    : undefined,
   technicalDetails: object.TechnicalDetails
     ? object.TechnicalDetails.map((technicalDetails: any) =>
         parseTechnicalImageDetails(technicalDetails),
