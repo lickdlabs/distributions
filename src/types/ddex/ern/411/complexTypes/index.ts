@@ -50,6 +50,7 @@ export * from "./messageAuditTrail";
 export * from "./messageAuditTrailEvent";
 export * from "./messageHeader";
 export * from "./messagingPartyWithoutCode";
+export * from "./musicalWorkId";
 export * from "./name";
 export * from "./parentalWarningTypeWithTerritory";
 export * from "./party";

@@ -8,7 +8,11 @@ export const convertResourceList = (
 ): Ern411.ResourceList => ({
   soundRecording: ern.soundRecording
     ? ern.soundRecording.map((soundRecording) =>
-        convertSoundRecording(soundRecording),
+        convertSoundRecording(
+          parties,
+          soundRecording,
+          soundRecording.soundRecordingDetailsByTerritory[0],
+        ),
       )
     : undefined,
   // @todo <xs:element name="Video" minOccurs="0" maxOccurs="unbounded" type="ern:Video" />

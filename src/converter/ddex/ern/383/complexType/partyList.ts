@@ -7,12 +7,13 @@ export const convertPartyList = (
   resourceList: Ern383.ResourceList,
   releaseList: Ern383.ReleaseList,
 ): Ern411.PartyList => {
-  const party: Ern411.Party[] = [];
+  const partyList: Ern411.PartyList = { party: [] };
 
   const convertMessageHeader = (
     messagingParty: Ern383.MessagingParty,
   ): Ern411.Party => ({
-    partyReference: `P${party.length}` as Ern411.Party["partyReference"],
+    partyReference:
+      `P${partyList.party.length}` as Ern411.Party["partyReference"],
     partyName: messagingParty.partyName
       ? [messagingParty.partyName]
       : undefined,
@@ -22,7 +23,8 @@ export const convertPartyList = (
   });
 
   const convertLabelName = (labelName: Ern383.LabelName): Ern411.Party => ({
-    partyReference: `P${party.length}` as Ern411.Party["partyReference"],
+    partyReference:
+      `P${partyList.party.length}` as Ern411.Party["partyReference"],
     partyName: [
       {
         fullName: {
@@ -32,56 +34,58 @@ export const convertPartyList = (
     ],
   });
 
-  const convertContributor = (
-    contributor: Ern383.DetailedResourceContributor,
-  ): Ern411.Party => {
-    if (contributor.partyName) {
+  const convertParty = (party: Partial<Ern383.PartyChoice>): Ern411.Party => {
+    if (party.partyName) {
       return {
-        partyReference: `P${party.length}` as Ern411.Party["partyReference"],
-        partyName: contributor.partyName,
-        partyId: contributor.partyId
-          ? contributor.partyId.map((partyId) =>
-              convertDetailedPartyId(partyId),
-            )
+        partyReference:
+          `P${partyList.party.length}` as Ern411.Party["partyReference"],
+        partyName: party.partyName,
+        partyId: party.partyId
+          ? party.partyId.map((partyId) => convertDetailedPartyId(partyId))
           : undefined,
       };
     }
 
-    return {
-      partyReference: `P${party.length}` as Ern411.Party["partyReference"],
-      partyId: contributor.partyId.map((partyId) =>
-        convertDetailedPartyId(partyId),
-      ),
-    };
-  };
-
-  const convertDisplayArtist = (artist: Ern383.Artist): Ern411.Party => {
-    if (artist.partyName) {
+    if (party.partyId) {
       return {
-        partyReference: `P${party.length}` as Ern411.Party["partyReference"],
-        partyName: artist.partyName,
-        partyId: artist.partyId
-          ? artist.partyId.map((partyId) => convertDetailedPartyId(partyId))
-          : undefined,
+        partyReference:
+          `P${partyList.party.length}` as Ern411.Party["partyReference"],
+        partyId: party.partyId.map((partyId) =>
+          convertDetailedPartyId(partyId),
+        ),
       };
     }
 
-    return {
-      partyReference: `P${party.length}` as Ern411.Party["partyReference"],
-      partyId: artist.partyId.map((partyId) => convertDetailedPartyId(partyId)),
-    };
+    throw new Error("could not detect party");
   };
 
-  party.push(convertMessageHeader(mesageHeader.messageSender));
+  partyList.party.push(convertMessageHeader(mesageHeader.messageSender));
 
   const labels: Ern383.LabelName[] = [];
-  const contributors: Ern383.DetailedResourceContributor[] = [];
-  const artists: Ern383.Artist[] = [];
+  const parties: Partial<Ern383.PartyChoice>[] = [];
+
+  resourceList.soundRecording?.forEach((soundRecording) => {
+    soundRecording.soundRecordingDetailsByTerritory.forEach(
+      (soundRecordingDetailsByTerritory) => {
+        soundRecordingDetailsByTerritory.resourceContributor?.forEach(
+          (resourceContributor) =>
+            parties.push({
+              partyId: resourceContributor.partyId,
+              partyName: resourceContributor.partyName,
+            }),
+        );
+      },
+    );
+  });
 
   resourceList.image?.forEach((image) => {
     image.imageDetailsByTerritory.forEach((imageDetailsByTerritory) => {
       imageDetailsByTerritory.resourceContributor?.forEach(
-        (resourceContributor) => contributors.push(resourceContributor),
+        (resourceContributor) =>
+          parties.push({
+            partyId: resourceContributor.partyId,
+            partyName: resourceContributor.partyName,
+          }),
       );
     });
   });
@@ -92,16 +96,18 @@ export const convertPartyList = (
         labels.push(labelName),
       );
       releaseDetailsByTerritory.displayArtist?.forEach((displayArtist) =>
-        artists.push(displayArtist),
+        parties.push({
+          partyId: displayArtist.partyId,
+          partyName: displayArtist.partyName,
+        }),
       );
     });
   });
 
-  findUnique(labels).map((label) => party.push(convertLabelName(label)));
-  findUnique(contributors).map((contributor) =>
-    party.push(convertContributor(contributor)),
+  findUnique(labels).map((label) =>
+    partyList.party.push(convertLabelName(label)),
   );
-  findUnique(artists).map((artist) => party.push(convertDisplayArtist(artist)));
+  findUnique(parties).map((party) => partyList.party.push(convertParty(party)));
 
-  return { party };
+  return partyList;
 };

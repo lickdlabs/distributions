@@ -101,7 +101,7 @@ export const findContributorReference = (
   }
 
   if (!party) {
-    throw new Error("could not find artist in parties");
+    throw new Error("could not find contributor in parties");
   }
 
   return party.partyReference;
