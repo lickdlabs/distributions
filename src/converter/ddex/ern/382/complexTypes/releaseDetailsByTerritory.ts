@@ -1,4 +1,5 @@
 import { Ern382, Ern383 } from "../../../../../types";
+import { convertCharacter } from "./character";
 import { convertResourceGroup } from "./resourceGroup";
 
 export const convertReleaseDetailsByTerritory = (
@@ -8,5 +9,7 @@ export const convertReleaseDetailsByTerritory = (
   resourceGroup: releaseDetailsByTerritory.resourceGroup?.map((resourceGroup) =>
     convertResourceGroup(resourceGroup),
   ),
-  character: undefined,
+  character: releaseDetailsByTerritory.character?.map((character) =>
+    convertCharacter(character),
+  ),
 });

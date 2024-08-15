@@ -100,6 +100,7 @@ export * from "./technicalSoundRecordingDetails";
 export * from "./territoryCodeChoice";
 export * from "./title";
 export * from "./titleText";
+export * from "./typedRightsController";
 export * from "./userInterfaceType";
 export * from "./useType";
 export * from "./webPage";

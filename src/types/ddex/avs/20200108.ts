@@ -30,6 +30,8 @@ export enum ReasonType {}
 export enum ResourceContributorRole {}
 export enum ResourceOmissionReason {}
 export enum ResourceType {}
+export enum RightsControllerRole {}
+export enum RightsControllerType {}
 export enum Sex {}
 export enum SoundRecordingType {}
 export enum TerritoryCodeType {}
