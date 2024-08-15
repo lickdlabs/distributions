@@ -1,3 +1,5 @@
+export const parseBoolean = (value: any): boolean => value === "true";
+
 export const convertDurationToMilliseconds = (duration: string): number => {
   const matches = duration.match(
     /^PT(?:(?<hours>\d+)H)?(?:(?<minutes>\d+)M)?(?:(?<seconds>\d+|\d+\.\d+)S)?$/,

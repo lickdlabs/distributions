@@ -118,8 +118,8 @@ export type SoundRecording = {
   isRemastered?: boolean;
   isHiResMusic?: boolean;
   displayCredits?: DisplayCredits[];
-  LanguageOfPerformance?: Avs411.IsoLanguageCode;
-  AudioChannelConfiguration?: Avs411.RecordingMode;
+  languageOfPerformance?: Avs411.IsoLanguageCode;
+  audioChannelConfiguration?: Avs411.RecordingMode;
   technicalDetails?: TechnicalSoundRecordingDetails[];
   raga?: Raga[];
   tala?: Tala[];
