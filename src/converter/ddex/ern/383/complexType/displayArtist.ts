@@ -1,8 +1,8 @@
 import { Ern383, Ern411 } from "../../../../../types";
-import { findArtistPartyReference } from "../utils";
+import { findArtistPartyReference, findNamePartyReference } from "../utils";
 import { convertDisplayArtistRole } from "./displayArtistRole";
 
-export const convertDisplayArtist = (
+export const convertDisplayArtistFromArtist = (
   parties: Ern411.Party[],
   artist: Ern383.Artist,
 ): Ern411.DisplayArtist => ({
@@ -12,6 +12,17 @@ export const convertDisplayArtist = (
       }
     : undefined,
   artistPartyReference: findArtistPartyReference(parties, artist),
+  displayArtistRole: convertDisplayArtistRole(),
+  artisticRole: undefined,
+  titleDisplayInformation: undefined,
+});
+
+export const convertDisplayArtistFromName = (
+  parties: Ern411.Party[],
+  name: Ern383.Name,
+): Ern411.DisplayArtist => ({
+  _attributes: undefined,
+  artistPartyReference: findNamePartyReference(parties, name),
   displayArtistRole: convertDisplayArtistRole(),
   artisticRole: undefined,
   titleDisplayInformation: undefined,

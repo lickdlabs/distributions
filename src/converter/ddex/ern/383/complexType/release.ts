@@ -2,7 +2,7 @@ import { Ern383, Ern411 } from "../../../../../types";
 import { findUnique } from "../../../../../utils";
 import { convertAvRating } from "./avRating";
 import { convertCLineWithDefault } from "./cLineWithDefault";
-import { convertDisplayArtist } from "./displayArtist";
+import { convertDisplayArtistFromArtist } from "./displayArtist";
 import { convertDisplayArtistNameWithDefault } from "./displayArtistNameWithDefault";
 import { convertDisplayTitleFromReferenceTitle } from "./displayTitle";
 import { convertDisplayTitleText } from "./displayTitleText";
@@ -57,7 +57,7 @@ export const convertRelease = (
     : [],
   displayArtist: territory?.displayArtist
     ? territory.displayArtist.map((displayArtist) =>
-        convertDisplayArtist(parties, displayArtist),
+        convertDisplayArtistFromArtist(parties, displayArtist),
       )
     : [],
   releaseLabelReference: territory?.labelName

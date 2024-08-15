@@ -1,6 +1,6 @@
 import { Avs411, Ern383, Ern411 } from "../../../../../types";
 import { convertCarrierType } from "./carrierType";
-import { convertDisplayArtist } from "./displayArtist";
+import { convertDisplayArtistFromArtist } from "./displayArtist";
 import { convertDisplayTitleFromTitle } from "./displayTitle";
 import { convertDisplayTitleText } from "./displayTitleText";
 import { convertResourceGroupContentItem } from "./resourceGroupContentItem";
@@ -29,7 +29,7 @@ export const convertResourceSubGroup = (
   displaySequence: undefined,
   displayArtist: resourceGroup.displayArtist
     ? resourceGroup.displayArtist.map((displayArtist) =>
-        convertDisplayArtist(parties, displayArtist),
+        convertDisplayArtistFromArtist(parties, displayArtist),
       )
     : undefined,
   carrierType: resourceGroup.carrierType

@@ -4,7 +4,8 @@ import { convertDetailedPartyId } from "./detailedPartyId";
 
 export const convertPartyList = (
   mesageHeader: Ern383.MessageHeader,
-  releases?: Ern383.Release[],
+  resourceList: Ern383.ResourceList,
+  releaseList: Ern383.ReleaseList,
 ): Ern411.PartyList => {
   const party: Ern411.Party[] = [];
 
@@ -31,6 +32,29 @@ export const convertPartyList = (
     ],
   });
 
+  const convertContributor = (
+    contributor: Ern383.DetailedResourceContributor,
+  ): Ern411.Party => {
+    if (contributor.partyName) {
+      return {
+        partyReference: `P${party.length}` as Ern411.Party["partyReference"],
+        partyName: contributor.partyName,
+        partyId: contributor.partyId
+          ? contributor.partyId.map((partyId) =>
+              convertDetailedPartyId(partyId),
+            )
+          : undefined,
+      };
+    }
+
+    return {
+      partyReference: `P${party.length}` as Ern411.Party["partyReference"],
+      partyId: contributor.partyId.map((partyId) =>
+        convertDetailedPartyId(partyId),
+      ),
+    };
+  };
+
   const convertDisplayArtist = (artist: Ern383.Artist): Ern411.Party => {
     if (artist.partyName) {
       return {
@@ -51,9 +75,18 @@ export const convertPartyList = (
   party.push(convertMessageHeader(mesageHeader.messageSender));
 
   const labels: Ern383.LabelName[] = [];
+  const contributors: Ern383.DetailedResourceContributor[] = [];
   const artists: Ern383.Artist[] = [];
 
-  releases?.forEach((release) => {
+  resourceList.image?.forEach((image) => {
+    image.imageDetailsByTerritory.forEach((imageDetailsByTerritory) => {
+      imageDetailsByTerritory.resourceContributor?.forEach(
+        (resourceContributor) => contributors.push(resourceContributor),
+      );
+    });
+  });
+
+  releaseList.release?.forEach((release) => {
     release.releaseDetailsByTerritory.forEach((releaseDetailsByTerritory) => {
       releaseDetailsByTerritory.labelName?.forEach((labelName) =>
         labels.push(labelName),
@@ -64,7 +97,10 @@ export const convertPartyList = (
     });
   });
 
-  findUnique(labels).map((labels) => party.push(convertLabelName(labels)));
+  findUnique(labels).map((label) => party.push(convertLabelName(label)));
+  findUnique(contributors).map((contributor) =>
+    party.push(convertContributor(contributor)),
+  );
   findUnique(artists).map((artist) => party.push(convertDisplayArtist(artist)));
 
   return { party };

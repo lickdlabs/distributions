@@ -1,6 +1,6 @@
 import { Ern383, Ern411 } from "../../../../../types";
 import { findUnique } from "../../../../../utils";
-import { convertDisplayArtist } from "./displayArtist";
+import { convertDisplayArtistFromArtist } from "./displayArtist";
 import { convertDisplayTitleFromTitle } from "./displayTitle";
 import { convertDisplayTitleText } from "./displayTitleText";
 import { convertResourceSubGroup } from "./resourceSubGroup";
@@ -29,7 +29,7 @@ export const convertResourceGroup = (
   displaySequence: undefined,
   displayArtist: resourceGroup?.displayArtist
     ? resourceGroup.displayArtist.map((displayArtist) =>
-        convertDisplayArtist(parties, displayArtist),
+        convertDisplayArtistFromArtist(parties, displayArtist),
       )
     : undefined,
   carrierType: undefined,

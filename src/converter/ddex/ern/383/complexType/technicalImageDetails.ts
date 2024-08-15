@@ -1,25 +1,46 @@
 import { Ern383, Ern411 } from "../../../../../types";
+import { convertAspectRatio } from "./aspectRatio";
+import { convertExtent } from "./extent";
 import { convertFile } from "./file";
+import { convertFingerprint } from "./fingerprint";
+import { convertImageCodecType } from "./imageCodecType";
+import { convertPreviewDetails } from "./previewDetails";
 
 export const convertTechnicalImageDetails = (
-  ern: Ern383.TechnicalImageDetails,
+  technicalImageDetails: Ern383.TechnicalImageDetails,
 ): Ern411.TechnicalImageDetails => ({
-  _attributes: ern._attributes
+  _attributes: technicalImageDetails._attributes
     ? {
-        languageAndScriptCode: ern._attributes.languageAndScriptCode,
+        languageAndScriptCode:
+          technicalImageDetails._attributes.languageAndScriptCode,
         applicableTerritoryCode: undefined,
         isDefault: undefined,
       }
     : undefined,
-  technicalResourceDetailsReference: ern.technicalResourceDetailsReference,
-  // @todo <xs:element name="ImageCodecType" minOccurs="0" type="ern:ImageCodecType" />
-  // @todo <xs:element name="ImageHeight" minOccurs="0" type="ern:Extent" />
-  // @todo <xs:element name="ImageWidth" minOccurs="0" type="ern:Extent" />
-  // @todo <xs:element name="AspectRatio" minOccurs="0" type="ern:AspectRatio" />
-  colorDepth: ern.colorDepth,
-  imageResolution: ern.imageResolution,
-  isPreview: ern.isPreview,
-  // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:PreviewDetails" />
-  file: ern.file ? convertFile(ern.file[0]) : undefined,
-  // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+  technicalResourceDetailsReference:
+    technicalImageDetails.technicalResourceDetailsReference,
+  imageCodecType: technicalImageDetails.imageCodecType
+    ? convertImageCodecType(technicalImageDetails.imageCodecType)
+    : undefined,
+  imageHeight: technicalImageDetails.imageHeight
+    ? convertExtent(technicalImageDetails.imageHeight)
+    : undefined,
+  imageWidth: technicalImageDetails.imageWidth
+    ? convertExtent(technicalImageDetails.imageWidth)
+    : undefined,
+  aspectRatio: technicalImageDetails.aspectRatio
+    ? convertAspectRatio(technicalImageDetails.aspectRatio)
+    : undefined,
+  colorDepth: technicalImageDetails.colorDepth,
+  imageResolution: technicalImageDetails.imageResolution,
+  isPreview: technicalImageDetails.isPreview,
+  previewDetails: technicalImageDetails.previewDetails
+    ? convertPreviewDetails(technicalImageDetails.previewDetails)
+    : undefined,
+  file: technicalImageDetails.file
+    ? convertFile(technicalImageDetails.file[0])
+    : undefined,
+  fingerprint: technicalImageDetails.fingerprint?.map((fingerprint) =>
+    convertFingerprint(fingerprint),
+  ),
 });

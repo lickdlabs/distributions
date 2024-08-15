@@ -11,7 +11,8 @@ export const convertNewReleaseMessage = (
 ): Ern411.ErnNewReleaseMessage => {
   const partyList = convertPartyList(
     ern.element.messageHeader,
-    ern.element.releaseList.release,
+    ern.element.resourceList,
+    ern.element.releaseList,
   );
 
   return {
@@ -25,7 +26,10 @@ export const convertNewReleaseMessage = (
       },
       messageHeader: convertMessageHeader(ern.element.messageHeader),
       partyList,
-      resourceList: convertResourceList(ern.element.resourceList),
+      resourceList: convertResourceList(
+        partyList.party,
+        ern.element.resourceList,
+      ),
       releaseList: convertReleaseList(partyList.party, ern.element.releaseList),
     },
   };
