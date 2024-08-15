@@ -1,11 +1,29 @@
+import { Avs411 } from "../../../avs";
+import { AdditionalTitle } from "./additionalTitle";
+import { Character } from "./character";
+import { Contributor } from "./contributor";
+import { CourtesyLineWithDefault } from "./courtesyLineWithDefault";
+import { Deity } from "./deity";
 import { DisplayArtist } from "./displayArtist";
 import { DisplayArtistNameWithDefault } from "./displayArtistNameWithDefault";
+import { DisplayCredits } from "./displayCredits";
 import { DisplayTitle } from "./displayTitle";
 import { DisplayTitleText } from "./displayTitleText";
+import { EventDateWithoutFlags } from "./eventDateWithoutFlags";
+import { FirstPublicationDate } from "./firstPublicationDate";
+import { MusicalWorkId } from "./musicalWorkId";
 import { ParentalWarningTypeWithTerritory } from "./parentalWarningTypeWithTerritory";
+import { PLineWithDefault } from "./pLineWithDefault";
+import { Raga } from "./raga";
+import { RelatedRelease } from "./relatedRelease";
+import { RelatedResource } from "./relatedResource";
+import { ResourceRightsController } from "./resourceRightsController";
 import { SoundRecordingId } from "./soundRecordingId";
 import { SoundRecordingType } from "./soundRecordingType";
+import { Tala } from "./tala";
 import { TechnicalSoundRecordingDetails } from "./technicalSoundRecordingDetails";
+import { VersionType } from "./versionType";
+import { WorkRightsController } from "./workRightsController";
 
 // <xs:complexType name="SoundRecording">
 //   <xs:sequence>
@@ -72,39 +90,39 @@ export type SoundRecording = {
   resourceReference: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
   type: SoundRecordingType;
   resourceId: SoundRecordingId[];
-  // @todo <xs:element name="WorkId" minOccurs="0" maxOccurs="unbounded" type="ern:MusicalWorkId" />
+  workId?: MusicalWorkId[];
   displayTitleText: DisplayTitleText[];
   displayTitle: DisplayTitle[];
-  // @todo <xs:element name="AdditionalTitle" minOccurs="0" maxOccurs="unbounded" type="ern:AdditionalTitle" />
-  // @todo <xs:element name="VersionType" minOccurs="0" maxOccurs="unbounded" type="ern:VersionType" />
+  additionalTitle?: AdditionalTitle[];
+  versionType?: VersionType[];
   displayArtistName: DisplayArtistNameWithDefault[];
   displayArtist: DisplayArtist[];
-  // @todo <xs:element name="Contributor" minOccurs="0" maxOccurs="unbounded" type="ern:Contributor" />
-  // @todo <xs:element name="Character" minOccurs="0" maxOccurs="unbounded" type="ern:Character" />
-  // @todo <xs:element name="ResourceRightsController" minOccurs="0" maxOccurs="unbounded" type="ern:ResourceRightsController" />
-  // @todo <xs:element name="WorkRightsController" minOccurs="0" maxOccurs="unbounded" type="ern:WorkRightsController" />
-  // @todo <xs:element name="PLine" minOccurs="0" maxOccurs="unbounded" type="ern:PLineWithDefault" />
-  // @todo <xs:element name="CourtesyLine" minOccurs="0" maxOccurs="unbounded" type="ern:CourtesyLineWithDefault" />
+  contributor?: Contributor[];
+  character?: Character[];
+  resourceRightsController?: ResourceRightsController[];
+  workRightsController?: WorkRightsController[];
+  pLine?: PLineWithDefault[];
+  courtesyLine?: CourtesyLineWithDefault[];
   duration: number;
-  // @todo <xs:element name="CreationDate" minOccurs="0" type="ern:EventDateWithoutFlags" />
-  // @todo <xs:element name="MasteredDate" minOccurs="0" type="ern:EventDateWithoutFlags" />
-  // @todo <xs:element name="RemasteredDate" minOccurs="0" type="ern:EventDateWithoutFlags" />
-  // @todo <xs:element name="FirstPublicationDate" minOccurs="0" maxOccurs="unbounded" type="ern:FirstPublicationDate" />
+  creationDate?: EventDateWithoutFlags;
+  masteredDate?: EventDateWithoutFlags;
+  remasteredDate?: EventDateWithoutFlags;
+  firstPublicationDate?: FirstPublicationDate[];
   parentalWarningType: ParentalWarningTypeWithTerritory[];
-  // @todo <xs:element name="RelatedRelease" minOccurs="0" maxOccurs="unbounded" type="ern:RelatedRelease" />
-  // @todo <xs:element name="RelatedResource" minOccurs="0" maxOccurs="unbounded" type="ern:RelatedResource" />
-  // @todo <xs:element name="CompositeMusicalWorkType" minOccurs="0" type="avs:CompositeMusicalWorkType" />
-  // @todo <xs:element name="IsCover" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="IsInstrumental" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="ContainsHiddenContent" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="IsRemastered" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="IsHiResMusic" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="DisplayCredits" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayCredits" />
-  // @todo <xs:element name="LanguageOfPerformance" minOccurs="0" maxOccurs="unbounded" type="avs:IsoLanguageCode" />
-  // @todo <xs:element name="AudioChannelConfiguration" minOccurs="0" type="avs:RecordingMode" />
+  relatedRelease?: RelatedRelease[];
+  relatedResource?: RelatedResource[];
+  compositeMusicalWorkType?: Avs411.CompositeMusicalWorkType;
+  isCover?: boolean;
+  isInstrumental?: boolean;
+  containsHiddenContent?: boolean;
+  isRemastered?: boolean;
+  isHiResMusic?: boolean;
+  displayCredits?: DisplayCredits[];
+  LanguageOfPerformance?: Avs411.IsoLanguageCode;
+  AudioChannelConfiguration?: Avs411.RecordingMode;
   technicalDetails?: TechnicalSoundRecordingDetails[];
-  // @todo <xs:element name="Raga" minOccurs="0" maxOccurs="unbounded" type="ern:Raga" />
-  // @todo <xs:element name="Tala" minOccurs="0" maxOccurs="unbounded" type="ern:Tala" />
-  // @todo <xs:element name="Deity" minOccurs="0" maxOccurs="unbounded" type="ern:Deity" />
-  // @todo <xs:element name="AudioChapterReference" minOccurs="0" maxOccurs="unbounded" />
+  raga?: Raga[];
+  tala?: Tala[];
+  deity?: Deity[];
+  audioChapterReference?: `${string & { __brand: "X[\\d\\-_a-zA-Z]+" }}`[];
 };

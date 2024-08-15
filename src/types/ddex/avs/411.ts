@@ -11,6 +11,7 @@ export enum BinaryDataType {
 }
 
 export enum CarrierType {}
+export enum CompositeMusicalWorkType {}
 export enum ContributorRole {}
 export enum CurrentTerritoryCode {}
 
@@ -64,6 +65,7 @@ export enum ImageType {
 }
 
 export enum InstrumentType {}
+export enum IsoLanguageCode {}
 export enum LabelType {}
 export enum LinkDescription {}
 export enum MessageControlType {}
@@ -80,6 +82,7 @@ export enum ParentalWarningType {
 
 export enum RatingAgency {}
 export enum RatingReason {}
+export enum RecordingMode {}
 export enum ResourceRelationshipType {}
 export enum ReleaseProfileVariantVersionId {}
 export enum ReleaseProfileVersionId {}
