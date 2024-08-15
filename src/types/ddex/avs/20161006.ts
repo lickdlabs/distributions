@@ -15,11 +15,13 @@ export enum ImageCodecType {}
 export enum ImageType {}
 export enum IsoLanguageCode {}
 export enum LabelNameType {}
+export enum LanguageOfPerformance {}
 export enum MembershipType {}
 export enum MessageControlType {}
 export enum MusicalWorkContributorRole {}
 export enum ParentalWarningType {}
 export enum PLineType {}
+export enum Purpose {}
 export enum RatingAgency {}
 export enum ReleaseRelationshipType {}
 export enum ReleaseResourceType {}
@@ -29,6 +31,7 @@ export enum ResourceContributorRole {}
 export enum ResourceOmissionReason {}
 export enum ResourceType {}
 export enum Sex {}
+export enum SoundRecordingType {}
 export enum TerritoryCodeType {}
 export enum TerritoryCodeTypeIncludingDeprecatedCodes {}
 export enum TitleType {}

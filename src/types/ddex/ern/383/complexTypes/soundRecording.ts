@@ -1,6 +1,16 @@
+import { Avs20200108 } from "../../../avs";
+import { AllTerritoryCode } from "./allTerritoryCode";
+import { Description } from "./description";
+import { EventDate } from "./eventDate";
+import { MusicalWorkId } from "./musicalWorkId";
 import { ReferenceTitle } from "./referenceTitle";
+import { ResourceContainedResourceReferenceList } from "./resourceContainedResourceReferenceList";
+import { ResourceMusicalWorkReferenceList } from "./resourceMusicalWorkReferenceList";
+import { RightsAgreementId } from "./rightsAgreementId";
+import { SoundRecordingCollectionReferenceList } from "./soundRecordingCollectionReferenceList";
 import { SoundRecordingDetailsByTerritory } from "./soundRecordingDetailsByTerritory";
 import { SoundRecordingId } from "./soundRecordingId";
+import { SoundRecordingType } from "./soundRecordingType";
 
 // <xs:complexType name="SoundRecording">
 //   <xs:sequence>
@@ -54,38 +64,38 @@ export type SoundRecording = {
     languageAndScriptCode?: string;
   };
 
-  // @todo <xs:element name="SoundRecordingType" minOccurs="0" type="ern:SoundRecordingType" />
-  // @todo <xs:element name="IsArtistRelated" minOccurs="0" type="xs:boolean" />
+  soundRecordingType?: SoundRecordingType;
+  isArtistRelated?: boolean;
   soundRecordingId: SoundRecordingId[];
-  // @todo <xs:element name="IndirectSoundRecordingId" minOccurs="0" maxOccurs="unbounded" type="ern:MusicalWorkId" />
+  indirectSoundRecordingId?: MusicalWorkId[];
   resourceReference: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
   referenceTitle: ReferenceTitle;
-  // @todo <xs:element name="InstrumentationDescription" minOccurs="0" type="ern:Description" />
-  // @todo <xs:element name="IsMedley" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="IsPotpourri" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="IsInstrumental" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="IsBackground" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="IsHiddenResource" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="IsBonusResource" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="HasPreOrderFulfillment" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="IsComputerGenerated" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="IsRemastered" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="NoSilenceBefore" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="NoSilenceAfter" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="PerformerInformationRequired" minOccurs="0" type="xs:boolean" />
-  // @todo <xs:element name="LanguageOfPerformance" minOccurs="0" type="avs:IsoLanguageCode" />
+  instrumentationDescription?: Description;
+  isMedley?: boolean;
+  isPotpourri?: boolean;
+  isInstrumental?: boolean;
+  isBackground?: boolean;
+  isHiddenResource?: boolean;
+  isBonusResource?: boolean;
+  hasPreOrderFulfillment?: boolean;
+  isComputerGenerated?: boolean;
+  isRemastered?: boolean;
+  noSilenceBefore?: boolean;
+  noSilenceAfter?: boolean;
+  performerInformationRequired?: boolean;
+  languageOfPerformance?: Avs20200108.LanguageOfPerformance;
   duration: number;
-  // @todo <xs:element name="RightsAgreementId" minOccurs="0" type="ern:RightsAgreementId" />
-  // @todo <xs:element name="SoundRecordingCollectionReferenceList" minOccurs="0" type="ern:SoundRecordingCollectionReferenceList" />
-  // @todo <xs:element name="ResourceMusicalWorkReferenceList" minOccurs="0" type="ern:ResourceMusicalWorkReferenceList" />
-  // @todo <xs:element name="ResourceContainedResourceReferenceList" minOccurs="0" type="ern:ResourceContainedResourceReferenceList" />
-  // @todo <xs:element name="CreationDate" minOccurs="0" type="ern:EventDate" />
-  // @todo <xs:element name="MasteredDate" minOccurs="0" type="ern:EventDate" />
-  // @todo <xs:element name="RemasteredDate" minOccurs="0" type="ern:EventDate" />
+  rightsAgreementId?: RightsAgreementId;
+  soundRecordingCollectionReferenceList?: SoundRecordingCollectionReferenceList;
+  resourceMusicalWorkReferenceList?: ResourceMusicalWorkReferenceList;
+  resourceContainedResourceReferenceList?: ResourceContainedResourceReferenceList;
+  creationDate?: EventDate;
+  masteredDate?: EventDate;
+  remasteredDate?: EventDate;
   soundRecordingDetailsByTerritory: SoundRecordingDetailsByTerritory[];
-  // @todo <xs:element name="TerritoryOfCommissioning" minOccurs="0" type="ern:AllTerritoryCode" />
-  // @todo <xs:element name="NumberOfFeaturedArtists" minOccurs="0" type="xs:integer" />
-  // @todo <xs:element name="NumberOfNonFeaturedArtists" minOccurs="0" type="xs:integer" />
-  // @todo <xs:element name="NumberOfContractedArtists" minOccurs="0" type="xs:integer" />
-  // @todo <xs:element name="NumberOfNonContractedArtists" minOccurs="0" type="xs:integer" />
+  territoryOfCommissioning?: AllTerritoryCode;
+  numberOfFeaturedArtists?: number;
+  numberOfNonFeaturedArtists?: number;
+  numberOfContractedArtists?: number;
+  numberOfNonContractedArtists?: number;
 };
