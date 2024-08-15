@@ -1,5 +1,6 @@
 import { Artist } from "./artist";
 import { AvRating } from "./avRating";
+import { Comment } from "./comment";
 import { CourtesyLine } from "./courtesyLine";
 import { DetailedResourceContributor } from "./detailedResourceContributor";
 import { EventDate } from "./eventDate";
