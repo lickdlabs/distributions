@@ -1,12 +1,17 @@
 import { Avs411, Ern383, Ern411 } from "../../../../../types";
-import { convertContributor } from "./contributor";
+import { findUnique } from "../../../../../utils";
+import {
+  convertContributor,
+  convertContributorFromIndirectResourceContributor,
+} from "./contributor";
 import { convertCourtesyLineWithDefault } from "./courtesyLineWithDefault";
-import { convertDisplayArtistFromName } from "./displayArtist";
+import { convertDisplayArtistFromArtist } from "./displayArtist";
 import { convertDisplayArtistNameWithDefault } from "./displayArtistNameWithDefault";
 import { convertEventDateWithoutFlags } from "./eventDateWithoutFlags";
 import { convertMusicalWorkId } from "./musicalWorkId";
 import { convertParentalWarningTypeWithTerritory } from "./parentalWarningTypeWithTerritory";
 import { convertPLineWithDefault } from "./pLineWithDefault";
+import { convertResourceRightsController } from "./resourceRightsController";
 import { convertSoundRecordingType } from "./soundRecordingType";
 import { convertTechnicalSoundRecordingDetails } from "./technicalSoundRecordingDetails";
 
@@ -48,14 +53,28 @@ export const convertSoundRecording = (
       convertDisplayArtistNameWithDefault(displayArtistName),
     ) || [],
   displayArtist:
-    territory.displayArtistName?.map((displayArtist) =>
-      convertDisplayArtistFromName(parties, displayArtist),
+    territory.displayArtist?.map((displayArtist) =>
+      convertDisplayArtistFromArtist(parties, displayArtist),
     ) || [],
-  contributor: territory.resourceContributor?.map((contributor) =>
-    convertContributor(parties, contributor),
-  ),
+  contributor:
+    territory.resourceContributor || territory.indirectResourceContributor
+      ? findUnique([
+          ...(territory.resourceContributor?.map((contributor) =>
+            convertContributor(parties, contributor),
+          ) || []),
+          ...(territory.indirectResourceContributor?.map((contributor) =>
+            convertContributorFromIndirectResourceContributor(
+              parties,
+              contributor,
+            ),
+          ) || []),
+        ])
+      : undefined,
   character: undefined,
-  resourceRightsController: undefined,
+  resourceRightsController: territory.rightsController?.map(
+    (resourceRightsController) =>
+      convertResourceRightsController(parties, resourceRightsController),
+  ),
   workRightsController: undefined,
   pLine: territory.pLine?.map((pLine) => convertPLineWithDefault(pLine)),
   courtesyLine: territory.courtesyLine

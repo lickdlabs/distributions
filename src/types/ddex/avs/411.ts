@@ -204,5 +204,65 @@ export enum TextType {
 export enum UnitOfBitRate {}
 export enum UnitOfExtent {}
 export enum UnitOfFrequency {}
-export enum UseType {}
+
+export enum UseType {
+  // <xs:enumeration value="AsPerContract" />
+  // <xs:enumeration value="Broadcast" />
+  // <xs:enumeration value="Cable" />
+  // <xs:enumeration value="ConditionalDownload" />
+  // <xs:enumeration value="ContentInfluencedStream" />
+  // <xs:enumeration value="Display" />
+  // <xs:enumeration value="Download" />
+  // <xs:enumeration value="Dub" />
+  // <xs:enumeration value="DubForAdvertisement" />
+  // <xs:enumeration value="DubForLivePerformance" />
+  // <xs:enumeration value="DubForMovies" />
+  // <xs:enumeration value="DubForMusicOnHold" />
+  // <xs:enumeration value="DubForPublicPerformance" />
+  // <xs:enumeration value="DubForRadio" />
+  // <xs:enumeration value="DubForTV" />
+  // <xs:enumeration value="ExtractForInternet" />
+  // <xs:enumeration value="KioskDownload" />
+  // <xs:enumeration value="Narrowcast" />
+  // <xs:enumeration value="NonInteractiveStream" />
+  // <xs:enumeration value="OnDemandStream" />
+  // <xs:enumeration value="Perform" />
+  // <xs:enumeration value="PerformAsMusicOnHold" />
+  // <xs:enumeration value="PerformInLivePerformance" />
+  // <xs:enumeration value="PerformInPublic" />
+  // <xs:enumeration value="PermanentDownload" />
+  // <xs:enumeration value="Playback" />
+  // <xs:enumeration value="PlayInPublic" />
+  // <xs:enumeration value="Podcast" />
+  // <xs:enumeration value="Print" />
+  // <xs:enumeration value="PrivateCopy" />
+  // <xs:enumeration value="PurchaseAsPhysicalProduct" />
+  // <xs:enumeration value="Rent" />
+  // <xs:enumeration value="Simulcast" />
+  // <xs:enumeration value="Stream" />
+  // <xs:enumeration value="TetheredDownload" />
+  // <xs:enumeration value="TimeInfluencedStream" />
+  // <xs:enumeration value="Unknown" />
+  UNKNOWN = "Unknown",
+  // <xs:enumeration value="Use" />
+  // <xs:enumeration value="UseAsAlertTone" />
+  // <xs:enumeration value="UseAsDevice" />
+  // <xs:enumeration value="UseAsKaraoke" />
+  // <xs:enumeration value="UseAsRingbackTone" />
+  // <xs:enumeration value="UseAsRingbackTune" />
+  // <xs:enumeration value="UseAsRingtone" />
+  // <xs:enumeration value="UseAsRingtune" />
+  // <xs:enumeration value="UseAsScreensaver" />
+  // <xs:enumeration value="UseAsVoiceMail" />
+  // <xs:enumeration value="UseAsWallpaper" />
+  // <xs:enumeration value="UseForIdentification" />
+  // <xs:enumeration value="UseInMobilePhoneMessaging" />
+  // <xs:enumeration value="UseInPhoneListening" />
+  // <xs:enumeration value="UserDefined" />
+  // <xs:enumeration value="UserMakeAvailableLabelProvided" />
+  // <xs:enumeration value="UserMakeAvailableUserProvided" />
+  // <xs:enumeration value="Webcast" />
+  // <xs:enumeration value="DubForOnDemandStreaming" />
+}
+
 export enum VersionType {}

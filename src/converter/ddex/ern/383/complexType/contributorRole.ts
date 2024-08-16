@@ -1,7 +1,9 @@
 import { Avs411, Ern383, Ern411 } from "../../../../../types";
 
 export const convertContributorRole = (
-  contributorRole: Ern383.ResourceContributorRole,
+  contributorRole:
+    | Ern383.ResourceContributorRole
+    | Ern383.MusicalWorkContributorRole,
 ): Ern411.ContributorRole => ({
   _attributes: contributorRole._attributes
     ? {

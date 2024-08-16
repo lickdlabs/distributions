@@ -1,5 +1,5 @@
-import { Ern383, Ern411 } from "../../../../../types";
-import { findArtistPartyReference, findNamePartyReference } from "../utils";
+import { Avs20200108, Ern383, Ern411 } from "../../../../../types";
+import { findNamePartyReference, findPartyReference } from "../utils";
 import { convertDisplayArtistRole } from "./displayArtistRole";
 
 export const convertDisplayArtistFromArtist = (
@@ -11,8 +11,8 @@ export const convertDisplayArtistFromArtist = (
         sequenceNumber: artist._attributes.sequenceNumber,
       }
     : undefined,
-  artistPartyReference: findArtistPartyReference(parties, artist),
-  displayArtistRole: convertDisplayArtistRole(),
+  artistPartyReference: findPartyReference(parties, artist),
+  displayArtistRole: convertDisplayArtistRole(artist.artistRole[0].value),
   artisticRole: undefined,
   titleDisplayInformation: undefined,
 });
@@ -23,7 +23,7 @@ export const convertDisplayArtistFromName = (
 ): Ern411.DisplayArtist => ({
   _attributes: undefined,
   artistPartyReference: findNamePartyReference(parties, name),
-  displayArtistRole: convertDisplayArtistRole(),
+  displayArtistRole: convertDisplayArtistRole(Avs20200108.ArtistRole.ARTIST),
   artisticRole: undefined,
   titleDisplayInformation: undefined,
 });

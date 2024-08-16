@@ -74,6 +74,22 @@ export const convertPartyList = (
               partyName: resourceContributor.partyName,
             }),
         );
+
+        soundRecordingDetailsByTerritory.indirectResourceContributor?.forEach(
+          (indirectResourceContributor) =>
+            parties.push({
+              partyId: indirectResourceContributor.partyId,
+              partyName: indirectResourceContributor.partyName,
+            }),
+        );
+
+        soundRecordingDetailsByTerritory.rightsController?.forEach(
+          (rightsController) =>
+            parties.push({
+              partyId: rightsController.partyId,
+              partyName: rightsController.partyName,
+            }),
+        );
       },
     );
   });

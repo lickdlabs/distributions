@@ -1,20 +1,20 @@
 import { Ern383, Ern411 } from "../../../../types";
 
-export const findArtistPartyReference = (
+export const findPartyReference = (
   parties: Ern411.Party[],
-  artist: Ern383.Artist,
+  party: Partial<Ern383.PartyChoice>,
 ): Ern411.Party["partyReference"] => {
-  let party: Ern411.Party | undefined;
+  let reference: Ern411.Party | undefined;
 
-  if (artist.partyId) {
-    party = parties.find(
-      (party) => party.partyId?.some((partyId) => partyId === artist.partyId),
+  if (party.partyId) {
+    reference = parties.find(
+      (party) => party.partyId?.some((partyId) => partyId === party.partyId),
     );
   }
 
-  if (!party && artist.partyName) {
-    for (const artistPartyName of artist.partyName) {
-      party = parties.find(
+  if (!reference && party.partyName) {
+    for (const artistPartyName of party.partyName) {
+      reference = parties.find(
         (party) =>
           party.partyName?.some(
             (partyName) =>
@@ -22,17 +22,17 @@ export const findArtistPartyReference = (
           ),
       );
 
-      if (party) {
+      if (reference) {
         break;
       }
     }
   }
 
-  if (!party) {
+  if (!reference) {
     throw new Error("could not find artist in parties");
   }
 
-  return party.partyReference;
+  return reference.partyReference;
 };
 
 export const findNamePartyReference = (
@@ -66,42 +66,6 @@ export const findReleaseLabelReference = (
 
   if (!party) {
     throw new Error("could not find label in parties");
-  }
-
-  return party.partyReference;
-};
-
-export const findContributorReference = (
-  parties: Ern411.Party[],
-  contributor: Ern383.DetailedResourceContributor,
-): Ern411.Party["partyReference"] => {
-  let party: Ern411.Party | undefined;
-
-  if (contributor.partyId) {
-    party = parties.find(
-      (party) =>
-        party.partyId?.some((partyId) => partyId === contributor.partyId),
-    );
-  }
-
-  if (!party && contributor.partyName) {
-    for (const artistPartyName of contributor.partyName) {
-      party = parties.find(
-        (party) =>
-          party.partyName?.some(
-            (partyName) =>
-              partyName.fullName.value === artistPartyName.fullName.value,
-          ),
-      );
-
-      if (party) {
-        break;
-      }
-    }
-  }
-
-  if (!party) {
-    throw new Error("could not find contributor in parties");
   }
 
   return party.partyReference;
