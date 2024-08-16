@@ -51,7 +51,7 @@ const file = "path/to/distribution/file";
 ### Converting
 
 ```typescript
-import { Distributions } from "@lickd/distributions";
+import { Distributions, Ern411 } from "@lickd/distributions";
 import { ConsoleLogger } from "@lickd/logger";
 import { readFileSync } from "fs";
 
@@ -65,7 +65,7 @@ const file = "path/to/distribution/file";
 
   logger.info({ parsed });
 
-  const converted = distributions.convertToErn411(parsed);
+  const converted = distributions.convert<Ern411.Ern>(parsed, 411);
 
   logger.info({ converted });
 })();
