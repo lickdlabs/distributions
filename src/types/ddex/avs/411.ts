@@ -3,7 +3,32 @@ export enum AdministratingRecordCompanyRole {}
 export enum AffiliationType {}
 export enum AllTerritoryCode {}
 export enum AspectRatioType {}
-export enum AudioCodecType {}
+
+export enum AudioCodecType {
+  AAC = "AAC",
+  ADPCM = "ADPCM",
+  A_LAW = "ALaw",
+  AMR = "AMR",
+  AMR_NB = "AMR-NB",
+  AMR_WB = "AMR-WB",
+  FLAC = "FLAC",
+  MP = "MP",
+  MP2 = "MP2",
+  MP3 = "MP3",
+  MQA = "MQA",
+  MU_LAW = "MuLaw",
+  PCM = "PCM",
+  PDM = "PDM",
+  QCELP = "QCELP",
+  REAL_AUDIO = "RealAudio",
+  SHOCKWAVE = "Shockwave",
+  UNKNOWN = "Unknown",
+  USER_DEFINED = "UserDefined",
+  VORBIS = "Vorbis",
+  WMA = "WMA",
+  ATMOS = "Atmos",
+}
+
 export enum TerritoryCodeTypeIncludingDeprecatedCodes {}
 
 export enum BinaryDataType {
@@ -22,7 +47,11 @@ export enum DisplayArtistRole {
   MAIN_ARTIST = "MainArtist",
 }
 
-export enum ExpressionType {}
+export enum ExpressionType {
+  INFORMATIVE = "Informative",
+  INSTRUCTIVE = "Instructive",
+}
+
 export enum ExternallyLinkedResourceType {}
 export enum FingerprintAlgorithmType {}
 
@@ -201,68 +230,80 @@ export enum TextType {
   USER_DEFINED = "UserDefined",
 }
 
-export enum UnitOfBitRate {}
+export enum UnitOfBitRate {
+  BPS = "bps",
+  GBPS = "Gbps",
+  KBPS = "kbps",
+  MBPS = "Mbps",
+}
+
 export enum UnitOfExtent {}
-export enum UnitOfFrequency {}
+
+export enum UnitOfFrequency {
+  GHZ = "GHz",
+  HZ = "Hz",
+  KHZ = "kHz",
+  MHZ = "MHz",
+}
 
 export enum UseType {
-  // <xs:enumeration value="AsPerContract" />
-  // <xs:enumeration value="Broadcast" />
-  // <xs:enumeration value="Cable" />
-  // <xs:enumeration value="ConditionalDownload" />
-  // <xs:enumeration value="ContentInfluencedStream" />
-  // <xs:enumeration value="Display" />
-  // <xs:enumeration value="Download" />
-  // <xs:enumeration value="Dub" />
-  // <xs:enumeration value="DubForAdvertisement" />
-  // <xs:enumeration value="DubForLivePerformance" />
-  // <xs:enumeration value="DubForMovies" />
-  // <xs:enumeration value="DubForMusicOnHold" />
-  // <xs:enumeration value="DubForPublicPerformance" />
-  // <xs:enumeration value="DubForRadio" />
-  // <xs:enumeration value="DubForTV" />
-  // <xs:enumeration value="ExtractForInternet" />
-  // <xs:enumeration value="KioskDownload" />
-  // <xs:enumeration value="Narrowcast" />
-  // <xs:enumeration value="NonInteractiveStream" />
-  // <xs:enumeration value="OnDemandStream" />
-  // <xs:enumeration value="Perform" />
-  // <xs:enumeration value="PerformAsMusicOnHold" />
-  // <xs:enumeration value="PerformInLivePerformance" />
-  // <xs:enumeration value="PerformInPublic" />
-  // <xs:enumeration value="PermanentDownload" />
-  // <xs:enumeration value="Playback" />
-  // <xs:enumeration value="PlayInPublic" />
-  // <xs:enumeration value="Podcast" />
-  // <xs:enumeration value="Print" />
-  // <xs:enumeration value="PrivateCopy" />
-  // <xs:enumeration value="PurchaseAsPhysicalProduct" />
-  // <xs:enumeration value="Rent" />
-  // <xs:enumeration value="Simulcast" />
-  // <xs:enumeration value="Stream" />
-  // <xs:enumeration value="TetheredDownload" />
-  // <xs:enumeration value="TimeInfluencedStream" />
-  // <xs:enumeration value="Unknown" />
+  // ="AsPerContract",
+  // ="Broadcast",
+  // ="Cable",
+  // ="ConditionalDownload",
+  // ="ContentInfluencedStream",
+  // ="Display",
+  // ="Download",
+  // ="Dub",
+  // ="DubForAdvertisement",
+  // ="DubForLivePerformance",
+  // ="DubForMovies",
+  // ="DubForMusicOnHold",
+  // ="DubForPublicPerformance",
+  // ="DubForRadio",
+  // ="DubForTV",
+  // ="ExtractForInternet",
+  // ="KioskDownload",
+  // ="Narrowcast",
+  // ="NonInteractiveStream",
+  // ="OnDemandStream",
+  // ="Perform",
+  // ="PerformAsMusicOnHold",
+  // ="PerformInLivePerformance",
+  // ="PerformInPublic",
+  // ="PermanentDownload",
+  // ="Playback",
+  // ="PlayInPublic",
+  // ="Podcast",
+  // ="Print",
+  // ="PrivateCopy",
+  // ="PurchaseAsPhysicalProduct",
+  // ="Rent",
+  // ="Simulcast",
+  // ="Stream",
+  // ="TetheredDownload",
+  // ="TimeInfluencedStream",
+  // ="Unknown",
   UNKNOWN = "Unknown",
-  // <xs:enumeration value="Use" />
-  // <xs:enumeration value="UseAsAlertTone" />
-  // <xs:enumeration value="UseAsDevice" />
-  // <xs:enumeration value="UseAsKaraoke" />
-  // <xs:enumeration value="UseAsRingbackTone" />
-  // <xs:enumeration value="UseAsRingbackTune" />
-  // <xs:enumeration value="UseAsRingtone" />
-  // <xs:enumeration value="UseAsRingtune" />
-  // <xs:enumeration value="UseAsScreensaver" />
-  // <xs:enumeration value="UseAsVoiceMail" />
-  // <xs:enumeration value="UseAsWallpaper" />
-  // <xs:enumeration value="UseForIdentification" />
-  // <xs:enumeration value="UseInMobilePhoneMessaging" />
-  // <xs:enumeration value="UseInPhoneListening" />
-  // <xs:enumeration value="UserDefined" />
-  // <xs:enumeration value="UserMakeAvailableLabelProvided" />
-  // <xs:enumeration value="UserMakeAvailableUserProvided" />
-  // <xs:enumeration value="Webcast" />
-  // <xs:enumeration value="DubForOnDemandStreaming" />
+  // ="Use",
+  // ="UseAsAlertTone",
+  // ="UseAsDevice",
+  // ="UseAsKaraoke",
+  // ="UseAsRingbackTone",
+  // ="UseAsRingbackTune",
+  // ="UseAsRingtone",
+  // ="UseAsRingtune",
+  // ="UseAsScreensaver",
+  // ="UseAsVoiceMail",
+  // ="UseAsWallpaper",
+  // ="UseForIdentification",
+  // ="UseInMobilePhoneMessaging",
+  // ="UseInPhoneListening",
+  // ="UserDefined",
+  // ="UserMakeAvailableLabelProvided",
+  // ="UserMakeAvailableUserProvided",
+  // ="Webcast",
+  // ="DubForOnDemandStreaming",
 }
 
 export enum VersionType {}

@@ -1,4 +1,4 @@
-import { Ern382, Ern411 } from "../../../../../types";
+import { Avs411, Ern382, Ern411 } from "../../../../../types";
 
 export const convertSoundRecordingPreviewDetails = (
   soundRecordingPreviewDetails: Ern382.SoundRecordingPreviewDetails,
@@ -10,5 +10,6 @@ export const convertSoundRecordingPreviewDetails = (
     soundRecordingPreviewDetails.topLeftCorner as Ern411.PreviewDetails["topLeftCorner"],
   bottomRightCorner:
     soundRecordingPreviewDetails.bottomRightCorner as Ern411.PreviewDetails["bottomRightCorner"],
-  expressionType: soundRecordingPreviewDetails.expressionType,
+  expressionType:
+    soundRecordingPreviewDetails.expressionType as unknown as Avs411.ExpressionType,
 });

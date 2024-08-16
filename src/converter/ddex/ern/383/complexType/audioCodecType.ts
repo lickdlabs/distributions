@@ -1,4 +1,4 @@
-import { Ern383, Ern411 } from "../../../../../types";
+import { Avs411, Ern383, Ern411 } from "../../../../../types";
 
 export const convertAudioCodecType = (
   audioCodecType: Ern383.AudioCodecType,
@@ -10,5 +10,5 @@ export const convertAudioCodecType = (
         userDefinedValue: audioCodecType._attributes.userDefinedValue,
       }
     : undefined,
-  value: audioCodecType.value,
+  value: audioCodecType.value as unknown as Avs411.AudioCodecType,
 });
