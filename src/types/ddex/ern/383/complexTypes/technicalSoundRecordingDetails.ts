@@ -1,4 +1,12 @@
+import { AudioCodecType } from "./audioCodecType";
+import { BitRate } from "./bitRate";
+import { ContainerFormat } from "./containerFormat";
+import { DrmPlatformType } from "./drmPlatformType";
 import { FileChoice } from "./fileChoice";
+import { Fingerprint } from "./fingerprint";
+import { FulfillmentDate } from "./fulfillmentDate";
+import { SamplingRate } from "./samplingRate";
+import { SoundRecordingPreviewDetails } from "./soundRecordingPreviewDetails";
 
 // <xs:complexType name="TechnicalSoundRecordingDetails">
 //   <xs:sequence>
@@ -39,19 +47,19 @@ export type TechnicalSoundRecordingDetails = Partial<FileChoice> & {
   technicalResourceDetailsReference: `${string & {
     __brand: "T[\\d\\-_a-zA-Z]+";
   }}`;
-  // @todo <xs:element name="DrmPlatformType" minOccurs="0" type="ern:DrmPlatformType" />
-  // @todo <xs:element name="ContainerFormat" minOccurs="0" type="ern:ContainerFormat" />
-  // @todo <xs:element name="AudioCodecType" minOccurs="0" type="ern:AudioCodecType" />
-  // @todo <xs:element name="BitRate" minOccurs="0" type="ern:BitRate" />
+  drmPlatformType?: DrmPlatformType;
+  containerFormat?: ContainerFormat;
+  audioCodecType?: AudioCodecType;
+  bitRate?: BitRate;
   numberOfChannels?: number;
-  // @todo <xs:element name="SamplingRate" minOccurs="0" type="ern:SamplingRate" />
+  samplingRate?: SamplingRate;
   bitsPerSample?: number;
   duration?: number;
   resourceProcessingRequired?: boolean;
   usableResourceDuration?: number;
   isPreview?: boolean;
-  // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
-  // @todo <xs:element name="FulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
-  // @todo <xs:element name="ConsumerFulfillmentDate" minOccurs="0" type="ern:FulfillmentDate" />
-  // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+  previewDetails?: SoundRecordingPreviewDetails;
+  fulfillmentDate?: FulfillmentDate;
+  consumerFulfillmentDate?: FulfillmentDate;
+  fingerprint?: Fingerprint[];
 };
