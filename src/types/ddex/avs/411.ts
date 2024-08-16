@@ -3,6 +3,7 @@ export enum AdministratingRecordCompanyRole {}
 export enum AffiliationType {}
 export enum AllTerritoryCode {}
 export enum AspectRatioType {}
+export enum AudioCodecType {}
 export enum TerritoryCodeTypeIncludingDeprecatedCodes {}
 
 export enum BinaryDataType {
@@ -200,6 +201,8 @@ export enum TextType {
   USER_DEFINED = "UserDefined",
 }
 
+export enum UnitOfBitRate {}
 export enum UnitOfExtent {}
+export enum UnitOfFrequency {}
 export enum UseType {}
 export enum VersionType {}

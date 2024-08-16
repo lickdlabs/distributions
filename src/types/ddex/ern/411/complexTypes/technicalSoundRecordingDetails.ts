@@ -1,5 +1,10 @@
 import { Avs411 } from "../../../avs";
+import { AudioCodecType } from "./audioCodecType";
+import { BitRate } from "./bitRate";
 import { File } from "./file";
+import { Fingerprint } from "./fingerprint";
+import { SamplingRate } from "./samplingRate";
+import { SoundRecordingPreviewDetails } from "./soundRecordingPreviewDetails";
 
 // <xs:complexType name="TechnicalSoundRecordingDetails">
 //   <xs:sequence>
@@ -38,17 +43,17 @@ export type TechnicalSoundRecordingDetails = {
   technicalResourceDetailsReference: `${string & {
     __brand: "T[\\d\\-_a-zA-Z]+";
   }}`;
-  // @todo <xs:element name="AudioCodecType" minOccurs="0" type="ern:AudioCodecType" />
-  // @todo <xs:element name="BitRate" minOccurs="0" type="ern:BitRate" />
-  // @todo <xs:element name="OriginalBitRate" minOccurs="0" type="ern:BitRate" />
+  audioCodecType?: AudioCodecType;
+  bitRate?: BitRate;
+  originalBitRate?: BitRate;
   numberOfChannels?: number;
-  // @todo <xs:element name="SamplingRate" minOccurs="0" type="ern:SamplingRate" />
-  // @todo <xs:element name="OriginalSamplingRate" minOccurs="0" type="ern:SamplingRate" />
+  samplingRate?: SamplingRate;
+  originalSamplingRate?: SamplingRate;
   bitsPerSample?: number;
   duration?: number;
   bitDepth?: number;
   isPreview?: boolean;
-  // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
+  previewDetails?: SoundRecordingPreviewDetails;
   file?: File;
-  // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+  fingerprint?: Fingerprint[];
 };
