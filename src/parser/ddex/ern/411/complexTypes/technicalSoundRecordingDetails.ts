@@ -1,6 +1,11 @@
 import { Ern411 } from "../../../../../types";
 import { convertDurationToMilliseconds } from "../../../../../utils";
+import { parseSoundRecordingPreviewDetails } from "./soundRecordingPreviewDetails";
+import { parseAudioCodecType } from "./audioCodecType";
+import { parseBitRate } from "./bitRate";
 import { parseFile } from "./file";
+import { parseFingerprint } from "./fingerprint";
+import { parseSamplingRate } from "./samplingRate";
 
 export const parseTechnicalSoundRecordingDetails = (
   object: any,
@@ -16,14 +21,22 @@ export const parseTechnicalSoundRecordingDetails = (
     : undefined,
   technicalResourceDetailsReference:
     object.TechnicalResourceDetailsReference[0],
-  // @todo <xs:element name="AudioCodecType" minOccurs="0" type="ern:AudioCodecType" />
-  // @todo <xs:element name="BitRate" minOccurs="0" type="ern:BitRate" />
-  // @todo <xs:element name="OriginalBitRate" minOccurs="0" type="ern:BitRate" />
+  audioCodecType: object.AudioCodecType
+    ? parseAudioCodecType(object.AudioCodecType[0])
+    : undefined,
+  bitRate: object.BitRate ? parseBitRate(object.BitRate[0]) : undefined,
+  originalBitRate: object.OriginalBitRate
+    ? parseBitRate(object.OriginalBitRate[0])
+    : undefined,
   numberOfChannels: object.NumberOfChannels
     ? parseInt(object.NumberOfChannels[0])
     : undefined,
-  // @todo <xs:element name="SamplingRate" minOccurs="0" type="ern:SamplingRate" />
-  // @todo <xs:element name="OriginalSamplingRate" minOccurs="0" type="ern:SamplingRate" />
+  samplingRate: object.SamplingRate
+    ? parseSamplingRate(object.SamplingRate[0])
+    : undefined,
+  originalSamplingRate: object.OriginalSamplingRate
+    ? parseSamplingRate(object.OriginalSamplingRate[0])
+    : undefined,
   bitsPerSample: object.BitsPerSample
     ? parseInt(object.BitsPerSample[0])
     : undefined,
@@ -32,7 +45,13 @@ export const parseTechnicalSoundRecordingDetails = (
     : undefined,
   bitDepth: object.BitDepth ? parseInt(object.BitDepth[0]) : undefined,
   isPreview: object.IsPreview ? object.IsPreview[0] === "true" : undefined,
-  // @todo <xs:element name="PreviewDetails" minOccurs="0" type="ern:SoundRecordingPreviewDetails" />
+  previewDetails: object.PreviewDetails
+    ? parseSoundRecordingPreviewDetails(object.PreviewDetails[0])
+    : undefined,
   file: object.File ? parseFile(object.File[0]) : undefined,
-  // @todo <xs:element name="Fingerprint" minOccurs="0" maxOccurs="unbounded" type="ern:Fingerprint" />
+  fingerprint: object.Fingerprint
+    ? object.Fingerprint.map((fingerprint: any) =>
+        parseFingerprint(fingerprint),
+      )
+    : undefined,
 });
