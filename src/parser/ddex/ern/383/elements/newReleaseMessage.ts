@@ -17,7 +17,7 @@ export const parseNewReleaseMessage = (
     },
     messageHeader: parseMessageHeader(object.MessageHeader[0]),
     updateIndicator: object.UpdateIndicator
-      ? object.UpdateIndicator[0]
+      ? object.UpdateIndicator[0]._ || object.UpdateIndicator[0]
       : undefined,
     isBackfill: object.IsBackfill ? object.IsBackfill[0] === "true" : undefined,
     resourceList: parseResourceList(object.ResourceList[0]),
