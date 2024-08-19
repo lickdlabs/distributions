@@ -67,6 +67,14 @@ export const convertPartyList = (
   resourceList.soundRecording?.forEach((soundRecording) => {
     soundRecording.soundRecordingDetailsByTerritory.forEach(
       (soundRecordingDetailsByTerritory) => {
+        soundRecordingDetailsByTerritory.displayArtist?.forEach(
+          (resourceContributor) =>
+            parties.push({
+              partyId: resourceContributor.partyId,
+              partyName: resourceContributor.partyName,
+            }),
+        );
+
         soundRecordingDetailsByTerritory.resourceContributor?.forEach(
           (resourceContributor) =>
             parties.push({

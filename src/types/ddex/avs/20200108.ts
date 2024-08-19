@@ -48,7 +48,7 @@ export enum ArtistRole {
   // <xs:enumeration value="SubArranger" />
   // <xs:enumeration value="Translator" />
   // <xs:enumeration value="Unknown" />
-  // <xs:enumeration value="UserDefined" />
+  USER_DEFINED = "UserDefined",
   // <xs:enumeration value="ArtCopyist" />
   // <xs:enumeration value="Calligrapher" />
   // <xs:enumeration value="Cartographer" />

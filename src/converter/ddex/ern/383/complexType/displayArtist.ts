@@ -12,7 +12,7 @@ export const convertDisplayArtistFromArtist = (
       }
     : undefined,
   artistPartyReference: findPartyReference(parties, artist),
-  displayArtistRole: convertDisplayArtistRole(artist.artistRole[0].value),
+  displayArtistRole: convertDisplayArtistRole(artist.artistRole[0]),
   artisticRole: undefined,
   titleDisplayInformation: undefined,
 });
@@ -23,7 +23,9 @@ export const convertDisplayArtistFromName = (
 ): Ern411.DisplayArtist => ({
   _attributes: undefined,
   artistPartyReference: findNamePartyReference(parties, name),
-  displayArtistRole: convertDisplayArtistRole(Avs20200108.ArtistRole.ARTIST),
+  displayArtistRole: convertDisplayArtistRole({
+    value: Avs20200108.ArtistRole.ARTIST,
+  }),
   artisticRole: undefined,
   titleDisplayInformation: undefined,
 });
