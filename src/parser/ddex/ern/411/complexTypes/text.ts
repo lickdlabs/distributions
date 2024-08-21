@@ -12,7 +12,7 @@ export const parseText = (object: any): Ern411.Text => ({
       }
     : undefined,
   resourceReference: object.ResourceReference[0],
-  type: parseTextType(object.TextType[0]),
+  type: parseTextType(object.Type[0]),
   // @todo <xs:element name="ResourceId" minOccurs="0" maxOccurs="unbounded" type="ern:TextId" />
   // @todo <xs:element name="WorkId" minOccurs="0" maxOccurs="unbounded" type="ern:MusicalWorkId" />
   // @todo <xs:element name="DisplayTitleText" minOccurs="0" maxOccurs="unbounded" type="ern:DisplayTitleText" />
