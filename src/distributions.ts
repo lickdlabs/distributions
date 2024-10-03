@@ -16,8 +16,11 @@ export class Distributions {
     this.converter = converter ?? new Converter(this.logger);
   }
 
-  public async parse(body: string): Promise<Ern> {
-    return this.parser.parse(body);
+  public async parse(
+    body: string,
+    forcedVersion?: Ern["version"],
+  ): Promise<Ern> {
+    return this.parser.parse(body, forcedVersion);
   }
 
   public convert<TErn extends Ern>(ern: Ern, version: TErn["version"]): TErn {

@@ -7,7 +7,10 @@ import { ErnParser } from "./ddex";
 export class Parser {
   public constructor(private logger: ILogger) {}
 
-  public async parse(body: string): Promise<Ern> {
+  public async parse(
+    body: string,
+    forcedVersion?: Ern["version"],
+  ): Promise<Ern> {
     const object = await this.parseToObject(body);
 
     if (this.isErn(object)) {
@@ -15,7 +18,7 @@ export class Parser {
     }
 
     if (this.isDdex(object)) {
-      return new ErnParser(this.logger).parse(object);
+      return new ErnParser(this.logger).parse(object, forcedVersion);
     }
 
     throw new ParserError({

@@ -8,10 +8,11 @@ import { Ern411Parser } from "./411";
 export class ErnParser {
   public constructor(private logger: ILogger) {}
 
-  public parse(object: any): Ern {
+  public parse(object: any, forcedVersion?: Ern["version"]): Ern {
     const key = Object.keys(object)[0];
     const ern = object[key].$["xmlns:ern"];
-    const version = parseInt(ern.substring(ern.lastIndexOf("/") + 1));
+    const version =
+      forcedVersion || parseInt(ern.substring(ern.lastIndexOf("/") + 1));
     const action = key.replace(/ern:/, "");
 
     this.logger.info("parsing object to ddex ern", { version, action });
