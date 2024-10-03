@@ -18,7 +18,9 @@ export class Parser {
       return new ErnParser(this.logger).parse(object);
     }
 
-    throw new ParserError("unknown/unsupported distribution");
+    throw new ParserError({
+      message: "unknown/unsupported distribution",
+    });
   }
 
   private async parseToObject(body: string): Promise<any> {
@@ -56,7 +58,9 @@ export class Parser {
       this.logger.info("failed parsing distribution as xml to object");
     }
 
-    throw new ParserError("failed parsing distribution to object");
+    throw new ParserError({
+      message: "failed parsing distribution to object",
+    });
   }
 
   private isErn(object: any): object is Ern {

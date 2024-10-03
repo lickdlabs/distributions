@@ -18,9 +18,11 @@ export class Ern382Converter {
         return convertPurgeReleaseMessage(ern);
 
       default:
-        throw new ConverterError(
-          `unknown/unsupported action conversion (${ern.action})`,
-        );
+        throw new ConverterError({
+          version: ern.version,
+          action: ern.action,
+          message: "unknown/unsupported action conversion",
+        });
     }
   }
 }

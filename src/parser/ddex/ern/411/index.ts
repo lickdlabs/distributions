@@ -16,6 +16,10 @@ export class Ern411Parser {
         return parsePurgeReleaseMessage(object);
     }
 
-    throw new ParserError(`unknown/unsupported action (${action})`);
+    throw new ParserError({
+      version: 411,
+      action,
+      message: "unknown/unsupported action",
+    });
   }
 }

@@ -7,7 +7,10 @@ export const convertMessagingPartyWithoutCode = (
 ): Ern411.MessagingPartyWithoutCode => {
   const partyId = messagingParty.partyId.shift();
   if (!partyId) {
-    throw new ConverterError("no party id found");
+    throw new ConverterError({
+      version: 383,
+      message: "no party id found",
+    });
   }
 
   return {

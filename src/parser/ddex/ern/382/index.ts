@@ -22,6 +22,10 @@ export class Ern382Parser {
         return parsePurgeReleaseMessage(object);
     }
 
-    throw new ParserError(`unknown/unsupported action (${action})`);
+    throw new ParserError({
+      version: 382,
+      action,
+      message: "unknown/unsupported action",
+    });
   }
 }

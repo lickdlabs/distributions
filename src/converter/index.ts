@@ -33,9 +33,11 @@ export class Converter {
         return new Ern383Converter(this.logger).convert(ern);
 
       default:
-        throw new ConverterError(
-          `unknown/unsupported version conversion (${ern.version})`,
-        );
+        throw new ConverterError({
+          version: ern.version,
+          action: ern.action,
+          message: "unknown/unsupported version conversion",
+        });
     }
   }
 }

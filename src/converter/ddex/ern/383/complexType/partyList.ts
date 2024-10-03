@@ -57,7 +57,10 @@ export const convertPartyList = (
       };
     }
 
-    throw new ConverterError("could not detect party");
+    throw new ConverterError({
+      version: 383,
+      message: "could not detect party",
+    });
   };
 
   partyList.party.push(convertMessageHeader(mesageHeader.messageSender));

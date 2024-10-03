@@ -2,7 +2,15 @@ import { ConsoleLogger } from "@lickd/logger";
 import { assert } from "chai";
 import { readFileSync } from "fs";
 import { createStubInstance } from "sinon";
-import { Converter, ConverterError, Ern, Ern382, Ern383, Ern411, Parser } from "../src";
+import {
+  Converter,
+  ConverterError,
+  Ern,
+  Ern382,
+  Ern383,
+  Ern411,
+  Parser,
+} from "../src";
 
 const logger = createStubInstance(ConsoleLogger);
 const parser = new Parser(logger);
@@ -75,7 +83,10 @@ describe("Converter", () => {
         readFileSync("./examples/_ddex/383.xml").toString(),
       );
 
-      assert.throws(() => converter.convert<Ern382.Ern>(parsed, 382), ConverterError);
+      assert.throws(
+        () => converter.convert<Ern382.Ern>(parsed, 382),
+        ConverterError,
+      );
     });
 
     it("should convert to 383", async () => {
@@ -103,7 +114,10 @@ describe("Converter", () => {
         readFileSync("./examples/_ddex/411.xml").toString(),
       );
 
-      assert.throws(() => converter.convert<Ern382.Ern>(parsed, 382), ConverterError);
+      assert.throws(
+        () => converter.convert<Ern382.Ern>(parsed, 382),
+        ConverterError,
+      );
     });
 
     it("should not convert to 383", async () => {
@@ -111,7 +125,10 @@ describe("Converter", () => {
         readFileSync("./examples/_ddex/411.xml").toString(),
       );
 
-      assert.throws(() => converter.convert<Ern383.Ern>(parsed, 383), ConverterError);
+      assert.throws(
+        () => converter.convert<Ern383.Ern>(parsed, 383),
+        ConverterError,
+      );
     });
 
     it("should convert to 411", async () => {

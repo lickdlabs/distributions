@@ -30,7 +30,10 @@ export const findPartyReference = (
   }
 
   if (!reference) {
-    throw new ConverterError("could not find artist in parties");
+    throw new ConverterError({
+      version: 383,
+      message: "could not find artist in parties",
+    });
   }
 
   return reference.partyReference;
@@ -48,7 +51,10 @@ export const findNamePartyReference = (
   );
 
   if (!party) {
-    throw new ConverterError("could not find label in parties");
+    throw new ConverterError({
+      version: 383,
+      message: "could not find label in parties",
+    });
   }
 
   return party.partyReference;
@@ -66,7 +72,10 @@ export const findReleaseLabelReference = (
   );
 
   if (!party) {
-    throw new ConverterError("could not find label in parties");
+    throw new ConverterError({
+      version: 383,
+      message: "could not find label in parties",
+    });
   }
 
   return party.partyReference;

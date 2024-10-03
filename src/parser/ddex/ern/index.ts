@@ -38,6 +38,10 @@ export class ErnParser {
         return new Ern411Parser(this.logger).parse(action, object);
     }
 
-    throw new ParserError(`unknown/unsupported version (${version})`);
+    throw new ParserError({
+      version,
+      action,
+      message: "unknown/unsupported version",
+    });
   }
 }
