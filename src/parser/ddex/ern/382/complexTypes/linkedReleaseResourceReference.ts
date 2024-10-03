@@ -9,5 +9,5 @@ export const parseLinkedReleaseResourceReference = (
         languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

@@ -7,5 +7,5 @@ export const parseUseType = (object: any): Ern411.UseType => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

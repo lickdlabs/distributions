@@ -6,5 +6,5 @@ export const parseReason = (object: any): Ern382.Reason => ({
         languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

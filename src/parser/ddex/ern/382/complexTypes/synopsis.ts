@@ -6,5 +6,5 @@ export const parseSynopsis = (object: any): Ern382.Synopsis => ({
         languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

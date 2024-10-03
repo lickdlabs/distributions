@@ -6,5 +6,5 @@ export const parseBitRate = (object: any): Ern382.BitRate => ({
         unitOfMeasure: object.$.UnitOfMeasure || undefined,
       }
     : undefined,
-  value: parseFloat(object._ || object),
+  value: parseFloat(object.$ ? object._ : object),
 });

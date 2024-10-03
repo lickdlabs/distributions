@@ -6,5 +6,5 @@ export const parseAspectRatio = (object: any): Ern382.AspectRatio => ({
         aspectRatioType: object.$.AspectRatioType || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

@@ -8,5 +8,5 @@ export const parseCurrentTerritoryCode = (
         identifierType: object.$.IdentifierType || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

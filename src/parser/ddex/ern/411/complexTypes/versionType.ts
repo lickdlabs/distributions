@@ -7,5 +7,5 @@ export const parseVersionType = (object: any): Ern411.VersionType => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

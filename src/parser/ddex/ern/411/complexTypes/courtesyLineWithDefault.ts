@@ -12,5 +12,5 @@ export const parseCourtesyLineWithDefault = (
           : undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

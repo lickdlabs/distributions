@@ -12,5 +12,5 @@ export const parseDisplayArtistNameWithDefault = (
           : undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

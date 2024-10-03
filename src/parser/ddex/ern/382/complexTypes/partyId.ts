@@ -8,5 +8,5 @@ export const parsePartyId = (object: any): Ern382.PartyId => ({
         isIsni: object.$.IsISNI ? !!object.$.IsISNI : undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

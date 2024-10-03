@@ -13,5 +13,5 @@ export const parseEventDateWithoutFlags = (
         languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
       }
     : undefined,
-  value: new Date(object._ || object),
+  value: new Date(object.$ ? object._ : object),
 });

@@ -6,5 +6,5 @@ export const parseCourtesyLine = (object: any): Ern383.CourtesyLine => ({
         languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

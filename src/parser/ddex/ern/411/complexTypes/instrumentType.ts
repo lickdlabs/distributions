@@ -7,5 +7,5 @@ export const parseInstrumentType = (object: any): Ern411.InstrumentType => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

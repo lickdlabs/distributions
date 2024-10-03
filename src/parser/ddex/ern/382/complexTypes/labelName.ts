@@ -9,5 +9,5 @@ export const parseLabelName = (object: any): Ern382.LabelName => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

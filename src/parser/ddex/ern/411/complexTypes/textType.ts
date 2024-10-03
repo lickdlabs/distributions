@@ -7,5 +7,5 @@ export const parseTextType = (object: any): Ern411.TextType => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

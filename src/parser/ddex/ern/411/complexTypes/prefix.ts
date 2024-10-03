@@ -6,5 +6,5 @@ export const parsePrefix = (object: any): Ern411.Prefix => ({
         languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

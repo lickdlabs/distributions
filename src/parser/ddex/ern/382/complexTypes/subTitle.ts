@@ -6,5 +6,5 @@ export const parseSubTitle = (object: any): Ern382.SubTitle => ({
         languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

@@ -7,5 +7,5 @@ export const parseImageType = (object: any): Ern411.ImageType => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

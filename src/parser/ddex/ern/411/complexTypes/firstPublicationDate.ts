@@ -11,5 +11,5 @@ export const parseFirstPublicationDate = (
           : undefined,
       }
     : undefined,
-  value: new Date(object._ || object),
+  value: new Date(object.$ ? object._ : object),
 });

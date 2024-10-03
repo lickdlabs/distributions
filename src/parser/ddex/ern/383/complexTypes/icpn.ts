@@ -6,5 +6,5 @@ export const parseIcpn = (object: any): Ern383.Icpn => ({
         isEan: object.$.IsEan ? object.$.IsEan === "true" : undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

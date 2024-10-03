@@ -8,5 +8,5 @@ export const parseImageCodecType = (object: any): Ern382.ImageCodecType => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

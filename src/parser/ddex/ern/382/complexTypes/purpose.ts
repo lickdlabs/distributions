@@ -7,5 +7,5 @@ export const parsePurpose = (object: any): Ern382.Purpose => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

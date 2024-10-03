@@ -6,5 +6,5 @@ export const parseExtent = (object: any): Ern383.Extent => ({
         unitOfMeasure: object.$.UnitOfMeasure || undefined,
       }
     : undefined,
-  value: parseFloat(object._ || object),
+  value: parseFloat(object.$ ? object._ : object),
 });

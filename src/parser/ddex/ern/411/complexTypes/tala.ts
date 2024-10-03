@@ -9,5 +9,5 @@ export const parseTala = (object: any): Ern411.Tala => ({
           : undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

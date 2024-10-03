@@ -9,5 +9,5 @@ export const parseRaga = (object: any): Ern411.Raga => ({
           : undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

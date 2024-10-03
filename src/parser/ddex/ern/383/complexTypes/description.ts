@@ -6,5 +6,5 @@ export const parseDescription = (object: any): Ern383.Description => ({
         languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

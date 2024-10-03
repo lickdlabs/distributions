@@ -8,5 +8,5 @@ export const parseReleaseCollectionReference = (
         releaseResourceType: object.$.ReleaseResourceType || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

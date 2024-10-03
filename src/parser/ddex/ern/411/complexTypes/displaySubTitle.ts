@@ -12,5 +12,5 @@ export const parseDisplaySubTitle = (object: any): Ern411.DisplaySubTitle => ({
         subTitleType: object.$.SubTitleType || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

@@ -7,5 +7,5 @@ export const parseRatingAgency = (object: any): Ern411.RatingAgency => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

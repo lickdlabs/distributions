@@ -8,5 +8,5 @@ export const parseDrmPlatformType = (object: any): Ern383.DrmPlatformType => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

@@ -7,5 +7,5 @@ export const parseCarrierType = (object: any): Ern411.CarrierType => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

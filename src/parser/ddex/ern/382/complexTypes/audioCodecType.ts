@@ -8,5 +8,5 @@ export const parseAudioCodecType = (object: any): Ern382.AudioCodecType => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

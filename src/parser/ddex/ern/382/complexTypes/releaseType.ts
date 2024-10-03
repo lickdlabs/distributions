@@ -7,5 +7,5 @@ export const parseReleaseType = (object: any): Ern382.ReleaseType => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

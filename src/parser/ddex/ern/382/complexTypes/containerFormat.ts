@@ -7,5 +7,5 @@ export const parseContainerFormat = (object: any): Ern382.ContainerFormat => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

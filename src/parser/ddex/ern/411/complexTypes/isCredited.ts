@@ -8,5 +8,5 @@ export const parseIsCredited = (object: any): Ern411.IsCredited => ({
           : undefined,
       }
     : undefined,
-  value: (object._ || object) === "true",
+  value: (object.$ ? object._ : object) === "true",
 });

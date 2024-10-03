@@ -7,5 +7,5 @@ export const parseReasonType = (object: any): Ern383.ReasonType => ({
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

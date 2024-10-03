@@ -6,5 +6,5 @@ export const parseComment = (object: any): Ern383.Comment => ({
         languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

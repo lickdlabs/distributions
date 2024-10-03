@@ -9,5 +9,5 @@ export const parseDisplayArtistRole = (
         userDefinedValue: object.$.UserDefinedValue || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });

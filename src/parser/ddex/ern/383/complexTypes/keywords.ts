@@ -6,5 +6,5 @@ export const parseKeywords = (object: any): Ern383.Keywords => ({
         languageAndScriptCode: object.$.LanguageAndScriptCode || undefined,
       }
     : undefined,
-  value: object._ || object,
+  value: object.$ ? object._ : object,
 });
