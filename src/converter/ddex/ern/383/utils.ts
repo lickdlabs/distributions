@@ -1,3 +1,4 @@
+import { ConverterError } from "../../../../errors";
 import { Ern383, Ern411 } from "../../../../types";
 
 export const findPartyReference = (
@@ -29,7 +30,7 @@ export const findPartyReference = (
   }
 
   if (!reference) {
-    throw new Error("could not find artist in parties");
+    throw new ConverterError("could not find artist in parties");
   }
 
   return reference.partyReference;
@@ -47,7 +48,7 @@ export const findNamePartyReference = (
   );
 
   if (!party) {
-    throw new Error("could not find label in parties");
+    throw new ConverterError("could not find label in parties");
   }
 
   return party.partyReference;
@@ -65,7 +66,7 @@ export const findReleaseLabelReference = (
   );
 
   if (!party) {
-    throw new Error("could not find label in parties");
+    throw new ConverterError("could not find label in parties");
   }
 
   return party.partyReference;

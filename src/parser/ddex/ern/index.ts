@@ -1,4 +1,5 @@
 import { ILogger } from "@lickd/logger";
+import { ParserError } from "../../../errors";
 import { Ern } from "../../../types";
 import { Ern382Parser } from "./382";
 import { Ern383Parser } from "./383";
@@ -37,6 +38,6 @@ export class ErnParser {
         return new Ern411Parser(this.logger).parse(action, object);
     }
 
-    throw new Error("unknown/unsupported version");
+    throw new ParserError(`unknown/unsupported version (${version})`);
   }
 }

@@ -1,4 +1,5 @@
 import { ILogger } from "@lickd/logger";
+import { ParserError } from "../../../../errors";
 import { Ern411 } from "../../../../types";
 import { parseNewReleaseMessage } from "./elements/newReleaseMessage";
 import { parsePurgeReleaseMessage } from "./elements/purgeReleaseMessage";
@@ -15,6 +16,6 @@ export class Ern411Parser {
         return parsePurgeReleaseMessage(object);
     }
 
-    throw new Error("unknown/unsupported action");
+    throw new ParserError(`unknown/unsupported action (${action})`);
   }
 }

@@ -1,3 +1,5 @@
+import { InvalidError } from "./errors";
+
 export const parseBoolean = (value: any): boolean => value === "true";
 
 export const convertDurationToMilliseconds = (duration: string): number => {
@@ -6,7 +8,7 @@ export const convertDurationToMilliseconds = (duration: string): number => {
   )?.groups;
 
   if (!matches) {
-    throw new Error(`invalid duration '${duration}'`);
+    throw new InvalidError(`invalid duration '${duration}'`);
   }
 
   return Math.round(

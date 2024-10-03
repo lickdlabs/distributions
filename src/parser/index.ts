@@ -1,5 +1,6 @@
 import { ILogger } from "@lickd/logger";
 import * as xml2js from "xml2js";
+import { ParserError } from "../errors";
 import { Ern } from "../types";
 import { ErnParser } from "./ddex";
 
@@ -17,7 +18,7 @@ export class Parser {
       return new ErnParser(this.logger).parse(object);
     }
 
-    throw new Error("unknown/unsupported distribution");
+    throw new ParserError("unknown/unsupported distribution");
   }
 
   private async parseToObject(body: string): Promise<any> {
@@ -55,7 +56,7 @@ export class Parser {
       this.logger.info("failed parsing distribution as xml to object");
     }
 
-    throw new Error("failed parsing distribution to object");
+    throw new ParserError("failed parsing distribution to object");
   }
 
   private isErn(object: any): object is Ern {

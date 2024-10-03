@@ -1,3 +1,4 @@
+import { InvalidError } from "../src";
 import { convertDurationToMilliseconds, findUnique } from "../src/utils";
 import { assert } from "chai";
 
@@ -70,7 +71,7 @@ describe("Utils", () => {
     });
 
     it("should convert valid duration (invalid)", () => {
-      assert.throws(() => convertDurationToMilliseconds("test"));
+      assert.throws(() => convertDurationToMilliseconds("test"), InvalidError);
     });
   });
 

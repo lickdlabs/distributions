@@ -1,4 +1,5 @@
 import { ILogger } from "@lickd/logger";
+import { ParserError } from "../../../../errors";
 import { Ern382 } from "../../../../types";
 import {
   parseCatalogListMessage,
@@ -21,6 +22,6 @@ export class Ern382Parser {
         return parsePurgeReleaseMessage(object);
     }
 
-    throw new Error("unknown/unsupported action");
+    throw new ParserError(`unknown/unsupported action (${action})`);
   }
 }

@@ -1,4 +1,5 @@
 import { ILogger } from "@lickd/logger";
+import { ConverterError } from "../../../../errors";
 import { Ern382, Ern383 } from "../../../../types";
 import {
   convertNewReleaseMessage,
@@ -17,7 +18,9 @@ export class Ern382Converter {
         return convertPurgeReleaseMessage(ern);
 
       default:
-        throw new Error("unknown/unsupported conversion");
+        throw new ConverterError(
+          `unknown/unsupported action conversion (${ern.action})`,
+        );
     }
   }
 }

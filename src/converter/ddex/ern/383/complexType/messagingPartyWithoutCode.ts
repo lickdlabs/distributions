@@ -1,3 +1,4 @@
+import { ConverterError } from "../../../../../errors";
 import { Ern383, Ern411 } from "../../../../../types";
 import { convertPartyNameWithoutCode } from "./partyNameWithoutCode";
 
@@ -6,7 +7,7 @@ export const convertMessagingPartyWithoutCode = (
 ): Ern411.MessagingPartyWithoutCode => {
   const partyId = messagingParty.partyId.shift();
   if (!partyId) {
-    throw new Error("no party id found");
+    throw new ConverterError("no party id found");
   }
 
   return {

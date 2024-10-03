@@ -1,3 +1,4 @@
+import { ConverterError } from "../../../../../errors";
 import { Ern383, Ern411 } from "../../../../../types";
 import { findUnique } from "../../../../../utils";
 import { convertDetailedPartyId } from "./detailedPartyId";
@@ -56,7 +57,7 @@ export const convertPartyList = (
       };
     }
 
-    throw new Error("could not detect party");
+    throw new ConverterError("could not detect party");
   };
 
   partyList.party.push(convertMessageHeader(mesageHeader.messageSender));

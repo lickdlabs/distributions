@@ -1,4 +1,5 @@
 import { ILogger } from "@lickd/logger";
+import { ConverterError } from "../errors";
 import { Ern } from "../types";
 import { Ern382Converter, Ern383Converter } from "./ddex";
 
@@ -32,7 +33,9 @@ export class Converter {
         return new Ern383Converter(this.logger).convert(ern);
 
       default:
-        throw new Error("unknown/unsupported conversion");
+        throw new ConverterError(
+          `unknown/unsupported version conversion (${ern.version})`,
+        );
     }
   }
 }
