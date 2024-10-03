@@ -7,7 +7,7 @@ export const convertDetailedPartyId = (
   isni: partyId._attributes?.isIsni ? partyId.value : undefined,
   dpid:
     partyId._attributes?.isDpid ||
-    partyId.value.match(new RegExp("PADPIDA[a-zA-Z0-9]+"))
+    partyId.value?.match(new RegExp("PADPIDA[a-zA-Z0-9]+"))
       ? (partyId.value as Ern411.DetailedPartyId["dpid"])
       : undefined,
   ipiNameNumber: undefined,
