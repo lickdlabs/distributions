@@ -59,7 +59,6 @@
             <ReleaseDetailsByTerritory>
                 <TerritoryCode>Worldwide</TerritoryCode>
                 <ResourceGroup>
-
                     <ResourceGroupContentItem>
                         <ReleaseResourceReference ReleaseResourceType="SecondaryResource">A1</ReleaseResourceReference>
                     </ResourceGroupContentItem>
