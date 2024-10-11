@@ -27,18 +27,190 @@
     "partyList": {
       "party": [
         {
-          "partyReference": "P1",
+          "partyReference": "P0",
           "partyName": [
             {
               "fullName": {
                 "value": "Lickd"
               }
             }
+          ],
+          "partyId": [
+            {
+              "dpid": "PADPIDA00000000000",
+              "proprietaryId": [
+                {
+                  "_attributes": {
+                    "namespace": "PADPIDA00000000000"
+                  },
+                  "value": "PADPIDA00000000000"
+                }
+              ]
+            }
           ]
         }
       ]
     },
-    "resourceList": {},
-    "releaseList": {}
+    "resourceList": {
+      "soundRecording": [
+        {
+          "resourceReference": "A0",
+          "type": {
+            "value": "Unknown"
+          },
+          "resourceId": [
+            {
+              "isrc": "XXX000000000"
+            }
+          ],
+          "displayTitleText": [
+            {
+              "value": "Test Track"
+            }
+          ],
+          "displayTitle": [
+            {
+              "titleText": "Test Track"
+            }
+          ],
+          "displayArtistName": [
+            {
+              "value": "Lickd"
+            }
+          ],
+          "displayArtist": [
+            {
+              "artistPartyReference": "P0",
+              "displayArtistRole": {
+                "value": "Artist"
+              }
+            }
+          ],
+          "duration": 90000,
+          "parentalWarningType": [
+            {
+              "value": "Unknown"
+            }
+          ]
+        }
+      ],
+      "image": [
+        {
+          "resourceReference": "A1",
+          "type": {
+            "value": "Unknown"
+          },
+          "resourceId": [
+            {
+              "proprietaryId": [
+                {
+                  "_attributes": {
+                    "namespace": "PADPIDA00000000000"
+                  },
+                  "value": "00000000-0000-0000-0000-000000000000"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "releaseList": {
+      "release": {
+        "releaseReference": "R0",
+        "releaseType": [
+          {
+            "_attributes": {
+              "userDefinedValue": "Unknown"
+            },
+            "value": "UserDefined"
+          }
+        ],
+        "releaseId": {
+          "icpn": "000000000000"
+        },
+        "displayTitleText": [
+          {
+            "value": "Test Release"
+          }
+        ],
+        "displayTitle": [
+          {
+            "titleText": "Test Release"
+          }
+        ],
+        "displayArtistName": [
+          {
+            "value": "Lickd"
+          }
+        ],
+        "displayArtist": [
+          {
+            "artistPartyReference": "P0",
+            "displayArtistRole": {
+              "value": "Artist"
+            }
+          }
+        ],
+        "releaseLabelReference": [
+          {
+            "value": "P0"
+          }
+        ],
+        "genre": [
+          {
+            "genreText": ""
+          }
+        ],
+        "parentalWarningType": [
+          {
+            "value": "Unknown"
+          }
+        ],
+        "resourceGroup": {
+          "resourceGroup": [
+            {
+              "_attributes": {
+                "resourceGroupType": "Component"
+              },
+              "resourceGroupContentItem": [
+                {
+                  "releaseResourceReference": "A0"
+                }
+              ]
+            }
+          ],
+          "linkedReleaseResourceReference": [
+            {
+              "value": "A1"
+            }
+          ]
+        }
+      },
+      "trackRelease": [
+        {
+          "releaseReference": "R1",
+          "releaseId": {
+            "isrc": "000000000000"
+          },
+          "displayTitle": [
+            {
+              "titleText": "Test Track"
+            }
+          ],
+          "releaseResourceReference": "A0",
+          "releaseLabelReference": [
+            {
+              "value": "P0"
+            }
+          ],
+          "genre": [
+            {
+              "genreText": ""
+            }
+          ]
+        }
+      ]
+    }
   }
 }

@@ -58,16 +58,6 @@
             </ReleaseResourceReferenceList>
             <ReleaseDetailsByTerritory>
                 <TerritoryCode>Worldwide</TerritoryCode>
-                <ResourceGroup>
-                    <ResourceGroup>
-                        <ResourceGroupContentItem>
-                            <ReleaseResourceReference>A0</ReleaseResourceReference>
-                        </ResourceGroupContentItem>
-                    </ResourceGroup>
-                    <ResourceGroupContentItem>
-                        <ReleaseResourceReference ReleaseResourceType="SecondaryResource">A1</ReleaseResourceReference>
-                    </ResourceGroupContentItem>
-                </ResourceGroup>
             </ReleaseDetailsByTerritory>
         </Release>
         <Release>

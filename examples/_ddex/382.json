@@ -36,7 +36,138 @@
       ],
       "messageCreatedDateTime": "2024-01-01T00:00:00.000Z"
     },
-    "resourceList": {},
-    "releaseList": {}
+    "resourceList": {
+      "soundRecording": [
+        {
+          "soundRecordingId": [
+            {
+              "isrc": "XXX000000000"
+            }
+          ],
+          "resourceReference": "A0",
+          "referenceTitle": {
+            "titleText": {
+              "value": "Test Track"
+            }
+          },
+          "duration": 90000,
+          "soundRecordingDetailsByTerritory": [
+            {
+              "territoryCode": [
+                {
+                  "value": "Worldwide"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "image": [
+        {
+          "imageId": [
+            {
+              "proprietaryId": [
+                {
+                  "_attributes": {
+                    "namespace": "PADPIDA00000000000"
+                  },
+                  "value": "00000000-0000-0000-0000-000000000000"
+                }
+              ]
+            }
+          ],
+          "resourceReference": "A1",
+          "imageDetailsByTerritory": [
+            {
+              "territoryCode": [
+                {
+                  "value": "Worldwide"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "releaseList": {
+      "release": [
+        {
+          "releaseId": [
+            {
+              "icpn": {
+                "value": "000000000000"
+              }
+            }
+          ],
+          "releaseReference": [
+            "R0"
+          ],
+          "referenceTitle": {
+            "titleText": {
+              "value": "Test Release"
+            }
+          },
+          "releaseResourceReferenceList": {
+            "releaseResourceReference": [
+              {
+                "_attributes": {
+                  "releaseResourceType": "PrimaryResource"
+                },
+                "value": "A0"
+              },
+              {
+                "_attributes": {
+                  "releaseResourceType": "SecondaryResource"
+                },
+                "value": "A1"
+              }
+            ]
+          },
+          "releaseDetailsByTerritory": [
+            {
+              "territoryCode": [
+                {
+                  "value": "Worldwide"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "releaseId": [
+            {
+              "isrc": "XXX000000000"
+            }
+          ],
+          "releaseReference": [
+            "R1"
+          ],
+          "referenceTitle": {
+            "titleText": {
+              "value": "Test Track"
+            }
+          },
+          "releaseResourceReferenceList": {
+            "releaseResourceReference": [
+              {
+                "_attributes": {
+                  "releaseResourceType": "PrimaryResource"
+                },
+                "value": "A0"
+              }
+            ]
+          },
+          "releaseDetailsByTerritory": [
+            {
+              "territoryCode": [
+                {
+                  "value": "Worldwide"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 }
