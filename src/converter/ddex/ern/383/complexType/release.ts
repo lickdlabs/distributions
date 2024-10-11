@@ -1,3 +1,4 @@
+import { Avs411 } from "@lickd/distributions";
 import { Ern383, Ern411 } from "../../../../../types";
 import { findUnique } from "../../../../../utils";
 import { convertAvRating } from "./avRating";
@@ -25,110 +26,130 @@ export const convertRelease = (
   parties: Ern411.Party[],
   release: Ern383.Release,
   territory?: Ern383.ReleaseDetailsByTerritory,
-): Ern411.Release => ({
-  _attributes: release._attributes
-    ? {
-        languageAndScriptCode: release._attributes.languageAndScriptCode,
-      }
-    : undefined,
-  releaseReference: convertReleaseReference(release.releaseReference),
-  releaseType: findUnique([
+): Ern411.Release => {
+  const releaseTypes = findUnique([
     ...(release.releaseType || []),
     ...(territory?.releaseType || []),
-  ]).map((releaseType) =>
-    convertReleaseTypeForReleaseNotification(releaseType),
-  ),
-  releaseId: convertReleaseId(release.releaseId[0]),
-  displayTitleText: [convertDisplayTitleText(release.referenceTitle.titleText)],
-  displayTitle: [convertDisplayTitleFromReferenceTitle(release.referenceTitle)],
-  additionalTitle: undefined,
-  displayArtistName: territory?.displayArtist
-    ? territory.displayArtist
-        .filter(
-          (displayArtist): displayArtist is Required<Ern383.Artist> =>
-            (displayArtist.partyName?.length || 0) > 0,
+  ]);
+
+  return {
+    _attributes: release._attributes
+      ? {
+          languageAndScriptCode: release._attributes.languageAndScriptCode,
+        }
+      : undefined,
+    releaseReference: convertReleaseReference(release.releaseReference),
+    releaseType:
+      releaseTypes.length > 0
+        ? releaseTypes.map((releaseType) =>
+            convertReleaseTypeForReleaseNotification(releaseType),
+          )
+        : [
+            {
+              _attributes: {
+                userDefinedValue: "Unknown",
+              },
+              value: Avs411.ReleaseTypeErn4.USER_DEFINED,
+            },
+          ],
+    releaseId: convertReleaseId(release.releaseId[0]),
+    displayTitleText: [
+      convertDisplayTitleText(release.referenceTitle.titleText),
+    ],
+    displayTitle: [
+      convertDisplayTitleFromReferenceTitle(release.referenceTitle),
+    ],
+    additionalTitle: undefined,
+    displayArtistName: territory?.displayArtist
+      ? territory.displayArtist
+          .filter(
+            (displayArtist): displayArtist is Required<Ern383.Artist> =>
+              (displayArtist.partyName?.length || 0) > 0,
+          )
+          .map((displayArtist) =>
+            displayArtist.partyName.map((partyName) =>
+              convertDisplayArtistNameWithDefault(partyName.fullName),
+            ),
+          )
+          .reduce((acc, current) => acc.concat(current), [])
+      : [],
+    displayArtist: territory?.displayArtist
+      ? territory.displayArtist.map((displayArtist) =>
+          convertDisplayArtistFromArtist(parties, displayArtist),
         )
-        .map((displayArtist) =>
-          displayArtist.partyName.map((partyName) =>
-            convertDisplayArtistNameWithDefault(partyName.fullName),
+      : [],
+    releaseLabelReference: territory?.labelName
+      ? territory.labelName.map((labelName) =>
+          convertReleaseLabelReference(parties, labelName),
+        )
+      : [],
+    administratingRecordCompany: undefined,
+    pLine:
+      release.pLine || territory?.pLine
+        ? findUnique([
+            ...(release.pLine || []),
+            ...(territory?.pLine || []),
+          ]).map((pLine) => convertPLineWithDefault(pLine))
+        : undefined,
+    cLine:
+      release.cLine || territory?.cLine
+        ? findUnique([
+            ...(release.cLine || []),
+            ...(territory?.cLine || []),
+          ]).map((cLine) => convertCLineWithDefault(cLine))
+        : undefined,
+    courtesyLine: undefined,
+    duration: release.duration,
+    genre: territory?.genre
+      ? territory.genre.map((genre) => convertGenreWithTerritory(genre))
+      : [],
+    releaseDate: territory?.releaseDate
+      ? [convertEventDateWithDefault(territory.releaseDate)]
+      : undefined,
+    originalReleaseDate: territory?.originalReleaseDate
+      ? [convertEventDateWithDefault(territory.originalReleaseDate)]
+      : undefined,
+    parentalWarningType: territory?.parentalWarningType
+      ? territory.parentalWarningType.map((parentalWarningType) =>
+          convertParentalWarningTypeWithTerritory(parentalWarningType),
+        )
+      : [],
+    avRating: territory?.avRating
+      ? territory?.avRating.map((avRating) => convertAvRating(avRating))
+      : undefined,
+    relatedRelease: territory?.relatedRelease
+      ? territory.relatedRelease.map((relatedRelease) =>
+          convertRelatedRelease(
+            parties,
+            relatedRelease,
+            relatedRelease.releaseSummaryDetailsByTerritory?.shift(),
           ),
         )
-        .reduce((acc, current) => acc.concat(current), [])
-    : [],
-  displayArtist: territory?.displayArtist
-    ? territory.displayArtist.map((displayArtist) =>
-        convertDisplayArtistFromArtist(parties, displayArtist),
-      )
-    : [],
-  releaseLabelReference: territory?.labelName
-    ? territory.labelName.map((labelName) =>
-        convertReleaseLabelReference(parties, labelName),
-      )
-    : [],
-  administratingRecordCompany: undefined,
-  pLine:
-    release.pLine || territory?.pLine
-      ? findUnique([...(release.pLine || []), ...(territory?.pLine || [])]).map(
-          (pLine) => convertPLineWithDefault(pLine),
+      : undefined,
+    isCompilation: undefined,
+    isMultiArtistCompilation: territory?.isMultiArtistCompilation || undefined,
+    resourceGroup: territory?.resourceGroup
+      ? convertResourceGroup(parties, territory.resourceGroup[0])
+      : {},
+    externalResourceLink: release.externalResourceLink
+      ? release.externalResourceLink.map((externalResourceLink) =>
+          convertExternalResourceLink(externalResourceLink),
         )
       : undefined,
-  cLine:
-    release.cLine || territory?.cLine
-      ? findUnique([...(release.cLine || []), ...(territory?.cLine || [])]).map(
-          (cLine) => convertCLineWithDefault(cLine),
-        )
+    keywords: territory?.keywords
+      ? territory?.keywords.map((keywords) => convertKeywords(keywords))
       : undefined,
-  courtesyLine: undefined,
-  duration: release.duration,
-  genre: territory?.genre
-    ? territory.genre.map((genre) => convertGenreWithTerritory(genre))
-    : [],
-  releaseDate: territory?.releaseDate
-    ? [convertEventDateWithDefault(territory.releaseDate)]
-    : undefined,
-  originalReleaseDate: territory?.originalReleaseDate
-    ? [convertEventDateWithDefault(territory.originalReleaseDate)]
-    : undefined,
-  parentalWarningType: territory?.parentalWarningType
-    ? territory.parentalWarningType.map((parentalWarningType) =>
-        convertParentalWarningTypeWithTerritory(parentalWarningType),
-      )
-    : [],
-  avRating: territory?.avRating
-    ? territory?.avRating.map((avRating) => convertAvRating(avRating))
-    : undefined,
-  relatedRelease: territory?.relatedRelease
-    ? territory.relatedRelease.map((relatedRelease) =>
-        convertRelatedRelease(
-          parties,
-          relatedRelease,
-          relatedRelease.releaseSummaryDetailsByTerritory?.shift(),
-        ),
-      )
-    : undefined,
-  isCompilation: undefined,
-  isMultiArtistCompilation: territory?.isMultiArtistCompilation || undefined,
-  resourceGroup: territory?.resourceGroup
-    ? convertResourceGroup(parties, territory.resourceGroup[0])
-    : {},
-  externalResourceLink: release.externalResourceLink
-    ? release.externalResourceLink.map((externalResourceLink) =>
-        convertExternalResourceLink(externalResourceLink),
-      )
-    : undefined,
-  keywords: territory?.keywords
-    ? territory?.keywords.map((keywords) => convertKeywords(keywords))
-    : undefined,
-  synopsis: territory?.synopsis
-    ? [convertSynopsisWithTerritory(territory.synopsis)]
-    : undefined,
-  raga: undefined,
-  tala: undefined,
-  deity: undefined,
-  hiResMusicDescription: undefined,
-  isSoundtrack: undefined,
-  isHiResMusic: undefined,
-  marketingComment: territory?.marketingComment
-    ? [convertMarketingComment(territory.marketingComment)]
-    : undefined,
-});
+    synopsis: territory?.synopsis
+      ? [convertSynopsisWithTerritory(territory.synopsis)]
+      : undefined,
+    raga: undefined,
+    tala: undefined,
+    deity: undefined,
+    hiResMusicDescription: undefined,
+    isSoundtrack: undefined,
+    isHiResMusic: undefined,
+    marketingComment: territory?.marketingComment
+      ? [convertMarketingComment(territory.marketingComment)]
+      : undefined,
+  };
+};
