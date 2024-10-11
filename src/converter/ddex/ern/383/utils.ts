@@ -80,3 +80,14 @@ export const findReleaseLabelReference = (
 
   return party.partyReference;
 };
+
+export const isReleaseResourceReferenceList = (
+  object: any,
+): object is Ern383.ReleaseResourceReferenceList =>
+  (object as Ern383.ReleaseResourceReferenceList).releaseResourceReference !==
+  undefined;
+
+export const isReleaseResourceReference = (
+  object: any,
+): object is Ern383.ReleaseResourceReference =>
+  (object as Ern383.ReleaseResourceReference).value !== undefined;

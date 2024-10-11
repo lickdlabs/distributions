@@ -86,7 +86,12 @@ export enum PLineType {}
 export enum Purpose {}
 export enum RatingAgency {}
 export enum ReleaseRelationshipType {}
-export enum ReleaseResourceType {}
+
+export enum ReleaseResourceType {
+  PRIMARY_RESOURCE = "PrimaryResource",
+  SECONDARY_RESOURCE = "SecondaryResource",
+}
+
 export enum ReleaseType {}
 export enum ReasonType {}
 export enum ResourceContributorRole {}
