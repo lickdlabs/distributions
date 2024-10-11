@@ -99,9 +99,7 @@
               }
             }
           ],
-          "releaseReference": [
-            "R0"
-          ],
+          "releaseReference": ["R0"],
           "referenceTitle": {
             "titleText": {
               "value": "Test Release"
@@ -139,9 +137,7 @@
               "isrc": "XXX000000000"
             }
           ],
-          "releaseReference": [
-            "R1"
-          ],
+          "releaseReference": ["R1"],
           "referenceTitle": {
             "titleText": {
               "value": "Test Track"

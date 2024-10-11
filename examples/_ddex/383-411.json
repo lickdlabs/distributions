@@ -1,4 +1,5 @@
 {
+  "type": "ddex",
   "version": 411,
   "action": "newReleaseMessage",
   "element": {
@@ -23,6 +24,156 @@
       ],
       "messageCreatedDateTime": "2024-01-01T00:00:00.000Z"
     },
-    "resourceList": {}
+    "partyList": {
+      "party": [
+        {
+          "partyReference": "P0",
+          "partyName": [
+            {
+              "fullName": {
+                "value": "Lickd"
+              }
+            }
+          ],
+          "partyId": [
+            {
+              "dpid": "PADPIDA00000000000",
+              "proprietaryId": [
+                {
+                  "_attributes": {
+                    "namespace": "PADPIDA00000000000"
+                  },
+                  "value": "PADPIDA00000000000"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "resourceList": {
+      "soundRecording": [
+        {
+          "resourceReference": "A0",
+          "type": {
+            "value": "Unknown"
+          },
+          "resourceId": [
+            {
+              "isrc": "XXX000000000"
+            }
+          ],
+          "displayTitleText": [
+            {
+              "value": "Test Track"
+            }
+          ],
+          "displayTitle": [
+            {
+              "titleText": "Test Track"
+            }
+          ],
+          "displayArtistName": [],
+          "displayArtist": [],
+          "duration": 90000,
+          "parentalWarningType": [
+            {
+              "value": "Unknown"
+            }
+          ]
+        }
+      ],
+      "image": [
+        {
+          "resourceReference": "A1",
+          "type": {
+            "value": "Unknown"
+          },
+          "resourceId": [
+            {
+              "proprietaryId": [
+                {
+                  "_attributes": {
+                    "namespace": "PADPIDA00000000000"
+                  },
+                  "value": "00000000-0000-0000-0000-000000000000"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "releaseList": {
+      "release": {
+        "releaseReference": "R0",
+        "releaseType": [
+          {
+            "_attributes": {
+              "userDefinedValue": "Unknown"
+            },
+            "value": "UserDefined"
+          }
+        ],
+        "releaseId": {
+          "icpn": "000000000000"
+        },
+        "displayTitleText": [
+          {
+            "value": "Test Release"
+          }
+        ],
+        "displayTitle": [
+          {
+            "titleText": "Test Release"
+          }
+        ],
+        "displayArtistName": [],
+        "displayArtist": [],
+        "releaseLabelReference": [],
+        "genre": [],
+        "parentalWarningType": [],
+        "resourceGroup": {
+          "resourceGroup": [
+            {
+              "_attributes": {
+                "resourceGroupType": "Component"
+              },
+              "resourceGroupContentItem": [
+                {
+                  "releaseResourceReference": "A0"
+                }
+              ]
+            }
+          ],
+          "linkedReleaseResourceReference": [
+            {
+              "value": "A1"
+            }
+          ]
+        }
+      },
+      "trackRelease": [
+        {
+          "releaseReference": "R1",
+          "releaseId": {
+            "isrc": "XXX000000000"
+          },
+          "displayTitleText": [
+            {
+              "value": "Test Track"
+            }
+          ],
+          "displayTitle": [
+            {
+              "titleText": "Test Track"
+            }
+          ],
+          "releaseResourceReference": "A0",
+          "releaseLabelReference": [],
+          "genre": []
+        }
+      ]
+    }
   }
 }
