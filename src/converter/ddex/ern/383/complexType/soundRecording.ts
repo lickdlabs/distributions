@@ -95,7 +95,11 @@ export const convertSoundRecording = (
     ? territory.parentalWarningType.map((parentalWarningType) =>
         convertParentalWarningTypeWithTerritory(parentalWarningType),
       )
-    : [],
+    : [
+        {
+          value: Avs411.ParentalWarningType.UNKNOWN,
+        },
+      ],
   relatedRelease: undefined,
   relatedResource: undefined,
   compositeMusicalWorkType: undefined,
