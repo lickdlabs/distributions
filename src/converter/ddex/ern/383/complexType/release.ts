@@ -1,5 +1,4 @@
-import { Avs411 } from "@lickd/distributions";
-import { Ern383, Ern411 } from "../../../../../types";
+import { Avs411, Ern383, Ern411 } from "../../../../../types";
 import { findUnique } from "../../../../../utils";
 import { convertAvRating } from "./avRating";
 import { convertCLineWithDefault } from "./cLineWithDefault";
