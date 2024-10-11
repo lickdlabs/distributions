@@ -19,6 +19,67 @@
         </MessageRecipient>
         <MessageCreatedDateTime>2024-01-01T00:00:00+00:00</MessageCreatedDateTime>
     </MessageHeader>
-    <ResourceList></ResourceList>
-    <ReleaseList></ReleaseList>
+    <ResourceList>
+        <SoundRecording>
+            <SoundRecordingId>
+                <ISRC>XXX000000000</ISRC>
+            </SoundRecordingId>
+            <ResourceReference>A0</ResourceReference>
+            <ReferenceTitle>
+                <TitleText>Test Track</TitleText>
+            </ReferenceTitle>
+            <Duration>PT1M30S</Duration>
+            <SoundRecordingDetailsByTerritory>
+                <TerritoryCode>Worldwide</TerritoryCode>
+            </SoundRecordingDetailsByTerritory>
+        </SoundRecording>
+        <Image>
+            <ImageId>
+                <ProprietaryId Namespace="PADPIDA00000000000">00000000-0000-0000-0000-000000000000</ProprietaryId>
+            </ImageId>
+            <ResourceReference>A1</ResourceReference>
+            <ImageDetailsByTerritory>
+                <TerritoryCode>Worldwide</TerritoryCode>
+            </ImageDetailsByTerritory>
+        </Image>
+    </ResourceList>
+    <ReleaseList>
+        <Release>
+            <ReleaseId>
+                <ICPN>000000000000</ICPN>
+            </ReleaseId>
+            <ReleaseReference>R0</ReleaseReference>
+            <ReferenceTitle>
+                <TitleText>Test Release</TitleText>
+            </ReferenceTitle>
+            <ReleaseResourceReferenceList>
+                <ReleaseResourceReference ReleaseResourceType="PrimaryResource">A0</ReleaseResourceReference>
+                <ReleaseResourceReference ReleaseResourceType="SecondaryResource">A1</ReleaseResourceReference>
+            </ReleaseResourceReferenceList>
+            <ReleaseDetailsByTerritory>
+                <TerritoryCode>Worldwide</TerritoryCode>
+                <ResourceGroup>
+
+                    <ResourceGroupContentItem>
+                        <ReleaseResourceReference ReleaseResourceType="SecondaryResource">A1</ReleaseResourceReference>
+                    </ResourceGroupContentItem>
+                </ResourceGroup>
+            </ReleaseDetailsByTerritory>
+        </Release>
+        <Release>
+            <ReleaseId>
+                <ISRC>XXX000000000</ISRC>
+            </ReleaseId>
+            <ReleaseReference>R1</ReleaseReference>
+            <ReferenceTitle>
+                <TitleText>Test Track</TitleText>
+            </ReferenceTitle>
+            <ReleaseResourceReferenceList>
+                <ReleaseResourceReference ReleaseResourceType="PrimaryResource">A0</ReleaseResourceReference>
+            </ReleaseResourceReferenceList>
+            <ReleaseDetailsByTerritory>
+                <TerritoryCode>Worldwide</TerritoryCode>
+            </ReleaseDetailsByTerritory>
+        </Release>
+    </ReleaseList>
 </ern:NewReleaseMessage>

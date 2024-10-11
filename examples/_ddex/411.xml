@@ -21,12 +21,86 @@
     </MessageHeader>
     <PartyList>
         <Party>
-            <PartyReference>P1</PartyReference>
+            <PartyReference>P0</PartyReference>
             <PartyName>
                 <FullName>Lickd</FullName>
             </PartyName>
+            <PartyId>
+                <DPID>PADPIDA00000000000</DPID>
+                <ProprietaryId Namespace="PADPIDA00000000000">PADPIDA00000000000</ProprietaryId>
+            </PartyId>
         </Party>
     </PartyList>
-    <ResourceList></ResourceList>
-    <ReleaseList></ReleaseList>
+    <ResourceList>
+        <SoundRecording>
+            <ResourceReference>A0</ResourceReference>
+            <Type>Unknown</Type>
+            <ResourceId>
+                <ISRC>XXX000000000</ISRC>
+            </ResourceId>
+            <DisplayTitleText>Test Track</DisplayTitleText>
+            <DisplayTitle>
+                <TitleText>Test Track</TitleText>
+            </DisplayTitle>
+            <DisplayArtistName>Lickd</DisplayArtistName>
+            <DisplayArtist>
+                <ArtistPartyReference>P0</ArtistPartyReference>
+                <DisplayArtistRole>Artist</DisplayArtistRole>
+            </DisplayArtist>
+            <Duration>PT1M30S</Duration>
+            <ParentalWarningType>Unknown</ParentalWarningType>
+        </SoundRecording>
+        <Image>
+            <ResourceReference>A1</ResourceReference>
+            <Type>Unknown</Type>
+            <ResourceId>
+                <ProprietaryId Namespace="PADPIDA00000000000">00000000-0000-0000-0000-000000000000</ProprietaryId>
+            </ResourceId>
+        </Image>
+    </ResourceList>
+    <ReleaseList>
+        <Release>
+            <ReleaseReference>R0</ReleaseReference>
+            <ReleaseType UserDefinedValue="Unknown">UserDefined</ReleaseType>
+            <ReleaseId>
+                <ICPN>000000000000</ICPN>
+            </ReleaseId>
+            <DisplayTitleText>Test Release</DisplayTitleText>
+            <DisplayTitle>
+                <TitleText>Test Release</TitleText>
+            </DisplayTitle>
+            <DisplayArtistName>Lickd</DisplayArtistName>
+            <DisplayArtist>
+                <ArtistPartyReference>P0</ArtistPartyReference>
+                <DisplayArtistRole>Artist</DisplayArtistRole>
+            </DisplayArtist>
+            <ReleaseLabelReference>P0</ReleaseLabelReference>
+            <Genre>
+                <GenreText></GenreText>
+            </Genre>
+            <ParentalWarningType>Unknown</ParentalWarningType>
+            <ResourceGroup>
+                <ResourceGroup ResourceGroupType="Component">
+                    <ResourceGroupContentItem>
+                        <ReleaseResourceReference>A0</ReleaseResourceReference>
+                    </ResourceGroupContentItem>
+                </ResourceGroup>
+                <LinkedReleaseResourceReference>A1</LinkedReleaseResourceReference>
+            </ResourceGroup>
+        </Release>
+        <TrackRelease>
+            <ReleaseReference>R1</ReleaseReference>
+            <ReleaseId>
+                <ISRC>000000000000</ISRC>
+            </ReleaseId>
+            <DisplayTitle>
+                <TitleText>Test Track</TitleText>
+            </DisplayTitle>
+            <ReleaseResourceReference>A0</ReleaseResourceReference>
+            <ReleaseLabelReference>P0</ReleaseLabelReference>
+            <Genre>
+                <GenreText></GenreText>
+            </Genre>
+        </TrackRelease>
+    </ReleaseList>
 </ern:NewReleaseMessage>
