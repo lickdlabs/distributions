@@ -18,7 +18,7 @@
     "build:main": "tsc",
     "watch": "npm link && tsc --watch",
     "lint": "eslint --ext .js,.ts",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
+    "format": "prettier --ignore-path .gitignore --write .",
     "test": "mocha"
   },
   "engines": {
