@@ -1,7 +1,5 @@
-import { ConsoleLogger } from "@lickd/logger";
 import { assert } from "chai";
 import { readFileSync } from "fs";
-import { createStubInstance } from "sinon";
 import {
   ConverterError,
   Distributions,
@@ -12,8 +10,7 @@ import {
 } from "../src";
 import { assert382, assert383, assert411 } from "./assertions";
 
-const logger = createStubInstance(ConsoleLogger);
-const distributions = new Distributions(logger);
+const distributions = new Distributions();
 
 describe("Distributions", () => {
   describe("constructor()", () => {
