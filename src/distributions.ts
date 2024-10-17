@@ -1,25 +1,19 @@
-import { ILogger } from "@lickd/logger";
 import { convert } from "./converter";
 import { Logger } from "./logger";
 import { normalise } from "./normaliser";
 import { parse } from "./parser";
-import { Ern, ErnVersions } from "./types";
-
-type DistributionsOptions<TVersion extends ErnVersions> = {
-  version?: TVersion;
-  normalise?: boolean;
-};
+import { DistributionsOptions, Ern, ErnVersions, ParserOptions } from "./types";
 
 export class Distributions {
-  public constructor(logger?: ILogger) {
-    if (logger) {
-      Logger.setLogger(logger);
+  public constructor(options?: DistributionsOptions) {
+    if (options?.logger) {
+      Logger.setLogger(options.logger);
     }
   }
 
   public async parse<TVersion extends ErnVersions>(
     body: string,
-    options?: DistributionsOptions<TVersion>,
+    options?: ParserOptions<TVersion>,
   ): Promise<Ern[TVersion]> {
     let distro = await parse(body);
 

@@ -1,20 +1,20 @@
 # Distributions
 
-* [Details](#details)
-* [Install](#install)
-* [Usage](#usage)
-  * [Parsing](#parsing)
-  * [Converting](#converting)
-* [Known issues](#known-issues)
-* [Copyright info](#copyright-info)
+- [Details](#details)
+- [Install](#install)
+- [Usage](#usage)
+  - [Parsing](#parsing)
+  - [Converting](#converting)
+- [Known issues](#known-issues)
+- [Copyright info](#copyright-info)
 
 ## Details
 
-> ⚠️ **Warning!**  
-> 
+> ⚠️ **Warning!**
+>
 > While in version `0.x` there is a chance of breaking changes between minor/patch version.  
-> Please be cautious when upgrading between versions and check for any upgrade guides.  
-> 
+> Please be cautious when upgrading between versions and check for any upgrade guides.
+>
 > Once a major version is released, this will no longer be the case and this library will follow [Semantic Versioning](https://semver.org/).
 
 A library for parsing and converting distribution files.
@@ -33,18 +33,15 @@ Examples can be found in the [examples](./examples/) folder.
 
 ```typescript
 import { Distributions } from "@lickd/distributions";
-import { ConsoleLogger } from "@lickd/logger";
 import { readFileSync } from "fs";
 
-const logger = new ConsoleLogger();
-
-const distributions = new Distributions(logger);
+const distributions = new Distributions();
 const file = "path/to/distribution/file";
 
 (async () => {
   const parsed = await distributions.parse(readFileSync(file).toString());
 
-  logger.info({ parsed });
+  console.log({ parsed });
 })();
 ```
 
@@ -52,12 +49,9 @@ const file = "path/to/distribution/file";
 
 ```typescript
 import { Distributions, Ern411, ErnVersions } from "@lickd/distributions";
-import { ConsoleLogger } from "@lickd/logger";
 import { readFileSync } from "fs";
 
-const logger = new ConsoleLogger();
-
-const distributions = new Distributions(logger);
+const distributions = new Distributions();
 const file = "path/to/distribution/file";
 
 (async () => {
@@ -65,8 +59,30 @@ const file = "path/to/distribution/file";
     version: ErnVersions.ERN_411,
   });
 
-  logger.info({ parsed });
+  console.log({ parsed });
 })();
+```
+
+### Logging
+
+#### Enabling logging
+
+```typescript
+import { Distributions } from "@lickd/distributions";
+
+const distributions = new Distributions({
+  logger: console,
+});
+```
+
+#### Custom logger
+
+```typescript
+import { Distributions } from "@lickd/distributions";
+import { ConsoleLogger } from "@lickd/logger";
+
+const logger = new ConsoleLogger();
+const distributions = new Distributions({ logger });
 ```
 
 ## Known issues
@@ -75,7 +91,7 @@ const file = "path/to/distribution/file";
 
 #### DDEX 411+ - DisplayCredits
 
-Due to the definition of [DisplayCredits](https://service.ddex.net/xml/ern/411/release-notification.xsd#folder1890) 
+Due to the definition of [DisplayCredits](https://service.ddex.net/xml/ern/411/release-notification.xsd#folder1890)
 if the `sequence` for `DisplayCreditParty` and `NameUsedInDisplayCredit` does not have both values then the parsed result
 will not be correct.
 
@@ -119,9 +135,9 @@ This is because when we convert the raw XML into raw JSON we get the following:
 
 ```json
 {
-  "DisplayCreditText": [ "Test" ],
-  "DisplayCreditParty": [ "P1", "P2", "P3", "P4" ],
-  "NameUsedInDisplayCredit": [ "Credit1", "Credit2", "Credit4" ]
+  "DisplayCreditText": ["Test"],
+  "DisplayCreditParty": ["P1", "P2", "P3", "P4"],
+  "NameUsedInDisplayCredit": ["Credit1", "Credit2", "Credit4"]
 }
 ```
 

@@ -3,8 +3,8 @@ import { ConsoleLogger } from "@lickd/logger";
 import { readFileSync } from "fs";
 
 const logger = new ConsoleLogger();
+const distributions = new Distributions({ logger });
 
-const distributions = new Distributions(logger);
 const file = "../../examples/_ddex/382.json";
 
 (async () => {
