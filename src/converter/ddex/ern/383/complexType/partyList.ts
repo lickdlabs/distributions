@@ -1,5 +1,5 @@
 import { ConverterError } from "../../../../../errors";
-import { Ern383, Ern411 } from "../../../../../types";
+import { Ern383, Ern411, ErnVersions } from "../../../../../types";
 import { findUnique } from "../../../../../utils";
 import { convertDetailedPartyId } from "./detailedPartyId";
 
@@ -58,7 +58,7 @@ export const convertPartyList = (
     }
 
     throw new ConverterError({
-      version: 383,
+      version: ErnVersions.ERN_383,
       message: "could not detect party",
     });
   };

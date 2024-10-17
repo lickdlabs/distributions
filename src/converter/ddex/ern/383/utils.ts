@@ -1,5 +1,5 @@
 import { ConverterError } from "../../../../errors";
-import { Ern383, Ern411 } from "../../../../types";
+import { Ern383, Ern411, ErnVersions } from "../../../../types";
 
 export const findPartyReference = (
   parties: Ern411.Party[],
@@ -31,7 +31,7 @@ export const findPartyReference = (
 
   if (!reference) {
     throw new ConverterError({
-      version: 383,
+      version: ErnVersions.ERN_383,
       message: "could not find artist in parties",
     });
   }
@@ -52,7 +52,7 @@ export const findNamePartyReference = (
 
   if (!party) {
     throw new ConverterError({
-      version: 383,
+      version: ErnVersions.ERN_383,
       message: "could not find label in parties",
     });
   }
@@ -73,7 +73,7 @@ export const findReleaseLabelReference = (
 
   if (!party) {
     throw new ConverterError({
-      version: 383,
+      version: ErnVersions.ERN_383,
       message: "could not find label in parties",
     });
   }

@@ -1,6 +1,6 @@
 import { ILogger } from "@lickd/logger";
 import { ParserError } from "../../../../errors";
-import { Ern383 } from "../../../../types";
+import { Ern383, ErnVersions } from "../../../../types";
 import {
   parseCatalogListMessage,
   parseNewReleaseMessage,
@@ -23,7 +23,7 @@ export class Ern383Parser {
     }
 
     throw new ParserError({
-      version: 383,
+      version: ErnVersions.ERN_383,
       action,
       message: "unknown/unsupported action",
     });

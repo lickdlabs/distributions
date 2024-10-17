@@ -1,11 +1,11 @@
-import { Ern383, Ern411 } from "../../../../../types";
+import { Ern383, Ern411, ErnVersions } from "../../../../../types";
 import { convertMessageHeader } from "../complexType";
 
 export const convertPurgeReleaseMessage = (
   ern: Ern383.ErnPurgeReleaseMessage,
 ): Ern411.ErnPurgeReleaseMessage => ({
   type: "ddex",
-  version: 411,
+  version: ErnVersions.ERN_411,
   action: Ern411.Actions.PURGE_RELEASE_MESSAGE,
   element: {
     _attributes: {

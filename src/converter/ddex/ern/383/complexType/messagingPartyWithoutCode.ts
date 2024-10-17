@@ -1,5 +1,5 @@
 import { ConverterError } from "../../../../../errors";
-import { Ern383, Ern411 } from "../../../../../types";
+import { Ern383, Ern411, ErnVersions } from "../../../../../types";
 import { convertPartyNameWithoutCode } from "./partyNameWithoutCode";
 
 export const convertMessagingPartyWithoutCode = (
@@ -8,7 +8,7 @@ export const convertMessagingPartyWithoutCode = (
   const partyId = messagingParty.partyId.shift();
   if (!partyId) {
     throw new ConverterError({
-      version: 383,
+      version: ErnVersions.ERN_383,
       message: "no party id found",
     });
   }

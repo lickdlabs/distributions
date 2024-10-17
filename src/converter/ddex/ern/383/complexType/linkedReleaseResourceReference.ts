@@ -1,3 +1,4 @@
+import { Logger } from "../../../../../logger";
 import { Avs411, Ern383, Ern411 } from "../../../../../types";
 import { isReleaseResourceReference } from "../utils";
 
@@ -6,6 +7,8 @@ export const convertLinkedReleaseResourceReference = (
     | Ern383.LinkedReleaseResourceReference
     | Ern383.ReleaseResourceReference,
 ): Ern411.LinkedReleaseResourceReference => {
+  Logger.error("TEST ERROR");
+
   if (isReleaseResourceReference(linkedReleaseResourceReference)) {
     return {
       _attributes: undefined,

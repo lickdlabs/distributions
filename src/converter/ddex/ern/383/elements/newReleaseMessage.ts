@@ -1,4 +1,4 @@
-import { Ern383, Ern411 } from "../../../../../types";
+import { Ern383, Ern411, ErnVersions } from "../../../../../types";
 import {
   convertMessageHeader,
   convertPartyList,
@@ -17,7 +17,7 @@ export const convertNewReleaseMessage = (
 
   return {
     type: "ddex",
-    version: 411,
+    version: ErnVersions.ERN_411,
     action: Ern411.Actions.NEW_RELEASE_MESSAGE,
     element: {
       _attributes: {

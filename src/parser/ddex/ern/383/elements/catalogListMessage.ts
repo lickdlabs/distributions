@@ -1,11 +1,11 @@
-import { Ern383 } from "../../../../../types";
+import { Ern383, ErnVersions } from "../../../../../types";
 import { parseMessageHeader } from "../complexTypes";
 
 export const parseCatalogListMessage = (
   object: any,
 ): Ern383.ErnCatalogListMessage => ({
   type: "ddex",
-  version: 383,
+  version: ErnVersions.ERN_383,
   action: Ern383.Actions.CATALOG_LIST_MESSAGE,
   element: {
     _attributes: {

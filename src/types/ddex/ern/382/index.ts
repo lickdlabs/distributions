@@ -1,3 +1,4 @@
+import { ErnVersions } from "..";
 import {
   CatalogListMessage,
   NewReleaseMessage,
@@ -20,7 +21,7 @@ export type Ern =
 
 type ErnBase = {
   readonly type: "ddex";
-  readonly version: 382;
+  readonly version: ErnVersions.ERN_382;
 };
 
 export type ErnCatalogListMessage = ErnBase & {

@@ -1,6 +1,6 @@
 import { ILogger } from "@lickd/logger";
 import { ParserError } from "../../../../errors";
-import { Ern411 } from "../../../../types";
+import { Ern411, ErnVersions } from "../../../../types";
 import { parseNewReleaseMessage } from "./elements/newReleaseMessage";
 import { parsePurgeReleaseMessage } from "./elements/purgeReleaseMessage";
 
@@ -17,7 +17,7 @@ export class Ern411Parser {
     }
 
     throw new ParserError({
-      version: 411,
+      version: ErnVersions.ERN_411,
       action,
       message: "unknown/unsupported action",
     });

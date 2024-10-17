@@ -1,4 +1,4 @@
-import { Ern411 } from "../../../../../types";
+import { Ern411, ErnVersions } from "../../../../../types";
 import {
   parseMessageHeader,
   parsePartyList,
@@ -10,7 +10,7 @@ export const parseNewReleaseMessage = (
   object: any,
 ): Ern411.ErnNewReleaseMessage => ({
   type: "ddex",
-  version: 411,
+  version: ErnVersions.ERN_411,
   action: Ern411.Actions.NEW_RELEASE_MESSAGE,
   element: {
     _attributes: {

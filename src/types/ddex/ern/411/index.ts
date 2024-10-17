@@ -1,3 +1,4 @@
+import { ErnVersions } from "..";
 import { NewReleaseMessage, PurgeReleaseMessage } from "./elements";
 
 export * from "./complexTypes";
@@ -12,7 +13,7 @@ export type Ern = ErnNewReleaseMessage | ErnPurgeReleaseMessage;
 
 type ErnBase = {
   readonly type: "ddex";
-  readonly version: 411;
+  readonly version: ErnVersions.ERN_411;
 };
 
 export type ErnNewReleaseMessage = ErnBase & {

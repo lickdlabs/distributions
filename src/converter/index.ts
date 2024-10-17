@@ -1,12 +1,12 @@
 import { ILogger } from "@lickd/logger";
 import { ConverterError } from "../errors";
-import { Ern } from "../types";
+import { Ern, Erns, ErnVersions } from "../types";
 import { Ern382Converter, Ern383Converter } from "./ddex";
 
 export class Converter {
   public constructor(private logger: ILogger) {}
 
-  public convert<TErn extends Ern>(ern: Ern, version: TErn["version"]): TErn {
+  public convert<K extends keyof Ern>(ern: Erns, version: K): Ern[K] {
     this.logger.info(`converting ddex ern to ${version}`, {
       version: ern.version,
       action: ern.action,
@@ -21,15 +21,15 @@ export class Converter {
       action: ern.action,
     });
 
-    return ern as TErn;
+    return ern as Ern[K];
   }
 
-  private step(ern: Ern): Ern {
+  private step(ern: Erns): Erns {
     switch (ern.version) {
-      case 382:
+      case ErnVersions.ERN_382:
         return new Ern382Converter(this.logger).convert(ern);
 
-      case 383:
+      case ErnVersions.ERN_383:
         return new Ern383Converter(this.logger).convert(ern);
 
       default:

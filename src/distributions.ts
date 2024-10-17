@@ -2,7 +2,12 @@ import { ConsoleLogger, ILogger } from "@lickd/logger";
 import { Converter } from "./converter";
 import { Normaliser } from "./normaliser";
 import { Parser } from "./parser";
-import { Ern } from "./types";
+import { Ern, ErnVersions } from "./types";
+
+type DistributionsOptions<TVersion extends ErnVersions> = {
+  version?: TVersion;
+  normalise?: boolean;
+};
 
 export class Distributions {
   private logger: ILogger;
@@ -13,25 +18,32 @@ export class Distributions {
 
   private normaliser: Normaliser;
 
-  public constructor(logger?: ILogger, parser?: Parser, converter?: Converter, normaliser?: Normaliser) {
+  public constructor(
+    logger?: ILogger,
+    parser?: Parser,
+    converter?: Converter,
+    normaliser?: Normaliser,
+  ) {
     this.logger = logger ?? new ConsoleLogger();
     this.parser = parser ?? new Parser(this.logger);
     this.converter = converter ?? new Converter(this.logger);
     this.normaliser = normaliser ?? new Normaliser(this.logger);
   }
 
-  public async parse(
+  public async parse<TVersion extends ErnVersions>(
     body: string,
-    forcedVersion?: Ern["version"],
-  ): Promise<Ern> {
-    return this.parser.parse(body, forcedVersion);
-  }
+    options?: DistributionsOptions<TVersion>,
+  ): Promise<Ern[TVersion]> {
+    let distro = await this.parser.parse(body);
 
-  public convert<TErn extends Ern>(ern: Ern, version: TErn["version"]): TErn {
-    return this.converter.convert<TErn>(ern, version);
-  }
+    if (options?.version) {
+      distro = this.converter.convert(distro, options.version);
+    }
 
-  public normalise<TErn extends Ern>(ern: TErn): TErn {
-    return this.normaliser.normalise<TErn>(ern);
+    if (options?.normalise) {
+      this.normaliser.normalise(distro);
+    }
+
+    return distro as Ern[TVersion];
   }
 }

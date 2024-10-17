@@ -1,16 +1,13 @@
 import { ILogger } from "@lickd/logger";
 import * as xml2js from "xml2js";
 import { ParserError } from "../errors";
-import { Ern } from "../types";
+import { Erns } from "../types";
 import { ErnParser } from "./ddex";
 
 export class Parser {
   public constructor(private logger: ILogger) {}
 
-  public async parse(
-    body: string,
-    forcedVersion?: Ern["version"],
-  ): Promise<Ern> {
+  public async parse(body: string): Promise<Erns> {
     const object = await this.parseToObject(body);
 
     if (this.isErn(object)) {
@@ -18,7 +15,7 @@ export class Parser {
     }
 
     if (this.isDdex(object)) {
-      return new ErnParser(this.logger).parse(object, forcedVersion);
+      return new ErnParser(this.logger).parse(object);
     }
 
     throw new ParserError({
@@ -66,7 +63,7 @@ export class Parser {
     });
   }
 
-  private isErn(object: any): object is Ern {
+  private isErn(object: any): object is Erns {
     return "version" in object && "action" in object && "element" in object;
   }
 

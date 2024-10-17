@@ -2,43 +2,12 @@ import { ConsoleLogger } from "@lickd/logger";
 import { assert } from "chai";
 import { readFileSync } from "fs";
 import { createStubInstance } from "sinon";
-import {
-  Converter,
-  ConverterError,
-  Ern,
-  Ern382,
-  Ern383,
-  Ern411,
-  Parser,
-} from "../src";
+import { Converter, ConverterError, Parser, ErnVersions } from "../src";
+import { assert382, assert383, assert411 } from "./assertions";
 
 const logger = createStubInstance(ConsoleLogger);
 const parser = new Parser(logger);
 const converter = new Converter(logger);
-
-const assert382 = (converted: Ern) => {
-  assert.equal(converted.version, 382);
-  assert.equal(converted.action, Ern382.Actions.NEW_RELEASE_MESSAGE);
-  assert.exists(converted.element);
-  assert.isNotEmpty(converted.element);
-  assert.isObject(converted.element);
-};
-
-const assert383 = (converted: Ern) => {
-  assert.equal(converted.version, 383);
-  assert.equal(converted.action, Ern383.Actions.NEW_RELEASE_MESSAGE);
-  assert.exists(converted.element);
-  assert.isNotEmpty(converted.element);
-  assert.isObject(converted.element);
-};
-
-const assert411 = (converted: Ern) => {
-  assert.equal(converted.version, 411);
-  assert.equal(converted.action, Ern411.Actions.NEW_RELEASE_MESSAGE);
-  assert.exists(converted.element);
-  assert.isNotEmpty(converted.element);
-  assert.isObject(converted.element);
-};
 
 describe("Converter", () => {
   describe("constructor()", () => {
@@ -53,7 +22,7 @@ describe("Converter", () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/382.xml").toString(),
       );
-      const converted = converter.convert<Ern382.Ern>(parsed, 382);
+      const converted = converter.convert(parsed, ErnVersions.ERN_382);
 
       assert382(converted);
     });
@@ -62,7 +31,7 @@ describe("Converter", () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/382.xml").toString(),
       );
-      const converted = converter.convert<Ern383.Ern>(parsed, 383);
+      const converted = converter.convert(parsed, ErnVersions.ERN_383);
 
       assert383(converted);
     });
@@ -71,7 +40,7 @@ describe("Converter", () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/382.xml").toString(),
       );
-      const converted = converter.convert<Ern411.Ern>(parsed, 411);
+      const converted = converter.convert(parsed, ErnVersions.ERN_411);
 
       assert411(converted);
     });
@@ -84,7 +53,7 @@ describe("Converter", () => {
       );
 
       assert.throws(
-        () => converter.convert<Ern382.Ern>(parsed, 382),
+        () => converter.convert(parsed, ErnVersions.ERN_382),
         ConverterError,
       );
     });
@@ -93,7 +62,7 @@ describe("Converter", () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/383.xml").toString(),
       );
-      const converted = converter.convert<Ern383.Ern>(parsed, 383);
+      const converted = converter.convert(parsed, ErnVersions.ERN_383);
 
       assert383(converted);
     });
@@ -102,7 +71,7 @@ describe("Converter", () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/383.xml").toString(),
       );
-      const converted = converter.convert<Ern411.Ern>(parsed, 411);
+      const converted = converter.convert(parsed, ErnVersions.ERN_411);
 
       assert411(converted);
     });
@@ -115,7 +84,7 @@ describe("Converter", () => {
       );
 
       assert.throws(
-        () => converter.convert<Ern382.Ern>(parsed, 382),
+        () => converter.convert(parsed, ErnVersions.ERN_382),
         ConverterError,
       );
     });
@@ -126,7 +95,7 @@ describe("Converter", () => {
       );
 
       assert.throws(
-        () => converter.convert<Ern383.Ern>(parsed, 383),
+        () => converter.convert(parsed, ErnVersions.ERN_383),
         ConverterError,
       );
     });
@@ -135,7 +104,7 @@ describe("Converter", () => {
       const parsed = await parser.parse(
         readFileSync("./examples/_ddex/411.xml").toString(),
       );
-      const converted = converter.convert<Ern411.Ern>(parsed, 411);
+      const converted = converter.convert(parsed, ErnVersions.ERN_411);
 
       assert411(converted);
     });

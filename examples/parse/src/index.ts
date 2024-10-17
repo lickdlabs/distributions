@@ -5,10 +5,12 @@ import { readFileSync } from "fs";
 const logger = new ConsoleLogger();
 
 const distributions = new Distributions(logger);
-const file = "../../examples/_ddex/383.xml";
+const file = "../../examples/_ddex/382.xml";
 
 (async () => {
-  const parsed = await distributions.parse(readFileSync(file).toString());
+  const parsed = await distributions.parse(readFileSync(file).toString(), {
+    normalise: true,
+  });
 
   logger.info({ parsed });
 })();
