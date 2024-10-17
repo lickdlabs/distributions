@@ -1,4 +1,3 @@
-import { ILogger } from "@lickd/logger";
 import { ParserError } from "../../../../errors";
 import { Ern382, ErnVersions } from "../../../../types";
 import {
@@ -7,25 +6,21 @@ import {
   parsePurgeReleaseMessage,
 } from "./elements";
 
-export class Ern382Parser {
-  public constructor(private logger: ILogger) {}
+export const parse382 = (action: string, object: any): Ern382.Ern => {
+  switch (action) {
+    case "CatalogListMessage":
+      return parseCatalogListMessage(object);
 
-  public parse(action: string, object: any): Ern382.Ern {
-    switch (action) {
-      case "CatalogListMessage":
-        return parseCatalogListMessage(object);
+    case "NewReleaseMessage":
+      return parseNewReleaseMessage(object);
 
-      case "NewReleaseMessage":
-        return parseNewReleaseMessage(object);
-
-      case "PurgeReleaseMessage":
-        return parsePurgeReleaseMessage(object);
-    }
-
-    throw new ParserError({
-      version: ErnVersions.ERN_382,
-      action,
-      message: "unknown/unsupported action",
-    });
+    case "PurgeReleaseMessage":
+      return parsePurgeReleaseMessage(object);
   }
-}
+
+  throw new ParserError({
+    version: ErnVersions.ERN_382,
+    action,
+    message: "unknown/unsupported action",
+  });
+};

@@ -1,80 +1,75 @@
-import { ILogger } from "@lickd/logger";
 import * as xml2js from "xml2js";
 import { ParserError } from "../errors";
+import { Logger } from "../logger";
 import { Erns } from "../types";
-import { ErnParser } from "./ddex";
+import { parseErn } from "./ddex";
 
-export class Parser {
-  public constructor(private logger: ILogger) {}
+export const parse = async (body: string): Promise<Erns> => {
+  const object = await parseToObject(body);
 
-  public async parse(body: string): Promise<Erns> {
-    const object = await this.parseToObject(body);
-
-    if (this.isErn(object)) {
-      return object;
-    }
-
-    if (this.isDdex(object)) {
-      return new ErnParser(this.logger).parse(object);
-    }
-
-    throw new ParserError({
-      message: "unknown/unsupported distribution",
-    });
+  if (isErn(object)) {
+    return object;
   }
 
-  private async parseToObject(body: string): Promise<any> {
-    try {
-      this.logger.info("parsing distribution as json to object");
-
-      const result = JSON.parse(body);
-
-      this.logger.info("successfully parsed distribution as json to object");
-
-      return result;
-    } catch {
-      this.logger.info("failed parsing distribution as json to object");
-    }
-
-    try {
-      this.logger.info("parsing distribution as xml to object");
-
-      const result = await xml2js.parseStringPromise(
-        body.replace(/ernm?\d*:/g, "ern:").replace(/:ernm?\d*/g, ":ern"),
-        {
-          preserveChildrenOrder: true,
-          trim: true,
-        },
-      );
-
-      if (!result) {
-        throw new Error();
-      }
-
-      this.logger.info("successfully parsed distribution as xml to object");
-
-      return result;
-    } catch {
-      this.logger.info("failed parsing distribution as xml to object");
-    }
-
-    throw new ParserError({
-      message: "failed parsing distribution to object",
-    });
+  if (isDdex(object)) {
+    return parseErn(object);
   }
 
-  private isErn(object: any): object is Erns {
-    return "version" in object && "action" in object && "element" in object;
+  throw new ParserError({
+    message: "unknown/unsupported distribution",
+  });
+};
+
+const parseToObject = async (body: string): Promise<any> => {
+  try {
+    Logger.info("parsing distribution as json to object");
+
+    const result = JSON.parse(body);
+
+    Logger.info("successfully parsed distribution as json to object");
+
+    return result;
+  } catch {
+    Logger.info("failed parsing distribution as json to object");
   }
 
-  private isDdex(object: any): boolean {
-    try {
-      const key = Object.keys(object)[0];
-      const ern = object[key].$["xmlns:ern"];
+  try {
+    Logger.info("parsing distribution as xml to object");
 
-      return typeof ern === "string" && ern.startsWith("http://ddex.net");
-    } catch {
-      return false;
+    const result = await xml2js.parseStringPromise(
+      body.replace(/ernm?\d*:/g, "ern:").replace(/:ernm?\d*/g, ":ern"),
+      {
+        preserveChildrenOrder: true,
+        trim: true,
+      },
+    );
+
+    if (!result) {
+      throw new Error();
     }
+
+    Logger.info("successfully parsed distribution as xml to object");
+
+    return result;
+  } catch {
+    Logger.info("failed parsing distribution as xml to object");
   }
-}
+
+  throw new ParserError({
+    message: "failed parsing distribution to object",
+  });
+};
+
+const isErn = (object: any): object is Erns =>
+  "version" in object && "action" in object && "element" in object;
+
+const isDdex = (object: any): boolean => {
+  try {
+    const key = Object.keys(object)[0];
+    const ern = object[key].$["xmlns:ern"];
+
+    return typeof ern === "string" && ern.startsWith("http://ddex.net");
+  } catch {
+    return false;
+  }
+};
