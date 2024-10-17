@@ -1,6 +1,6 @@
 {
   "name": "@lickd/distributions",
-  "version": "0.12.1",
+  "version": "0.13.0",
   "description": "Distributions parser",
   "repository": {
     "type": "git",
