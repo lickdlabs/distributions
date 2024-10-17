@@ -1,19 +1,15 @@
-import { ILogger } from "@lickd/logger";
+import { Logger } from "../logger";
 import { Erns, ErnVersions } from "../types";
-import { Ern411Normaliser } from "./ddex";
+import { normalise411 } from "./ddex";
 
-export class Normaliser {
-  public constructor(private logger: ILogger) {}
+export const normalise = (ern: Erns): void => {
+  Logger.info(`normalising ddex ern`, {
+    version: ern.version,
+    action: ern.action,
+  });
 
-  public normalise(ern: Erns): void {
-    this.logger.info(`normalising ddex ern`, {
-      version: ern.version,
-      action: ern.action,
-    });
-
-    switch (ern.version) {
-      case ErnVersions.ERN_411:
-        return new Ern411Normaliser(this.logger).normalise(ern);
-    }
+  switch (ern.version) {
+    case ErnVersions.ERN_411:
+      return normalise411(ern);
   }
-}
+};
