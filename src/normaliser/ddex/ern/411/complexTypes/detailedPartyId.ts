@@ -1,4 +1,4 @@
-import { Ern411 } from "@lickd/distributions";
+import { Ern411 } from "../../../../../types";
 
 export const normaliseDetailedPartyId = (partyId: Ern411.DetailedPartyId) => {
   const dpid = partyId.proprietaryId?.find((proprietaryId) =>
