@@ -47,6 +47,8 @@ const file = "path/to/distribution/file";
 
 ### Converting
 
+#### Direct conversion
+
 ```typescript
 import { Distributions, Ern411, ErnVersions } from "@lickd/distributions";
 import { readFileSync } from "fs";
@@ -60,6 +62,29 @@ const file = "path/to/distribution/file";
   });
 
   console.log({ parsed });
+})();
+```
+
+#### Indirect conversion
+
+```typescript
+import { Distributions, Ern411, ErnVersions } from "@lickd/distributions";
+import { readFileSync } from "fs";
+
+const distributions = new Distributions();
+const file = "path/to/distribution/file";
+
+(async () => {
+  const parsed = await distributions.parse(readFileSync(file).toString());
+
+  logger.info({ parsed });
+
+  const converted = await distributions.parse(parsed, {
+    version: ErnVersions.ERN_411,
+    normalise: true,
+  });
+
+  logger.info({ converted });
 })();
 ```
 

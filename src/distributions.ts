@@ -2,7 +2,13 @@ import { convert } from "./converter";
 import { Logger } from "./logger";
 import { normalise } from "./normaliser";
 import { parse } from "./parser";
-import { DistributionsOptions, Ern, ErnVersions, ParserOptions } from "./types";
+import {
+  DistributionsOptions,
+  Ern,
+  Erns,
+  ErnVersions,
+  ParserOptions,
+} from "./types";
 
 export class Distributions {
   public constructor(options?: DistributionsOptions) {
@@ -12,10 +18,12 @@ export class Distributions {
   }
 
   public async parse<TVersion extends ErnVersions>(
-    body: string,
+    distro: Erns | string,
     options?: ParserOptions<TVersion>,
   ): Promise<Ern[TVersion]> {
-    let distro = await parse(body);
+    if (typeof distro === "string") {
+      distro = await parse(distro);
+    }
 
     if (options?.version) {
       distro = convert(distro, options.version);
