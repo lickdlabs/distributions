@@ -27,7 +27,7 @@ A library for parsing and converting distribution files.
 ## Install
 
 ```shell
-$ npm install @lickd/distributions @lickd/logger
+$ npm install @lickd/distributions
 ```
 
 ## Usage
