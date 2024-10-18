@@ -8,99 +8,46 @@ export const convertPartyList = (
   resourceList: Ern383.ResourceList,
   releaseList: Ern383.ReleaseList,
 ): Ern411.PartyList => {
-  const partyList: Ern411.PartyList = { party: [] };
+  const partyChoice: Ern411.PartyChoice[] = [
+    convertMessageHeader(mesageHeader.messageSender),
+  ];
 
-  const convertMessageHeader = (
-    messagingParty: Ern383.MessagingParty,
-  ): Ern411.Party => ({
-    partyReference:
-      `P${partyList.party.length}` as Ern411.Party["partyReference"],
-    partyName: messagingParty.partyName
-      ? [messagingParty.partyName]
-      : undefined,
-    partyId: messagingParty.partyId.map((partyId) =>
-      convertDetailedPartyId(partyId),
-    ),
-  });
+  if (mesageHeader.sentOnBehalfOf) {
+    partyChoice.push(convertMessageHeader(mesageHeader.sentOnBehalfOf));
+  }
 
-  const convertLabelName = (labelName: Ern383.LabelName): Ern411.Party => ({
-    partyReference:
-      `P${partyList.party.length}` as Ern411.Party["partyReference"],
-    partyName: [
-      {
-        fullName: {
-          value: labelName.value,
-        },
-      },
-    ],
-  });
+  releaseList.release?.forEach((release) => {
+    release.releaseDetailsByTerritory.forEach((releaseDetailsByTerritory) => {
+      releaseDetailsByTerritory.labelName?.forEach((labelName) =>
+        partyChoice.push(convertLabelName(labelName)),
+      );
 
-  const convertParty = (party: Partial<Ern383.PartyChoice>): Ern411.Party => {
-    if (party.partyName) {
-      return {
-        partyReference:
-          `P${partyList.party.length}` as Ern411.Party["partyReference"],
-        partyName: party.partyName,
-        partyId: party.partyId
-          ? party.partyId.map((partyId) => convertDetailedPartyId(partyId))
-          : undefined,
-      };
-    }
-
-    if (party.partyId) {
-      return {
-        partyReference:
-          `P${partyList.party.length}` as Ern411.Party["partyReference"],
-        partyId: party.partyId.map((partyId) =>
-          convertDetailedPartyId(partyId),
-        ),
-      };
-    }
-
-    throw new ConverterError({
-      version: ErnVersions.ERN_383,
-      message: "could not detect party",
+      releaseDetailsByTerritory.displayArtist?.forEach((displayArtist) =>
+        partyChoice.push(convertParty(displayArtist)),
+      );
     });
-  };
-
-  partyList.party.push(convertMessageHeader(mesageHeader.messageSender));
-
-  const labels: Ern383.LabelName[] = [];
-  const parties: Partial<Ern383.PartyChoice>[] = [];
+  });
 
   resourceList.soundRecording?.forEach((soundRecording) => {
     soundRecording.soundRecordingDetailsByTerritory.forEach(
       (soundRecordingDetailsByTerritory) => {
         soundRecordingDetailsByTerritory.displayArtist?.forEach(
-          (resourceContributor) =>
-            parties.push({
-              partyId: resourceContributor.partyId,
-              partyName: resourceContributor.partyName,
-            }),
+          (displayArtist) => partyChoice.push(convertParty(displayArtist)),
         );
 
         soundRecordingDetailsByTerritory.resourceContributor?.forEach(
           (resourceContributor) =>
-            parties.push({
-              partyId: resourceContributor.partyId,
-              partyName: resourceContributor.partyName,
-            }),
+            partyChoice.push(convertParty(resourceContributor)),
         );
 
         soundRecordingDetailsByTerritory.indirectResourceContributor?.forEach(
           (indirectResourceContributor) =>
-            parties.push({
-              partyId: indirectResourceContributor.partyId,
-              partyName: indirectResourceContributor.partyName,
-            }),
+            partyChoice.push(convertParty(indirectResourceContributor)),
         );
 
         soundRecordingDetailsByTerritory.rightsController?.forEach(
           (rightsController) =>
-            parties.push({
-              partyId: rightsController.partyId,
-              partyName: rightsController.partyName,
-            }),
+            partyChoice.push(convertParty(rightsController)),
         );
       },
     );
@@ -110,32 +57,65 @@ export const convertPartyList = (
     image.imageDetailsByTerritory.forEach((imageDetailsByTerritory) => {
       imageDetailsByTerritory.resourceContributor?.forEach(
         (resourceContributor) =>
-          parties.push({
-            partyId: resourceContributor.partyId,
-            partyName: resourceContributor.partyName,
-          }),
+          partyChoice.push(convertParty(resourceContributor)),
+      );
+
+      imageDetailsByTerritory.indirectResourceContributor?.forEach(
+        (indirectResourceContributor) =>
+          partyChoice.push(convertParty(indirectResourceContributor)),
       );
     });
   });
 
-  releaseList.release?.forEach((release) => {
-    release.releaseDetailsByTerritory.forEach((releaseDetailsByTerritory) => {
-      releaseDetailsByTerritory.labelName?.forEach((labelName) =>
-        labels.push(labelName),
-      );
-      releaseDetailsByTerritory.displayArtist?.forEach((displayArtist) =>
-        parties.push({
-          partyId: displayArtist.partyId,
-          partyName: displayArtist.partyName,
-        }),
-      );
-    });
+  return {
+    party: findUnique(partyChoice).map(
+      (partyChoice, index): Ern411.Party => ({
+        partyReference: `P${index}` as Ern411.Party["partyReference"],
+        ...partyChoice,
+      }),
+    ),
+  };
+};
+
+const convertMessageHeader = (
+  messagingParty: Ern383.MessagingParty,
+): Ern411.PartyChoice => ({
+  partyName: messagingParty.partyName ? [messagingParty.partyName] : undefined,
+  partyId: messagingParty.partyId.map((partyId) =>
+    convertDetailedPartyId(partyId),
+  ),
+});
+
+const convertLabelName = (labelName: Ern383.LabelName): Ern411.PartyChoice => ({
+  partyName: [
+    {
+      fullName: {
+        value: labelName.value,
+      },
+    },
+  ],
+});
+
+const convertParty = (
+  party: Partial<Ern383.PartyChoice>,
+): Ern411.PartyChoice => {
+  if (party.partyName) {
+    return {
+      partyName: party.partyName,
+      partyId: party.partyId
+        ? party.partyId.map((partyId) => convertDetailedPartyId(partyId))
+        : undefined,
+    };
+  }
+
+  if (party.partyId) {
+    return {
+      partyId: party.partyId.map((partyId) => convertDetailedPartyId(partyId)),
+    };
+  }
+
+  throw new ConverterError({
+    version: ErnVersions.ERN_383,
+    message: "could not detect party",
   });
-
-  findUnique(labels).map((label) =>
-    partyList.party.push(convertLabelName(label)),
-  );
-  findUnique(parties).map((party) => partyList.party.push(convertParty(party)));
-
-  return partyList;
 };
