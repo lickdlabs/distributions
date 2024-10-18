@@ -5,6 +5,11 @@
 - [Usage](#usage)
   - [Parsing](#parsing)
   - [Converting](#converting)
+    - [Direct conversion](#direct-conversion)
+    - [Indirect conversion](#indirect-conversion)
+  - [Logging](#logging)
+    - [Enabling logging](#enabling-logging)
+    - [Custom logger](#custom-logger)
 - [Known issues](#known-issues)
 - [Copyright info](#copyright-info)
 
