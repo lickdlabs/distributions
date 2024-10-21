@@ -1,4 +1,4 @@
-import { Ern411 } from "../../../../../types";
+import { Avs411, Ern411 } from "../../../../../types";
 
 export const normaliseImage = (
   image: Ern411.Image,
@@ -15,5 +15,22 @@ export const normaliseImage = (
   }
   if (!image.displayArtist) {
     image.displayArtist = release.displayArtist;
+  }
+  if (!image.relatedRelease) {
+    image.relatedRelease = [
+      {
+        releaseRelationshipType: {
+          value: Avs411.ReleaseRelationshipType.UNKNOWN,
+        },
+        releaseId: release.releaseId,
+        displayTitleText: release.displayTitleText,
+        displayTitle: release.displayTitle,
+        additionalTitle: release.additionalTitle,
+        displayArtistName: release.displayArtistName,
+        releaseLabelReference: release.releaseLabelReference,
+        releaseDate: release.releaseDate?.shift(),
+        originalReleaseDate: release.originalReleaseDate?.shift(),
+      },
+    ];
   }
 };
