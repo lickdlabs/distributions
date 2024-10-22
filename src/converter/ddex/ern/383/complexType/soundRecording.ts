@@ -1,5 +1,5 @@
 import { Avs411, Ern383, Ern411 } from "../../../../../types";
-import { findUnique } from "../../../../../utils";
+import { findUnique } from "../../utils";
 import {
   convertContributor,
   convertContributorFromIndirectResourceContributor,

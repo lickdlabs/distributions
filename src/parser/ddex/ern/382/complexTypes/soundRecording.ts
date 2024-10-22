@@ -1,5 +1,5 @@
 import { Ern382 } from "../../../../../types";
-import { convertDurationToMilliseconds } from "../../../../../utils";
+import { parseDuration } from "../../utils";
 import { parseAllTerritoryCode } from "./allTerritoryCode";
 import { parseDescription } from "./description";
 import { parseEventDate } from "./eventDate";
@@ -78,7 +78,7 @@ export const parseSoundRecording = (object: any): Ern382.SoundRecording => ({
   languageOfPerformance: object.LanguageOfPerformance
     ? object.LanguageOfPerformance[0]
     : undefined,
-  duration: convertDurationToMilliseconds(object.Duration[0]),
+  duration: parseDuration(object.Duration[0]),
   rightsAgreementId: object.RightsAgreementId
     ? parseRightsAgreementId(object.RightsAgreementId[0])
     : undefined,

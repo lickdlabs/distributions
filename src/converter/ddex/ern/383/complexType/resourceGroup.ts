@@ -1,5 +1,5 @@
 import { Avs20200108, Ern383, Ern411 } from "../../../../../types";
-import { findUnique } from "../../../../../utils";
+import { findUnique } from "../../utils";
 import { isReleaseResourceReferenceList } from "../utils";
 import { convertDisplayArtistFromArtist } from "./displayArtist";
 import { convertDisplayTitleFromTitle } from "./displayTitle";

@@ -1,5 +1,5 @@
 import { Ern411 } from "../../../../../types";
-import { convertDurationToMilliseconds } from "../../../../../utils";
+import { parseDuration } from "../../utils";
 import { parseAvRating } from "./avRating";
 import { parseAdditionalTitle } from "./additionalTitle";
 import { parseAdministratingRecordCompanyWithReference } from "./administratingRecordCompanyWithReference";
@@ -78,7 +78,7 @@ export const parseRelease = (object: any): Ern411.Release => ({
       )
     : undefined,
   duration: object.Duration
-    ? convertDurationToMilliseconds(object.Duration[0])
+    ? parseDuration(object.Duration[0])
     : undefined,
   genre: object.Genre.map((genre: any) => parseGenreWithTerritory(genre)),
   releaseDate: object.ReleaseDate

@@ -1,8 +1,8 @@
-import { InvalidError } from "./errors";
+import { InvalidError } from "../../../errors";
 
 export const parseBoolean = (value: any): boolean => value === "true";
 
-export const convertDurationToMilliseconds = (duration: string): number => {
+export const parseDuration = (duration: string): number => {
   const matches = duration.match(
     /^PT(?:(?<hours>\d+)H)?(?:(?<minutes>\d+)M)?(?:(?<seconds>\d+|\d+\.\d+)S)?$/,
   )?.groups;
@@ -18,11 +18,3 @@ export const convertDurationToMilliseconds = (duration: string): number => {
       1000,
   );
 };
-
-export const findUnique = <T>(og: T[], defaultValue?: T[]): T[] =>
-  (og || defaultValue).filter(
-    (object, index) =>
-      (og || defaultValue).findIndex(
-        (item) => JSON.stringify(item) === JSON.stringify(object),
-      ) === index,
-  );

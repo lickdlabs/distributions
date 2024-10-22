@@ -1,5 +1,5 @@
 import { Ern383 } from "../../../../../types";
-import { parseBoolean } from "../../../../../utils";
+import { parseBoolean } from "../../utils";
 
 export const parseRightShareChoice = (
   object: any,

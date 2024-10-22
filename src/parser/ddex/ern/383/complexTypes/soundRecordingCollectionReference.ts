@@ -1,5 +1,5 @@
 import { Ern383 } from "../../../../../types";
-import { convertDurationToMilliseconds } from "../../../../../utils";
+import { parseDuration } from "../../utils";
 
 export const parseSoundRecordingCollectionReference = (
   object: any,
@@ -10,13 +10,13 @@ export const parseSoundRecordingCollectionReference = (
   soundRecordingCollectionReference:
     object.SoundRecordingCollectionReference[0],
   startTime: object.StartTime
-    ? convertDurationToMilliseconds(object.StartTime[0])
+    ? parseDuration(object.StartTime[0])
     : undefined,
   duration: object.Duration
-    ? convertDurationToMilliseconds(object.Duration[0])
+    ? parseDuration(object.Duration[0])
     : undefined,
   endTime: object.EndTime
-    ? convertDurationToMilliseconds(object.EndTime[0])
+    ? parseDuration(object.EndTime[0])
     : undefined,
   releaseResourceType: object.ReleaseResourceType
     ? object.ReleaseResourceType[0]

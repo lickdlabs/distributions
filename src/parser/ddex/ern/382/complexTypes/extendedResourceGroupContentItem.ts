@@ -1,5 +1,5 @@
 import { Ern382 } from "../../../../../types";
-import { convertDurationToMilliseconds } from "../../../../../utils";
+import { parseDuration } from "../../utils";
 import { parseLinkedReleaseResourceReference } from "./linkedReleaseResourceReference";
 import { parseReleaseId } from "./releaseId";
 import { parseReleaseResourceReference } from "./releaseResourceReference";
@@ -30,7 +30,7 @@ export const parseExtendedResourceGroupContentItem = (
     : undefined,
   ...parseResourceGroupContentItemIdentifierChoice(object),
   duration: object.Duration
-    ? convertDurationToMilliseconds(object.Duration[0])
+    ? parseDuration(object.Duration[0])
     : undefined,
   isHiddenResource: object.IsHiddenResource
     ? object.IsHiddenResource[0] === "true"

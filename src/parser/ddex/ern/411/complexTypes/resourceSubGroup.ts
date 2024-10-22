@@ -1,5 +1,5 @@
 import { Ern411 } from "../../../../../types";
-import { convertDurationToMilliseconds } from "../../../../../utils";
+import { parseDuration } from "../../utils";
 import { parseAdditionalTitle } from "./additionalTitle";
 import { parseCarrierType } from "./carrierType";
 import { parseDisplayArtist } from "./displayArtist";
@@ -46,7 +46,7 @@ export const parseResourceSubGroup = (
       )
     : undefined,
   duration: object.Duration
-    ? convertDurationToMilliseconds(object.Duration[0])
+    ? parseDuration(object.Duration[0])
     : undefined,
   ...parseResourceGroupIdentifierChoice(object),
   resourceGroup: object.ResourceGroup

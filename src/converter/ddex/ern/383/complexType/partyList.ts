@@ -1,6 +1,6 @@
 import { ConverterError } from "../../../../../errors";
 import { Ern383, Ern411, ErnVersions } from "../../../../../types";
-import { findUnique } from "../../../../../utils";
+import { findUnique } from "../../utils";
 import { convertDetailedPartyId } from "./detailedPartyId";
 
 export const convertPartyList = (

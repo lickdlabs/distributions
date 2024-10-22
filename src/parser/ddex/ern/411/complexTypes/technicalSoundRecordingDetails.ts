@@ -1,5 +1,5 @@
 import { Ern411 } from "../../../../../types";
-import { convertDurationToMilliseconds } from "../../../../../utils";
+import { parseDuration } from "../../utils";
 import { parseSoundRecordingPreviewDetails } from "./soundRecordingPreviewDetails";
 import { parseAudioCodecType } from "./audioCodecType";
 import { parseBitRate } from "./bitRate";
@@ -41,7 +41,7 @@ export const parseTechnicalSoundRecordingDetails = (
     ? parseInt(object.BitsPerSample[0])
     : undefined,
   duration: object.Duration
-    ? convertDurationToMilliseconds(object.Duration[0])
+    ? parseDuration(object.Duration[0])
     : undefined,
   bitDepth: object.BitDepth ? parseInt(object.BitDepth[0]) : undefined,
   isPreview: object.IsPreview ? object.IsPreview[0] === "true" : undefined,

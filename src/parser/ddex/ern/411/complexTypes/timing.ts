@@ -1,11 +1,11 @@
 import { Ern411 } from "../../../../../types";
-import { convertDurationToMilliseconds } from "../../../../../utils";
+import { parseDuration } from "../../utils";
 
 export const parseTiming = (object: any): Ern411.Timing => ({
   startPoint: object.StartPoint
-    ? convertDurationToMilliseconds(object.StartPoint[0])
+    ? parseDuration(object.StartPoint[0])
     : undefined,
   durationUsed: object.DurationUsed
-    ? convertDurationToMilliseconds(object.DurationUsed[0])
+    ? parseDuration(object.DurationUsed[0])
     : undefined,
 });

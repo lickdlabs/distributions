@@ -1,5 +1,5 @@
 import { Ern383 } from "../../../../../types";
-import { convertDurationToMilliseconds } from "../../../../../utils";
+import { parseDuration } from "../../utils";
 
 export const parseResourceMusicalWorkReference = (
   object: any,
@@ -8,7 +8,7 @@ export const parseResourceMusicalWorkReference = (
     ? parseInt(object.SequenceNumber[0])
     : undefined,
   durationUsed: object.DurationUsed
-    ? convertDurationToMilliseconds(object.DurationUsed[0])
+    ? parseDuration(object.DurationUsed[0])
     : undefined,
   isFragment: object.IsFragment ? object.IsFragment[0] === "true" : undefined,
   resourceMusicalWorkReference: object.ResourceMusicalWorkReference[0],

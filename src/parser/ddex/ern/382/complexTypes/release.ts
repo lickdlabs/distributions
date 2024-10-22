@@ -1,5 +1,5 @@
 import { Ern382 } from "../../../../../types";
-import { convertDurationToMilliseconds } from "../../../../../utils";
+import { parseDuration } from "../../utils";
 import { parseCLine } from "./cLine";
 import { parseEventDate } from "./eventDate";
 import { parseExternalResourceLink } from "./externalResourceLink";
@@ -75,7 +75,7 @@ export const parseRelease = (object: any): Ern382.Release => ({
       )
     : undefined,
   duration: object.Duration
-    ? convertDurationToMilliseconds(object.Duration[0])
+    ? parseDuration(object.Duration[0])
     : undefined,
   rightsAgreementId: object.RightsAgreementId
     ? parseRightsAgreementId(object.RightsAgreementId[0])

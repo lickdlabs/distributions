@@ -3,7 +3,7 @@ import { parseAdditionalTitle } from "./additionalTitle";
 import { parseDisplayTitle } from "./displayTitle";
 import { parseDisplayTitleText } from "./displayTitleText";
 import { parseDisplayArtist } from "./displayArtist";
-import { convertDurationToMilliseconds } from "../../../../../utils";
+import { parseDuration } from "../../utils";
 import { parseDisplaySequenceChoice } from "./displaySequenceChoice";
 import { parseCarrierType } from "./carrierType";
 import { parseLinkedReleaseResourceReference } from "./linkedReleaseResourceReference";
@@ -42,7 +42,7 @@ export const parseResourceGroup = (object: any): Ern411.ResourceGroup => ({
       )
     : undefined,
   duration: object.Duration
-    ? convertDurationToMilliseconds(object.Duration[0])
+    ? parseDuration(object.Duration[0])
     : undefined,
   ...parseResourceGroupIdentifierChoice(object),
   resourceGroup: object.ResourceGroup

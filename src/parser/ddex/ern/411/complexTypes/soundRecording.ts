@@ -1,8 +1,5 @@
 import { Ern411 } from "../../../../../types";
-import {
-  convertDurationToMilliseconds,
-  parseBoolean,
-} from "../../../../../utils";
+import { parseDuration, parseBoolean } from "../../utils";
 import { parseAdditionalTitle } from "./additionalTitle";
 import { parseCharacter } from "./character";
 import { parseContributor } from "./contributor";
@@ -84,7 +81,7 @@ export const parseSoundRecording = (object: any): Ern411.SoundRecording => ({
         parseCourtesyLineWithDefault(courtesyLine),
       )
     : undefined,
-  duration: convertDurationToMilliseconds(object.Duration[0]),
+  duration: parseDuration(object.Duration[0]),
   creationDate: object.CreationDate
     ? parseEventDateWithoutFlags(object.CreationDate[0])
     : undefined,
