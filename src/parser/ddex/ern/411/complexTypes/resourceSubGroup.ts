@@ -45,9 +45,7 @@ export const parseResourceSubGroup = (
         parseCarrierType(carrierType),
       )
     : undefined,
-  duration: object.Duration
-    ? parseDuration(object.Duration[0])
-    : undefined,
+  duration: object.Duration ? parseDuration(object.Duration[0]) : undefined,
   ...parseResourceGroupIdentifierChoice(object),
   resourceGroup: object.ResourceGroup
     ? object.ResourceGroup.map((resourceGroup: any) =>

@@ -29,9 +29,7 @@ export const parseExtendedResourceGroupContentItem = (
       )
     : undefined,
   ...parseResourceGroupContentItemIdentifierChoice(object),
-  duration: object.Duration
-    ? parseDuration(object.Duration[0])
-    : undefined,
+  duration: object.Duration ? parseDuration(object.Duration[0]) : undefined,
   isHiddenResource: object.IsHiddenResource
     ? object.IsHiddenResource[0] === "true"
     : undefined,

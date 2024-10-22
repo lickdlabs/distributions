@@ -39,9 +39,7 @@ export const parseTechnicalSoundRecordingDetails = (
   bitsPerSample: object.BitsPerSample
     ? parseInt(object.BitsPerSample[0])
     : undefined,
-  duration: object.Duration
-    ? parseDuration(object.Duration[0])
-    : undefined,
+  duration: object.Duration ? parseDuration(object.Duration[0]) : undefined,
   resourceProcessingRequired: object.ResourceProcessingRequired
     ? object.ResourceProcessingRequired[0] === "true"
     : undefined,

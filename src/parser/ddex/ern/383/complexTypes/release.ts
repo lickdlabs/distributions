@@ -74,9 +74,7 @@ export const parseRelease = (object: any): Ern383.Release => ({
         (subTitleLanguage: string) => subTitleLanguage,
       )
     : undefined,
-  duration: object.Duration
-    ? parseDuration(object.Duration[0])
-    : undefined,
+  duration: object.Duration ? parseDuration(object.Duration[0]) : undefined,
   rightsAgreementId: object.RightsAgreementId
     ? parseRightsAgreementId(object.RightsAgreementId[0])
     : undefined,

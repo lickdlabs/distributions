@@ -77,9 +77,7 @@ export const parseRelease = (object: any): Ern411.Release => ({
         parseCourtesyLineWithDefault(courtesyLine),
       )
     : undefined,
-  duration: object.Duration
-    ? parseDuration(object.Duration[0])
-    : undefined,
+  duration: object.Duration ? parseDuration(object.Duration[0]) : undefined,
   genre: object.Genre.map((genre: any) => parseGenreWithTerritory(genre)),
   releaseDate: object.ReleaseDate
     ? object.ReleaseDate.map((releaseDate: any) =>

@@ -9,15 +9,9 @@ export const parseSoundRecordingCollectionReference = (
     : undefined,
   soundRecordingCollectionReference:
     object.SoundRecordingCollectionReference[0],
-  startTime: object.StartTime
-    ? parseDuration(object.StartTime[0])
-    : undefined,
-  duration: object.Duration
-    ? parseDuration(object.Duration[0])
-    : undefined,
-  endTime: object.EndTime
-    ? parseDuration(object.EndTime[0])
-    : undefined,
+  startTime: object.StartTime ? parseDuration(object.StartTime[0]) : undefined,
+  duration: object.Duration ? parseDuration(object.Duration[0]) : undefined,
+  endTime: object.EndTime ? parseDuration(object.EndTime[0]) : undefined,
   releaseResourceType: object.ReleaseResourceType
     ? object.ReleaseResourceType[0]
     : undefined,

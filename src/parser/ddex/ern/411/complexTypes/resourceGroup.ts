@@ -41,9 +41,7 @@ export const parseResourceGroup = (object: any): Ern411.ResourceGroup => ({
         parseCarrierType(carrierType),
       )
     : undefined,
-  duration: object.Duration
-    ? parseDuration(object.Duration[0])
-    : undefined,
+  duration: object.Duration ? parseDuration(object.Duration[0]) : undefined,
   ...parseResourceGroupIdentifierChoice(object),
   resourceGroup: object.ResourceGroup
     ? object.ResourceGroup.map((resourceGroup: any) =>
