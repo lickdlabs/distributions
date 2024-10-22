@@ -1,1 +1,1 @@
-export * as Ern411 from "./411";
+export * as ern411 from "./411";
