@@ -1,3 +1,4 @@
+import { TechnicalResourceDetailsReference } from "../references";
 import { AspectRatio } from "./aspectRatio";
 import { ContainerFormat } from "./containerFormat";
 import { DrmPlatformType } from "./drmPlatformType";
@@ -42,9 +43,7 @@ export type TechnicalImageDetails = Partial<FileChoice> & {
     languageAndScriptCode?: string;
   };
 
-  technicalResourceDetailsReference: `${string & {
-    __brand: "T[\\d\\-_a-zA-Z]+";
-  }}`;
+  technicalResourceDetailsReference: TechnicalResourceDetailsReference;
   drmPlatformType?: DrmPlatformType;
   containerFormat?: ContainerFormat;
   imageCodecType?: ImageCodecType;

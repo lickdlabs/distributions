@@ -1,3 +1,4 @@
+import { ReleaseReference } from "../references";
 import { Artist } from "./artist";
 import { CarrierType } from "./carrierType";
 import { DetailedResourceContributor } from "./detailedResourceContributor";
@@ -78,9 +79,7 @@ export type ResourceGroupContentChoice =
 // </xs:choice>
 export type ResourceGroupIdentifierChoice =
   | {
-      resourceGroupReleaseReference: `${string & {
-        __brand: "R[\\d\\-_a-zA-Z]+";
-      }}`;
+      resourceGroupReleaseReference: ReleaseReference;
       releaseId?: never;
     }
   | { resourceGroupReleaseReference?: never; releaseId: ReleaseId };

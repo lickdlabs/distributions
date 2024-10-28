@@ -1,3 +1,4 @@
+import { ReleaseReference } from "../references";
 import { LinkedReleaseResourceReference } from "./linkedReleaseResourceReference";
 import { ReleaseId } from "./releaseId";
 import { ReleaseResourceReference } from "./releaseResourceReference";
@@ -53,9 +54,7 @@ export type ExtendedResourceGroupContentItem =
 // </xs:choice>
 export type ResourceGroupContentItemIdentifierChoice =
   | {
-      resourceGroupContentItemReleaseReference: `${string & {
-        __brand: "R[\\d\\-_a-zA-Z]+";
-      }}`;
+      resourceGroupContentItemReleaseReference: ReleaseReference;
       releaseId?: never;
     }
   | { resourceGroupContentItemReleaseReference?: never; releaseId: ReleaseId };

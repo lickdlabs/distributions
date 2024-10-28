@@ -1,3 +1,4 @@
+import { ResourceReference } from "../references";
 import { EventDate } from "./eventDate";
 import { ImageDetailsByTerritory } from "./imageDetailsByTerritory";
 import { ImageType } from "./imageType";
@@ -32,7 +33,7 @@ export type Image = {
   imageType?: ImageType;
   isArtistRelated?: boolean;
   imageId: ResourceProprietaryId[];
-  resourceReference: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
+  resourceReference: ResourceReference;
   title?: Title[];
   creationDate?: EventDate;
   imageDetailsByTerritory: ImageDetailsByTerritory[];

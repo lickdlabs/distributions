@@ -1,4 +1,5 @@
 import { Avs20200108 } from "../../../avs";
+import { ReleaseReference } from "../references";
 import { CLine } from "./cLine";
 import { EventDate } from "./eventDate";
 import { ExternalResourceLink } from "./externalResourceLink";
@@ -55,9 +56,7 @@ export type Release = ReleaseChoice & {
   };
 
   releaseId: ReleaseId[];
-  releaseReference?: `${string & {
-    __brand: "R[\\d\\-_a-zA-Z]+";
-  }}`[];
+  releaseReference?: ReleaseReference[];
   externalResourceLink?: ExternalResourceLink[];
   salesReportingProxyReleaseId?: SalesReportingProxyReleaseId[];
   referenceTitle: ReferenceTitle;

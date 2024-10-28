@@ -1,4 +1,5 @@
 import { Avs20200108 } from "../../../avs";
+import { ResourceReference } from "../references";
 import { AllTerritoryCode } from "./allTerritoryCode";
 import { Description } from "./description";
 import { EventDate } from "./eventDate";
@@ -68,7 +69,7 @@ export type SoundRecording = {
   isArtistRelated?: boolean;
   soundRecordingId: SoundRecordingId[];
   indirectSoundRecordingId?: MusicalWorkId[];
-  resourceReference: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
+  resourceReference: ResourceReference;
   referenceTitle: ReferenceTitle;
   instrumentationDescription?: Description;
   isMedley?: boolean;

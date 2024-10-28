@@ -1,3 +1,5 @@
+import { ResourceReference } from "../references";
+
 // <xs:complexType name="ResourceGroupResourceReferenceList">
 //   <xs:sequence>
 //     <xs:element name="ResourceGroupResourceReference" maxOccurs="unbounded">
@@ -10,7 +12,5 @@
 //   </xs:sequence>
 // </xs:complexType>
 export type ResourceGroupResourceReferenceList = {
-  resourceGroupResourceReference: `${string & {
-    __brand: "A[\\d\\-_a-zA-Z]+";
-  }}`[];
+  resourceGroupResourceReference: ResourceReference[];
 };

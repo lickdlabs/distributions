@@ -1,3 +1,5 @@
+import { MusicalWorkReference } from "../references";
+
 // <xs:complexType name="ResourceMusicalWorkReference">
 //   <xs:sequence>
 //     <xs:element name="SequenceNumber" minOccurs="0" type="xs:integer" />
@@ -16,5 +18,5 @@ export type ResourceMusicalWorkReference = {
   sequenceNumber?: number;
   durationUsed?: number;
   isFragment?: boolean;
-  resourceMusicalWorkReference: `${string & { __brand: "W[\\d\\-_a-zA-Z]+" }}`;
+  resourceMusicalWorkReference: MusicalWorkReference;
 };

@@ -1,3 +1,5 @@
+import { ReleaseReference } from "../references";
+
 // <xs:complexType name="FulfillmentDate">
 //   <xs:sequence>
 //     <xs:element name="FulfillmentDate" type="ern:ddex_IsoDate" />
@@ -12,5 +14,5 @@
 // </xs:complexType>
 export type FulfillmentDate = {
   fulfillmentDate: Date;
-  resourceReleaseReference: `${string & { __brand: "R[\\d\\-_a-zA-Z]+" }}`;
+  resourceReleaseReference: ReleaseReference;
 };

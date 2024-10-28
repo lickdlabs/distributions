@@ -7,6 +7,7 @@ import {
 
 export * from "./complexTypes";
 export * from "./elements";
+export * from "./references";
 
 export enum Actions {
   CATALOG_LIST_MESSAGE = "catalogListMessage",
