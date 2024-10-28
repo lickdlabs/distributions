@@ -1,4 +1,5 @@
 import { Avs20161006 } from "../../../avs";
+import { ResourceReference } from "./resourceReference";
 
 // <xs:complexType name="ReleaseResourceReference">
 //   <xs:simpleContent>
@@ -12,5 +13,5 @@ export type ReleaseResourceReference = {
     releaseResourceType?: Avs20161006.ReleaseResourceType;
   };
 
-  value: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
+  value: ResourceReference;
 };

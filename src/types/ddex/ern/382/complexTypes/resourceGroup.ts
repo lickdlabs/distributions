@@ -4,6 +4,7 @@ import { DetailedResourceContributor } from "./detailedResourceContributor";
 import { ExtendedResourceGroupContentItem } from "./extendedResourceGroupContentItem";
 import { IndirectResourceContributor } from "./indirectResourceContributor";
 import { ReleaseId } from "./releaseId";
+import { ReleaseReference } from "./releaseReference";
 import { ResourceGroupResourceReferenceList } from "./resourceGroupResourceReferenceList";
 import { Title } from "./title";
 
@@ -78,9 +79,7 @@ export type ResourceGroupContentChoice =
 // </xs:choice>
 export type ResourceGroupIdentifierChoice =
   | {
-      resourceGroupReleaseReference: `${string & {
-        __brand: "R[\\d\\-_a-zA-Z]+";
-      }}`;
+      resourceGroupReleaseReference: ReleaseReference;
       releaseId?: never;
     }
   | { resourceGroupReleaseReference?: never; releaseId: ReleaseId };

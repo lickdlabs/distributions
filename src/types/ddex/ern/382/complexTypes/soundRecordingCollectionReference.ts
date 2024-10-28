@@ -1,4 +1,5 @@
 import { Avs20161006 } from "../../../avs";
+import { CollectionReference } from "../references";
 
 // <xs:complexType name="SoundRecordingCollectionReference">
 //   <xs:sequence>
@@ -18,9 +19,7 @@ import { Avs20161006 } from "../../../avs";
 // </xs:complexType>
 export type SoundRecordingCollectionReference = {
   sequenceNumber?: number;
-  soundRecordingCollectionReference: `${string & {
-    __brand: "X[\\d\\-_a-zA-Z]+";
-  }}`;
+  soundRecordingCollectionReference: CollectionReference;
   startTime?: number;
   duration?: number;
   endTime?: number;

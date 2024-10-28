@@ -1,3 +1,4 @@
+import { TechnicalResourceDetailsReference } from "../references";
 import { AudioCodecType } from "./audioCodecType";
 import { BitRate } from "./bitRate";
 import { ContainerFormat } from "./containerFormat";
@@ -44,9 +45,7 @@ export type TechnicalSoundRecordingDetails = Partial<FileChoice> & {
     languageAndScriptCode?: string;
   };
 
-  technicalResourceDetailsReference: `${string & {
-    __brand: "T[\\d\\-_a-zA-Z]+";
-  }}`;
+  technicalResourceDetailsReference: TechnicalResourceDetailsReference;
   drmPlatformType?: DrmPlatformType;
   containerFormat?: ContainerFormat;
   audioCodecType?: AudioCodecType;

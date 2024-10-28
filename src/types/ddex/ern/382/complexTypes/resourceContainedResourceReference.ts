@@ -1,4 +1,5 @@
 import { Purpose } from "./purpose";
+import { ResourceReference } from "./resourceReference";
 
 // <xs:complexType name="ResourceContainedResourceReference">
 //   <xs:sequence>
@@ -15,9 +16,7 @@ import { Purpose } from "./purpose";
 //   </xs:sequence>
 // </xs:complexType>
 export type ResourceContainedResourceReference = {
-  resourceContainedResourceReference: `${string & {
-    __brand: "A[\\d\\-_a-zA-Z]+";
-  }}`;
+  resourceContainedResourceReference: ResourceReference;
   durationUsed?: number;
   startPoint?: number;
   purpose?: Purpose;

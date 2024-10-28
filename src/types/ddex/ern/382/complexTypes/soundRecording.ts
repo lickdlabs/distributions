@@ -6,6 +6,7 @@ import { MusicalWorkId } from "./musicalWorkId";
 import { ReferenceTitle } from "./referenceTitle";
 import { ResourceContainedResourceReferenceList } from "./resourceContainedResourceReferenceList";
 import { ResourceMusicalWorkReferenceList } from "./resourceMusicalWorkReferenceList";
+import { ResourceReference } from "./resourceReference";
 import { RightsAgreementId } from "./rightsAgreementId";
 import { SoundRecordingCollectionReferenceList } from "./soundRecordingCollectionReferenceList";
 import { SoundRecordingDetailsByTerritory } from "./soundRecordingDetailsByTerritory";
@@ -68,7 +69,7 @@ export type SoundRecording = {
   isArtistRelated?: boolean;
   soundRecordingId: SoundRecordingId[];
   indirectSoundRecordingId?: MusicalWorkId[];
-  resourceReference: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
+  resourceReference: ResourceReference;
   referenceTitle: ReferenceTitle;
   instrumentationDescription?: Description;
   isMedley?: boolean;

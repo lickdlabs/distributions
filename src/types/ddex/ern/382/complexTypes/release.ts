@@ -7,6 +7,7 @@ import { ReferenceTitle } from "./referenceTitle";
 import { ReleaseCollectionReferenceList } from "./releaseCollectionReferenceList";
 import { ReleaseDetailsByTerritory } from "./releaseDetailsByTerritory";
 import { ReleaseId } from "./releaseId";
+import { ReleaseReference } from "./releaseReference";
 import { ReleaseResourceReferenceList } from "./releaseResourceReferenceList";
 import { ReleaseType } from "./releaseType";
 import { ResourceOmissionReason } from "./resourceOmissionReason";
@@ -55,9 +56,7 @@ export type Release = ReleaseChoice & {
   };
 
   releaseId: ReleaseId[];
-  releaseReference?: `${string & {
-    __brand: "R[\\d\\-_a-zA-Z]+";
-  }}`[];
+  releaseReference?: ReleaseReference[];
   externalResourceLink?: ExternalResourceLink[];
   salesReportingProxyReleaseId?: SalesReportingProxyReleaseId[];
   referenceTitle: ReferenceTitle;
