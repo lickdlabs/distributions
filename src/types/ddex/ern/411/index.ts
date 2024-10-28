@@ -3,6 +3,7 @@ import { NewReleaseMessage, PurgeReleaseMessage } from "./elements";
 
 export * from "./complexTypes";
 export * from "./elements";
+export * from "./references";
 
 export enum Actions {
   NEW_RELEASE_MESSAGE = "newReleaseMessage",
