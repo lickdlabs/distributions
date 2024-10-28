@@ -1,4 +1,4 @@
-import { ResourceReference } from "./resourceReference";
+import { ResourceReference } from "../references";
 
 // <xs:simpleType name="ddex_LocalResourceAnchorReference">
 //   <xs:restriction base="xs:IDREF">

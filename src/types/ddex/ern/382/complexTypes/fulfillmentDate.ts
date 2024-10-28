@@ -1,4 +1,4 @@
-import { ReleaseReference } from "./releaseReference";
+import { ReleaseReference } from "../references";
 
 // <xs:complexType name="FulfillmentDate">
 //   <xs:sequence>

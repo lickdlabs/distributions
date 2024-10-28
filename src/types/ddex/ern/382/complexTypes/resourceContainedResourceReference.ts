@@ -1,5 +1,5 @@
+import { ResourceReference } from "../references";
 import { Purpose } from "./purpose";
-import { ResourceReference } from "./resourceReference";
 
 // <xs:complexType name="ResourceContainedResourceReference">
 //   <xs:sequence>

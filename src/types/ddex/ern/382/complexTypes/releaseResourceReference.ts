@@ -1,5 +1,5 @@
 import { Avs20161006 } from "../../../avs";
-import { ResourceReference } from "./resourceReference";
+import { ResourceReference } from "../references";
 
 // <xs:complexType name="ReleaseResourceReference">
 //   <xs:simpleContent>

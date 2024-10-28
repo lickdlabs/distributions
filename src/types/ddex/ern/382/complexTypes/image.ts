@@ -1,8 +1,8 @@
+import { ResourceReference } from "../references";
 import { EventDate } from "./eventDate";
 import { ImageDetailsByTerritory } from "./imageDetailsByTerritory";
 import { ImageType } from "./imageType";
 import { ResourceProprietaryId } from "./resourceProprietaryId";
-import { ResourceReference } from "./resourceReference";
 import { Title } from "./title";
 
 // <xs:complexType name="Image">

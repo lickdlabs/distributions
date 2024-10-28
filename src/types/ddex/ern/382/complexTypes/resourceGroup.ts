@@ -1,10 +1,10 @@
+import { ReleaseReference } from "../references";
 import { Artist } from "./artist";
 import { CarrierType } from "./carrierType";
 import { DetailedResourceContributor } from "./detailedResourceContributor";
 import { ExtendedResourceGroupContentItem } from "./extendedResourceGroupContentItem";
 import { IndirectResourceContributor } from "./indirectResourceContributor";
 import { ReleaseId } from "./releaseId";
-import { ReleaseReference } from "./releaseReference";
 import { ResourceGroupResourceReferenceList } from "./resourceGroupResourceReferenceList";
 import { Title } from "./title";
 

@@ -1,6 +1,6 @@
+import { ReleaseReference } from "../references";
 import { LinkedReleaseResourceReference } from "./linkedReleaseResourceReference";
 import { ReleaseId } from "./releaseId";
-import { ReleaseReference } from "./releaseReference";
 import { ReleaseResourceReference } from "./releaseResourceReference";
 import { ResourceType } from "./resourceType";
 

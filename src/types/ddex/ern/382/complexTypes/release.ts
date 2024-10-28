@@ -1,4 +1,5 @@
 import { Avs20161006 } from "../../../avs";
+import { ReleaseReference } from "../references";
 import { CLine } from "./cLine";
 import { EventDate } from "./eventDate";
 import { ExternalResourceLink } from "./externalResourceLink";
@@ -7,7 +8,6 @@ import { ReferenceTitle } from "./referenceTitle";
 import { ReleaseCollectionReferenceList } from "./releaseCollectionReferenceList";
 import { ReleaseDetailsByTerritory } from "./releaseDetailsByTerritory";
 import { ReleaseId } from "./releaseId";
-import { ReleaseReference } from "./releaseReference";
 import { ReleaseResourceReferenceList } from "./releaseResourceReferenceList";
 import { ReleaseType } from "./releaseType";
 import { ResourceOmissionReason } from "./resourceOmissionReason";

@@ -1,4 +1,4 @@
-import { ResourceReference } from "./resourceReference";
+import { ResourceReference } from "../references";
 
 // <xs:complexType name="ResourceGroupResourceReferenceList">
 //   <xs:sequence>

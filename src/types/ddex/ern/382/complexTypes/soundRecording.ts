@@ -1,4 +1,5 @@
 import { Avs20161006 } from "../../../avs";
+import { ResourceReference } from "../references";
 import { AllTerritoryCode } from "./allTerritoryCode";
 import { Description } from "./description";
 import { EventDate } from "./eventDate";
@@ -6,7 +7,6 @@ import { MusicalWorkId } from "./musicalWorkId";
 import { ReferenceTitle } from "./referenceTitle";
 import { ResourceContainedResourceReferenceList } from "./resourceContainedResourceReferenceList";
 import { ResourceMusicalWorkReferenceList } from "./resourceMusicalWorkReferenceList";
-import { ResourceReference } from "./resourceReference";
 import { RightsAgreementId } from "./rightsAgreementId";
 import { SoundRecordingCollectionReferenceList } from "./soundRecordingCollectionReferenceList";
 import { SoundRecordingDetailsByTerritory } from "./soundRecordingDetailsByTerritory";
