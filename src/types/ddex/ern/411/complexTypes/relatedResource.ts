@@ -1,4 +1,5 @@
 import { Avs411 } from "../../../avs";
+import { ResourceReference } from "../references";
 import { ReleaseId } from "./releaseId";
 import { Timing } from "./timing";
 
@@ -25,9 +26,7 @@ export type RelatedResource = RelatedResourceIdentifier & {
 
 export type RelatedResourceIdentifier =
   | {
-      resourceRelatedResourceReference: `${string & {
-        __brand: "A[\\d\\-_a-zA-Z]+";
-      }}`;
+      resourceRelatedResourceReference: ResourceReference;
       releaseId?: never;
     }
   | { resourceRelatedResourceReference?: never; releaseId: ReleaseId };

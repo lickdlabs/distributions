@@ -1,3 +1,4 @@
+import { ResourceReference } from "../references";
 import { DisplaySequenceChoice } from "./displaySequenceChoice";
 import { LinkedReleaseResourceReference } from "./linkedReleaseResourceReference";
 
@@ -23,7 +24,7 @@ import { LinkedReleaseResourceReference } from "./linkedReleaseResourceReference
 // </xs:complexType>
 export type ResourceGroupContentItem = Partial<DisplaySequenceChoice> & {
   sequenceNumber?: number;
-  releaseResourceReference: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
+  releaseResourceReference: ResourceReference;
   linkedReleaseResourceReference?: LinkedReleaseResourceReference[];
   isBonusResource?: boolean;
   isInstantGratificationResource?: boolean;

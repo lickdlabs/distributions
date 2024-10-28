@@ -1,4 +1,5 @@
 import { Avs411 } from "../../../avs";
+import { TechnicalResourceDetailsReference } from "../references";
 import { AspectRatio } from "./aspectRatio";
 import { Extent } from "./extent";
 import { File } from "./file";
@@ -38,9 +39,7 @@ export type TechnicalImageDetails = {
     isDefault?: boolean;
   };
 
-  technicalResourceDetailsReference: `${string & {
-    __brand: "T[\\d\\-_a-zA-Z]+";
-  }}`;
+  technicalResourceDetailsReference: TechnicalResourceDetailsReference;
   imageCodecType?: ImageCodecType;
   imageHeight?: Extent;
   imageWidth?: Extent;

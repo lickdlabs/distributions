@@ -1,4 +1,5 @@
 import { Avs411 } from "../../../avs";
+import { PartyReference } from "../references";
 import { CurrentTerritoryCode } from "./currentTerritoryCode";
 import { SimpleRightsType } from "./simpleRightsType";
 import { ValidityPeriod } from "./validityPeriod";
@@ -45,10 +46,7 @@ export type Affiliation = AffiliationIdentifierChoice &
 // </xs:choice>
 export type AffiliationIdentifierChoice =
   | { companyName: string; partyAffiliateReference?: never }
-  | {
-      companyName?: never;
-      partyAffiliateReference: `${string & { __brand: "P[\\d\\-_a-zA-Z]+" }}`;
-    };
+  | { companyName?: never; partyAffiliateReference: PartyReference };
 
 // <xs:choice>
 //   <xs:element name="TerritoryCode" maxOccurs="unbounded" type="ern:CurrentTerritoryCode" />

@@ -1,3 +1,4 @@
+import { PartyReference } from "../references";
 import { ContributorRole } from "./contributorRole";
 import { DisplayCredits } from "./displayCredits";
 import { InstrumentType } from "./instrumentType";
@@ -26,7 +27,7 @@ export type Contributor = {
     sequenceNumber?: number;
   };
 
-  contributorPartyReference: `${string & { __brand: "P[\\d\\-_a-zA-Z]+" }}`;
+  contributorPartyReference: PartyReference;
   role?: ContributorRole[];
   instrumentType?: InstrumentType[];
   hasMadeFeaturedContribution?: boolean;

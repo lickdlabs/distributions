@@ -1,3 +1,4 @@
+import { PartyReference } from "../references";
 import { PartyRelationshipType } from "./partyRelationshipType";
 
 // <xs:complexType name="RelatedParty">
@@ -13,6 +14,6 @@ import { PartyRelationshipType } from "./partyRelationshipType";
 //   </xs:sequence>
 // </xs:complexType>
 export type RelatedParty = {
-  partyRelatedPartyReference: `${string & { __brand: "P[\\d\\-_a-zA-Z]+" }}`;
+  partyRelatedPartyReference: PartyReference;
   partyRelationshipType: PartyRelationshipType;
 };

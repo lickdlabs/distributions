@@ -1,3 +1,4 @@
+import { PartyReference } from "../references";
 import { ContributorRole } from "./contributorRole";
 import { DisplayArtistRole } from "./displayArtistRole";
 import { TitleDisplayInformation } from "./titleDisplayInformation";
@@ -22,7 +23,7 @@ export type DisplayArtist = {
     sequenceNumber?: number;
   };
 
-  artistPartyReference: `${string & { __brand: "P[\\d\\-_a-zA-Z]+" }}`;
+  artistPartyReference: PartyReference;
   displayArtistRole: DisplayArtistRole;
   artisticRole?: ContributorRole[];
   titleDisplayInformation?: TitleDisplayInformation[];

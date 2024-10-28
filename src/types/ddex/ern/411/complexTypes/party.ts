@@ -1,3 +1,4 @@
+import { PartyReference } from "../references";
 import { Affiliation } from "./affiliation";
 import { PartyChoice } from "./partyChoice";
 import { RelatedParty } from "./relatedParty";
@@ -24,7 +25,7 @@ import { RelatedParty } from "./relatedParty";
 //   </xs:sequence>
 // </xs:complexType>
 export type Party = PartyChoice & {
-  partyReference: `${string & { __brand: "P[\\d\\-_a-zA-Z]+" }}`;
+  partyReference: PartyReference;
   affiliation?: Affiliation[];
   relatedParty?: RelatedParty[];
   artistProfilePage?: string[];

@@ -1,3 +1,4 @@
+import { ResourceReference } from "../references";
 import { TechnicalTextDetails } from "./technicalTextDetails";
 import { TextType } from "./textType";
 
@@ -42,7 +43,7 @@ export type Text = {
     isSupplemental?: boolean;
   };
 
-  resourceReference: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
+  resourceReference: ResourceReference;
   type: TextType;
   // @todo <xs:element name="ResourceId" minOccurs="0" maxOccurs="unbounded" type="ern:TextId" />
   // @todo <xs:element name="WorkId" minOccurs="0" maxOccurs="unbounded" type="ern:MusicalWorkId" />

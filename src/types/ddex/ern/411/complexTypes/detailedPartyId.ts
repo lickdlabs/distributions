@@ -1,3 +1,4 @@
+import { DpidReference } from "../references";
 import { ProprietaryId } from "./proprietaryId";
 
 // <xs:complexType name="DetailedPartyId">
@@ -24,7 +25,7 @@ import { ProprietaryId } from "./proprietaryId";
 // </xs:complexType>
 export type DetailedPartyId = {
   isni?: string;
-  dpid?: `${string & { __brand: "PADPIDA[a-zA-Z0-9]+" }}`;
+  dpid?: DpidReference;
   ipiNameNumber?: `${string & { __brand: "[0-9]{11}" }}`;
   ipn?: string;
   cisacSocietyId?: string;

@@ -1,4 +1,5 @@
 import { Avs411 } from "../../../avs";
+import { TechnicalResourceDetailsReference } from "../references";
 import { AudioCodecType } from "./audioCodecType";
 import { BitRate } from "./bitRate";
 import { File } from "./file";
@@ -40,9 +41,7 @@ export type TechnicalSoundRecordingDetails = {
     isDefault?: boolean;
   };
 
-  technicalResourceDetailsReference: `${string & {
-    __brand: "T[\\d\\-_a-zA-Z]+";
-  }}`;
+  technicalResourceDetailsReference: TechnicalResourceDetailsReference;
   audioCodecType?: AudioCodecType;
   bitRate?: BitRate;
   originalBitRate?: BitRate;

@@ -1,4 +1,5 @@
 import { Avs411 } from "../../../avs";
+import { CollectionReference, ResourceReference } from "../references";
 import { AdditionalTitle } from "./additionalTitle";
 import { Character } from "./character";
 import { Contributor } from "./contributor";
@@ -87,7 +88,7 @@ export type SoundRecording = {
     isSupplemental?: boolean;
   };
 
-  resourceReference: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
+  resourceReference: ResourceReference;
   type: SoundRecordingType;
   resourceId: SoundRecordingId[];
   workId?: MusicalWorkId[];
@@ -124,5 +125,5 @@ export type SoundRecording = {
   raga?: Raga[];
   tala?: Tala[];
   deity?: Deity[];
-  audioChapterReference?: `${string & { __brand: "X[\\d\\-_a-zA-Z]+" }}`[];
+  audioChapterReference?: CollectionReference;
 };

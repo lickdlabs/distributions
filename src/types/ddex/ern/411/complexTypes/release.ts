@@ -1,3 +1,4 @@
+import { ReleaseReference } from "../references";
 import { AdditionalTitle } from "./additionalTitle";
 import { AdministratingRecordCompanyWithReference } from "./administratingRecordCompanyWithReference";
 import { AvRating } from "./avRating";
@@ -75,7 +76,7 @@ export type Release = Partial<IsCompilationChoice> & {
     languageAndScriptCode?: string;
   };
 
-  releaseReference: `${string & { __brand: "R[\\d\\-_a-zA-Z]+" }}`;
+  releaseReference: ReleaseReference;
   releaseType: ReleaseTypeForReleaseNotification[];
   releaseId: ReleaseId;
   displayTitleText: DisplayTitleText[];

@@ -1,4 +1,5 @@
 import { Avs411 } from "../../../avs";
+import { TechnicalResourceDetailsReference } from "../references";
 import { File } from "./file";
 
 // <xs:complexType name="TechnicalTextDetails">
@@ -28,9 +29,7 @@ export type TechnicalTextDetails = {
     isDefault?: boolean;
   };
 
-  technicalResourceDetailsReference: `${string & {
-    __brand: "T[\\d\\-_a-zA-Z]+";
-  }}`;
+  technicalResourceDetailsReference: TechnicalResourceDetailsReference;
   // @todo <xs:element name="TextCodecType" minOccurs="0" type="ern:TextCodecType" />
   bitDepth?: number;
   isPreview?: boolean;

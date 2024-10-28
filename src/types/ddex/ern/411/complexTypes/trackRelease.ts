@@ -1,3 +1,4 @@
+import { ReleaseReference, ResourceReference } from "../references";
 import { AdditionalTitle } from "./additionalTitle";
 import { DisplayTitle } from "./displayTitle";
 import { DisplayTitleText } from "./displayTitleText";
@@ -43,12 +44,12 @@ export type TrackRelease = {
     isMainRelease?: boolean;
   };
 
-  releaseReference: `${string & { __brand: "R[\\d\\-_a-zA-Z]+" }}`;
+  releaseReference: ReleaseReference;
   releaseId: ReleaseId;
   displayTitleText?: DisplayTitleText[];
   displayTitle?: DisplayTitle[];
   additionalTitle?: AdditionalTitle[];
-  releaseResourceReference: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
+  releaseResourceReference: ResourceReference;
   linkedReleaseResourceReference?: LinkedReleaseResourceReference[];
   releaseLabelReference: ReleaseLabelReference[];
   genre: GenreWithTerritory[];

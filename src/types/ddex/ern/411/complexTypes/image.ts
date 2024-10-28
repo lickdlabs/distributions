@@ -1,3 +1,4 @@
+import { ResourceReference } from "../references";
 import { AdditionalTitle } from "./additionalTitle";
 import { CLineWithDefault } from "./cLineWithDefault";
 import { Contributor } from "./contributor";
@@ -59,7 +60,7 @@ export type Image = {
     isSupplemental?: boolean;
   };
 
-  resourceReference: `${string & { __brand: "A[\\d\\-_a-zA-Z]+" }}`;
+  resourceReference: ResourceReference;
   type: ImageType;
   resourceId: ResourceProprietaryId[];
   displayTitleText?: DisplayTitleText[];

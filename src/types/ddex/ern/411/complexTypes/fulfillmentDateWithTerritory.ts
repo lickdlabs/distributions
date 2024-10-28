@@ -1,4 +1,5 @@
 import { Avs411 } from "../../../avs";
+import { ReleaseReference } from "../references";
 
 // <xs:complexType name="FulfillmentDateWithTerritory">
 //   <xs:sequence>
@@ -21,5 +22,5 @@ export type FulfillmentDateWithTerritory = {
   };
 
   fulfillmentDate: Date;
-  resourceReleaseReference?: `${string & { __brand: "R[\\d\\-_a-zA-Z]+" }}`;
+  resourceReleaseReference?: ReleaseReference;
 };

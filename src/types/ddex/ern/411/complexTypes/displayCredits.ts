@@ -1,4 +1,5 @@
 import { Avs411 } from "../../../avs";
+import { PartyReference } from "../references";
 
 // <xs:complexType name="DisplayCredits">
 //   <xs:sequence>
@@ -27,7 +28,7 @@ export type DisplayCredits = {
 
   displayCreditText: string;
   displayCreditPartyList?: {
-    displayCreditParty: `${string & { __brand: "P[\\d\\-_a-zA-Z]+" }}`;
+    displayCreditParty: PartyReference;
     nameUsedInDisplayCredit?: string;
   }[];
 };

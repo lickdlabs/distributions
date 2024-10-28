@@ -1,3 +1,4 @@
+import { ReleaseReference } from "../references";
 import { ReleaseId } from "./releaseId";
 
 // <xs:choice>
@@ -12,9 +13,7 @@ import { ReleaseId } from "./releaseId";
 // </xs:choice>
 export type ResourceGroupIdentifierChoice =
   | {
-      resourceGroupReleaseReference: `${string & {
-        __brand: "R[\\d\\-_a-zA-Z]+";
-      }}`;
+      resourceGroupReleaseReference: ReleaseReference;
       releaseId?: never;
     }
   | { resourceGroupReleaseReference?: never; releaseId: ReleaseId };

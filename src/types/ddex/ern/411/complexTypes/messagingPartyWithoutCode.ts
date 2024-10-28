@@ -1,3 +1,4 @@
+import { DpidReference } from "../references";
 import { PartyNameWithoutCode } from "./partyNameWithoutCode";
 
 // <xs:complexType name="MessagingPartyWithoutCode">
@@ -14,7 +15,7 @@ import { PartyNameWithoutCode } from "./partyNameWithoutCode";
 //   </xs:sequence>
 // </xs:complexType>
 export type MessagingPartyWithoutCode = {
-  partyId: `${string & { __brand: "PADPIDA[a-zA-Z0-9]+" }}`;
+  partyId: DpidReference;
   partyName?: PartyNameWithoutCode;
   tradingName?: string;
 };

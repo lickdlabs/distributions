@@ -1,3 +1,4 @@
+import { PartyReference } from "../references";
 import { AdministratingRecordCompanyRole } from "./administratingRecordCompanyRole";
 
 // <xs:complexType name="AdministratingRecordCompanyWithReference">
@@ -13,6 +14,6 @@ import { AdministratingRecordCompanyRole } from "./administratingRecordCompanyRo
 //   </xs:sequence>
 // </xs:complexType>
 export type AdministratingRecordCompanyWithReference = {
-  recordCompanyPartyReference: `${string & { __brand: "P[\\d\\-_a-zA-Z]+" }}`;
+  recordCompanyPartyReference: PartyReference;
   role: AdministratingRecordCompanyRole;
 };

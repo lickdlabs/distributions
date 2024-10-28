@@ -1,3 +1,4 @@
+import { PartyReference } from "../references";
 import { Contributor } from "./contributor";
 
 // <xs:complexType name="Character">
@@ -18,6 +19,6 @@ export type Character = {
     sequenceNumber?: number;
   };
 
-  characterPartyReference: `${string & { __brand: "P[\\d\\-_a-zA-Z]+" }}`;
+  characterPartyReference: PartyReference;
   performer?: Contributor;
 };

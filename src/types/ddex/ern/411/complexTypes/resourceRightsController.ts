@@ -1,4 +1,5 @@
 import { Avs411 } from "../../../avs";
+import { PartyReference } from "../references";
 import { DelegatedUsageRights } from "./delegatedUsageRights";
 import { RightShareChoice } from "./rightShareChoice";
 
@@ -25,9 +26,7 @@ export type ResourceRightsController = Partial<RightShareChoice> & {
     sequenceNumber?: number;
   };
 
-  rightsControllerPartyReference: `${string & {
-    __brand: "P[\\d\\-_a-zA-Z]+";
-  }}`;
+  rightsControllerPartyReference: PartyReference;
   rightsControllerRole?: Avs411.RightsControllerRole[];
   delegatedUsageRights: DelegatedUsageRights[];
 };

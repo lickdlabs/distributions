@@ -1,4 +1,5 @@
 import { Avs411 } from "../../../avs";
+import { PartyReference } from "../references";
 import { AllTerritoryCode } from "./allTerritoryCode";
 import { RightShareChoice } from "./rightShareChoice";
 
@@ -23,9 +24,7 @@ import { RightShareChoice } from "./rightShareChoice";
 //   </xs:sequence>
 // </xs:complexType>
 export type WorkRightsController = Partial<RightShareChoice> & {
-  rightsControllerPartyReference: `${string & {
-    __brand: "P[\\d\\-_a-zA-Z]+";
-  }}`;
+  rightsControllerPartyReference: PartyReference;
   rightsControllerRole?: Avs411.RightsControllerRole[];
   rightsControllerType?: Avs411.RightsControllerType;
   territory?: AllTerritoryCode[];
