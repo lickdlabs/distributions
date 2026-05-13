@@ -2,7 +2,7 @@ import { assert } from "chai";
 import { readFileSync } from "fs";
 import { Distributions, InvalidError } from "../src";
 import { parseDuration } from "../src/parser/ddex/ern/utils";
-import { assert382, assert383, assert411 } from "./assertions";
+import { assert382, assert383, assert411, assert43 } from "./assertions";
 
 const distributions = new Distributions();
 
@@ -30,6 +30,14 @@ describe("Parser", () => {
       );
 
       assert411(parsed);
+    });
+
+    it("should parse 43", async () => {
+      const parsed = await distributions.parse(
+        readFileSync("./examples/_ddex/43.xml").toString(),
+      );
+
+      assert43(parsed);
     });
   });
 });
