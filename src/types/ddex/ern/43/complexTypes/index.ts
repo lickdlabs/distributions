@@ -1,8 +1,3 @@
-// @todo Scaffold for ERN 4.3 — complex types to be ported from the XSD at
-// reference/ddex/ern/43/release-notification.xsd, mirroring the structure of
-// the ERN 4.1.1 implementation under ../../411/complexTypes.
-
-export type MessageHeader = unknown;
-export type PartyList = unknown;
-export type ReleaseList = unknown;
-export type ResourceList = unknown;
+// ERN 4.3 reuses ERN 4.1.1 complex types directly. Any 4.3-only fields are
+// dropped on parse, since the library targets conversion to 4.1.1.
+export * from "../../411/complexTypes";
