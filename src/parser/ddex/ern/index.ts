@@ -4,6 +4,7 @@ import { Erns, ErnVersions } from "../../../types";
 import { parse382 } from "./382";
 import { parse383 } from "./383";
 import { parse411 } from "./411";
+import { parse43 } from "./43";
 
 export const parseErn = (object: any): Erns => {
   const key = Object.keys(object)[0];
@@ -33,6 +34,9 @@ const parseObject = (version: number, action: string, object: any): Erns => {
 
     case ErnVersions.ERN_411:
       return parse411(action, object);
+
+    case ErnVersions.ERN_43:
+      return parse43(action, object);
   }
 
   throw new ParserError({

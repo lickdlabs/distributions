@@ -2,7 +2,7 @@ import { assert } from "chai";
 import { readFileSync } from "fs";
 import { ConverterError, Distributions, ErnVersions } from "../src";
 import { findUnique } from "../src/converter/ddex/ern/utils";
-import { assert382, assert383, assert411 } from "./assertions";
+import { assert382, assert383, assert411, assert43 } from "./assertions";
 
 const distributions = new Distributions();
 
@@ -115,6 +115,72 @@ describe("Converter", () => {
       );
 
       assert411(parsed);
+    });
+  });
+
+  describe("convert ern 43 new message", () => {
+    it("should not convert to 382", async () => {
+      try {
+        await distributions.parse(
+          readFileSync("./examples/_ddex/43.xml").toString(),
+          {
+            version: ErnVersions.ERN_382,
+          },
+        );
+      } catch (error) {
+        assert.instanceOf(error, ConverterError);
+      }
+    });
+
+    it("should not convert to 383", async () => {
+      try {
+        await distributions.parse(
+          readFileSync("./examples/_ddex/43.xml").toString(),
+          {
+            version: ErnVersions.ERN_383,
+          },
+        );
+      } catch (error) {
+        assert.instanceOf(error, ConverterError);
+      }
+    });
+
+    it("should convert to 411", async () => {
+      const parsed = await distributions.parse(
+        readFileSync("./examples/_ddex/43.xml").toString(),
+        {
+          version: ErnVersions.ERN_411,
+        },
+      );
+
+      assert411(parsed);
+    });
+
+    it("should convert to 43", async () => {
+      const parsed = await distributions.parse(
+        readFileSync("./examples/_ddex/43.xml").toString(),
+        {
+          version: ErnVersions.ERN_43,
+        },
+      );
+
+      assert43(parsed);
+    });
+
+    it("should discard 4.3-only fields on conversion to 411", async () => {
+      const parsed = await distributions.parse(
+        readFileSync("./examples/_ddex/43.xml").toString(),
+        {
+          version: ErnVersions.ERN_411,
+        },
+      );
+
+      assert411(parsed);
+      assert.notInclude(
+        JSON.stringify(parsed),
+        "Ern43OnlyField",
+        "4.3-only fields should not survive conversion to 4.1.1",
+      );
     });
   });
 });
