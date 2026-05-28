@@ -31,4 +31,24 @@ export const assert43 = (ern: Erns) => {
   assert.exists(ern.element);
   assert.isNotEmpty(ern.element);
   assert.isObject(ern.element);
+
+  const element = (ern as Ern43.ErnNewReleaseMessage).element;
+  const soundRecording = element.resourceList.soundRecording?.[0];
+
+  assert.exists(soundRecording, "expected sound recording to be parsed");
+  assert.lengthOf(
+    soundRecording!.resourceId,
+    1,
+    "expected ResourceId to be lifted from SoundRecordingEdition",
+  );
+  assert.lengthOf(
+    soundRecording!.pLine!,
+    1,
+    "expected PLine to be lifted from SoundRecordingEdition",
+  );
+  assert.lengthOf(
+    soundRecording!.technicalDetails!,
+    1,
+    "expected TechnicalDetails to be lifted from SoundRecordingEdition",
+  );
 };

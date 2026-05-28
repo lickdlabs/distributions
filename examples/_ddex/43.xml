@@ -36,9 +36,19 @@
         <SoundRecording>
             <ResourceReference>A0</ResourceReference>
             <Type>Unknown</Type>
-            <ResourceId>
-                <ISRC>XXX000000000</ISRC>
-            </ResourceId>
+            <SoundRecordingEdition>
+                <Type>NonImmersiveEdition</Type>
+                <ResourceId>
+                    <ISRC>XXX000000000</ISRC>
+                </ResourceId>
+                <PLine>
+                    <Year>2024</Year>
+                    <PLineText>2024 Lickd</PLineText>
+                </PLine>
+                <TechnicalDetails>
+                    <TechnicalResourceDetailsReference>T0</TechnicalResourceDetailsReference>
+                </TechnicalDetails>
+            </SoundRecordingEdition>
             <DisplayTitleText>Test Track</DisplayTitleText>
             <DisplayTitle>
                 <TitleText>Test Track</TitleText>

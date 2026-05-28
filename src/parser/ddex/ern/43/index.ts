@@ -8,11 +8,16 @@ import { parsePurgeReleaseMessage } from "../411/elements/purgeReleaseMessage";
 // by the 4.1.1 parsers, which only read the fields they know about. The
 // version tag on the returned envelope is rewritten to ERN_43 so downstream
 // converters can route correctly.
+//
+// However, ERN 4.3 relocated a handful of fields into a SoundRecordingEdition
+// wrapper inside SoundRecording (ResourceId, PLine, TechnicalDetails). The
+// 4.1.1 parser expects those at SoundRecording level, so we normalise the
+// parsed object tree before delegating.
 export const parse43 = (action: string, object: any): Ern43.Ern => {
   switch (action) {
     case "NewReleaseMessage":
       return {
-        ...parseNewReleaseMessage(object),
+        ...parseNewReleaseMessage(normaliseSoundRecordingEditions(object)),
         version: ErnVersions.ERN_43,
         action: Ern43.Actions.NEW_RELEASE_MESSAGE,
       };
@@ -30,4 +35,38 @@ export const parse43 = (action: string, object: any): Ern43.Ern => {
     action,
     message: "unknown/unsupported action",
   });
+};
+
+const LIFTED_FIELDS = ["ResourceId", "PLine", "TechnicalDetails"] as const;
+
+const normaliseSoundRecordingEditions = (object: any): any => {
+  const soundRecordings = object?.ResourceList?.[0]?.SoundRecording;
+
+  if (!Array.isArray(soundRecordings)) {
+    return object;
+  }
+
+  for (const soundRecording of soundRecordings) {
+    const editions = soundRecording?.SoundRecordingEdition;
+
+    if (!Array.isArray(editions)) {
+      continue;
+    }
+
+    for (const field of LIFTED_FIELDS) {
+      const lifted: any[] = [];
+
+      for (const edition of editions) {
+        if (Array.isArray(edition[field])) {
+          lifted.push(...edition[field]);
+        }
+      }
+
+      if (lifted.length > 0 && !soundRecording[field]) {
+        soundRecording[field] = lifted;
+      }
+    }
+  }
+
+  return object;
 };
