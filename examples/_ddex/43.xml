@@ -47,6 +47,24 @@
                 </PLine>
                 <TechnicalDetails>
                     <TechnicalResourceDetailsReference>T0</TechnicalResourceDetailsReference>
+                    <DeliveryFile>
+                        <Type>AudioFile</Type>
+                        <AudioCodecType>MP3</AudioCodecType>
+                        <BitRate UnitOfMeasure="kbps">320</BitRate>
+                        <NumberOfChannels>2</NumberOfChannels>
+                        <SamplingRate UnitOfMeasure="kHz">44.1</SamplingRate>
+                        <BitsPerSample>16</BitsPerSample>
+                        <File>
+                            <URI>resources/A0.mp3</URI>
+                            <HashSum>
+                                <Algorithm>MD5</Algorithm>
+                                <HashSumValue>00000000000000000000000000000000</HashSumValue>
+                            </HashSum>
+                            <FileSize>1024</FileSize>
+                        </File>
+                        <IsProvidedInDelivery>true</IsProvidedInDelivery>
+                    </DeliveryFile>
+                    <IsClip>false</IsClip>
                 </TechnicalDetails>
             </SoundRecordingEdition>
             <DisplayTitleText>Test Track</DisplayTitleText>

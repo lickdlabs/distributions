@@ -51,4 +51,20 @@ export const assert43 = (ern: Erns) => {
     1,
     "expected TechnicalDetails to be lifted from SoundRecordingEdition",
   );
+
+  const technicalDetails = soundRecording!.technicalDetails![0];
+
+  assert.exists(
+    technicalDetails.file,
+    "expected File to be lifted from DeliveryFile",
+  );
+  assert.equal(technicalDetails.file!.uri, "resources/A0.mp3");
+  assert.exists(
+    technicalDetails.audioCodecType,
+    "expected AudioCodecType to be lifted from DeliveryFile",
+  );
+  assert.exists(
+    technicalDetails.bitRate,
+    "expected BitRate to be lifted from DeliveryFile",
+  );
 };
