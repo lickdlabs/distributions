@@ -12,12 +12,14 @@ import { parsePurgeReleaseMessage } from "../411/elements/purgeReleaseMessage";
 // However, ERN 4.3 relocated a handful of fields into a SoundRecordingEdition
 // wrapper inside SoundRecording (ResourceId, PLine, TechnicalDetails). The
 // 4.1.1 parser expects those at SoundRecording level, so we normalise the
-// parsed object tree before delegating.
+// parsed object tree before delegating. ERN 4.3 also wraps the technical
+// audio fields (File, AudioCodecType, BitRate, etc.) inside a DeliveryFile
+// element under TechnicalDetails; we flatten those back up too.
 export const parse43 = (action: string, object: any): Ern43.Ern => {
   switch (action) {
     case "NewReleaseMessage":
       return {
-        ...parseNewReleaseMessage(normaliseSoundRecordingEditions(object)),
+        ...parseNewReleaseMessage(normaliseSoundRecordings(object)),
         version: ErnVersions.ERN_43,
         action: Ern43.Actions.NEW_RELEASE_MESSAGE,
       };
@@ -37,9 +39,28 @@ export const parse43 = (action: string, object: any): Ern43.Ern => {
   });
 };
 
-const LIFTED_FIELDS = ["ResourceId", "PLine", "TechnicalDetails"] as const;
+const LIFTED_EDITION_FIELDS = [
+  "ResourceId",
+  "PLine",
+  "TechnicalDetails",
+] as const;
 
-const normaliseSoundRecordingEditions = (object: any): any => {
+const LIFTED_DELIVERY_FILE_FIELDS = [
+  "AudioCodecType",
+  "BitRate",
+  "OriginalBitRate",
+  "NumberOfChannels",
+  "SamplingRate",
+  "OriginalSamplingRate",
+  "BitsPerSample",
+  "Duration",
+  "BitDepth",
+  "File",
+  "Fingerprint",
+  "IsProvidedInDelivery",
+] as const;
+
+const normaliseSoundRecordings = (object: any): any => {
   const soundRecordings = object?.ResourceList?.[0]?.SoundRecording;
 
   if (!Array.isArray(soundRecordings)) {
@@ -47,26 +68,59 @@ const normaliseSoundRecordingEditions = (object: any): any => {
   }
 
   for (const soundRecording of soundRecordings) {
-    const editions = soundRecording?.SoundRecordingEdition;
-
-    if (!Array.isArray(editions)) {
-      continue;
-    }
-
-    for (const field of LIFTED_FIELDS) {
-      const lifted: any[] = [];
-
-      for (const edition of editions) {
-        if (Array.isArray(edition[field])) {
-          lifted.push(...edition[field]);
-        }
-      }
-
-      if (lifted.length > 0 && !soundRecording[field]) {
-        soundRecording[field] = lifted;
-      }
-    }
+    liftEditionFields(soundRecording);
+    liftDeliveryFileFields(soundRecording);
   }
 
   return object;
+};
+
+const liftEditionFields = (soundRecording: any): void => {
+  const editions = soundRecording?.SoundRecordingEdition;
+
+  if (!Array.isArray(editions)) {
+    return;
+  }
+
+  for (const field of LIFTED_EDITION_FIELDS) {
+    const lifted: any[] = [];
+
+    for (const edition of editions) {
+      if (Array.isArray(edition[field])) {
+        lifted.push(...edition[field]);
+      }
+    }
+
+    if (lifted.length > 0 && !soundRecording[field]) {
+      soundRecording[field] = lifted;
+    }
+  }
+};
+
+// The 4.1.1 parser reads File/AudioCodecType/etc. directly off TechnicalDetails.
+// In 4.3 they live inside DeliveryFile, so merge the first DeliveryFile's fields
+// up onto TechnicalDetails. Multiple DeliveryFile entries per TechnicalDetails
+// are not currently supported by the 4.1.1 shim.
+const liftDeliveryFileFields = (soundRecording: any): void => {
+  const technicalDetails = soundRecording?.TechnicalDetails;
+
+  if (!Array.isArray(technicalDetails)) {
+    return;
+  }
+
+  for (const detail of technicalDetails) {
+    const deliveryFile = Array.isArray(detail?.DeliveryFile)
+      ? detail.DeliveryFile[0]
+      : undefined;
+
+    if (!deliveryFile) {
+      continue;
+    }
+
+    for (const field of LIFTED_DELIVERY_FILE_FIELDS) {
+      if (deliveryFile[field] !== undefined && detail[field] === undefined) {
+        detail[field] = deliveryFile[field];
+      }
+    }
+  }
 };
