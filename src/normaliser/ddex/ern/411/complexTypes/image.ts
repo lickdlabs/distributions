@@ -28,8 +28,8 @@ export const normaliseImage = (
         additionalTitle: release.additionalTitle,
         displayArtistName: release.displayArtistName,
         releaseLabelReference: release.releaseLabelReference,
-        releaseDate: release.releaseDate?.shift(),
-        originalReleaseDate: release.originalReleaseDate?.shift(),
+        releaseDate: release.releaseDate?.[0],
+        originalReleaseDate: release.originalReleaseDate?.[0],
       },
     ];
   }
